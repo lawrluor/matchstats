@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Browse Recent Matches</h1>
+  <!-- print all items in array recent_sets (currently each item is a fake set) -->
+  {% for set in recent_sets %}
+  <div><p>{{ set.player1.tag }} vs {{set.player2.tag }}: <b>{{set.result }} </b></p></div>
+  {% endfor %}
+{% endblock %}
