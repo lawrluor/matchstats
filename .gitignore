@@ -1,0 +1,4 @@
+config.py
+flask/*
+*.swp
+*.pyc
