@@ -2,3 +2,4 @@ config.py
 flask/*
 *.swp
 *.pyc
+.DS_Store
