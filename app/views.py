@@ -1,53 +1,155 @@
-#Currently returns index template  to be displayed on client's web browser. Routes map URLs to the function.
+#Currently returns index template to be displayed on client's web browser. Routes map URLs to the function.
 
-from flask import render_template #takes template filename and variable list of template arguments and returns rendered template with arguments replaced.
-from app import app
+from flask import render_template, flash, redirect, request, url_for
+from app import app, db
+from models import User, Set, Match
+from forms import UserCreate, SetCreate, MatchSubmit
 
 @app.route('/')
 @app.route('/index')
 def index():
-  user = {'tag' : 'Law' } #fake fuck
   return render_template('index.html',
-                        title ='Home',
-                        user=user)
+                        title ='Home')
 
 
-@app.route('/login') #login page for user
-def login():
-  return "You are currently at: login page"
+@app.route('/browse_sets') #browse sets
+def browse_sets():
+  setlist = Set.query.all()
+  return render_template("browse_sets.html",
+                         title='Browse Sets',
+                         setlist=setlist)
 
-@app.route('/browse') #browse recent tournaments and matches
-def browse():
-  user = {'tag' : 'Law' }
-  recent_sets = [{
-                'player1' : {'tag' : 'Tonic'},
-                'player2' : {'tag' : 'Wyne'},
-                'result' : 'Tonic beats  Wyne (69-0)'
-                },
-                {
-                'player1' : {'tag' : 'M2k'},
-                'player2' : {'tag' : 'Plup'},
-                'result' : 'M2K beats Plup (3-0)'
-                }]
-  return render_template("browse.html",
-                         title='Browse',
-                         user=user,
-                         recent_sets=recent_sets)
-  
-@app.route('/user/<tag>') #arbitrary user profile page. login currently not required.
+
+@app.route('/browse_users') #browse users
+def browse_users():
+  userlist = User.query.all()
+  return render_template("browse_users.html",
+                        title='Browse Users',
+                        userlist=userlist)
+  #Eventually implement redirects to user profile pages for displayed users
+
+@app.route('/user_create', methods=['GET', 'POST']) #'POST' allows us to receive POST requests, which will bring in form data entered by the user
+def user_create():
+  form = UserCreate() #instantiate object from UserCreate() class in app/forms.py
+  if form.validate_on_submit(): #if True, indicates data is valid and can be processed
+    created_tag = form.user_tag.data #stores entered value in variable
+    created_region = form.user_region.data
+    created_main = form.user_main.data
+
+    
+    #create user row, initializing user object
+    new_user = User(tag=created_tag,
+                main=created_main,
+                region=created_region)
+
+    #commit to db
+    db.session.add(new_user)
+    db.session.commit()
+    flash('User creation successful.')
+
+    return redirect('/index')
+  return render_template('user_create.html', #renders template for creating user if called before user enters data
+                        title='Create User',
+                        form=form)
+
+
+@app.route('/set_create', methods=['GET', 'POST']) #'POST' allows us to receive POST requests, which will bring in form data entered by the user
+def set_create():
+  form = SetCreate() #instantiate object from SetCreate() class in app/forms.py
+  if form.validate_on_submit(): #if True, indicates data is valid and can be processed
+    created_set_winner_tag = form.set_winner_tag.data #stores entered value in variable
+    created_set_loser_tag = form.set_loser_tag.data
+    created_set_winner_score = form.set_winner_score.data
+    created_set_loser_score = form.set_loser_score.data
+    created_total_matches = int(created_set_loser_score) + int(created_set_winner_score)
+    created_max_match_count = int(form.set_max_match_count.data)
+
+    #associated id finds user id associated with winner and loser's tag respectively
+    associated_winner_id = User.query.filter_by(tag=created_set_winner_tag)
+    associated_loser_id = User.query.filter_by(tag=created_set_loser_tag)
+    
+    #create set row, initializing set object
+    new_set = Set(winner_tag=created_set_winner_tag,
+                  loser_tag=created_set_loser_tag,
+                  winner_score=created_set_winner_score,
+                  loser_score=created_set_loser_score,
+                  max_match_count=created_max_match_count,
+                  total_matches=created_total_matches
+                  )
+              
+    #commit to db
+    db.session.add(new_set)
+    db.session.commit()
+    flash('Next, enter data for the individual matches.') #if Set is created successfully, redirect to the match_create page, where data for individual matches entered
+
+    return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches)))
+  return render_template('set_create.html', #renders template for creating user if called before user enters data
+                        title='Create Set', 
+                        form=form
+                        )
+
+@app.route('/match_submit/<set_id>/<total_matches>', methods=['GET', 'POST'])
+def match_submit(set_id, total_matches): #set_id, total_matches passed through url from route /set_create
+  number_match_forms = total_matches #should pass total number of matches in associated set to match_submit.html, where it will display that number of match forms
+  form = MatchSubmit() #instantiate object from MatchSubmit() class in app/forms.py
+  if form.validate_on_submit():
+    submitted_match_stage = form.match_stage.data
+    submitted_match_winner = form.match_winner.data
+    submitted_match_loser = form.match_loser.data
+    submitted_winner_char = form.winner_char.data
+    submitted_loser_char = form.loser_char.data
+
+
+    new_match = Match(stage=submitted_match_stage,
+                      winner=submitted_match_winner,
+                      loser=submitted_match_loser,
+                      winner_char=submitted_winner_char,
+                      loser_char=submitted_loser_char,
+                      set_id=set_id 
+                      )
+    
+    #commit to db
+    db.session.add(new_match)
+    db.session.commit()
+    
+    #code for submitting the next match in the set
+    total_matches = int(total_matches) - 1 #now that one match has been submitted, there is one less match to be submitted out of the total number initially indicated when set was created
+    if total_matches == 0: #base case: if no more matches to submit, redirected home
+      flash('Submission Complete') 
+      return redirect('/index')
+    else:
+      total_matches = str(total_matches) #necessary to convert again for flash message and more importantly as a parameter of function match_submit
+      flash('Match Submission Complete. Submit next Match. Matches left: ' + total_matches)
+      return redirect(url_for('match_submit', set_id=set_id, total_matches=total_matches))
+
+  return render_template('match_submit.html',
+                          title='Submit Match',
+                          form=form)
+
+
+@app.route('/user/<tag>') #User profile page
 def user(tag):
-  user = {'tag' : 'Law' }
-  user_sets = [{
-              'player1' : {'tag' : 'Law'},
-              'player2' : {'tag' : 'Rye'},
-              'result' : 'Law beats Rye (9001-0)'
-              }]
+  user = User.query.filter_by(tag=tag).first() #If routed to user profile page (user/<tag>), check to make sure user exists
+  if user is None:
+    flash('User %s not found.' % tag)
+    return redirect(url_for('index'))
+  user_sets = user.getAllSets() #Store all user's sets in variable user_sets
+  user_lost_sets = user.getLostSets()
+  user_won_sets = user.getWonSets()
   return render_template("user.html",
                         title=tag,
                         user=user,
-                        user_sets=user_sets)
+                        user_sets=user_sets,
+                        user_lost_sets=user_lost_sets,
+                        user_won_sets=user_won_sets) #pass user's sets in variable user_sets  to form user.html 
 
 
-@app.route('/edit') #edit self user profile page. login will be necessary
-def edit():
-  return "You are currently at: profile edit page"
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500

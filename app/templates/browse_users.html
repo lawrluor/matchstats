@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Browse All Users</h1>
+  <!-- print all items in list userlist (currently containing all users) -->
+  {% for user in userlist %}
+    <div><p>
+      <b> {{ user.tag }} </b> <!-- prints user representation -->
+      <a href="{{ url_for('user', tag=user.tag) }}">Profile</a> <!-- link to profile next to the user representation --> 
+    </p></div>
+  {% endfor %}
+{% endblock %}

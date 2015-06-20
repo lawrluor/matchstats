@@ -1,4 +1,31 @@
+<!-- extend base layout -->
 {% extends "base.html" %}
+
 {% block content %}
-  <h1>Welcome to Matchstats, {{ user.tag }}!</h1>
+  <h1>Welcome to Matchstats!</h1>
+
+  <h2>Recent Tournaments</h2>
+  <div>Apex 2015</div>
+
+  <h4>Recent Updates</h4>
+  -Added "region" field to User model<br>
+  -added support for region in web form, application<br>
+  -updated User methods for getting won and lost sets (getAllSets not complete)<br>
+  -added type of set (max_match_count) and total matches in set to Set model<br>
+  -added support for displaying true user profiles, and links from browse users<br>
+  -defined backrefUser to connect sets with users (not complete)<br>
+
+  -implemented intelligent webform for generating the correct number of matches when creating a set<br>
+  -added support in web form for type of set as dropdown menu<br>
+  -created sub-template "set.html" for use in browse_sets and user profiles<br>
+  -added support for displaying true sets and matches on user profiles<br>
+
+  -created matchstats unit test with database clear method<br>
+  -created production mode 'runp.py' for public use, along with 404 and 500 error templates<br>
+  -updated 'index.html' to display updates and recent tournaments<br>
+  -filled database with results from Apex 2015 Top 8
+  
+  <hr>
+  <div><b>Current database version: 35</b></div>
+
 {% endblock %}

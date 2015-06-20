@@ -1,0 +1,27 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Submit Match</h1>
+  <form action="" method="post" name="match_submit"> <!-- difference b/n method="get" -->
+    {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
+    <p>
+      Please enter the stage the match was played on:<br>
+      {{ form.match_stage(size=90) }}<br>
+      Please enter the match winner:<br>
+      {{ form.match_winner(size=90) }}<br>
+      Please enter the winner's character:<br>
+      {{ form.winner_char(size=90) }}<br>
+      Please enter the match loser:<br>
+      {{ form.match_loser(size=90) }}<br>
+      Please enter the loser's character: <br>
+      {{ form.loser_char(size=90) }}<br>
+
+      {% for error in form.match_stage.errors or form.match_winner.errors or form.match_loser.errors  %}
+        <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
+      {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Submit Match"></p>
+  </form>
+{% endblock %}
+

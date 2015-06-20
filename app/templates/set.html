@@ -1,0 +1,4 @@
+<div><p><b> {{ set }} </b></p></div>
+  {% for match in set.matches.all() %}
+    <p> {{ match }} </p>
+  {% endfor %}

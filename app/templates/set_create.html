@@ -1,0 +1,26 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Create Set</h1>
+  <form action="" method="post" name="set_create"> <!-- difference b/n method="get" -->
+    {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
+    <p>
+      Best of: <br>
+      {{ form.set_max_match_count }}<br>
+      Please enter the winner's tag:<br>
+      {{ form.set_winner_tag(size=90) }}<br>
+      Please enter the winner's score:<br>
+      {{ form.set_winner_score(size=90) }}<br>
+      Please enter the loser's tag:<br>
+      {{ form.set_loser_tag(size=90) }}<br>
+      Please enter the loser's score:<br>
+      {{ form.set_loser_score(size=90) }}<br>
+
+      {% for error in form.set_winner_tag.errors or form.set_loser_tag.errors or form.set_winner_score.errors or form.set_loser_score.errors %} <!-- may be buggy with or statements -->
+        <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
+      {% endfor %}<br>
+    </p>
+    <p><input type="submit" value="Create Set"></p>
+  </form>
+{% endblock %}

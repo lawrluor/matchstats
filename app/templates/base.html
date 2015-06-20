@@ -3,16 +3,27 @@
     {% if title %}
     <title>{{ title }} - Matchstats</title>
     {% else %}
-    <title>Welcome to Matchstats</title>
+    <title>Matchstats</title>
     {% endif %}
   </head>
   <body>
     <div>Matchstats:
-      <a href="/index">Home</a>
-      | <a href="/browse">Browse</a>
-      | <a href="/user/<tag>">Profile</a>
+      <a href="{{ url_for('index') }}">Home</a>
+      | <a href="{{ url_for('browse_sets') }}">Browse Sets</a>
+      | <a href="{{ url_for('browse_users') }}">Browse Users</a>
+      | <a href="{{ url_for('user_create') }}">Create User</a>
+      | <a href="{{ url_for('set_create') }}">Create Set</a>
     <div>
     <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
   </body>
 </html>

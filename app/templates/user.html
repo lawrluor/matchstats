@@ -1,8 +1,22 @@
+<!-- extend base layout -->
 {% extends "base.html" %}
+
 {% block content %}
-  <h1>{{ user.tag }}'s Set History</h1>
+  <table> <!-- Puts things into a table format neatly -->
+    <tr valign="top"> <!-- HTML table with two columns and two rows -->
+      <td>
+        <h1>User:<a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> <!-- passed from views as user -->
+          {% if user.main %}<p>Main: {{ user.main }}</p>{% endif %}
+          {% if user.region %}<p>Region: {{ user.region }}</p>{% endif %}
+      </td>
+    </tr>
+  </table>
+
+  <hr> <!-- theme change -->
+  <h2>{{ user.tag }}'s Set History</h2>
   <!-- print all items in array user_sets (currently each item is a fake set) -->
-  {% for set in user_sets %}
-  <div><p>{{set.player1.tag }} vs {{set.player2.tag }}: <b>{{set.result }} </b></p></div>
+  {% for set in user_sets %} <!-- user_sets is variable containing the result of user.getAllSets passed from views -->
+    {% include 'set.html' %}
   {% endfor %}
+
 {% endblock %}

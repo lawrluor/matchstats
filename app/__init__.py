@@ -1,6 +1,8 @@
 from flask import Flask
-
-#Creates application object (of class Flask) and imports views module. app the object is different from the "from app" package.
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-from app import views
+app.config.from_object('config')
+db = SQLAlchemy(app)
+
+from app import views, models
