@@ -16,24 +16,76 @@ print setlist
 print '\n'
 print matchlist
 
-print "Testing User and Set connections"
-Tonic = userlist[0]
+print "Testing User connections to Set"
+Shroomed = userlist[0]
+Hungrybox = userlist[1]
+KirbyKaze = userlist[2]
+aMSa = userlist[3]
+PPMD = userlist[4]
+Armada = userlist[5]
+Leffen = userlist[6]
+Mango = userlist[7]
 print '\n'
 
 print "Testing User.getWonSets"
-Tonic_won_sets = User.getWonSets(Tonic)
-print Tonic_won_sets
+shroomed_won_sets = Shroomed.getWonSets()
+print shroomed_won_sets
+hungrybox_won_sets = Hungrybox.getWonSets()
+print hungrybox_won_sets
 print '\n'
+
 
 print "Testing User.getLostSets"
-Tonic_lost_sets = User.getLostSets(Tonic)
-print Tonic_lost_sets
+kirbykaze_lost_sets = KirbyKaze.getLostSets()
+print kirbykaze_lost_sets
+aMSa_lost_sets = aMSa.getLostSets()
+print aMSa_lost_sets
 print '\n'
 
-print "Testing User.getAllSets"
-Tonic_all_sets = User.getAllSets(Tonic)
-print Tonic_all_sets
+print "Testing User.getAllSets()"
+PPMD_all_sets = PPMD.getAllSets()
+print PPMD_all_sets
+Leffen_all_sets = Leffen.getAllSets()
+print Leffen_all_sets
 print '\n'
+
+print "Testing Set connections to User"
+hungrybox_shroomed = setlist[0]
+aMSa_kirbykaze = setlist[1]
+leffen_mango = setlist[2]
+PPMD_armada = setlist[3]
+mango_aMSa = setlist[4]
+armada_hungrybox = setlist[5]
+armada_mango = setlist[6]
+PPMD_leffen = setlist[7]
+armada_leffen = setlist[8]
+armada_PPMD_GF1 = setlist[9]
+PPMD_armada_GF2 = setlist[10]
+wyne_tonic = setlist[14] #Has user ID support in set creation
+print '\n'
+
+print "Testing Set.getSetWinner()"
+print hungrybox_shroomed.getSetWinner()
+print aMSa_kirbykaze.getSetWinner()
+print '\n'
+
+print "Testing Set.getSetWinnerID()"
+print hungrybox_shroomed.getSetWinnerID()
+print aMSa_kirbykaze.getSetWinnerID()
+print '\n'
+
+print "Testing Set.getSetLoser()"
+print leffen_mango.getSetLoser()
+print PPMD_armada.getSetLoser()
+print '\n'
+
+print "Testing Set.getSetLoserID"
+print leffen_mango.getSetLoserID()
+print PPMD_armada.getSetLoserID()
+print '\n'
+
+print "Testing new user ID support in set creation"
+print wyne_tonic
 
 """
 #clear database
