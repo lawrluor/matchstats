@@ -8,24 +8,36 @@
   <div>Apex 2015</div>
 
   <h4>Recent Updates</h4>
-  -Added "region" field to User model<br>
-  -added support for region in web form, application<br>
-  -updated User methods for getting won and lost sets (getAllSets not complete)<br>
-  -added type of set (max_match_count) and total matches in set to Set model<br>
-  -added support for displaying true user profiles, and links from browse users<br>
-  -defined backrefUser to connect sets with users (not complete)<br>
 
-  -implemented intelligent webform for generating the correct number of matches when creating a set<br>
-  -added support in web form for type of set as dropdown menu<br>
-  -created sub-template "set.html" for use in browse_sets and user profiles<br>
-  -added support for displaying true sets and matches on user profiles<br>
+  <div> June 20, 2015 </div>
+  <ul>
+    <li> rendered index "Recent Update" changelog as unordered list</li>
+    <li> fixed User query methods from Set</li>
+    <li> updated unit test with current database</li>
+    <li> updated browse_users template to print User representation in HTML given User object, with route hyperlink to user profile </li>
+    <li> updated browse_sets template to print Set representation in HTML given Set object rather than print a Set object using __str__ method</li>
+    <li> updated set to take winner_id and loser_id upon set creation </li>
+    
+  </ul>
 
-  -created matchstats unit test with database clear method<br>
-  -created production mode 'runp.py' for public use, along with 404 and 500 error templates<br>
-  -updated 'index.html' to display updates and recent tournaments<br>
-  -filled database with results from Apex 2015 Top 8
-  
-  <hr>
-  <div><b>Current database version: 35</b></div>
+  <div> June 19, 2015 </div>
+  <ul>
+    <li> Added "region" field to User model </li>
+    <li> added support for region in web form, application </li>
+    <li> updated User methods for getting won and lost sets </li>
+    <li> added type of set (max_match_count) and total matches in set to Set model</li>
+    <li> added support for displaying true user profiles, and links from browse users</li>
+    <li> defined backrefUser to connect sets with users (not complete)</li>
+    <li> implemented intelligent webform for generating correct number of matches when creating a set</li>
+    <li> implemented field type of set in set_create form as dropdown menu</li>
+    <li> added support for displaying true sets and matches on user profiles</li>
+    <li> created matchstats unit test with database clear method</li>
+    <li> created production mode 'runp.py' for public use, along with 404 and 500 error templates</li>
+    <li> updated 'index.html' to display updates and recent tournaments</li>
+    <li> filled database with results from Apex 2015 Top 8</li>
+  <ul>
+
+<hr>
+<div><b>Current database version: 35</b></div>
 
 {% endblock %}
