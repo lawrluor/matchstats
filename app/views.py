@@ -57,8 +57,15 @@ def user_create():
 def set_create():
   form = SetCreate() #instantiate object from SetCreate() class in app/forms.py
   if form.validate_on_submit(): #if True, indicates data is valid and can be processed
-    created_set_winner_tag = form.set_winner_tag.data #stores entered value in variable
-    created_set_loser_tag = form.set_loser_tag.data
+    #Based on winner and loser tag submitted through form, queries User database to locate the respective Users
+    set_winner = User.query.filter(User.tag==form.set_winner_tag.data).first() 
+    set_loser = User.query.filter(User.tag==form.set_loser_tag.data).first()
+    
+    set_winner_tag = set_winner.tag #Stores User column in variable
+    set_loser_tag = set_loser.tag #because tag is submitted in form, is it better to just use set_loser_tag = form.set_lost_tag.data ?
+    set_winner_id = set_winner.id
+    set_loser_id = set_loser.id
+
     created_set_winner_score = form.set_winner_score.data
     created_set_loser_score = form.set_loser_score.data
     created_total_matches = created_set_loser_score + created_set_winner_score
@@ -66,8 +73,10 @@ def set_create():
     
     #create set row, initializing set object
     new_set = Set(
-                  winner_tag=created_set_winner_tag,
-                  loser_tag=created_set_loser_tag,
+                  winner_tag=set_winner_tag,
+                  loser_tag=set_loser_tag,
+                  winner_id=set_winner_id,
+                  loser_id=set_loser_id,
                   winner_score=created_set_winner_score,
                   loser_score=created_set_loser_score,
                   max_match_count=created_max_match_count,
