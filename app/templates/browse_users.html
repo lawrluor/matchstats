@@ -4,8 +4,8 @@
   <!-- print all items in list userlist (currently containing all users) -->
   {% for user in userlist %}
     <div><p>
-      <b> {{ user.tag }} </b> <!-- prints user representation -->
-      <a href="{{ url_for('user', tag=user.tag) }}">Profile</a> <!-- link to profile next to the user representation --> 
+      <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
+       | {{ user.region }} | {{ user.main }} </b> <!-- prints User representation in HTML given a User object, with route hyperlink to User profile -->
     </p></div>
   {% endfor %}
 {% endblock %}
