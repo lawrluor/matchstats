@@ -45,20 +45,30 @@ class Set(db.Model):
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   
   def __repr__(self):
-    return '<winner_tag %s: winner_score %s | loser_tag %s: loser_score %s>' % (self.winner_tag, self.winner_score, self.loser_tag, self.loser_score)
+    return '<winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __str__(self): #String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.winner_tag + ' vs ' + self.loser_tag + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag
+    return self.winner_tag + '_' + str(self.winner_id) + ' vs ' + self.loser_tag + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag
   
   #returns winner (user) of this set
   def getSetWinner(self):
-    winner = User.query.filter(User.tag==winner.tag).first() 
-    return winner #return winner_tag of the set, the User who won the set
+    set_winner = User.query.filter(User.tag==self.winner_tag).first() 
+    return set_winner #return winner_tag of the set, the User who won the set
+  
+  #returns winner ID (user.id) of a Set object
+  def getSetWinnerID(self):
+    set_winner = self.getSetWinner()
+    return set_winner.id
+
+  #returns loser ID (user.id) of a Set object
+  def getSetLoserID(self):
+    set_loser = self.getSetLoser()
+    return set_loser.id
 
   #returns loser (user) of associated set
   def getSetLoser(self):
-    loser = User.query.filter(User.tag==loser.tag).first()
-    return loser
+    set_loser = User.query.filter(User.tag==self.loser_tag).first()
+    return set_loser
 
     
 #Match is the many in a one-to-many relationship with model Set
