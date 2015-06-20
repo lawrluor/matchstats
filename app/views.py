@@ -59,24 +59,25 @@ def set_create():
   if form.validate_on_submit(): #if True, indicates data is valid and can be processed
     created_set_winner_tag = form.set_winner_tag.data #stores entered value in variable
     created_set_loser_tag = form.set_loser_tag.data
-    created_set_winner_score = form.set_winner_score.data
-    created_set_loser_score = form.set_loser_score.data
-    created_total_matches = int(created_set_loser_score) + int(created_set_winner_score)
+    created_set_winner_score = int(form.set_winner_score.data)
+    created_set_loser_score = int(form.set_loser_score.data)
+    created_total_matches = int(created_set_loser_score + created_set_winner_score)
     created_max_match_count = int(form.set_max_match_count.data)
-
-    #associated id finds user id associated with winner and loser's tag respectively
-    associated_winner_id = User.query.filter_by(tag=created_set_winner_tag)
-    associated_loser_id = User.query.filter_by(tag=created_set_loser_tag)
     
     #create set row, initializing set object
-    new_set = Set(winner_tag=created_set_winner_tag,
+    new_set = Set(
+                  winner_tag=created_set_winner_tag,
                   loser_tag=created_set_loser_tag,
                   winner_score=created_set_winner_score,
                   loser_score=created_set_loser_score,
                   max_match_count=created_max_match_count,
                   total_matches=created_total_matches
                   )
-              
+    
+    #Add winner_id and loser_id attributes for Set; must be done after creating the Set object so that it can call the getSetWinnerID and getSetLoserID functions
+    new_set.winner_id = new_set.getSetWinnerID()
+    new_set.loser_id = new_set.getSetLoserID()
+
     #commit to db
     db.session.add(new_set)
     db.session.commit()
