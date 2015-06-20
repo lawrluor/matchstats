@@ -59,10 +59,10 @@ def set_create():
   if form.validate_on_submit(): #if True, indicates data is valid and can be processed
     created_set_winner_tag = form.set_winner_tag.data #stores entered value in variable
     created_set_loser_tag = form.set_loser_tag.data
-    created_set_winner_score = int(form.set_winner_score.data)
-    created_set_loser_score = int(form.set_loser_score.data)
-    created_total_matches = int(created_set_loser_score + created_set_winner_score)
-    created_max_match_count = int(form.set_max_match_count.data)
+    created_set_winner_score = form.set_winner_score.data
+    created_set_loser_score = form.set_loser_score.data
+    created_total_matches = created_set_loser_score + created_set_winner_score
+    created_max_match_count = form.set_max_match_count.data
     
     #create set row, initializing set object
     new_set = Set(
