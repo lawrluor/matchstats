@@ -61,7 +61,6 @@ PPMD_leffen = setlist[7]
 armada_leffen = setlist[8]
 armada_PPMD_GF1 = setlist[9]
 PPMD_armada_GF2 = setlist[10]
-wyne_tonic = setlist[14] #Has user ID support in set creation
 print '\n'
 
 print "Testing Set.getSetWinner()"
@@ -84,8 +83,17 @@ print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
 
-print "Testing new user ID support in set creation"
-print wyne_tonic
+#clear non APEX 2015 users, sets, and matches
+for user in userlist[8:]:
+	db.session.delete(user)
+
+for set in setlist[11:]:
+	db.session.delete(set)
+
+print userlist
+print setlist
+
+db.session.commit()
 
 """
 #clear database

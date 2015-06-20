@@ -18,12 +18,12 @@ class User(db.Model):
   
   #getWonSets is a function that takes a user and returns the sets he has won.
   def getWonSets(self):
-    sets_won = Set.query.filter(Set.winner_tag==self.tag).all()
+    sets_won = Set.query.filter(Set.winner_tag==self.tag).order_by(Set.id).all()
     return sets_won
 
   #getLostSets is a function that takes a user and returns the sets he has lost
   def getLostSets(self):
-    sets_lost = Set.query.filter(Set.loser_tag==self.tag).all()
+    sets_lost = Set.query.filter(Set.loser_tag==self.tag).order_by(Set.id).all()
     return sets_lost
 
   #getAllSets is a function that takes a user and returns all the sets he has played
