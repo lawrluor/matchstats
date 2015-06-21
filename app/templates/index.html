@@ -14,7 +14,7 @@
     <li> rendered index "Recent Update" changelog as unordered list</li>
     <li> fixed User query methods from Set</li>
     <li> updated unit test with current database</li>
-    <li> updated browse_users template to print User representation in HTML given User object, with route hyperlink to user profile </li>
+    <li> updated 'browse_users.html' template to print User representation in HTML given User object, with route hyperlink to user profile </li>
     <li> revised 'browse_sets.html' template to print Set representation in HTML given Set object rather than print a Set object using __str__ method</li>
     <li> updated set to take winner_id and loser_id upon set creation </li>
     <li> allowed set_create form to take score directly as an integer </li>
@@ -23,6 +23,7 @@
     <li> stage field for matches during set creation are now entered using a SelectField dropdown menu </li>
     <li> added intelligent "validation" system to ensure legal sets are created </li>
     <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method. </li>
+    <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles</li>
 
   </ul>
 
