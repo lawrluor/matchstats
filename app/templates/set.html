@@ -1,4 +1,7 @@
-<div><p><b> {{ set.winner_tag }} vs {{ set.loser_tag }}: ({{ set.winner_score }}-{{ set.loser_score }}) {{ set.winner_tag }} </b></p></div> <!-- prints Set representation in HTML given a Set object -->
+<div><p><b> {{ set.winner_tag }} vs {{ set.loser_tag }}: ({{ set.winner_score }}-{{ set.loser_score }}) {{ set.winner_tag }} </b></p></div> 
+<!-- prints Set representation in HTML given a Set object -->
   {% for match in set.matches.all() %}
-    <p> {{ match }} </p>
+    {% include 'match.html' %}
   {% endfor %}
+
+<BR>&nbsp;<BR> <!-- Line break -->
