@@ -86,7 +86,7 @@ print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
 
-"""
+
 #clear non APEX 2015 users, sets, and matches
 for user in userlist[8:]:
 	db.session.delete(user)
@@ -99,7 +99,7 @@ print setlist
 
 db.session.commit()
 
-
+"""
 #clear database
 for user in userlist:
 	db.session.delete(user)

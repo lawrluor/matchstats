@@ -72,7 +72,11 @@ def set_create():
     created_max_match_count = int(form.set_max_match_count.data)
    
     #Check to see if set score count is valid for type of set, and not <0
-    if (((created_set_loser_score >= created_max_match_count) or (created_set_winner_score >= created_max_match_count)) or ((created_total_matches < created_max_match_count / 2) or (created_total_matches > created_max_match_count))) or  (created_set_winner_score == created_set_loser_score):
+    if (((created_set_loser_score > ((created_max_match_count / 2.0) + 1)) 
+      or (created_set_winner_score > ((created_max_match_count / 2.0) + 1))) 
+      or ((created_total_matches < (created_max_match_count / 2.0)) 
+      or (created_total_matches > created_max_match_count))) or (created_set_winner_score <= created_set_loser_score):
+
       flash("Check to make sure you have entered the appropriate scores for the set score cout.")
       return redirect(url_for('set_create'))
 
@@ -158,7 +162,7 @@ def user(tag):
                         user_lost_sets=user_lost_sets,
                         user_won_sets=user_won_sets) #pass user's sets in variable user_sets  to form user.html 
 
-
+#During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
