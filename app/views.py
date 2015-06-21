@@ -69,8 +69,13 @@ def set_create():
     created_set_winner_score = form.set_winner_score.data
     created_set_loser_score = form.set_loser_score.data
     created_total_matches = created_set_loser_score + created_set_winner_score
-    created_max_match_count = form.set_max_match_count.data
-    
+    created_max_match_count = int(form.set_max_match_count.data)
+   
+    #Check to see if set score count is valid for type of set, and not <0
+    if (((created_set_loser_score >= created_max_match_count) or (created_set_winner_score >= created_max_match_count)) or ((created_total_matches < created_max_match_count / 2) or (created_total_matches > created_max_match_count))) or  (created_set_winner_score == created_set_loser_score):
+      flash("Check to make sure you have entered the appropriate scores for the set score cout.")
+      return redirect(url_for('set_create'))
+
     #create set row, initializing set object
     new_set = Set(
                   winner_tag=set_winner_tag,
