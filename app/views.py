@@ -26,7 +26,7 @@ def browse_users():
   return render_template("browse_users.html",
                         title='Browse Users',
                         userlist=userlist)
-  #Eventually implement redirects to user profile pages for displayed users
+
 
 @app.route('/user_create', methods=['GET', 'POST']) #'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def user_create():
@@ -61,8 +61,8 @@ def set_create():
     set_winner = User.query.filter(User.tag==form.set_winner_tag.data).first() 
     set_loser = User.query.filter(User.tag==form.set_loser_tag.data).first()
     
-    set_winner_tag = set_winner.tag #Stores User column in variable
-    set_loser_tag = set_loser.tag #because tag is submitted in form, is it better to just use set_loser_tag = form.set_lost_tag.data ?
+    set_winner_tag = form.set_winner_tag.data
+    set_loser_tag = form.set_loser_tag.data
     set_winner_id = set_winner.id
     set_loser_id = set_loser.id
 
@@ -148,7 +148,7 @@ def match_submit(set_id, total_matches): #set_id, total_matches passed through u
 
 @app.route('/user/<tag>') #User profile page
 def user(tag):
-  user = User.query.filter_by(tag=tag).first() #If routed to user profile page (user/<tag>), check to make sure user exists
+  user = User.query.filter(User.tag==tag).first() #If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
     flash('User %s not found.' % tag)
     return redirect(url_for('index'))
@@ -161,6 +161,15 @@ def user(tag):
                         user_sets=user_sets,
                         user_lost_sets=user_lost_sets,
                         user_won_sets=user_won_sets) #pass user's sets in variable user_sets  to form user.html 
+
+@app.route('/region/<region>') #View all users in certain region
+def view_region(region):
+  users = User.query.filter(User.region==region).all() #checks to see if user.region is identical to region
+  if user is None:
+    flash('No players found in this region') #no user found with matching region
+  return render_template("view_region.html",
+                         users=users,
+                         region=region)
 
 #During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)

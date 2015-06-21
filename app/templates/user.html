@@ -8,7 +8,9 @@
         <h1>User: <a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> 
         <!-- passed from views as user -->
           {% if user.main %}<p><b>Main:</b> {{ user.main }}</p>{% endif %}
-          {% if user.region %}<p><b>Region:</b> {{ user.region }}</p>{% endif %}
+          {% if user.region %}<p><b>Region:</b>
+          <a href="{{ url_for("view_region", region=user.region) }}">{{user.region}}</a>
+          </p>{% endif %}
       </td>
     </tr>
   </table>

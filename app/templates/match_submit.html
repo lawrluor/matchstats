@@ -7,7 +7,7 @@
     {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
     <p>
       Please enter the stage the match was played on:<br>
-      {{ form.match_stage(size=90) }}<br>
+      {{ form.match_stage }}<br>
       Please enter the match winner:<br>
       {{ form.match_winner(size=90) }}<br>
       Please enter the winner's character:<br>

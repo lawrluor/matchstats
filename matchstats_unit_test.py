@@ -1,4 +1,5 @@
 #!flask/bin/python
+#Currently only supports APEX 2015 Top 8 Results
 import os
 import unittest
 
@@ -25,8 +26,6 @@ PPMD = userlist[4]
 Armada = userlist[5]
 Leffen = userlist[6]
 Mango = userlist[7]
-Tonic = userlist[8]
-Wyne = userlist[9]
 print '\n'
 
 print "Testing User.getWonSets"
@@ -63,7 +62,6 @@ PPMD_leffen = setlist[7]
 armada_leffen = setlist[8]
 armada_PPMD_GF1 = setlist[9]
 PPMD_armada_GF2 = setlist[10]
-wyne_tonic = setlist[11]
 print '\n'
 
 print "Testing Set.getSetWinner()"
@@ -94,13 +92,22 @@ for user in userlist[8:]:
 for set in setlist[11:]:
 	db.session.delete(set)
 
+for match in matchlist[47:]:
+	db.session.delete(match)
+
 print userlist
+print '\n'
+
 print setlist
+print '\n'
+
+print matchlist
+print '\n'
 
 db.session.commit()
 
 """
-#clear database
+#clear entire database
 for user in userlist:
 	db.session.delete(user)
 

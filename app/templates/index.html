@@ -3,11 +3,18 @@
 
 {% block content %}
   <h1>Welcome to Matchstats!</h1>
+  <BR>&nbsp;<BR>
 
   <h2>Recent Tournaments</h2>
-  <div>Apex 2015</div>
+  <div><a href="{{ url_for("browse_sets") }}">Apex 2015</a></div>
+  <BR>&nbsp;<BR>
 
   <h4>Recent Updates</h4>
+
+  <div> June 21, 2015 </div>
+  <ul>
+      <li> added "view_region.html" as a template to view all user from a specific regions, and added a route to view_region </li>
+  </ul>
 
   <div> June 20, 2015 </div>
   <ul>
@@ -22,8 +29,8 @@
     <li> Sets now query and are created with User id based on submitted tag </li>
     <li> stage field for matches during set creation are now entered using a SelectField dropdown menu </li>
     <li> added intelligent "validation" system to ensure legal sets are created </li>
-    <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method. </li>
-    <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles</li>
+    <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method </li>
+    <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li>
 
   </ul>
 
