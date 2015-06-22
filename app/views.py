@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
 from models import User, Set, Match
-from forms import UserCreate, SetCreate, MatchSubmit
+from forms import UserCreate, SetCreate, MatchSubmit, HeadToHead
 from sqlalchemy import and_
 
 @app.route('/')
@@ -165,6 +165,27 @@ def user(tag):
                         user_lost_sets=user_lost_sets,
                         user_won_sets=user_won_sets) # pass user's sets in variable user_sets  to form user.html 
 
+
+# Head to Head page to begin querying User head to head 
+@app.route('/head_to_head', methods=['GET', 'POST'])
+def head_to_head():
+  form = HeadToHead()
+  if form.validate_on_submit():
+    user1 = form.user1.data
+    user2 = form.user2.data
+
+    valid_users = User.query.filter(User.tag==user1).all()
+    valid_users = valid_users + User.query.filter(User.tag==user2).all()
+
+    if valid_users == None:
+      flash('At least one User not found.')
+      return redirect(url_for('head_to_head'))
+    
+    return redirect(url_for('versus'), tag1=user1, tag2=user2)
+
+  return render_template("head_to_head.html",
+                        form=form)
+                         
 
 #  User head to head page
 @app.route('/versus/<tag1>/<tag2>')

@@ -1,0 +1,20 @@
+<!-- Head to head page where one may begin querying head to head  -->
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>View Head to Head Set and Match History Between Two Players</h1>
+  <form action="" method="post" name="head_to_head">
+    {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
+
+    Enter the first player's tag: {{ form.user1(size=30) }} <br>
+    <br>
+    Enter the second player's tag: {{ form.user2(size=30) }} <br>
+
+    {% for error in form.user1.errors or form.user2.errors %}
+      <span style="color: red;">[{{error}}]</span>
+    {% endfor %}<br>
+
+    <p><input type="submit" value="Look up Head to Head"></p>
+  </form>
+{% endblock %}

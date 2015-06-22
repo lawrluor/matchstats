@@ -3,7 +3,7 @@
 
 {% block content %}
   <h1>Create Set</h1>
-  <form action="" method="post" name="set_create"> <!-- difference b/n method="get" -->
+  <form action="" method="post" name="set_create">
     {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
     <p>
       Best of: <br>
