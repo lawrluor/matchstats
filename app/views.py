@@ -106,9 +106,12 @@ def set_create():
                         form=form
                         )
 
-@app.route('/match_submit/<set_id>/<total_matches>', methods=['GET', 'POST'])
-def match_submit(set_id, total_matches): #set_id, total_matches passed through url from route /set_create
-  number_match_forms = total_matches #should pass total number of matches in associated set to match_submit.html, where it will display that number of match forms
+@app.route('/match_submit', methods=['GET', 'POST'])
+def match_submit(): #set_id, total_matches passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
+ 
+  set_id = request.args.get('set_id')
+  total_matches = request.args.get('total_matches')
+  
   form = MatchSubmit() #instantiate object from MatchSubmit() class in app/forms.py
   if form.validate_on_submit():
     submitted_match_stage = form.match_stage.data

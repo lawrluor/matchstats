@@ -16,7 +16,9 @@ class SetCreate(Form):
 
 class MatchSubmit(Form):
   char_list = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers')] #Choices list for winner_char and loser_char SelectField; a constant value containing all the characters and not an input
+  
   match_stage = SelectField('match_stage', choices = [('Battlefield', 'Battlefield'), ('Dream Land', 'Dream Land'), ('Final Destination', 'Final Destination'), ('Fountain of Dreams', 'Fountain of Dreams'), ('Pokemon Stadium', 'Pokemon Stadium'), ('Yoshi\'s Story', 'Yoshi\'s Story'), ('Other', 'Other')], coerce=str, validators=[Required()]) #optional input, so doesn't check if left blank
+  
   match_winner = StringField('match_winner')
   match_loser = StringField('match_loser')
   winner_char = SelectField('winner_char', choices=char_list) #Data no required in case no match info is known
