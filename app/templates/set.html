@@ -2,7 +2,8 @@
 	<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a> vs 
 	<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a>:
 	({{ set.winner_score }}-{{ set.loser_score }}) 
-	<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a>  
+	<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a>
+  <a href="{{url_for("versus", user1=set.winner_tag, user2=set.loser_tag)}}"> (View Head to Head)</a>
 </b></p></div> 
 
 <!-- prints Set representation in HTML given a Set object -->

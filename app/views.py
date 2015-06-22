@@ -177,19 +177,22 @@ def head_to_head():
     valid_users = User.query.filter(User.tag==user1).all()
     valid_users = valid_users + User.query.filter(User.tag==user2).all()
 
-    if valid_users == None:
+    if len(valid_users) < 2:
       flash('At least one User not found.')
       return redirect(url_for('head_to_head'))
     
-    return redirect(url_for('versus'), tag1=user1, tag2=user2)
+    return redirect(url_for('versus', user1=user1, user2=user2))
 
   return render_template("head_to_head.html",
                         form=form)
                          
 
 #  User head to head page
-@app.route('/versus/<tag1>/<tag2>')
-def versus(tag1, tag2):
+@app.route('/versus')
+def versus():
+  tag1 = request.args.get('user1')
+  tag2 = request.args.get('user2')
+
   # Get all sets that user1 and user2 have played
   sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
   sets = sets + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
