@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Head to Head between {{ tag1 }} and {{ tag2 }}</h1>
+  <!-- print all items in list setlist (currently containing all sets) -->
+  {% for set in setlist %}
+  	{% include 'set.html' %}
+  {% endfor %}
+{% endblock %}
