@@ -15,7 +15,7 @@ def index():
 
 @app.route('/browse_sets') # browse sets
 def browse_sets():
-  setlist = Set.query.all()
+  setlist = Set.query.order_by(Set.id).all()
   return render_template("browse_sets.html",
                          title='Browse Sets',
                          setlist=setlist)
@@ -23,7 +23,7 @@ def browse_sets():
 
 @app.route('/browse_users') # browse users
 def browse_users():
-  userlist = User.query.all()
+  userlist = User.query.order_by(User.id).all()
   return render_template("browse_users.html",
                         title='Browse Users',
                         userlist=userlist)
@@ -92,9 +92,6 @@ def set_create():
                   total_matches=created_total_matches
                   )
     
-    # Add winner_id and loser_id attributes for Set; must be done after creating the Set object so that it can call the getSetWinnerID and getSetLoserID functions
-    new_set.winner_id = new_set.getSetWinnerID()
-    new_set.loser_id = new_set.getSetLoserID()
 
     # commit to db
     db.session.add(new_set)
@@ -178,6 +175,8 @@ def head_to_head():
     # Get all sets that user1 and user2 have played
     sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
     sets = sets + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+    sets = sorted(sets, key=lambda x: x.id) # Sort by Set id
+    
   else:
     sets = []
 

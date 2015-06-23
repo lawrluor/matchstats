@@ -29,7 +29,8 @@ class User(db.Model):
   #getAllSets is a function that takes a user and returns all the sets he has played
   def getAllSets(self):
     all_sets = self.getWonSets() + self.getLostSets()
-    return all_sets
+    all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
+    return all_sets_sorted
 
 #Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
