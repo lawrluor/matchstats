@@ -11,9 +11,15 @@
 
   <h4>Recent Updates</h4>
 
+  <div> June 23, 2015 </div>
+  <ul>
+    <li> merged 'versus.html' into 'head_to_head.html', and merged route /versus into /head_to_head so that only head_to_head references exist. Revised template to display head to head history on the same page as the search page, /head_to_head. Fixed bugs regarding head to head displays</li>
+  </ul>
+
   <div> June 22, 2015 </div>
   <ul>
     <li> fixed bugs in head to head and revised templates; additionally, all sets now link to the match history page between two users </li>
+  </ul>
 
   <div> June 21, 2015 </div>
   <ul>
@@ -23,7 +29,6 @@
       <li> match_submit now takes variables through URL from /set_create and /match_submit by using a query string on the URL </li>
       <li> implemented head to head page (route /versus) between two users, which currently displays their played sets </li>
       <li> implemented form and head_to_head.html page to allow searching for two users, then redirects to /versus to actually display their set history </li>
-
   </ul>
 
   <div> June 20, 2015 </div>
@@ -41,7 +46,6 @@
     <li> added intelligent "validation" system to ensure legal sets are created </li>
     <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method </li>
     <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li>
-
   </ul>
 
   <div> June 19, 2015 </div>

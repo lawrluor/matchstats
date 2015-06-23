@@ -16,5 +16,14 @@
     {% endfor %}<br>
 
     <p><input type="submit" value="Look up Head to Head"></p>
-  </form>
+    {% if tag1 != None and tag2 != None %} 
+      <h2>Head to Head between {{ tag1 }} and {{ tag2 }}</h2>  
+
+      <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
+      {% for set in setlist %}
+  	    {% include 'set.html' %}
+      {% endfor %}
+    {% endif %}
+</form>
+
 {% endblock %}

@@ -166,10 +166,21 @@ def user(tag):
                         user_won_sets=user_won_sets) # pass user's sets in variable user_sets  to form user.html 
 
 
-# Head to Head page to begin querying User head to head 
+# Head to Head page to begin querying User head to head. tag1 and tag2 refer to users submitted after the redirect, while user1 and user2 are 
 @app.route('/head_to_head', methods=['GET', 'POST'])
 def head_to_head():
   form = HeadToHead()
+
+  tag1 = request.args.get('tag1')
+  tag2 = request.args.get('tag2')
+   
+  if tag1 != None and tag2 != None:
+    # Get all sets that user1 and user2 have played
+    sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
+    sets = sets + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+  else:
+    sets = []
+
   if form.validate_on_submit():
     user1 = form.user1.data
     user2 = form.user2.data
@@ -181,26 +192,14 @@ def head_to_head():
       flash('At least one User not found.')
       return redirect(url_for('head_to_head'))
     
-    return redirect(url_for('versus', user1=user1, user2=user2))
+    return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
 
   return render_template("head_to_head.html",
-                        form=form)
-                         
-
-#  User head to head page
-@app.route('/versus')
-def versus():
-  tag1 = request.args.get('user1')
-  tag2 = request.args.get('user2')
-
-  # Get all sets that user1 and user2 have played
-  sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
-  sets = sets + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
-  
-  return render_template("versus.html",
-                         tag1=tag1,
-                         tag2=tag2,
-                         setlist=sets)
+                        title="Head to Head",
+                        tag1=tag1,
+                        tag2=tag2,
+                        setlist=sets,
+                        form=form) 
 
 
 @app.route('/region/<region>') # View all users in certain region
