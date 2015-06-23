@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <h1> Browse {{ region }}'s Users </h1>
-  {% for user in users %}
+  {% for user in matching_users %}
      <div><p>
       <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
       	| <a href="{{ url_for("browse_regions", region=user.region) }}">{{user.region}}</a> 

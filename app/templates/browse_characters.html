@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1> Users who main {{ character }}</h1>
+  {% for user in matching_users %}
+     <div><p>
+      <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
+      	| <a href="{{ url_for("browse_regions", region=user.region) }}">{{user.region}}</a>
+        | <a href="{{ url_for("browse_characters", character=user.main) }}">{{user.main}}</a> </b> <!-- prints User representation in HTML given a User object, with route hyperlink to User profile -->
+    </p></div>
+  {% endfor %}
+{% endblock %}

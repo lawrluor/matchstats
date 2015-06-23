@@ -200,17 +200,23 @@ def head_to_head():
                         setlist=sets,
                         form=form) 
 
+# View all users who play a certain character
+@app.route('/browse_characters/<character>')
+def browse_characters(character):
+  matching_users = User.query.filter(User.main==character).order_by(User.id).all()
+  if matching_users == []:
+    flash('No players found for this character')
+  return render_template("browse_characters.html",
+                         matching_users=matching_users,
+                         character=character)
 
-@app.route('/browse_characters/<character>') # View all users who play a certain character 
-
-
-@app.route('/browse_regions/<region>') # View all users in certain region
+@app.route('/browse_regions/<region>')
 def browse_regions(region):
-  users = User.query.filter(User.region==region).all() # checks to see if user.region is identical to region
-  if user is None:
+  matching_users = User.query.filter(User.region==region).order_by(User.id).all() # checks to see if user.region is identical to region
+  if matching_users == []:
     flash('No players found in this region') # no user found with matching region
   return render_template("browse_regions.html",
-                         users=users,
+                         matching_users=matching_users,
                          region=region)
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
