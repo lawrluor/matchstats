@@ -9,7 +9,7 @@
         <!-- passed from views as user -->
           {% if user.main %}<p><b>Main:</b> {{ user.main }}</p>{% endif %}
           {% if user.region %}<p><b>Region:</b>
-          <a href="{{ url_for("view_region", region=user.region) }}">{{user.region}}</a>
+          <a href="{{ url_for("browse_regions", region=user.region) }}">{{user.region}}</a>
           </p>{% endif %}
       </td>
     </tr>

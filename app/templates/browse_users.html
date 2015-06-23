@@ -5,7 +5,7 @@
   {% for user in userlist %}
     <div><p>
       <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
-       | <a href="{{ url_for("view_region", region=user.region) }}">{{user.region}}</a>
+       | <a href="{{ url_for("browse_regions", region=user.region) }}">{{user.region}}</a>
        | {{ user.main }} </b>
        <!-- prints User representation in HTML given a User object, with route hyperlink to User profile -->
     </p></div>

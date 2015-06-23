@@ -201,12 +201,15 @@ def head_to_head():
                         form=form) 
 
 
-@app.route('/region/<region>') # View all users in certain region
-def view_region(region):
+@app.route('/browse_characters/<character>') # View all users who play a certain character 
+
+
+@app.route('/browse_regions/<region>') # View all users in certain region
+def browse_regions(region):
   users = User.query.filter(User.region==region).all() # checks to see if user.region is identical to region
   if user is None:
     flash('No players found in this region') # no user found with matching region
-  return render_template("view_region.html",
+  return render_template("browse_regions.html",
                          users=users,
                          region=region)
 
