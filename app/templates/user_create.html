@@ -11,7 +11,7 @@
       Please enter the user's region:<br>
       {{ form.user_region(size=90) }}<br>
       Please enter the user's main:<br>
-      {{ form.user_main(size=90) }}<br>
+      {{ form.user_main }}<br>
 
       {% for error in form.user_tag.errors and form.user_main.errors %}
         <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
