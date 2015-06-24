@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>View Head to Head Set and Match History Between Two Players</h1>
+  <h1>View Head to Head Set History Between Two Players</h1>
   <form action="" method="post" name="head_to_head">
     {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
 
@@ -15,7 +15,8 @@
       <span style="color: red;">[{{error}}]</span>
     {% endfor %}<br>
 
-    <p><input type="submit" value="Look up Head to Head"></p>
+    <p><input type="submit" value="Look up Head to Head"></p><br>
+
     {% if tag1 != None and tag2 != None %} 
       <h2>Head to Head between {{ tag1 }} and {{ tag2 }}</h2>  
 

@@ -13,37 +13,6 @@ def index():
                         title ='Home')
 
 
-@app.route('/browse_sets') # browse sets
-def browse_sets():
-  setlist = Set.query.order_by(Set.id).all()
-  return render_template("browse_sets.html",
-                         title='Browse Sets',
-                         setlist=setlist)
-
-
-@app.route('/browse_users') # browse users
-def browse_users():
-  userlist = User.query.order_by(User.id).all()
-  return render_template("browse_users.html",
-                        title='Browse Users',
-                        userlist=userlist)
-
-# browse regions
-@app.route('/browse_regions')
-def browse_regions():
-  userlist = User.query.order_by(User.id).all()
-  regionlist = []
-  for user in userlist:
-    if user.region not in regionlist:
-      regionlist += [user.region]
-
-  regionlist.sort()
-  
-  return render_template("browse_regions.html", 
-                          title='Browse Regions',
-                          regionlist=regionlist)
-
-
 @app.route('/user_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def user_create():
   form = UserCreate() # instantiate object from UserCreate() class in app/forms.py
@@ -119,6 +88,7 @@ def set_create():
                         form=form
                         )
 
+
 @app.route('/match_submit', methods=['GET', 'POST'])
 def match_submit(): # set_id, total_matches passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
  
@@ -161,6 +131,67 @@ def match_submit(): # set_id, total_matches passed through url from route /set_c
                           form=form)
 
 
+# Head to Head page to begin querying User head to head. tag1 and tag2 refer to users submitted after the redirect.
+@app.route('/head_to_head', methods=['GET', 'POST'])
+def head_to_head():
+  form = HeadToHead()
+
+  tag1 = request.args.get('tag1')
+  tag2 = request.args.get('tag2')
+  sets = []
+
+  if 'tag1' in request.args and 'tag2' in request.args:
+    sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+    sets = sorted(sets, key=lambda x: x.id) # Sort by Set id
+
+  if form.validate_on_submit():
+    # user1 and user2 is a string that represents the first user's tag
+    user1 = form.user1.data
+    user2 = form.user2.data
+
+    valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
+
+    if valid_users < 2:
+      flash('At least one User not found.')
+      return redirect(url_for('head_to_head'))
+    
+    return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
+
+  return render_template("head_to_head.html",
+                        title="Head to Head",
+                        tag1=tag1,
+                        tag2=tag2,
+                        setlist=sets,
+                        form=form) 
+
+
+# Compares one user to two others, and will generate two head to heads side by side
+@app.route('/compare') #eventually route to this from head_to_head
+def compare():
+  # Query methods and validation
+  
+  #sets1 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.loser_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==compare_tag))
+  #sets2 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.lower_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==compare_tag))
+  tag1 = 'hi'
+  tag2 = 'lo'
+  return head_to_head(tag1, tag2)
+
+@app.route('/browse_sets')
+def browse_sets():
+  setlist = Set.query.order_by(Set.id).all()
+  return render_template("browse_sets.html",
+                         title='Browse Sets',
+                         setlist=setlist)
+
+
+@app.route('/browse_users') # browse users
+def browse_users():
+  userlist = User.query.order_by(User.id).all()
+  return render_template("browse_users.html",
+                        title='Browse Users',
+                        userlist=userlist)
+
+
 @app.route('/user/<tag>') # User profile page
 def user(tag):
   user = User.query.filter(User.tag==tag).first() # If routed to user profile page (user/<tag>), check to make sure user exists
@@ -178,61 +209,23 @@ def user(tag):
                         user_won_sets=user_won_sets) # pass user's sets in variable user_sets  to form user.html 
 
 
-# Head to Head page to begin querying User head to head. tag1 and tag2 refer to users submitted after the redirect, while user1 and user2 are 
-@app.route('/head_to_head', methods=['GET', 'POST'])
-def head_to_head():
-  form = HeadToHead()
+# Displays all regions currently populated by players. Each displayed region will route to /region/<region>
+@app.route('/browse_regions')
+def browse_regions():
+  userlist = User.query.order_by(User.id).all()
+  regionlist = []
+  for user in userlist:
+    if user.region not in regionlist:
+      regionlist += [user.region]
 
-  tag1 = request.args.get('tag1')
-  tag2 = request.args.get('tag2')
-   
-  if tag1 != None and tag2 != None:
-    # Get all sets that user1 and user2 have played
-    sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
-    sets = sets + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
-    sets = sorted(sets, key=lambda x: x.id) # Sort by Set id
-    
-  else:
-    sets = []
-
-  if form.validate_on_submit():
-    user1 = form.user1.data
-    user2 = form.user2.data
-
-    valid_users = User.query.filter(User.tag==user1).all()
-    valid_users = valid_users + User.query.filter(User.tag==user2).all()
-
-    if len(valid_users) < 2:
-      flash('At least one User not found.')
-      return redirect(url_for('head_to_head'))
-    
-    return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
-
-  return render_template("head_to_head.html",
-                        title="Head to Head",
-                        tag1=tag1,
-                        tag2=tag2,
-                        setlist=sets,
-                        form=form) 
-
-# View all users who play a certain character
-@app.route('/character/<character>')
-def character(character):
-  matching_users = User.query.filter(User.main==character).order_by(User.id).all()
-  if matching_users == []:
-    flash('No players found for this character')
-  return render_template("character.html",
-                         matching_users=matching_users,
-                         character=character)
+  regionlist.sort()
+  
+  return render_template("browse_regions.html", 
+                          title='Browse Regions',
+                          regionlist=regionlist)
 
 
-@app.route('/browse_characters')
-def browse_characters():
-  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby']
-
-  return render_template("browse_characters.html",
-                         characterlist=characterlist)
-
+# Displays all users given a region. Routed to from /browse_regions
 @app.route('/region/<region>')
 def region(region):
   matching_users = User.query.filter(User.region==region).order_by(User.id).all() # checks to see if user.region is identical to region
@@ -241,6 +234,29 @@ def region(region):
   return render_template("region.html",
                          matching_users=matching_users,
                          region=region)
+
+
+# Displays a list of all SSBM characters, each of which links to /character/<character>
+@app.route('/browse_characters')
+def browse_characters():
+  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby']
+
+  return render_template("browse_characters.html",
+                         characterlist=characterlist)
+
+
+# Displays all users who play a certain character. Routed to from /browse_characters
+@app.route('/character/<character>')
+def character(character):
+  matching_users = User.query.filter(User.main==character).order_by(User.id).all()
+  if matching_users == []:
+    flash('No players found for this character')
+
+  return render_template("character.html",
+                         matching_users=matching_users,
+                         character=character)
+
+
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)
