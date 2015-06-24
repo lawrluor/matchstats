@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1> Browse {{ region }}'s Users </h1>
-  {% for user in matching_users %}
-     <div><p>
-      <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
-      	| <a href="{{ url_for("browse_regions", region=user.region) }}">{{user.region}}</a> 
-    	| {{ user.main }} </b> <!-- prints User representation in HTML given a User object, with route hyperlink to User profile -->
-    </p></div>
+  <h1>Browse All Regions</h1>
+  <!-- simply prints all regions (simple string) in regionlist -->
+  {% for region in regionlist %}
+    <div><b><a href="{{ url_for("region", region=region) }}">{{ region }}</a></b></div>
   {% endfor %}
 {% endblock %}

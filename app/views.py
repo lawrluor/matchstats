@@ -28,6 +28,21 @@ def browse_users():
                         title='Browse Users',
                         userlist=userlist)
 
+# browse regions
+@app.route('/browse_regions')
+def browse_regions():
+  userlist = User.query.order_by(User.id).all()
+  regionlist = []
+  for user in userlist:
+    if user.region not in regionlist:
+      regionlist += [user.region]
+
+  regionlist.sort()
+  
+  return render_template("browse_regions.html", 
+                          title='Browse Regions',
+                          regionlist=regionlist)
+
 
 @app.route('/user_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def user_create():
@@ -201,21 +216,29 @@ def head_to_head():
                         form=form) 
 
 # View all users who play a certain character
-@app.route('/browse_characters/<character>')
-def browse_characters(character):
+@app.route('/character/<character>')
+def character(character):
   matching_users = User.query.filter(User.main==character).order_by(User.id).all()
   if matching_users == []:
     flash('No players found for this character')
-  return render_template("browse_characters.html",
+  return render_template("character.html",
                          matching_users=matching_users,
                          character=character)
 
-@app.route('/browse_regions/<region>')
-def browse_regions(region):
+
+@app.route('/browse_characters')
+def browse_characters():
+  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby']
+
+  return render_template("browse_characters.html",
+                         characterlist=characterlist)
+
+@app.route('/region/<region>')
+def region(region):
   matching_users = User.query.filter(User.region==region).order_by(User.id).all() # checks to see if user.region is identical to region
   if matching_users == []:
     flash('No players found in this region') # no user found with matching region
-  return render_template("browse_regions.html",
+  return render_template("region.html",
                          matching_users=matching_users,
                          region=region)
 

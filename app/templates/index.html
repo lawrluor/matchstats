@@ -16,7 +16,9 @@
     <li> merged 'versus.html' into 'head_to_head.html', and merged route /versus into /head_to_head so that only head_to_head references exist. Revised template to display head to head history on the same page as the search page, /head_to_head. Fixed bugs regarding head to head displays</li>
     <li> Users now explicitly ordered by user_id in /browse_users. Sets now explicitly ordered by set_id in /browse_sets; sets displayed on user and head to head pages now explicitly ordered by set_id </li>
     <li> changed /region route to /browse_regions for consistency, and changed all related templates and routes to support that </li>
-    <li> implemented /browse_characters page where one may view all users who play a certain character, and routed to the page from appropriate pages. </li>
+    <li> implemented /browse_characters page where one may view all the game's characters in tier list order, which route to users who play that character </li>
+    <li> changed /browse_regions to display all regions currently populated, and changed /region to be the page that actually displays users populating the region. </li>
+    <li> added /browse_regions and /browse_characters to the base template </li>
   </ul>
 
   <div> June 22, 2015 </div>
