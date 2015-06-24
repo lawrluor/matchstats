@@ -139,10 +139,16 @@ def head_to_head():
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
   sets = []
-
+  
+  # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
     sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
     sets = sorted(sets, key=lambda x: x.id) # Sort by Set id
+    
+    #if requesting data, i.e. form may be filled after already viewing a current head to head
+    if request.method == 'GET':
+      form.user1.data = tag1 # populates the user1 field (in forms.py) with tag1
+      form.user2.data = tag2
 
   if form.validate_on_submit():
     # user1 and user2 is a string that represents the first user's tag
