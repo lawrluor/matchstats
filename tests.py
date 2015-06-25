@@ -109,5 +109,43 @@ print '\n'
 print "Removing character2 from user2"
 user2.remove_secondaries(character2)
 print user2
+db.session.commit()
 print '\n'
+
+print "Add all characters back to users for further testing purposes"
+user1.add_secondaries(character1)
+user2.add_secondaries(character1)
+user2.add_secondaries(character2)
+db.session.commit()
+print user1
+print user2
+print '\n'
+
+"Testing Character-User functions from Character Class"
+print "Print current characterlist"
+print characterlist
+print '\n'
+
+print "Testing Character.get_users"
+print "character1.get_users"
+print character1.get_users()
+print '\n'
+print "character2.get_users"
+print character2.get_users()
+print '\n'
+
+print "Testing Character.uses_secondary"
+print "character1.uses_secondary(user1), should return True"
+print character1.uses_secondary(user1)
+print "character1.uses_secondary(user2), should return True"
+print character1.uses_secondary(user2)
+print '\n'
+print "character2.uses_secondary(user1), should return False"
+print character2.uses_secondary(user1)
+print "character2.uses_secondary(user2), should return True"
+print character2.uses_secondary(user2)
+print '\n'
+
+
+
 

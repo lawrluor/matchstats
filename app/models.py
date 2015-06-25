@@ -14,6 +14,14 @@ class Character(db.Model):
 
   def __str__(self):
     return 'id: ' + str(self.id) + ', name: ' + self.name
+  
+  # Uses users backref to query for Users
+  def get_users(self):
+    return self.users.all()
+
+  def uses_secondary(self, user):
+    return self.users.filter(and_(secondaries.c.user_id==user.id, secondaries.c.character_id==self.id)).count() > 0
+    
 
 # association table between Character and User
 secondaries = db.Table('secondaries',
@@ -40,6 +48,8 @@ class User(db.Model):
   def __str__(self):
     return self.tag + ' | Region: ' + str(self.region) + ' | Main: ' + self.main + ' | Secondaries: ' + str(self.secondaries.all())
   
+
+  # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
   def getWonSets(self):
     sets_won = Set.query.filter(Set.winner_tag==self.tag).order_by(Set.id).all()
@@ -74,7 +84,6 @@ class User(db.Model):
 
   def is_secondary(self, character):
     return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
-
 
 
 # Set is the one in a one-to-many relationship with model Match

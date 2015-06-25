@@ -11,7 +11,12 @@
 
   <h3>Recent Updates</h3>
 
-<h4> June 24, 2015 </h4>
+  <h4> June 25, 2015 </h5>
+  <ul>
+    <li> implemented Character-User functions from Character class, and updated unit test (tests.py) </li>
+  </ul>
+
+  <h4> June 24, 2015 </h4>
   <ul>
     <li> NOTE: large bug: werkzeug.routing.BuildError, when viewing /browse_users and /browse_regions when it claims that the route to /region/region when displaying a user (tag, region, main) doesn't exist. This is actually because it is being passed a parameter of None from a new User who does not have the attribute region filled out, so the route is essentially /region/None rather than /region/region. The same holds true for other empty yet required attributes. Clear the database of these types of objects </li>
     <li> optimized /head_to_head, and now checks for query string variable existence first </li>
@@ -19,6 +24,7 @@
     <li> /user_create now requests for character main using a dropdown (SelectField) list. optimized forms.py </li>
     <li> added Characters as Model, Secondaries as relationship table between Characters and Users </li>
     <li> fixed User functions for querying and displaying User.secondaries </li>
+    <li> revised User-Character functions, updated unit test (tests.py) </li>
   </ul>
 
   <h4> June 23, 2015 </h4>
