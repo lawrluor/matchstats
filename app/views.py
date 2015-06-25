@@ -270,6 +270,7 @@ def character(character):
   if main_matching_users == []:
     flash('No players found that main this character')
   
+  # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object:
     secondaries_matching_users = character_object.get_users()
@@ -285,6 +286,16 @@ def character(character):
                          character=character)
 
 
+#Displays all sets in a given tournament
+@app.route('/tournament/<tournament>')
+def tournament(tournament):
+  tournament_setlist = Set.query.filter(Set.tournament==tournament).order_by(Set.id).all()
+  if tournament_setlist == []:
+    flash('No sets found for this tournament.')
+  
+  return render_template("tournament.html",
+                         tournament=tournament,
+                         tournament_setlist=tournament_setlist)
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)
