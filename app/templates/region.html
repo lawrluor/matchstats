@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
   <h1> {{ region }}'s Users </h1>
-  {% for user in matching_users %}
-    {% include 'user_display.html' %}
-  {% endfor %}
+  {% if matching_users|length < 1 %}
+  	There are no Users currently in this region.
+  {% else %}
+  	{% for user in matching_users %}
+    	{% include 'user_display.html' %}
+  	{% endfor %}
+  {% endif %}
 {% endblock %}
