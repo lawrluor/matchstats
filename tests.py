@@ -147,5 +147,16 @@ print character2.uses_secondary(user2)
 print '\n'
 
 
+# Clear database to original form when finished
+userlist = User.query.all()
+characterlist = Character.query.all()
+
+for user in userlist[8:]:
+	db.session.delete(user)
+
+for character in characterlist:
+	db.session.delete(character)
+
+db.session.commit()
 
 

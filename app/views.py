@@ -2,7 +2,7 @@
 
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
-from models import User, Set, Match
+from models import User, Set, Match, Character, secondaries
 from forms import UserCreate, SetCreate, MatchSubmit, HeadToHead
 from sqlalchemy import and_
 
@@ -20,19 +20,29 @@ def user_create():
     created_tag = form.user_tag.data # stores entered value in variable
     created_region = form.user_region.data
     created_main = form.user_main.data
+    created_secondaries = form.user_secondaries.data
 
-    
     # create user row, initializing user object
     new_user = User(tag=created_tag,
                 main=created_main,
-                region=created_region)
+                region=created_region
+                )
 
     # commit to db
     db.session.add(new_user)
     db.session.commit()
     flash('User creation successful.')
+    
+    # add user secondaries using User-Character self methods
+    for i in range(len(created_secondaries)):
+      if created_secondaries[i] != "Unchosen":
+        character = Character.query.filter(Character.name == created_secondaries[i]).all() # due to nature of query, returns list of one Character object
+        new_user.add_secondaries(character[0]) # returns the one Character object
+    
+    db.session.commit()
+    flash('Secondaries added to User.')
+    return redirect('/browse_users')
 
-    return redirect('/index')
   return render_template('user_create.html', # renders template for creating user if called before user enters data
                         title='Create User',
                         form=form)
