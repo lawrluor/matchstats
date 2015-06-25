@@ -79,7 +79,7 @@ class User(db.Model):
 
     processed_secondaries = []
     for i in range(len(all_secondaries)):
-      char_name = all_secondaries[i].name
+      char_name = str(all_secondaries[i])
       processed_secondaries.append(char_name)
 
     return processed_secondaries # This is a list of strings that represent Character objects

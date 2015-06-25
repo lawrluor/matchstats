@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1> Users who play {{ character }} </h1>
-  {% for user in matching_users %}
+  <h1> {{ character }} </h1>
+
+  <h3>  Users who main {{ character }} </h3>
+  {% for user in main_matching_users %}
     {% include 'user_display.html' %}
   {% endfor %}
+
+<BR>&nbsp;<BR> <!-- Line break -->
+	
+  <h3> Users who secondary {{ character }} </h3>
+  {% for user in secondaries_matching_users %}
+    {% include 'user_display.html' %}
+  {% endfor %}
+
 {% endblock %}

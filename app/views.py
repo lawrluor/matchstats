@@ -258,7 +258,7 @@ def browse_regions():
 # Displays a list of all SSBM characters, each of which links to /character/<character>
 @app.route('/browse_characters')
 def browse_characters():
-  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby']
+  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby', 'Random', 'Unchosen', 'Multiple']
 
   return render_template("browse_characters.html",
                          characterlist=characterlist)
@@ -267,12 +267,18 @@ def browse_characters():
 # Displays all users who play a certain character. Routed to from /browse_characters
 @app.route('/character/<character>')
 def character(character):
-  matching_users = User.query.filter(User.main==character).order_by(User.id).all()
-  if matching_users == []:
-    flash('No players found for this character')
+  main_matching_users = User.query.filter(User.main==character).order_by(User.id).all()
+  if main_matching_users == []:
+    flash('No players found that main this character')
+  
+  character_object = Character.query.filter(Character.name==character).first()
+  secondaries_matching_users = character_object.get_users()
+  if secondaries_matching_users == []:
+    flash('No players found that secondary this character')
 
   return render_template("character.html",
-                         matching_users=matching_users,
+                         main_matching_users=main_matching_users,
+                         secondaries_matching_users=secondaries_matching_users,
                          character=character)
 
 
