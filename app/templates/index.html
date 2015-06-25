@@ -24,6 +24,8 @@
     <li> implemented conditional checking for User (variable) existence indirectly in region.html. Created clear_database.py, which clears the database of all non-Character objects. </li>
     <li> fixed bug on /character in which nonplayable secondary Characters caused the database to crash. Did cleanup work on various templates </li>
     <li> added tournament column to Set model, and updated templates to display it when representing a set if tournament info is available </li>
+    <li> added /tournament route that takes parameter tournament, and will query and display all sets for that given tournament </li>
+    <li> added 'tournament.html' which displays all sets from a given tournament. updated other templates to include Set.tournament when relevant and route to it</li>
   </ul>
 
   <h4> June 24, 2015 </h4>
@@ -77,8 +79,7 @@
     <li> stage field for matches during set creation are now entered using a SelectField dropdown menu </li>
     <li> added intelligent "validation" system to ensure legal sets are created </li>
     <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method </li>
-    <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li>
-    <li> added /tournament route that takes parameter tournament, and will query and display all sets for that given tournament </li> 
+    <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li> 
   </ul>
 
   <h4> June 19, 2015 </h4>

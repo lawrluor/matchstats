@@ -1,6 +1,6 @@
 <div><p><b>
 	{% if set.tournament %} 
-		{{ set.tournament }} -  
+		<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a> - 
 	{% endif %}
 	<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a> vs 
 	<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a>:
