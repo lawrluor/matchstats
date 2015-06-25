@@ -62,17 +62,17 @@ class User(db.Model):
   def get_secondaries(self):
     return self.secondaries.all()
   
-  def link_secondaries(self, character):
-    if not self.is_linked(character):
+  def add_secondaries(self, character):
+    if not self.is_secondary(character):
       self.secondaries.append(character)
       return self
   
-  def unlink_secondaries(self, character):
-    if not self.is_linked(character):
+  def remove_secondaries(self, character):
+    if self.is_secondary(character):
       self.secondaries.remove(character)
       return self
 
-  def is_linked(self, character):
+  def is_secondary(self, character):
     return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
 
 

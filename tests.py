@@ -34,39 +34,42 @@ db.session.add(user2)
 db.session.add(character2)
 db.session.commit()
 
-
+print '\n'
 print "Print all Users and Characters in current database"
 userlist = User.query.all()
 characterlist = Character.query.all()
+print '\n'
 
+print "Current userlist"
 for user in userlist:
 	print user
 print '\n'
 
+print "Current characterlist"
 for character in characterlist:
 	print character
 print '\n'
 
 
 # Tests start here
-print "Testing User.is_linked; should return False"
-print user1.is_linked(character1)
-print user2.is_linked(character2)
+print "Testing User.is_secondary; should return False"
+print user1.is_secondary(character1)
+print user2.is_secondary(character2)
 print '\n'
 
-print "Testing User.link_secondaries"
-user1.link_secondaries(character1)
+print "Testing User.add_secondaries"
+user1.add_secondaries(character1)
 db.session.commit()
 print user1
 print '\n'
-user2.link_secondaries(character2)
+user2.add_secondaries(character2)
 db.session.commit()
 print user2
 print '\n'
 
-print "Tests if User linked to character using User.is_linked: should now return True"
-print user1.is_linked(character1)
-print user2.is_linked(character2)
+print "Tests if Character now in User.secondaries using User.is_secondary: should now return True"
+print user1.is_secondary(character1)
+print user2.is_secondary(character2)
 print '\n'
 print "Print all User's secondaries"
 print user1.secondaries.all()
@@ -82,11 +85,29 @@ print user2.get_secondaries()
 print '\n'
 
 print "Appending Secondaries to Users"
-print "user2 not yet linked with character1, should return False"
-print user2.is_linked(character1)
-user2.link_secondaries(character1)
-print "user2 now linked with character1, is_linked should now return True"
-print user2.is_linked(character1)
-print user2.get_secondaries()
+print "character1 not yet in User.secondaries, should return False"
+print user2.is_secondary(character1)
+user2.add_secondaries(character1)
+print "character1 now in User.secondaries, is_secondary should now return True"
+print user2.is_secondary(character1)
 print user2
 print '\n'
+
+print "Testing User.remove_secondaries"
+print "Removing character1 from user2"
+user2.remove_secondaries(character1)
+print user2
+print user2.get_secondaries()
+print '\n'
+print "Removing character1 from user1"
+user1.remove_secondaries(character1)
+print user1
+print "Removing character1 from user1: nothing should change"
+user1.remove_secondaries(character1)
+print user1
+print '\n'
+print "Removing character2 from user2"
+user2.remove_secondaries(character2)
+print user2
+print '\n'
+
