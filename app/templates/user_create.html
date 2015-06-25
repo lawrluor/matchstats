@@ -8,16 +8,19 @@
     <p>
       Please enter the user's tag:<br>
       {{ form.user_tag(size=90) }}<br>
+      <br>
       Please enter the user's region:<br>
       {{ form.user_region(size=90) }}<br>
+      <br>
       Please enter the user's main:<br>
       {{ form.user_main }}<br>
-      Enter the user's secondaries, if any:<br>
+      <br>
+      Enter all the user's secondaries; if none, simply leave all the checkboxes blank:<br>
       {{ form.user_secondaries }}<br>
 
       {% for error in form.user_tag.errors and form.user_main.errors %}
         <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
-      {% endfor %}<br>
+      {% endfor %}
     </p>
     <p><input type="submit" value="Create user"></p>
   </form>

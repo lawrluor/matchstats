@@ -1,16 +1,19 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField # open fields to take input from person
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, RadioField, SelectMultipleField, widgets # open fields to take input from person
 from wtforms.validators import DataRequired, InputRequired, Required # checks to make sure field isn't empty
 
-# character choice list for SelectField; a constant list taken by SelectField containing all the characters
-char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby'), ('Random', 'Random'), ('Unchosen', 'Unchosen')]
+# main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
+main_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby'), ('Random', 'Random'), ('Unchosen', 'Unchosen'), ('Multiple', 'Multiple')]
+
+# secondaries character choice list for SelectField; a constant list taken by SelectField containing only the 26 SSBM Characters
+secondaries_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby')]
 
 
 class UserCreate(Form):
   user_tag = StringField('tag', validators=[DataRequired()])
   user_region = StringField('region', validators=[DataRequired()])
-  user_main = SelectField('main', choices=char_choices, coerce=str, validators=[DataRequired()])
-  user_secondaries = SelectMultipleField('secondary1', choices=char_choices, coerce=str)
+  user_main = SelectField('main', choices=main_char_choices, coerce=str, validators=[DataRequired()])
+  user_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False), coerce=str)
 
 class SetCreate(Form):
   set_winner_tag = StringField('winner_tag', validators=[DataRequired()])
@@ -25,8 +28,8 @@ class MatchSubmit(Form):
   # Data not required in case no match info is known (no validators for fields)
   match_winner = StringField('match_winner')
   match_loser = StringField('match_loser')
-  winner_char = SelectField('winner_char', choices=char_choices)
-  loser_char = SelectField('loser_char', choices=char_choices)
+  winner_char = SelectField('winner_char', choices=main_char_choices)
+  loser_char = SelectField('loser_char', choices=main_char_choices)
 
 # SelectField format for choices: The first (value, label) is the actual value. The label is what appears in the dropdown menu. In this case, both should be the samei
 

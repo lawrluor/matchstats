@@ -11,9 +11,10 @@ class Character(db.Model):
 
   def __repr__(self):
     return '<id: %s, name: %s>' % (self.id, self.name)
-
+  
+  # for incorporation into other features, simply displays Character name
   def __str__(self):
-    return 'id: ' + str(self.id) + ', name: ' + self.name
+    return self.name
   
   # Uses users backref to query for Users
   def get_users(self):
@@ -69,9 +70,19 @@ class User(db.Model):
 
   # User-Character Relationship functions
   # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
+  # self.secondaries.all() returns list of Character objects, in __repr__() form
   def get_secondaries(self):
-    return self.secondaries.all()
-  
+    secondaries = self.secondaries.all()
+    
+    # secondaries is list.. yet not iterable?
+    # secondaries.name yields 'list' object has no attribute 'name'
+    """
+    processed_secondaries = []
+    for i in range(len(secondaries)):
+      processed_secondaries += secondaries[i]
+    """
+    return secondaries
+   
   def add_secondaries(self, character):
     if not self.is_secondary(character):
       self.secondaries.append(character)
