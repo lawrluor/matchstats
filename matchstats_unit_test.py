@@ -5,7 +5,7 @@ import unittest
 
 from config import basedir
 from app import app, db
-from app.models import User, Set, Match
+from app.models import *
 
 userlist = User.query.all()
 setlist = Set.query.all()
@@ -83,6 +83,8 @@ print "Testing Set.getSetLoserID"
 print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
+
+
 
 
 #clear non APEX 2015 users, sets, and matches

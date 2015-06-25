@@ -215,22 +215,6 @@ def user(tag):
                         user_won_sets=user_won_sets) # pass user's sets in variable user_sets  to form user.html 
 
 
-# Displays all regions currently populated by players. Each displayed region will route to /region/<region>
-@app.route('/browse_regions')
-def browse_regions():
-  userlist = User.query.order_by(User.id).all()
-  regionlist = []
-  for user in userlist:
-    if user.region not in regionlist:
-      regionlist += [user.region]
-
-  regionlist.sort()
-  
-  return render_template("browse_regions.html", 
-                          title='Browse Regions',
-                          regionlist=regionlist)
-
-
 # Displays all users given a region. Routed to from /browse_regions
 @app.route('/region/<region>')
 def region(region):
@@ -240,6 +224,25 @@ def region(region):
   return render_template("region.html",
                          matching_users=matching_users,
                          region=region)
+
+
+# Displays all regions currently populated by players. Each displayed region will route to /region/<region>
+@app.route('/browse_regions')
+def browse_regions():
+
+  userlist = User.query.order_by(User.id).all()
+  regionlist = []
+  for user in userlist:
+    if user.region not in regionlist:
+      regionlist += [user.region]
+
+  regionlist.sort()
+
+  return render_template("browse_regions.html", 
+                          title='Browse Regions',
+                          regionlist=regionlist)
+
+
 
 
 # Displays a list of all SSBM characters, each of which links to /character/<character>
