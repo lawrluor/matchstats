@@ -16,6 +16,7 @@ class UserCreate(Form):
   user_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False), coerce=str)
 
 class SetCreate(Form):
+  set_tournament = StringField('tournament')
   set_winner_tag = StringField('winner_tag', validators=[DataRequired()])
   set_loser_tag = StringField('loser_tag', validators=[DataRequired()])
   set_winner_score = IntegerField('winner_score', validators=[InputRequired()])

@@ -1,5 +1,5 @@
 #!flask/bin/python
-#Currently only supports APEX 2015 Top 8 Results
+#Currently only supports APEX 2015 Top 8 Results: Current as of June 25 2015, 4:28 PM
 import os
 import unittest
 
@@ -18,14 +18,14 @@ print '\n'
 print matchlist
 
 print "Testing User connections to Set"
-Shroomed = userlist[0]
-Hungrybox = userlist[1]
-KirbyKaze = userlist[2]
-aMSa = userlist[3]
-PPMD = userlist[4]
-Armada = userlist[5]
-Leffen = userlist[6]
-Mango = userlist[7]
+PPMD = userlist[0]
+Armada = userlist[1]
+Leffen = userlist[2]
+Mango = userlist[3]
+Hungrybox = userlist[4]
+aMSa = userlist[5]
+KirbyKaze = userlist[6]
+Shroomed = userlist[7]
 print '\n'
 
 print "Testing User.getWonSets"
@@ -53,10 +53,10 @@ print '\n'
 print "Testing Set connections to User"
 hungrybox_shroomed = setlist[0]
 aMSa_kirbykaze = setlist[1]
-leffen_mango = setlist[2]
-PPMD_armada = setlist[3]
-mango_aMSa = setlist[4]
-armada_hungrybox = setlist[5]
+PPMD_armada = setlist[2]
+leffen_mango = setlist[3]
+armada_hungrybox = setlist[4]
+mango_aMSa = setlist[5]
 armada_mango = setlist[6]
 PPMD_leffen = setlist[7]
 armada_leffen = setlist[8]
@@ -84,7 +84,17 @@ print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
 
-
+aMSa_kirbykaze.tournament = "Apex 2015"
+PPMD_armada.tournament = "Apex 2015"
+leffen_mango.tournament = "Apex 2015"
+armada_hungrybox.tournament = "Apex 2015"
+mango_aMSa.tournament = "Apex 2015"
+armada_mango.tournament = "Apex 2015"
+PPMD_leffen.tournament = "Apex 2015"
+armada_leffen.tournament = "Apex 2015"
+armada_PPMD_GF1.tournament = "Apex 2015"
+PPMD_armada_GF2.tournament = "Apex 2015"
+db.session.commit()
 
 
 #clear non APEX 2015 users, sets, and matches

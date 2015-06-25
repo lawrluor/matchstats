@@ -110,12 +110,13 @@ class Set(db.Model):
   max_match_count = db.Column(db.Integer)
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
+  tournament = db.Column(db.String(64), index=True)
   
   def __repr__(self):
-    return '<winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
+    return '<tournament %s: | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __str__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.winner_tag + '_' + str(self.winner_id) + ' vs ' + self.loser_tag + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag
+    return self.tournament + ': ' + self.winner_tag + '_' + str(self.winner_id) + ' vs ' + self.loser_tag + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag
   
   # returns winner (user) of this set
   def getSetWinner(self):
