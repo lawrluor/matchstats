@@ -35,7 +35,7 @@ def user_create():
     
     # add user secondaries using User-Character self methods
     for i in range(len(created_secondaries)):
-      if created_secondaries[i] != "Unchosen":
+      if created_secondaries[i] != "Unchosen" and created_secondaries[i] != new_user.main:
         character = Character.query.filter(Character.name == created_secondaries[i]).all() # due to nature of query, returns list of one Character object
         new_user.add_secondaries(character[0]) # returns the one Character object
     
