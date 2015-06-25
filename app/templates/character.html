@@ -1,11 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1> Users who play {{ character }}</h1>
+  <h1> Users who play {{ character }} </h1>
   {% for user in matching_users %}
-     <div><p>
-      <b> <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
-      	| <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
-        | <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a> </b>
-    </p></div>
+    {% include 'user_display.html' %}
   {% endfor %}
 {% endblock %}

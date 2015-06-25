@@ -72,16 +72,17 @@ class User(db.Model):
   # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
   # self.secondaries.all() returns list of Character objects, in __repr__() form
   def get_secondaries(self):
-    secondaries = self.secondaries.all()
+    all_secondaries = self.secondaries.all()
     
-    # secondaries is list.. yet not iterable?
+    # all_secondaries is list.. yet not iterable?
     # secondaries.name yields 'list' object has no attribute 'name'
-    """
+
     processed_secondaries = []
-    for i in range(len(secondaries)):
-      processed_secondaries += secondaries[i]
-    """
-    return secondaries
+    for i in range(len(all_secondaries)):
+      char_name = all_secondaries[i].name
+      processed_secondaries.append(char_name)
+
+    return processed_secondaries # This is a list of strings that represent Character objects
    
   def add_secondaries(self, character):
     if not self.is_secondary(character):
