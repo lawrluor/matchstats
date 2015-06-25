@@ -1,5 +1,5 @@
 from app import db # imports database object from __init__.py
-from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy import Table, Column, Integer, ForeignKey, and_
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -59,7 +59,7 @@ class User(db.Model):
 
   # User-Character Relationship functions
   # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
-  def get_secondaries(self, character):
+  def get_secondaries(self):
     return self.secondaries.all()
   
   def link_secondaries(self, character):
@@ -73,7 +73,7 @@ class User(db.Model):
       return self
 
   def is_linked(self, character):
-    return self.secondaries.filter(secondaries.c.user_id == self.id).count() > 0
+    return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
 
 
 
