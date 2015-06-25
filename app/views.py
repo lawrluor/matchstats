@@ -214,15 +214,14 @@ def user(tag):
   if user is None:
     flash('User %s not found.' % tag)
     return redirect(url_for('index'))
+  
   user_sets = user.getAllSets() # Store all user's sets in variable user_sets
-  user_lost_sets = user.getLostSets()
-  user_won_sets = user.getWonSets()
+  user_secondaries = user.get_secondaries()
   return render_template("user.html",
                         title=tag,
                         user=user,
                         user_sets=user_sets,
-                        user_lost_sets=user_lost_sets,
-                        user_won_sets=user_won_sets) # pass user's sets in variable user_sets  to form user.html 
+                        user_secondaries=user_secondaries)
 
 
 # Displays all users given a region. Routed to from /browse_regions

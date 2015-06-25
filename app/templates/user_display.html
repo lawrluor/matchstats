@@ -3,4 +3,5 @@
 		 <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
        | <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
        | <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+       | {{ user.get_secondaries() }}
     </b></p></div>
