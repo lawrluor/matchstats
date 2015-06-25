@@ -271,9 +271,13 @@ def character(character):
     flash('No players found that main this character')
   
   character_object = Character.query.filter(Character.name==character).first()
-  secondaries_matching_users = character_object.get_users()
-  if secondaries_matching_users == []:
-    flash('No players found that secondary this character')
+  if character_object:
+    secondaries_matching_users = character_object.get_users()
+  else:
+    secondaries_matching_users = []
+
+    if secondaries_matching_users == []:
+      flash('No players found that secondary this character')
 
   return render_template("character.html",
                          main_matching_users=main_matching_users,
