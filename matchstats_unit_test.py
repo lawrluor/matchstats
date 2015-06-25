@@ -107,21 +107,3 @@ print matchlist
 print '\n'
 
 db.session.commit()
-
-"""
-#clear entire database
-for user in userlist:
-	db.session.delete(user)
-
-for set in setlist:
-	db.session.delete(set)
-
-for match in matchlist:
-	db.session.delete(match)
-
-print userlist
-print setlist
-print matchlist
-
-db.session.commit()
-"""

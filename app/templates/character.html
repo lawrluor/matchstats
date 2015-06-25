@@ -3,15 +3,22 @@
   <h1> {{ character }} </h1>
 
   <h3>  Users who main {{ character }} </h3>
-  {% for user in main_matching_users %}
-    {% include 'user_display.html' %}
-  {% endfor %}
+  {% if main_matching_users|length < 1 %}
+    There are no Users who currently main this character.
+  {% else %}
+    {% for user in main_matching_users %}
+      {% include 'user_display.html' %}
+    {% endfor %}
+  {% endif %}
 
 <BR>&nbsp;<BR> <!-- Line break -->
 	
   <h3> Users who secondary {{ character }} </h3>
-  {% for user in secondaries_matching_users %}
-    {% include 'user_display.html' %}
-  {% endfor %}
-
+  {% if secondaries_matching_users|length < 1 %}
+    There are no Users who currently secondary this character.
+  {% else %}
+    {% for user in secondaries_matching_users %}
+      {% include 'user_display.html' %}
+    {% endfor %}
+  {% endif %}
 {% endblock %}
