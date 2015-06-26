@@ -19,7 +19,8 @@ class UserEdit(Form):
   edit_tag = StringField('tag', validators=[DataRequired()])
   edit_region = StringField('region', validators=[DataRequired()])
   edit_main= SelectField('main', choices=main_char_choices, validators=[DataRequired()])
-  edit_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
+  add_secondaries = SelectMultipleField('add_secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
+  remove_secondaries = SelectMultipleField('remove_secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
 
 
 

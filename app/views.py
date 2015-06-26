@@ -56,6 +56,11 @@ def user_edit(user):
     current_user.tag = form.edit_tag.data
     current_user.region = form.edit_region.data
     current_user.main = form.edit_main.data
+    add_characterlist = form.add_secondaries.data
+    remove_characterlist = form.remove_secondaries.data
+
+    current_user.add_secondaries_list(add_characterlist)
+    current_user.remove_secondaries_list(remove_characterlist)
     
     db.session.commit()
     flash('Changes have been saved.')

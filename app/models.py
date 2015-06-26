@@ -88,6 +88,20 @@ class User(db.Model):
     if not self.is_secondary(character):
       self.secondaries.append(character)
       return self
+
+  def add_secondaries_list(self, characterlist):
+    for i in range(len(characterlist)):
+      if characterlist[i] != "Unchosen" and characterlist[i] != self.main:
+        character = Character.query.filter(Character.name == characterlist[i]).all() # due to nature of query, returns list of one Character object
+        self.add_secondaries(character[0]) # returns the one Character object
+    return self
+
+  def remove_secondaries_list(self, characterlist):
+    for i in range(len(characterlist)):
+      if characterlist[i] != "Unchosen" and characterlist[i] != self.main:
+        character = Character.query.filter(Character.name == characterlist[i]).all() # due to nature of query, returns list of one Character object
+        self.remove_secondaries(character[0]) # returns the one Character object
+    return self
   
   def remove_secondaries(self, character):
     if self.is_secondary(character):
