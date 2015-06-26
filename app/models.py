@@ -2,6 +2,7 @@ from app import db # imports database object from __init__.py
 from sqlalchemy import Table, Column, Integer, ForeignKey, and_
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
+from forms import main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 
 # the Child to the Parent User in User-Character association
 class Character(db.Model):
@@ -83,33 +84,33 @@ class User(db.Model):
       processed_secondaries.append(char_name)
 
     return processed_secondaries # This is a list of strings that represent Character objects
-   
+
+  def is_secondary(self, character):
+    return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
+
   def add_secondaries(self, character):
     if not self.is_secondary(character):
       self.secondaries.append(character)
       return self
-
-  def add_secondaries_list(self, characterlist):
-    for i in range(len(characterlist)):
-      if characterlist[i] != "Unchosen" and characterlist[i] != self.main:
-        character = Character.query.filter(Character.name == characterlist[i]).all() # due to nature of query, returns list of one Character object
-        self.add_secondaries(character[0]) # returns the one Character object
-    return self
-
-  def remove_secondaries_list(self, characterlist):
-    for i in range(len(characterlist)):
-      if characterlist[i] != "Unchosen" and characterlist[i] != self.main:
-        character = Character.query.filter(Character.name == characterlist[i]).all() # due to nature of query, returns list of one Character object
-        self.remove_secondaries(character[0]) # returns the one Character object
-    return self
   
   def remove_secondaries(self, character):
     if self.is_secondary(character):
       self.secondaries.remove(character)
       return self
 
-  def is_secondary(self, character):
-    return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
+  def add_secondaries_list(self, characterlist):
+    for i in range(len(characterlist)):
+      if characterlist[i] in secondaries_char_list and characterlist[i] != self.main:
+        character = Character.query.filter(Character.name == characterlist[i]).first()
+        self.add_secondaries(character)
+    return self
+
+  def remove_secondaries_list(self, characterlist):
+    for i in range(len(characterlist)):
+      if characterlist[i] in secondaries_char_list and characterlist[i] != self.main:
+        character = Character.query.filter(Character.name == characterlist[i]).first()
+        self.remove_secondaries(character)
+    return self
 
 
 # Set is the one in a one-to-many relationship with model Match
