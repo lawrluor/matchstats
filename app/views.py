@@ -60,7 +60,8 @@ def set_create():
     set_loser_tag = form.set_loser_tag.data
     set_winner_id = set_winner.id
     set_loser_id = set_loser.id
-
+    
+    created_set_tournament = form.set_tournament.data
     created_set_winner_score = form.set_winner_score.data
     created_set_loser_score = form.set_loser_score.data
     created_total_matches = created_set_loser_score + created_set_winner_score
@@ -83,7 +84,8 @@ def set_create():
                   winner_score=created_set_winner_score,
                   loser_score=created_set_loser_score,
                   max_match_count=created_max_match_count,
-                  total_matches=created_total_matches
+                  total_matches=created_total_matches,
+                  tournament=created_set_tournament
                   )
     
 
