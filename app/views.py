@@ -157,7 +157,7 @@ def set_edit(set_id):
   form = SetEdit()
   
   if form.validate_on_submit():
-    current_set.max_match_count = int(form.edit_max_match_count.data)
+    current_set.max_match_count = form.edit_max_match_count.data
     current_set.tournament = form.edit_tournament.data
     current_set.winner_tag = form.edit_winner_tag.data
     current_set.loser_tag = form.edit_loser_tag.data
@@ -183,6 +183,7 @@ def set_edit(set_id):
 
   else:
     # if not submitted form, pre-populate them with the set's current (prior to edit) info
+    form.edit_max_match_count.data = current_set.max_match_count
     form.edit_tournament.data = current_set.tournament
     form.edit_winner_tag.data = current_set.winner_tag
     form.edit_loser_tag.data = current_set.loser_tag

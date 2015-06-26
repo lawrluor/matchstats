@@ -9,9 +9,9 @@
     {% else %}
     Non-Tourney - 
     {% endif %}
-    {{set.winner_tag}} vs {{set.loser_tag}}: ({{set.winner_score}}-{{set.loser_score}})
+    {{set.winner_tag}} vs {{set.loser_tag}}: ({{set.winner_score}}-{{set.loser_score}}) {{set.winner_tag}}
   </h1>
-  
+
   <form action="" method="post" name="edit">
 
       {{form.hidden_tag()}}
@@ -23,7 +23,7 @@
       <table>
           <tr>
               <td>Edit Set Type:</td>
-              <td>{{ form.edit_max_match_count }}</td>
+              <td>{{ form.edit_max_match_count(size=18) }}</td>
           </tr>
           <tr>
               <td>Edit Set Tournament:</td>

@@ -42,7 +42,7 @@ class SetEdit(Form):
   edit_loser_tag = StringField('loser_tag', validators=[DataRequired()])
   edit_winner_score = IntegerField('winner_score', validators=[InputRequired()])
   edit_loser_score = IntegerField('loser_score', validators=[InputRequired()])
-  edit_max_match_count = SelectField('Best of:', choices = [('1','1'), ('3','3'), ('5','5'), ('7','7')], validators=[Required()]) # choices are strings, not integers, but are converted to integers in views.py - this is because it was buggy otherwise.
+  edit_max_match_count = IntegerField('max_match_count', validators=[InputRequired()])
 
 class MatchSubmit(Form):
   match_stage = SelectField('match_stage', choices = [('Battlefield', 'Battlefield'), ('Dream Land', 'Dream Land'), ('Final Destination', 'Final Destination'), ('Fountain of Dreams', 'Fountain of Dreams'), ('Pokemon Stadium', 'Pokemon Stadium'), ('Yoshi\'s Story', 'Yoshi\'s Story'), ('Other', 'Other')], coerce=str)
