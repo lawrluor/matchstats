@@ -11,10 +11,31 @@
 	{% if user.main %}
     <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
     {% else %}
-    <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a> | 
+    <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
     {% endif %}
-    
-    {{ user.get_secondaries() }}
+
+    <!-- store value of user.get_secondaries() (a list of Character objects) in user_secondaries -->
+    {% set user_secondaries = user.get_secondaries() -%}
+
+    {% if user_secondaries|length > 3 %}
+    	 | [ {{ user_secondaries[1] }}, {{ user_secondaries[2] }}, {{ user_secondaries[3]}}... ]
+    {% elif user_secondaries|length < 1 %}
+    <!-- print nothing -->
+    {% else %}
+    	| [
+		{% for i in range(user_secondaries|count) %}
+    		<!-- if last secondary, don't print out a comma after -->
+    		{% if i == (user_secondaries|count - 1) %}
+				{{user_secondaries[i]}}
+    		{% else %}
+				{{user_secondaries[i]}}, 
+    		{% endif %}
+    	{% endfor %}
+		]
+   	{% endif %}
+
+   	<!-- None of these prints are actual lists. They are strings joined within string '[', ']' brackets. -->
+
 </b></div>
 
 <br>
