@@ -2,7 +2,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Edit Set: {{ set }} </h1>
+  <h1>Edit Set: 
+    <!-- print representation of Set without extra formatting from post.html -->
+    {% if set.tournament %}
+    {{ set.tournament }} - 
+    {% else %}
+    Non-Tourney - 
+    {% endif %}
+    {{set.winner_tag}} vs {{set.loser_tag}}: ({{set.winner_score}}-{{set.loser_score}})
+  </h1>
+  
   <form action="" method="post" name="edit">
 
       {{form.hidden_tag()}}

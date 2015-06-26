@@ -89,35 +89,30 @@ def set_create():
     set_loser_tag = form.set_loser_tag.data
 
     # Based on winner and loser tag submitted through form, queries User database to locate the respective Users
-    if User.query.filter(User.tag==set_winner_tag).first() is not None:
-      set_winner = User.query.filter(User.tag==set_winner_tag).first()
-      set_winner_id = set_winner.id
-    else:
+    set_winner = User.query.filter(User.tag==set_winner_tag).first()
+    set_winner_id = set_winner.id
+    if set_winner is None:
       # Create new user, initializing tag (User.id automatically assigned)
       new_user_winner = User(tag=form.set_winner_tag.data) 
       set_winner_id = new_user_winner.id
       db.session.add(new_user_winner)
-    
-    if User.query.filter(User.tag==set_loser_tag).first() is not None:
-      set_loser = User.query.filter(User.tag==set_loser_tag).first()
-      set_loser_id = set_loser.id
-    else:
+      
+    set_loser = User.query.filter(User.tag==set_loser_tag).first()
+    set_loser_id = set_loser.id
+    if set_loser is None:
       # Create new user, initializing tag (User.id automatically assigned) 
       new_user_loser = User(tag=form.set_loser_tag.data) 
       set_loser_id = new_user_loser.id
       db.session.add(new_user_loser)
 
     created_set_tournament = form.set_tournament.data
-    created_set_winner_score = form.set_winner_score.data
-    created_set_loser_score = form.set_loser_score.data
+    created_set_winner_score = int(form.set_winner_score.data)
+    created_set_loser_score = int(form.set_loser_score.data)
     created_total_matches = created_set_loser_score + created_set_winner_score
     created_max_match_count = int(form.set_max_match_count.data)
    
     # Check to see if set score count is valid for type of set, and winner score>loser score
-    if ((created_set_winner_score <= created_set_loser_score) or 
-      ((created_set_winner_score > ((created_max_match_count / 2.0) + 1)) or 
-      (created_set_winner_score < (created_max_match_count / 2.0)))):
-      
+    if invalidScores(created_set_winner_score, created_set_loser_score, created_max_match_count):   
       flash("Check to make sure you have entered the appropriate scores for the set score count.")
       return redirect(url_for('set_create'))
 
@@ -146,6 +141,13 @@ def set_create():
                         form=form
                         )
 
+# helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
+def invalidScores(winner_score, loser_score, max_match_count):
+  if ((winner_score <= loser_score) or 
+    ((winner_score > ((max_match_count / 2.0) + 1)) or 
+    (winner_score < (max_match_count / 2.0)))):
+    return True 
+
 
 @app.route('/set_edit/<set_id>', methods=['GET','POST'])
 def set_edit(set_id):
@@ -159,6 +161,13 @@ def set_edit(set_id):
     current_set.tournament = form.edit_tournament.data
     current_set.winner_tag = form.edit_winner_tag.data
     current_set.loser_tag = form.edit_loser_tag.data
+    
+    # Check to see if set score count is valid for type of set, and winner score>loser score (directly from set_create())
+    if invalidScores(int(form.edit_winner_score.data), int(form.edit_loser_score.data), int(form.edit_max_match_count.data)): 
+      flash("Check to make sure you have entered the appropriate scores for the set score count.")
+      return redirect(url_for('set_edit', set_id=set_id))
+    
+    # implicit else: scores are valid, and store them in appropriate Set attributes
     current_set.winner_score = int(form.edit_winner_score.data)
     current_set.loser_score = int(form.edit_loser_score.data)
 
@@ -167,7 +176,7 @@ def set_edit(set_id):
     new_loser = User.query.filter(User.tag==current_set.loser_tag).first() 
     current_set.winner_id = new_winner.id
     current_set.loser_id = new_loser.id
-    
+     
     db.session.commit()
     flash('Changes have been saved.') 
     return redirect(url_for('set_edit', set_id=set_id))

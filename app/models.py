@@ -152,8 +152,14 @@ class Set(db.Model):
   def getSetLoser(self):
     set_loser = User.query.filter(User.tag==self.loser_tag).first()
     return set_loser
+  
+  # returns True if Set has invalid, impossible score counts for Set
+  def invalidScores(self):
+    if ((self.winner_score <= self.loser_score) or 
+      ((self.winner_score > ((self.max_match_count / 2.0) + 1)) or 
+      (self.winner_score < (self.max_match_count / 2.0)))):
+      return True 
 
-    
 # Match is the many in a one-to-many relationship with model Set
 class Match(db.Model):
   id = db.Column(db.Integer, primary_key=True)
