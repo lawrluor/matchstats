@@ -30,6 +30,9 @@
             <p><b>Secondaries:</b> {{ user_secondaries }} </p>
           {% endif %}
 
+          <!-- Route to edit User -->
+          <a href="{{ url_for("user_edit", user=user.tag) }}">Edit User</a>
+
       </td>
     </tr>
   </table>

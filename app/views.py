@@ -50,7 +50,8 @@ def user_edit(user):
   form = UserEdit()
   current_user = User.query.filter(User.tag==user).first() 
   current_secondaries = current_user.get_secondaries() 
-
+  
+  # only display Characters that can be added (not main character or already secondary) and be removed (already secondary)
   form.add_secondaries.choices = [(x, x) for x in secondaries_char_list if x != current_user.main and x not in current_secondaries] 
   form.remove_secondaries.choices = [(x, x) for x in current_secondaries] 
 

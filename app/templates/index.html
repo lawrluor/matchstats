@@ -21,6 +21,7 @@
     <li> fix bug in which set_create fails if winner and loser id of the respective Users does not exist (if Users don't exist). working to properly display Users who lack attributes </li>
     <li> Users who lack full attributes display properly now due to template magic. additionally, users are now displayed differently based on how many secondaries they have (also templating work) </li>
     <li> fixed routing bug in which Users without regions crashed /browse_region. views.py now checks if user.region exists before adding it to the regionlist </li>
+    <li> added character routes to secondaries displayed via user_display.html sub-template. User.html (profile) now routes to the appropriate /user_edit page </li>
   </ul>
 
   <h4> June 25, 2015 </h5>
