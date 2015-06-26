@@ -83,15 +83,29 @@ def user_edit(user):
 def set_create():
   form = SetCreate() # instantiate object from SetCreate() class in app/forms.py
   if form.validate_on_submit(): # if True, indicates data is valid and can be processed
-    # Based on winner and loser tag submitted through form, queries User database to locate the respective Users
-    set_winner = User.query.filter(User.tag==form.set_winner_tag.data).first() 
-    set_loser = User.query.filter(User.tag==form.set_loser_tag.data).first()
     
     set_winner_tag = form.set_winner_tag.data
     set_loser_tag = form.set_loser_tag.data
-    set_winner_id = set_winner.id
-    set_loser_id = set_loser.id
+
+    # Based on winner and loser tag submitted through form, queries User database to locate the respective Users
+    if User.query.filter(User.tag==set_winner_tag).first() is not None:
+      set_winner = User.query.filter(User.tag==set_winner_tag).first()
+      set_winner_id = set_winner.id
+    else:
+      # Create new user, initializing tag (User.id automatically assigned)
+      new_user_winner = User(tag=form.set_winner_tag.data) 
+      set_winner_id = new_user_winner.id
+      db.session.add(new_user_winner)
     
+    if User.query.filter(User.tag==set_loser_tag).first() is not None:
+      set_loser = User.query.filter(User.tag==set_loser_tag).first()
+      set_loser_id = set_loser.id
+    else:
+      # Create new user, initializing tag (User.id automatically assigned) 
+      new_user_loser = User(tag=form.set_loser_tag.data) 
+      set_loser_id = new_user_loser.id
+      db.session.add(new_user_loser)
+
     created_set_tournament = form.set_tournament.data
     created_set_winner_score = form.set_winner_score.data
     created_set_loser_score = form.set_loser_score.data

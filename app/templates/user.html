@@ -8,19 +8,27 @@
         <h1>User: <a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> 
 
           {% if user.region %}
-          <p><b>Region:</b>
-          <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
-          </p>{% endif %}
+            <p><b>Region:</b>
+            <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
+            </p>
+          {% else %}
+          <p><b>Region: No Region</b></p>
+            {% endif %}
+
 
           {% if user.main %}
-          <p><b>Main:</b>
-          <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
-          </p>{% endif %}
+            <p><b>Main:</b>
+            <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+            </p>
+          {% else %}
+            <p><b>Main:</b>
+            <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
+            </p>
+          {% endif %}
 
           {% if user.secondaries %}
-          <p><b>Secondaries:</b>
-          {{ user_secondaries }}
-          </p>{% endif %}
+            <p><b>Secondaries:</b> {{ user_secondaries }}</p>
+          {% endif %}
 
       </td>
     </tr>

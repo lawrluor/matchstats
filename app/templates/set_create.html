@@ -6,23 +6,17 @@
   <form action="" method="post" name="set_create">
     {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
     <p>
-      Best of: <br>
-      {{ form.set_max_match_count }}<br>
+      Best of: {{ form.set_max_match_count }}<br>
       <br>
-      Enter the tournament name, if any: <br>
-      {{ form.set_tournament(size=90) }}<br>
+      Enter the tournament name, if any: {{ form.set_tournament(size=15) }} <br>
       <br>
-      Please enter the winner's tag:<br>
-      {{ form.set_winner_tag(size=90) }}<br>
+      Please enter the winner's tag: {{ form.set_winner_tag(size=15) }} <br>
       <br>
-      Please enter the winner's score:<br>
-      {{ form.set_winner_score(size=90) }}<br>
+      Please enter the winner's score: {{ form.set_winner_score(size=15) }} <br>
       <br>
-      Please enter the loser's tag:<br>
-      {{ form.set_loser_tag(size=90) }}<br>
+      Please enter the loser's tag: {{ form.set_loser_tag(size=15) }}<br>
       <br>
-      Please enter the loser's score:<br>
-      {{ form.set_loser_score(size=90) }}<br>
+      Please enter the loser's score: {{ form.set_loser_score(size=15) }}<br>
 
       {% for error in form.set_winner_tag.errors or form.set_loser_tag.errors or form.set_winner_score.errors or form.set_loser_score.errors %} <!-- may be buggy with or statements -->
         <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
