@@ -1,0 +1,32 @@
+<!-- extend base layout -->
+<!-- User Edit Form: Template for editing a User "profile" -->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Edit User: {{ current_user_tag }} </h1>
+  <form action="" method="post" name="edit">
+      {{form.hidden_tag()}}
+      <table>
+          <tr>
+              <td>User tag:</td>
+              <td>{{ form.edit_tag(size=24) }}</td>
+          </tr>
+          <tr>
+              <td>User region:</td>
+              <td>{{ form.edit_region(size=24) }}</td>
+          </tr>
+          <tr>
+              <td>User main:</td>
+              <td>{{ form.edit_main }}</td>
+          </tr>
+          <tr>
+              <td>User secondaries:</td>
+              <td>{{ form.edit_secondaries }}</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td><input type="submit" value="Save Changes"></td>
+          </tr>
+      </table>
+  </form>
+{% endblock %}

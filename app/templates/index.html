@@ -6,7 +6,7 @@
   <BR>&nbsp;<BR>
 
   <h2>Recent Tournaments</h2>
-  <div><a href="{{ url_for("browse_sets") }}">Apex 2015</a></div>
+  <div><a href="{{ url_for("tournament", tournament="Apex 2015")}}">Apex 2015</a></div>
   <BR>&nbsp;<BR>
 
   <h3>Recent Updates</h3>
@@ -26,7 +26,8 @@
     <li> added tournament column to Set model, and updated templates to display it when representing a set if tournament info is available </li>
     <li> added /tournament route that takes parameter tournament, and will query and display all sets for that given tournament </li>
     <li> added 'tournament.html' which displays all sets from a given tournament. updated other templates to include Set.tournament when relevant and route to it </li>
-    <li> revised /set_create and form to take in tournament information <li>
+    <li> revised /set_create and form to take in tournament information </li>
+    <li> added /edit_user template to edit user, for User.tag, User.main, User.regions </li>
   </ul>
 
   <h4> June 24, 2015 </h4>

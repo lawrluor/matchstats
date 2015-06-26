@@ -84,18 +84,6 @@ print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
 
-aMSa_kirbykaze.tournament = "Apex 2015"
-PPMD_armada.tournament = "Apex 2015"
-leffen_mango.tournament = "Apex 2015"
-armada_hungrybox.tournament = "Apex 2015"
-mango_aMSa.tournament = "Apex 2015"
-armada_mango.tournament = "Apex 2015"
-PPMD_leffen.tournament = "Apex 2015"
-armada_leffen.tournament = "Apex 2015"
-armada_PPMD_GF1.tournament = "Apex 2015"
-PPMD_armada_GF2.tournament = "Apex 2015"
-db.session.commit()
-
 
 #clear non APEX 2015 users, sets, and matches
 for user in userlist[8:]:

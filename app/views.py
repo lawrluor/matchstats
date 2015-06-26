@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
 from models import User, Set, Match, Character, secondaries
-from forms import UserCreate, SetCreate, MatchSubmit, HeadToHead
+from forms import UserCreate, UserEdit, SetCreate, MatchSubmit, HeadToHead
 from sqlalchemy import and_
 
 @app.route('/')
@@ -47,6 +47,30 @@ def user_create():
                         title='Create User',
                         form=form)
 
+@app.route('/user_edit/<user>', methods=['GET', 'POST'])
+def user_edit(user):
+  form = UserEdit()
+  current_user = User.query.filter(User.tag==user).first() 
+
+  if form.validate_on_submit():
+    current_user.tag = form.edit_tag.data
+    current_user.region = form.edit_region.data
+    current_user.main = form.edit_main.data
+    
+    db.session.commit()
+    flash('Changes have been saved.')
+    # important that it's the raw data, otherwise redirect will fail if user tag is changed
+    return redirect(url_for('user', tag=form.edit_tag.data))
+  
+  # populate forms prior to rendering template
+  else:
+    form.edit_tag.data = current_user.tag
+    form.edit_region.data = current_user.region
+    form.edit_main.data = current_user.main
+
+  return render_template('user_edit.html',
+                          current_user_tag=current_user.tag,
+                          form=form)
 
 @app.route('/set_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def set_create():
