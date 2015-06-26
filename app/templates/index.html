@@ -22,6 +22,7 @@
     <li> Users who lack full attributes display properly now due to template magic. additionally, users are now displayed differently based on how many secondaries they have (also templating work) </li>
     <li> fixed routing bug in which Users without regions crashed /browse_region. views.py now checks if user.region exists before adding it to the regionlist </li>
     <li> added character routes to secondaries displayed via user_display.html sub-template. User.html (profile) now routes to the appropriate /user_edit page </li>
+    <li> implemented /edit_set route, and associated forms and templates. Works reasonably well, but no support for editing Matches yet </li>
   </ul>
 
   <h4> June 25, 2015 </h5>

@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
 from models import User, Set, Match, Character, secondaries
-from forms import UserCreate, UserEdit, SetCreate, MatchSubmit, HeadToHead, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
+from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
 
 
@@ -145,6 +145,46 @@ def set_create():
                         title='Create Set', 
                         form=form
                         )
+
+
+@app.route('/set_edit/<set_id>', methods=['GET','POST'])
+def set_edit(set_id):
+  # query Set for Set object with same set_id (the Set itself)
+  current_set = Set.query.filter(Set.id==int(set_id)).first()
+  
+  form = SetEdit()
+  
+  if form.validate_on_submit():
+    current_set.max_match_count = int(form.edit_max_match_count.data)
+    current_set.tournament = form.edit_tournament.data
+    current_set.winner_tag = form.edit_winner_tag.data
+    current_set.loser_tag = form.edit_loser_tag.data
+    current_set.winner_score = int(form.edit_winner_score.data)
+    current_set.loser_score = int(form.edit_loser_score.data)
+
+    # query User to get User.id given User.tag
+    new_winner = User.query.filter(User.tag==current_set.winner_tag).first()
+    new_loser = User.query.filter(User.tag==current_set.loser_tag).first() 
+    current_set.winner_id = new_winner.id
+    current_set.loser_id = new_loser.id
+    
+    db.session.commit()
+    flash('Changes have been saved.') 
+    return redirect(url_for('set_edit', set_id=set_id))
+
+  else:
+    # if not submitted form, pre-populate them with the set's current (prior to edit) info
+    form.edit_tournament.data = current_set.tournament
+    form.edit_winner_tag.data = current_set.winner_tag
+    form.edit_loser_tag.data = current_set.loser_tag
+    form.edit_winner_score.data = int(current_set.winner_score)
+    form.edit_loser_score.data = int(current_set.loser_score)
+
+  return render_template('set_edit.html', 
+                          title = 'Edit Set',
+                          form=form,
+                          set=current_set
+                          )
 
 
 @app.route('/match_submit', methods=['GET', 'POST'])
