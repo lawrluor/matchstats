@@ -42,10 +42,10 @@ class MatchSubmit(Form):
   match_stage = SelectField('match_stage', choices = [('Battlefield', 'Battlefield'), ('Dream Land', 'Dream Land'), ('Final Destination', 'Final Destination'), ('Fountain of Dreams', 'Fountain of Dreams'), ('Pokemon Stadium', 'Pokemon Stadium'), ('Yoshi\'s Story', 'Yoshi\'s Story'), ('Other', 'Other')], coerce=str)
 
   # Data not required in case no match info is known (no validators for fields)
-  match_winner = StringField('match_winner')
-  match_loser = StringField('match_loser')
-  winner_char = SelectField('winner_char', choices=main_char_choices)
-  loser_char = SelectField('loser_char', choices=main_char_choices)
+  match_winner = SelectField('match_winner', coerce=str)
+  match_loser = SelectField('match_loser', coerce=str)
+  winner_char = SelectField('winner_char', choices=main_char_choices, coerce=str)
+  loser_char = SelectField('loser_char', choices=main_char_choices, coerce=str)
 
 # SelectField format for choices: The first (value, label) is the actual value. The label is what appears in the dropdown menu. In this case, both should be the samei
 

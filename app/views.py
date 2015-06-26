@@ -103,7 +103,7 @@ def set_create():
       ((created_set_winner_score > ((created_max_match_count / 2.0) + 1)) or 
       (created_set_winner_score < (created_max_match_count / 2.0)))):
       
-      flash("Check to make sure you have entered the appropriate scores for the set score cout.")
+      flash("Check to make sure you have entered the appropriate scores for the set score count.")
       return redirect(url_for('set_create'))
 
     # create set row, initializing set object
@@ -125,7 +125,7 @@ def set_create():
     db.session.commit()
     flash('Next, enter data for the individual matches.') # if Set is created successfully, redirect to the match_create page, where data for individual matches entered
 
-    return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches)))
+    return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches), set_winner_tag=set_winner_tag, set_loser_tag=set_loser_tag))
   return render_template('set_create.html', # renders template for creating user if called before user enters data
                         title='Create Set', 
                         form=form
@@ -133,12 +133,17 @@ def set_create():
 
 
 @app.route('/match_submit', methods=['GET', 'POST'])
-def match_submit(): # set_id, total_matches passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
+def match_submit(): # set_id, total_matches, set_winner, set_loser passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
  
   set_id = request.args.get('set_id')
   total_matches = request.args.get('total_matches')
-  
+  set_winner = request.args.get('set_winner_tag')
+  set_loser = request.args.get('set_loser_tag')
+
   form = MatchSubmit() # instantiate object from MatchSubmit() class in app/forms.py
+  form.match_winner.choices = [(set_winner, set_winner), (set_loser, set_loser)]
+  form.match_loser.choices = [(set_loser, set_loser), (set_winner, set_winner)]
+
   if form.validate_on_submit():
     submitted_match_stage = form.match_stage.data
     submitted_match_winner = form.match_winner.data
@@ -167,7 +172,7 @@ def match_submit(): # set_id, total_matches passed through url from route /set_c
     else:
       total_matches = str(total_matches) # necessary to convert again for flash message and more importantly as a parameter of function match_submit
       flash('Match Submission Complete. Submit next Match. Matches left: ' + total_matches)
-      return redirect(url_for('match_submit', set_id=set_id, total_matches=total_matches))
+      return redirect(url_for('match_submit', set_id=set_id, total_matches=total_matches, set_winner=set_winner, set_loser=set_loser))
 
   return render_template('match_submit.html',
                           title='Submit Match',
