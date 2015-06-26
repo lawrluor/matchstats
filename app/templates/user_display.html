@@ -1,7 +1,7 @@
 <!-- prints User representation in HTML given a User object, with route hyperlink to /user_profile, /region, /character -->
-    <div><p><b> 
-		 <a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
-       | <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
-       | <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
-       | {{ user.get_secondaries() }}
-    </b></p></div>
+<b> 
+	<a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a> 
+    | <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
+    | <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+    | {{ user.get_secondaries() }}
+</b>

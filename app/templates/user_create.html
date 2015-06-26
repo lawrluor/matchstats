@@ -16,7 +16,7 @@
       {{ form.user_main }}<br>
       <br>
       Enter all the user's secondaries; if none, simply leave all the checkboxes blank:<br>
-      {{ form.user_secondaries }}<br>
+      {{ form.user_secondaries(size=13) }}<br>
 
       {% for error in form.user_tag.errors and form.user_main.errors %}
         <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->

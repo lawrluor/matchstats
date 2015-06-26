@@ -3,9 +3,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Edit User: {{ current_user_tag }} </h1>
+  <h1>Edit User: {{ user.tag }} </h1>
   <form action="" method="post" name="edit">
+
       {{form.hidden_tag()}}
+      {% include 'user_display.html' %}
+
+      <br>
+      <br>
+
       <table>
           <tr>
               <td>Edit User tag:</td>
@@ -21,11 +27,11 @@
           </tr>
           <tr>
               <td>Add User secondaries:</td>
-              <td>{{ form.add_secondaries }}</td>
+              <td>{{ form.add_secondaries(size=10) }}</td>
           </tr>
           <tr>
               <td>Remove User secondaries:</td>
-              <td>{{ form.remove_secondaries }}</td>
+              <td>{{ form.remove_secondaries(size=5) }}</td>
           </tr>
           <tr>
               <td></td>

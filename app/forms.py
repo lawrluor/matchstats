@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, RadioField, SelectMultipleField, widgets # open fields to take input from person
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField # open fields to take input from person
 from wtforms.validators import DataRequired, InputRequired, Required # checks to make sure field isn't empty
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
@@ -8,19 +8,25 @@ main_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('M
 # secondaries character choice list for SelectField; a constant list taken by SelectField containing only the 26 SSBM Characters
 secondaries_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby')]
 
+# simple list of character strings for all possible main characters
+main_char_list = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby', 'Random', 'Unchosen', 'Multiple']
+
+# simple list of character strings for all possible secondary characters
+secondaries_char_list = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby'] 
+
 
 class UserCreate(Form):
   user_tag = StringField('tag', validators=[DataRequired()])
   user_region = StringField('region', validators=[DataRequired()])
   user_main = SelectField('main', choices=main_char_choices, coerce=str, validators=[DataRequired()])
-  user_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False), coerce=str)
+  user_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, coerce=str)
 
 class UserEdit(Form):
   edit_tag = StringField('tag', validators=[DataRequired()])
   edit_region = StringField('region', validators=[DataRequired()])
   edit_main= SelectField('main', choices=main_char_choices, validators=[DataRequired()])
-  add_secondaries = SelectMultipleField('add_secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
-  remove_secondaries = SelectMultipleField('remove_secondaries', choices=secondaries_char_choices, option_widget=widgets.CheckboxInput(), widget=widgets.ListWidget(prefix_label=False))
+  add_secondaries = SelectMultipleField('add_secondaries')
+  remove_secondaries = SelectMultipleField('remove_secondaries') 
 
 
 

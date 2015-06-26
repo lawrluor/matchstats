@@ -3,8 +3,9 @@
 from flask import render_template, flash, redirect, request, url_for
 from app import app, db
 from models import User, Set, Match, Character, secondaries
-from forms import UserCreate, UserEdit, SetCreate, MatchSubmit, HeadToHead
+from forms import UserCreate, UserEdit, SetCreate, MatchSubmit, HeadToHead, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
+
 
 @app.route('/')
 @app.route('/index')
@@ -33,13 +34,10 @@ def user_create():
     db.session.commit()
     flash('User creation successful.')
     
-    # add user secondaries using User-Character self methods
-    for i in range(len(created_secondaries)):
-      if created_secondaries[i] != "Unchosen" and created_secondaries[i] != new_user.main:
-        character = Character.query.filter(Character.name == created_secondaries[i]).all() # due to nature of query, returns list of one Character object
-        new_user.add_secondaries(character[0]) # returns the one Character object
-    
+    # now add secondaries to User
+    new_user.add_secondaries_list(created_secondaries)
     db.session.commit()
+
     flash('Secondaries added to User.')
     return redirect('/browse_users')
 
@@ -51,6 +49,10 @@ def user_create():
 def user_edit(user):
   form = UserEdit()
   current_user = User.query.filter(User.tag==user).first() 
+  current_secondaries = current_user.get_secondaries() 
+
+  form.add_secondaries.choices = [(x, x) for x in secondaries_char_list if x != current_user.main and x not in current_secondaries] 
+  form.remove_secondaries.choices = [(x, x) for x in current_secondaries] 
 
   if form.validate_on_submit():
     current_user.tag = form.edit_tag.data
@@ -74,7 +76,7 @@ def user_edit(user):
     form.edit_main.data = current_user.main
 
   return render_template('user_edit.html',
-                          current_user_tag=current_user.tag,
+                          user=current_user,
                           form=form)
 
 @app.route('/set_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
@@ -288,7 +290,7 @@ def browse_regions():
 # Displays a list of all SSBM characters, each of which links to /character/<character>
 @app.route('/browse_characters')
 def browse_characters():
-  characterlist = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby', 'Random', 'Unchosen', 'Multiple']
+  characterlist = main_char_list
 
   return render_template("browse_characters.html",
                          characterlist=characterlist)
