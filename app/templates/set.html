@@ -1,3 +1,4 @@
+<!-- prints Set representation in HTML given a Set object -->
 <div><p><b>
 	{% if set.tournament %} 
 		<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a> - 
@@ -11,8 +12,10 @@
   <a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}"> (View Head to Head)</a>
 </b></p></div> 
 
-<!-- prints Set representation in HTML given a Set object -->
-  {% for match in set.matches.all() %}
+
+  {% set matchlist = set.matches.all() -%}
+  <!-- print Match representation in HTML for all Matches in Set -->
+  {% for i in range(matchlist|length) %}
     {% include 'match.html' %}
   {% endfor %}
 
