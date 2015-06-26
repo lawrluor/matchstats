@@ -19,6 +19,8 @@
     <li> sets without tournament info now automatically display "Non-Tourney" (set.html) </li>
     <li> match_submit.html now only takes set winner_tag and loser_tag ids as valid choices when declaring match winner and loser, using a dynamic choices SelectField </li>
     <li> fix bug in which set_create fails if winner and loser id of the respective Users does not exist (if Users don't exist). working to properly display Users who lack attributes </li>
+    <li> Users who lack full attributes display properly now due to template magic. additionally, users are now displayed differently based on how many secondaries they have (also templating work) </li>
+    <li> fixed routing bug in which Users without regions crashed /browse_region. views.py now checks if user.region exists before adding it to the regionlist </li>
   </ul>
 
   <h4> June 25, 2015 </h5>

@@ -294,7 +294,7 @@ def browse_regions():
   userlist = User.query.order_by(User.id).all()
   regionlist = []
   for user in userlist:
-    if user.region not in regionlist:
+    if user.region != None and user.region not in regionlist:
       regionlist += [user.region]
 
   regionlist.sort()
@@ -302,8 +302,6 @@ def browse_regions():
   return render_template("browse_regions.html", 
                           title='Browse Regions',
                           regionlist=regionlist)
-
-
 
 
 # Displays a list of all SSBM characters, each of which links to /character/<character>
