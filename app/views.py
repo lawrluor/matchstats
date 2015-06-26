@@ -92,18 +92,18 @@ def set_create():
     set_winner = User.query.filter(User.tag==set_winner_tag).first()
     if set_winner is None:
       # Create new user, initializing tag (User.id automatically assigned)
-      new_user_winner = User(tag=form.set_winner_tag.data) 
-      set_winner_id = new_user_winner.id
-      db.session.add(new_user_winner)
+      set_winner = User(tag=form.set_winner_tag.data) 
+      set_winner_id = set_winner.id
+      db.session.add(set_winner)
     else:
       set_winner_id = set_winner.id
      
     set_loser = User.query.filter(User.tag==set_loser_tag).first()
     if set_loser is None:
       # Create new user, initializing tag (User.id automatically assigned) 
-      new_user_loser = User(tag=form.set_loser_tag.data) 
-      set_loser_id = new_user_loser.id
-      db.session.add(new_user_loser)
+      set_loser = User(tag=form.set_loser_tag.data) 
+      set_loser_id = set_loser.id
+      db.session.add(set_loser)
     else:
       set_loser_id = set_loser.id
 
@@ -166,21 +166,20 @@ def set_edit(set_id):
     set_winner = User.query.filter(User.tag==form.edit_winner_tag.data).first()
     if set_winner is None:
       # Create new user, initializing tag (User.id automatically assigned)
-      new_user_winner = User(tag=form.edit_winner_tag.data) 
-      set_winner_id = new_user_winner.id
-      db.session.add(new_user_winner)
-    else:
-      set_winner_id = set_winner.id
+      set_winner = User(tag=form.edit_winner_tag.data) 
+      db.session.add(set_winner)
      
     set_loser = User.query.filter(User.tag==form.edit_loser_tag.data).first()
     if set_loser is None:
       # Create new user, initializing tag (User.id automatically assigned) 
-      new_user_loser = User(tag=form.set_loser_tag.data) 
-      set_loser_id = new_user_loser.id
-      db.session.add(new_user_loser)
-    else:
-      set_loser_id = set_loser.id   
-    
+      set_loser = User(tag=form.edit_loser_tag.data) 
+      db.session.add(set_loser)
+   
+    current_set.winner_tag = set_winner.tag
+    current_set.winner_id = set_winner.id
+    current_set.loser_tag = set_loser.tag
+    current_set.loser_id = set_loser.id
+
     # Check to see if set score count is valid for type of set, and winner score>loser score (directly from set_create())
     if invalidScores(int(form.edit_winner_score.data), int(form.edit_loser_score.data), int(form.edit_max_match_count.data)): 
       flash("Check to make sure you have entered the appropriate scores for the set score count.")
