@@ -90,20 +90,22 @@ def set_create():
 
     # Based on winner and loser tag submitted through form, queries User database to locate the respective Users
     set_winner = User.query.filter(User.tag==set_winner_tag).first()
-    set_winner_id = set_winner.id
     if set_winner is None:
       # Create new user, initializing tag (User.id automatically assigned)
       new_user_winner = User(tag=form.set_winner_tag.data) 
       set_winner_id = new_user_winner.id
       db.session.add(new_user_winner)
-      
+    else:
+      set_winner_id = set_winner.id
+     
     set_loser = User.query.filter(User.tag==set_loser_tag).first()
-    set_loser_id = set_loser.id
     if set_loser is None:
       # Create new user, initializing tag (User.id automatically assigned) 
       new_user_loser = User(tag=form.set_loser_tag.data) 
       set_loser_id = new_user_loser.id
       db.session.add(new_user_loser)
+    else:
+      set_loser_id = set_loser.id
 
     created_set_tournament = form.set_tournament.data
     created_set_winner_score = int(form.set_winner_score.data)
@@ -159,8 +161,25 @@ def set_edit(set_id):
   if form.validate_on_submit():
     current_set.max_match_count = form.edit_max_match_count.data
     current_set.tournament = form.edit_tournament.data
-    current_set.winner_tag = form.edit_winner_tag.data
-    current_set.loser_tag = form.edit_loser_tag.data
+    
+    # Based on winner and loser tag submitted through form, queries User database to locate the respective Users
+    set_winner = User.query.filter(User.tag==form.edit_winner_tag.data).first()
+    if set_winner is None:
+      # Create new user, initializing tag (User.id automatically assigned)
+      new_user_winner = User(tag=form.edit_winner_tag.data) 
+      set_winner_id = new_user_winner.id
+      db.session.add(new_user_winner)
+    else:
+      set_winner_id = set_winner.id
+     
+    set_loser = User.query.filter(User.tag==form.edit_loser_tag.data).first()
+    if set_loser is None:
+      # Create new user, initializing tag (User.id automatically assigned) 
+      new_user_loser = User(tag=form.set_loser_tag.data) 
+      set_loser_id = new_user_loser.id
+      db.session.add(new_user_loser)
+    else:
+      set_loser_id = set_loser.id   
     
     # Check to see if set score count is valid for type of set, and winner score>loser score (directly from set_create())
     if invalidScores(int(form.edit_winner_score.data), int(form.edit_loser_score.data), int(form.edit_max_match_count.data)): 
@@ -170,12 +189,6 @@ def set_edit(set_id):
     # implicit else: scores are valid, and store them in appropriate Set attributes
     current_set.winner_score = int(form.edit_winner_score.data)
     current_set.loser_score = int(form.edit_loser_score.data)
-
-    # query User to get User.id given User.tag
-    new_winner = User.query.filter(User.tag==current_set.winner_tag).first()
-    new_loser = User.query.filter(User.tag==current_set.loser_tag).first() 
-    current_set.winner_id = new_winner.id
-    current_set.loser_id = new_loser.id
      
     db.session.commit()
     flash('Changes have been saved.') 
