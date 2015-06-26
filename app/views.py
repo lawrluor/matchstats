@@ -260,15 +260,24 @@ def match_submit(): # set_id, total_matches, set_winner, set_loser passed throug
 @app.route('/head_to_head', methods=['GET', 'POST'])
 def head_to_head():
   form = HeadToHead()
-
+  
+  # if query string arguments exist (form submitted), create these variables using query string
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
-  sets = []
+  user1_win_count = request.args.get('user1_win_count')
+  user2_win_count = request.args.get('user2_win_count')
+  all_sets = []
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
-    sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
-    sets = sorted(sets, key=lambda x: x.id) # Sort by Set id
+    user1_won = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
+    user2_won = Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+    # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
+    user1_win_count = len(user1_won)
+    user2_win_count = len(user2_won)
+
+    all_sets = user1_won + user2_won
+    all_sets = sorted(all_sets, key=lambda x: x.id) # Sort by Set id
     
     #if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':
@@ -292,7 +301,9 @@ def head_to_head():
                         title="Head to Head",
                         tag1=tag1,
                         tag2=tag2,
-                        setlist=sets,
+                        user1_win_count=user1_win_count,
+                        user2_win_count=user2_win_count,
+                        setlist=all_sets,
                         form=form) 
 
 
