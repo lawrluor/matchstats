@@ -335,26 +335,26 @@ def compare():
 def browse_sets():
   setlist = Set.query.order_by(Set.id).all()
   return render_template("browse_sets.html",
-                         title='Browse Sets',
                          setlist=setlist)
 
-
-@app.route('/browse_users') # browse users
+# browse users
+@app.route('/browse_users')
 def browse_users():
   userlist = User.query.order_by(User.id).all()
   return render_template("browse_users.html",
-                        title='Browse Users',
                         userlist=userlist)
 
-
-@app.route('/user/<tag>') # User profile page
+# User profile page
+@app.route('/user/<tag>')
 def user(tag):
-  user = User.query.filter(User.tag==tag).first() # If routed to user profile page (user/<tag>), check to make sure user exists
+  user = User.query.filter(User.tag==tag).first()
+  # If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
     flash('User %s not found.' % tag)
     return redirect(url_for('index'))
-  
-  user_sets = user.getAllSets() # Store all user's sets in variable user_sets
+
+  # Store all user's sets in variable user_sets 
+  user_sets = user.getAllSets() 
   user_secondaries = user.get_secondaries()
   return render_template("user.html",
                         title=tag,
