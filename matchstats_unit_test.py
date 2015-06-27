@@ -84,6 +84,17 @@ print leffen_mango.getSetLoserID()
 print PPMD_armada.getSetLoserID()
 print '\n'
 
+print "Testing Set and Matches relationship"
+print armada_PPMD_GF1.matches.all()
+print '\n'
+print "PPMD match wins"
+print armada_PPMD_GF1.matches.filter(Match.winner==PPMD.tag).all()
+print armada_PPMD_GF1.matches.filter(Match.winner==PPMD.tag).count()
+print '\n'
+print "Armada match wins"
+print armada_PPMD_GF1.matches.filter(Match.winner==Armada.tag).all()
+print armada_PPMD_GF1.matches.filter(Match.winner==Armada.tag).count()
+print '\n'
 
 #clear non APEX 2015 users, sets, and matches
 for user in userlist[8:]:

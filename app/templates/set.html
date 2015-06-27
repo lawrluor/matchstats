@@ -12,7 +12,9 @@
   <a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}"> (View Head to Head)</a>
 </b></p></div> 
 
-
+  <!-- store set.total_matches into variable for use in other templates -->
+  {% set total_matches = set.total_matches -%}	
+  
   {% set matchlist = set.matches.all() -%}
   <!-- print Match representation in HTML for all Matches in Set -->
   {% for i in range(matchlist|length) %}

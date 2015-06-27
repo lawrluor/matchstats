@@ -266,20 +266,30 @@ def head_to_head():
   tag2 = request.args.get('tag2')
   user1_win_count = request.args.get('user1_win_count')
   user2_win_count = request.args.get('user2_win_count')
+  # to be displayed when tag1 and tag2 are valid Users, but needs to be initialized here so the pre_submit template doesn't crash 
   all_sets = []
+  all_matches = 0
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
-    user1_won = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
-    user2_won = Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+    user1_won_sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
+    user2_won_sets = Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
     # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
-    user1_win_count = len(user1_won)
-    user2_win_count = len(user2_won)
+    user1_win_count = len(user1_won_sets)
+    user2_win_count = len(user2_won_sets)
 
-    all_sets = user1_won + user2_won
+    all_sets = user1_won_sets + user2_won_sets
     all_sets = sorted(all_sets, key=lambda x: x.id) # Sort by Set id
-    
-    #if requesting data, i.e. form may be filled after already viewing a current head to head
+
+    # before moving forward, iterate through set lists and calculate total matches to display that number in template
+    user1_won_matches = 0 
+    user2_won_matches = 0 
+    for set in all_sets:
+      user1_won_matches += set.matches.filter(Match.winner==tag1).count()
+      user2_won_matches += set.matches.filter(Match.winner==tag2).count() 
+    all_matches = user1_won_matches + user2_won_matches
+
+    # if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':
       form.user1.data = tag1 # populates the user1 field (in forms.py) with tag1
       form.user2.data = tag2
@@ -303,7 +313,10 @@ def head_to_head():
                         tag2=tag2,
                         user1_win_count=user1_win_count,
                         user2_win_count=user2_win_count,
-                        setlist=all_sets,
+                        user1_won_matches=user1_won_matches,
+                        user2_won_matches=user2_won_matches,
+                        all_matches=all_matches,
+                        all_sets=all_sets,
                         form=form) 
 
 

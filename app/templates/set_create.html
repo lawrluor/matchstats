@@ -18,8 +18,10 @@
       <br>
       Please enter the loser's score: {{ form.set_loser_score(size=15) }}<br>
 
-      {% for error in form.set_winner_tag.errors or form.set_loser_tag.errors or form.set_winner_score.errors or form.set_loser_score.errors %} <!-- may be buggy with or statements -->
-        <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->
+      <!-- may be buggy with or statements -->
+      {% for error in form.set_winner_tag.errors or form.set_loser_tag.errors or form.set_winner_score.errors or form.set_loser_score.errors %} 
+        <!-- flash error message if user_tag is invalid -->
+        <span style="color: red;">[{{ error }}]</span> 
       {% endfor %}<br>
     </p>
     <p><input type="submit" value="Create Set"></p>
