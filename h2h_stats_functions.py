@@ -65,7 +65,8 @@ def h2h_get_stages_played(h2h_matches_played):
 						'Final Destination' : [], 
 						'Fountain of Dreams' : [],
 						'Pokemon Stadium' : [], 
-						'Yoshi\'s Story' : []}
+						'Yoshi\'s Story' : [],
+						'Other': []}
 	for match in h2h_matches_played:
 		for key in Stages:
 			if match.stage == key:
@@ -82,7 +83,8 @@ def h2h_get_stages_won(winner_tag, Stages):
 						'Final Destination' : 0, 
 						'Fountain of Dreams' : 0,
 						'Pokemon Stadium' : 0, 
-						'Yoshi\'s Story' : 0}
+						'Yoshi\'s Story' : 0,
+						'Other' : 0}
 	for key in Stages:
 		for i in range(len(Stages[key])):
 			if Stages[key][i].winner == winner_tag:
