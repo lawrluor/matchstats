@@ -6,6 +6,7 @@ import unittest
 from config import basedir
 from app import app, db
 from app.models import *
+from h2h_stats_functions import *
 
 userlist = User.query.all()
 setlist = Set.query.all()
@@ -96,6 +97,32 @@ print armada_PPMD_GF1.matches.filter(Match.winner==Armada.tag).all()
 print armada_PPMD_GF1.matches.filter(Match.winner==Armada.tag).count()
 print '\n'
 
+
+print "Testing Head to Head functions"
+print "Testing h2h_get_sets_played(Armada.tag, PPMD.tag)"
+h2h_all_sets = h2h_get_sets_played(Armada.tag, PPMD.tag)
+print h2h_all_sets
+print '\n'
+print "Testing h2h_get_sets_won(PPMD.tag, Armada.tag, h2h_all_sets)"
+print h2h_get_sets_won(PPMD.tag, Armada.tag, h2h_all_sets)
+print '\n'
+print "Testing h2h_get_sets_won(Armada.tag, PPMD.tag, h2h_all_sets"
+print h2h_get_sets_won(Armada.tag, PPMD.tag, h2h_all_sets)
+print '\n'
+
+print "Testing h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)"
+h2h_all_matches = h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)
+print h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)
+print '\n'
+print "Testing h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_all_matches)"
+print h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_all_matches)
+print '\n'
+print "Testing h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_all_matches)"
+print h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_all_matches)
+print '\n'
+
+
+
 #clear non APEX 2015 users, sets, and matches
 for user in userlist[8:]:
 	db.session.delete(user)
@@ -105,14 +132,5 @@ for set in setlist[11:]:
 
 for match in matchlist[47:]:
 	db.session.delete(match)
-
-print userlist
-print '\n'
-
-print setlist
-print '\n'
-
-print matchlist
-print '\n'
 
 db.session.commit()

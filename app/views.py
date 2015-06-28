@@ -266,6 +266,9 @@ def head_to_head():
   tag2 = request.args.get('tag2')
   user1_win_count = request.args.get('user1_win_count')
   user2_win_count = request.args.get('user2_win_count')
+  user1_won_matches = request.args.get('user1_won_matches')
+  user2_won_matches = request.args.get('user2_won_matches')
+
   # to be displayed when tag1 and tag2 are valid Users, but needs to be initialized here so the pre_submit template doesn't crash 
   all_sets = []
   all_matches = 0

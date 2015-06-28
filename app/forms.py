@@ -1,6 +1,6 @@
-from flask.ext.wtf import Form
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField # open fields to take input from person
-from wtforms.validators import DataRequired, InputRequired, Required # checks to make sure field isn't empty
+from flask.ext.wtf import Form, validators
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField 
+from wtforms.validators import DataRequired, InputRequired, Required 
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
 main_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby'), ('Random', 'Random'), ('Unchosen', 'Unchosen'), ('Multiple', 'Multiple')]
@@ -13,6 +13,16 @@ main_char_list = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Capt
 
 # simple list of character strings for all possible secondary characters
 secondaries_char_list = ['Fox', 'Falco', 'Sheik', 'Marth', 'Jigglypuff', 'Peach', 'Captain Falcon', 'Ice Climbers', 'Dr. Mario', 'Pikachu', 'Samus', 'Ganondorf', 'Luigi', 'Mario', 'Young Link', 'Link', 'Donkey Kong', 'Yoshi', 'Zelda', 'Roy', 'Mewtwo', 'Mr. Game and Watch', 'Ness', 'Bowser', 'Pichu', 'Kirby'] 
+
+# custom validator to check if two (User.tag) fields are not the same. This function format allows for other parameters besides (form, field)
+def not_equal_to(fieldname):
+  message = "Winner and Loser can't be the same!"
+
+  def _not_equal_to(form, field, fieldname):
+    if form.field == fieldname:
+      raise ValidationError(message)
+
+  return _not_equal_to
 
 
 class UserCreate(Form):
@@ -38,8 +48,8 @@ class SetCreate(Form):
 
 class SetEdit(Form):
   edit_tournament = StringField('tournament')
-  edit_winner_tag = StringField('winner_tag', validators=[DataRequired()])
-  edit_loser_tag = StringField('loser_tag', validators=[DataRequired()])
+  edit_winner_tag = StringField('winner_tag', validators=[DataRequired(), not_equal_to("edit_loser_tag")])
+  edit_loser_tag = StringField('loser_tag', validators=[DataRequired(), not_equal_to("Tonic")])
   edit_winner_score = IntegerField('winner_score', validators=[InputRequired()])
   edit_loser_score = IntegerField('loser_score', validators=[InputRequired()])
   edit_max_match_count = IntegerField('max_match_count', validators=[InputRequired()])
@@ -59,4 +69,5 @@ class MatchSubmit(Form):
 class HeadToHead(Form):
   user1 = StringField('user1', validators=[DataRequired()])
   user2 = StringField('user2', validators=[DataRequired()])
+
 
