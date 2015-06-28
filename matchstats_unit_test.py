@@ -100,27 +100,42 @@ print '\n'
 
 print "Testing Head to Head functions"
 print "Testing h2h_get_sets_played(Armada.tag, PPMD.tag)"
-h2h_all_sets = h2h_get_sets_played(Armada.tag, PPMD.tag)
-print h2h_all_sets
+h2h_sets_played = h2h_get_sets_played(Armada.tag, PPMD.tag)
+print h2h_sets_played
 print '\n'
-print "Testing h2h_get_sets_won(PPMD.tag, Armada.tag, h2h_all_sets)"
-print h2h_get_sets_won(PPMD.tag, Armada.tag, h2h_all_sets)
+print "Testing h2h_get_sets_won(PPMD.tag, Armada.tag)"
+print h2h_get_sets_won(PPMD.tag, Armada.tag)
 print '\n'
-print "Testing h2h_get_sets_won(Armada.tag, PPMD.tag, h2h_all_sets"
-print h2h_get_sets_won(Armada.tag, PPMD.tag, h2h_all_sets)
-print '\n'
-
-print "Testing h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)"
-h2h_all_matches = h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)
-print h2h_get_matches_played(PPMD.tag, Armada.tag, h2h_all_sets)
-print '\n'
-print "Testing h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_all_matches)"
-print h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_all_matches)
-print '\n'
-print "Testing h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_all_matches)"
-print h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_all_matches)
+print "Testing h2h_get_sets_won(Armada.tag, PPMD.tag)"
+print h2h_get_sets_won(Armada.tag, PPMD.tag)
 print '\n'
 
+print "Testing h2h_get_matches_played(h2h_sets_played)"
+h2h_matches_played = h2h_get_matches_played(h2h_sets_played)
+print h2h_matches_played
+print '\n'
+print "Testing h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_matches_played)"
+print h2h_get_matches_won(PPMD.tag, Armada.tag, h2h_matches_played)
+print '\n'
+print "Testing h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_matches_played)"
+print h2h_get_matches_won(Armada.tag, PPMD.tag, h2h_matches_played)
+print '\n'
+
+print "Testing h2h_get_stages_played"
+Stages = h2h_get_stages_played(h2h_matches_played)
+print Stages
+print'\n'
+print "Testing h2h_get_stages_won"
+print h2h_get_stages_won(PPMD.tag, Stages)
+print '\n'
+
+print "Testing h2h_get_character_played(PPMD.tag, Marth, h2h_matches_played)"
+PPMD_marth_matches = h2h_get_character_played(PPMD.tag, 'Marth', h2h_matches_played)
+print PPMD_marth_matches
+print '\n'
+print "Testing h2h_character_wins(PPMD.tag, PPMD_marth_matches)"
+print h2h_character_wins(PPMD.tag, PPMD_marth_matches)
+print '\n'
 
 
 #clear non APEX 2015 users, sets, and matches
