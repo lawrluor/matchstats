@@ -1,6 +1,7 @@
 from flask.ext.wtf import Form, validators
 from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField 
-from wtforms.validators import DataRequired, InputRequired, Required 
+from wtforms.validators import DataRequired, InputRequired, Required, ValidationError, StopValidation
+import re
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
 main_char_choices = [('Fox', 'Fox'), ('Falco', 'Falco'), ('Sheik', 'Sheik'), ('Marth', 'Marth'), ('Jigglypuff', 'Jigglypuff'), ('Peach', 'Peach'), ('Captain Falcon', 'Captain Falcon'), ('Ice Climbers', 'Ice Climbers'), ('Dr. Mario', 'Dr. Mario'), ('Pikachu', 'Pikachu'), ('Samus', 'Samus'), ('Ganondorf', 'Ganondorf'), ('Luigi', 'Luigi'), ('Mario', 'Mario'), ('Young Link', 'Young Link'), ('Link', 'Link'), ('Donkey Kong', 'Donkey Kong'), ('Yoshi', 'Yoshi'), ('Zelda', 'Zelda'), ('Roy', 'Roy'), ('Mewtwo', 'Mewtwo'), ('Mr. Game and Watch', 'Mr. Game and Watch'), ('Ness', 'Ness'), ('Bowser', 'Bowser'), ('Pichu', 'Pichu'), ('Kirby', 'Kirby'), ('Random', 'Random'), ('Unchosen', 'Unchosen'), ('Multiple', 'Multiple')]
@@ -24,6 +25,16 @@ def not_equal_to(fieldname):
 
   return _not_equal_to
 
+# custom validator to check that Set score can be converted to an integer, is a DQ value (-1), or is a 'W' or 'L' char
+def set_score_check():
+  message = "You must submit the Set score as an integer>=-1 and <10, or as a W/L character"
+
+  def _set_score_check(form, field):
+    score = field.data
+    if score not in ['-1', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'W', 'L']:
+      raise ValidationError(message)
+
+  return _set_score_check
 
 class UserCreate(Form):
   user_tag = StringField('tag', validators=[DataRequired()])
@@ -42,8 +53,8 @@ class SetCreate(Form):
   set_tournament = StringField('tournament')
   set_winner_tag = StringField('winner_tag', validators=[DataRequired()])
   set_loser_tag = StringField('loser_tag', validators=[DataRequired()])
-  set_winner_score = IntegerField('winner_score', validators=[InputRequired()])
-  set_loser_score = IntegerField('loser_score', validators=[InputRequired()])
+  set_winner_score = StringField('winner_score', validators=[DataRequired(), set_score_check()]) 
+  set_loser_score = StringField('loser_score', validators=[DataRequired(), set_score_check()])
   set_max_match_count = SelectField('Best of:', choices = [('1','1'), ('3','3'), ('5','5'), ('7','7')], validators=[Required()]) # choices are strings, not integers, but are converted to integers in views.py - this is because it was buggy otherwise.
 
 class SetEdit(Form):

@@ -80,6 +80,7 @@ def user_edit(user):
                           user=current_user,
                           form=form)
 
+legal_non_int = ['-1', 'W', 'L']
 @app.route('/set_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def set_create():
   form = SetCreate() # instantiate object from SetCreate() class in app/forms.py
@@ -107,10 +108,24 @@ def set_create():
     else:
       set_loser_id = set_loser.id
 
+    # process the input for winner score and loser score, and convert to integers if possible
+    if form.set_winner_score.data in legal_non_int:
+      created_set_winner_score = form.set_winner_score.data
+    else:
+      created_set_winner_score = int(form.set_winner_score.data)
+
+    if form.set_loser_score.data in legal_non_int:
+      created_set_loser_score = form.set_loser_score.data
+    else:
+      created_set_loser_score = int(form.set_loser_score.data)
+    
+    # process input for total_matches; if either winner or loser score is a standard integer, total_matches is their sum; else, total_matches = 0
+    if type(created_set_loser_score)==int and type(created_set_winner_score)==int:
+      created_total_matches = created_set_loser_score + created_set_winner_score
+    else:
+      created_total_matches = 0
+
     created_set_tournament = form.set_tournament.data
-    created_set_winner_score = int(form.set_winner_score.data)
-    created_set_loser_score = int(form.set_loser_score.data)
-    created_total_matches = created_set_loser_score + created_set_winner_score
     created_max_match_count = int(form.set_max_match_count.data)
    
     # Check to see if set score count is valid for type of set, and winner score>loser score
@@ -131,13 +146,18 @@ def set_create():
                   tournament=created_set_tournament
                   )
     
-
     # commit to db
     db.session.add(new_set)
     db.session.commit()
-    flash('Next, enter data for the individual matches.') # if Set is created successfully, redirect to the match_create page, where data for individual matches entered
 
-    return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches), set_winner_tag=set_winner_tag, set_loser_tag=set_loser_tag))
+    if new_set.total_matches <= 0:
+      # if no recorded matches in set, create Set and redirect to /browse_sets
+      flash("Set submitted.")
+      return redirect(url_for('browse_sets'))
+    else:
+      flash('Next, enter data for the individual matches.') # if Set is created successfully, redirect to the match_create page, where data for individual matches entered
+      return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches), set_winner_tag=set_winner_tag, set_loser_tag=set_loser_tag))
+
   return render_template('set_create.html', # renders template for creating user if called before user enters data
                         title='Create Set', 
                         form=form
@@ -145,10 +165,15 @@ def set_create():
 
 # helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
 def invalidScores(winner_score, loser_score, max_match_count):
-  if ((winner_score <= loser_score) or 
+  # if non-standard integers/strings, ignore them
+  if winner_score in legal_non_int or loser_score in legal_non_int: 
+    return False
+  else:
+    # if standard integers, run calculations to check that scores are valid
+    if ((winner_score <= loser_score) or 
     ((winner_score > ((max_match_count / 2.0) + 1)) or 
     (winner_score < (max_match_count / 2.0)))):
-    return True 
+      return True 
 
 
 @app.route('/set_edit/<set_id>', methods=['GET','POST'])
