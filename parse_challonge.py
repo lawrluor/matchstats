@@ -24,8 +24,8 @@ def parse_top_match(top_item_list):
       top_half["tag"] = str(tag)
 
     seed_item = item.find("div", {"class" : "top_seed"})
-    seed_number = seed_item.getText()
-    if seed_number:
+    if seed_item is not None:
+      seed_number = seed_item.getText()
       top_half["seed"] = int(seed_number)
       
     score_item = item.find("div", {"class" : "top_score"})
@@ -59,8 +59,8 @@ def parse_bottom_match(bottom_item_list):
       bottom_half["tag"] = str(tag)
 
     seed_item = item.find("div", {"class" : "bottom_seed"})
-    seed_number = seed_item.getText()
-    if seed_number:
+    if seed_item is not None:
+      seed_number = seed_item.getText()
       bottom_half["seed"] = int(seed_number)
       
     score_item = item.find("div", {"class" : "bottom_score"})
@@ -129,6 +129,7 @@ def parse_challonge(tournament_url):
   print '\n'
   for match in matchlist:
     print match
+  print '\n'
 
   return matchlist
 
@@ -162,9 +163,9 @@ def import_challonge_data(matchlist, tournament_name):
     print loser_user
 
     # If seed doesn't exist, do nothing; else, assign to User attribute seed
-    if set_winner['seed']:
+    if 'seed' in set_winner:
       winner_user.seed = set_winner['seed']
-    if set_loser['seed']:
+    if 'seed' in set_loser:
       loser_user.seed = set_loser['seed']
 
     # Get round number; if they match, store the round variable; if they don't (some error occurred), ignore it.
