@@ -166,7 +166,7 @@ def set_create():
 # helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
 def invalidScores(winner_score, loser_score, max_match_count):
   # if non-standard integers/strings, ignore them
-  if (winner_score==1 and loser_score==0)
+  if (winner_score==1 and loser_score==0):
     return False
   else:
     # if standard integers, run calculations to check that scores are valid

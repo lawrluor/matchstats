@@ -39,6 +39,7 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a str when using it
+  seed = db.Column(db.Integer)
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
@@ -112,6 +113,25 @@ class User(db.Model):
         self.remove_secondaries(character)
     return self
 
+  # Takes strings winner and loser tag , queries User database to locate the respective Users; if not found, creates new ones and assigns them as the winner and loser of the set. This is a standalone function to be called BEFORE a set is created
+def check_users(set_winner_tag, set_loser_tag):
+  set_winner = User.query.filter(User.tag==set_winner_tag).first()
+  if set_winner is None:
+    # Create new user, initializing tag (User.id automatically assigned)
+    set_winner = User(tag=set_winner_tag) 
+    set_winner_id = set_winner.id
+    db.session.add(set_winner)
+  else:
+    set_winner_id = set_winner.id
+   
+  set_loser = User.query.filter(User.tag==set_loser_tag).first()
+  if set_loser is None:
+    # Create new user, initializing tag (User.id automatically assigned) 
+    set_loser = User(tag=set_winner_tag)
+    set_loser_id = set_loser.id
+    db.session.add(set_loser)
+  else:
+    set_loser_id = set_loser.id
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
@@ -126,6 +146,7 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   tournament = db.Column(db.String(64), index=True)
+  round_type = db.Column(db.Integer)
   
   def __repr__(self):
     return '<tournament %s: | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
@@ -155,14 +176,35 @@ class Set(db.Model):
   
   # returns True if Set has invalid, impossible score counts for Set
   def invalidScores(self):
-   if (winner_score==1 and loser_score==0)
-    return False
-  else:
-    # if standard integers, run calculations to check that scores are valid
-    if ((self.winner_score <= self.loser_score) or 
+    if (winner_score==1 and loser_score==0):
+      return False
+    else:
+      # if standard integers, run calculations to check that scores are valid
+      if ((self.winner_score <= self.loser_score) or 
     ((self.winner_score > ((self.max_match_count / 2.0) + 1)) or 
     (self.winner_score < (self.max_match_count / 2.0)))):
-      return True 
+        return True 
+
+  # Based on winner and loser tag submitted through form, queries User database to locate the respective Users; if not found, creates new ones and assigns them as the winner and loser of the set
+  def check_users(set_winner_tag, set_loser_tag):
+    set_winner = User.query.filter(User.tag==set_winner_tag).first()
+    if set_winner is None:
+      # Create new user, initializing tag (User.id automatically assigned)
+      set_winner = User(tag=set_winner_tag) 
+      set_winner_id = set_winner.id
+      db.session.add(set_winner)
+    else:
+      set_winner_id = set_winner.id
+     
+    set_loser = User.query.filter(User.tag==set_loser_tag).first()
+    if set_loser is None:
+      # Create new user, initializing tag (User.id automatically assigned) 
+      set_loser = User(tag=set_winner_tag)
+      set_loser_id = set_loser.id
+      db.session.add(set_loser)
+    else:
+      set_loser_id = set_loser.id
+
 
 # Match is the many in a one-to-many relationship with model Set
 class Match(db.Model):

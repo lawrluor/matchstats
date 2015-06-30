@@ -26,3 +26,16 @@ print '\n'
 print "setlist[1][0]['tag'] should be the tag CTRL DJ Nintendo"
 print setlist[1][0]['tag']
 print '\n'
+
+# Get: score, tag, seed, round
+for set in setlist:
+	top_player = set[0]
+	bottom_player = set[1]
+
+	if top_player['seed']:
+		top_seed = top_player['seed']
+	if bottom_player['seed']:
+		bottom_seed = bottom_player['seed']
+	new_set = Set(winner_score=top_player['score'],
+								loser_score=bottom_player['score'],
+								)
