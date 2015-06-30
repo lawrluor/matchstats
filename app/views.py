@@ -166,7 +166,7 @@ def set_create():
 # helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
 def invalidScores(winner_score, loser_score, max_match_count):
   # if non-standard integers/strings, ignore them
-  if winner_score in legal_non_int or loser_score in legal_non_int: 
+  if (winner_score==1 and loser_score==0)
     return False
   else:
     # if standard integers, run calculations to check that scores are valid
@@ -295,6 +295,7 @@ def head_to_head():
   user2_match_win_count = request.args.get('user2_match_win_count')
   h2h_sets_played = request.args.get('h2h_sets_played')
   h2h_matches_played = request.args.get('h2h_matches_played')
+  h2h_stages_played = request.args.get('h2h_stages_played')
 
   # to be displayed when tag1 and tag2 are valid Users, but needs to be initialized here so the pre_submit template doesn't crash 
   all_sets = []
@@ -305,13 +306,15 @@ def head_to_head():
     h2h_sets_played = h2h_get_sets_played(tag1, tag2)
     user1_set_win_count = len(h2h_get_sets_won(tag1, tag2))
     user2_set_win_count = len(h2h_get_sets_won(tag2, tag1))
-
     # before moving forward, calculate matches by iterating through sets 
     h2h_matches_played = h2h_get_matches_played(h2h_sets_played) 
     user1_matches_won = h2h_get_matches_won(tag1, tag2, h2h_matches_played)
     user2_matches_won = h2h_get_matches_won(tag2, tag1, h2h_matches_played)
     user1_match_win_count = len(user1_matches_won)
     user2_match_win_count = len(user2_matches_won)
+
+    # calculate stage information
+    h2h_stages_played = h2h_get_stages_played(h2h_matches_played)
 
     # if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':
@@ -339,8 +342,9 @@ def head_to_head():
                         user2_set_win_count=user2_set_win_count,
                         user1_match_win_count=user1_match_win_count,
                         user2_match_win_count=user2_match_win_count,
-                        h2h_matches_played=h2h_matches_played,
                         h2h_sets_played=h2h_sets_played,
+                        h2h_matches_played=h2h_matches_played,
+                        h2h_stages_played=h2h_stages_played,
                         form=form) 
 
 

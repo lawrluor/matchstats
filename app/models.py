@@ -155,9 +155,13 @@ class Set(db.Model):
   
   # returns True if Set has invalid, impossible score counts for Set
   def invalidScores(self):
+   if (winner_score==1 and loser_score==0)
+    return False
+  else:
+    # if standard integers, run calculations to check that scores are valid
     if ((self.winner_score <= self.loser_score) or 
-      ((self.winner_score > ((self.max_match_count / 2.0) + 1)) or 
-      (self.winner_score < (self.max_match_count / 2.0)))):
+    ((self.winner_score > ((self.max_match_count / 2.0) + 1)) or 
+    (self.winner_score < (self.max_match_count / 2.0)))):
       return True 
 
 # Match is the many in a one-to-many relationship with model Set

@@ -4,5 +4,5 @@ SECRET_KEY = 'you-will-never-guess'
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db') #Uniform Resource Identifier, gives path for database file
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository') #folder where SQLAlchemy-migrate data files will be stored
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app2.db') #Uniform Resource Identifier, gives path for database file
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db2_repository') #folder where SQLAlchemy-migrate data files will be stored

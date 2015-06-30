@@ -92,14 +92,18 @@ def h2h_get_stages_won(winner_tag, Stages):
 
 	return stage_win_count
 
-# Returns all matches a User played with a Character
+# Returns all matches a User played with each Character
 # Store this list of Match objects in a variable for later use, like char_matches
 # to get number of matches played with specific Character, call len() on this function
-def h2h_get_character_played(tag, character, h2h_matches_played):
-	char_matches = []
+def h2h_get_character_played(tag, h2h_matches_played):
+	char_matches = {}
 	for match in h2h_matches_played:
-		if (match.winner==tag and match.winner_char==character) or (match.loser==tag and match.loser_char==character):
-			char_matches.append(match)
+		if match.winner_char != None and match.winner==tag:
+			character = char_matches.setdefault(match.winner_char, [])
+			character.append(match)
+		if match.loser_char != None and match.loser==tag:
+			character = char_matches.setdefault(match.loser_char, [])
+			character.append(match)
 
 	return char_matches
 

@@ -103,18 +103,6 @@ r1 = conn.request("GET", "http://ceogaming.challonge.com/ceo2014ssbmtop32")
 soup = BeautifulSoup(r1.data)
 soup.prettify()
 
-# Code for extracting top and bottom halves of match without relation to each other. Mostly obsolete
-"""
-match_top = soup.find_all("div", {"class" : "match_top_half"})
-top_half = parse_top_match(match_top)
-print top_half
-print '\n'
-
-match_bottom = soup.find_all("div", {"class" : "match_bottom_half"})
-bottom_half = parse_bottom_match(tag)
-print bottom_half
-"""
-
 # find all matches
 # first line identifying a match: <td class='core' id='match_qtip_23317245_' style='padding:0'>
 all_matches = soup.find_all("td", {"class" : "core"}, id=re.compile("\S"))
