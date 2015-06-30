@@ -12,8 +12,8 @@ from app.models import *
 
 
 def h2h_get_sets_played(tag1, tag2):
-	user1_won_sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
-	user2_won_sets = Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
+	user1_won_sets = h2h_get_sets_won(tag1, tag2)
+	user2_won_sets = h2h_get_sets_won(tag2, tag1)
   # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
 
 	h2h_sets_played = user1_won_sets + user2_won_sets

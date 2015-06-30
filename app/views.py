@@ -5,7 +5,7 @@ from app import app, db
 from models import User, Set, Match, Character, secondaries
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
-
+from h2h_stats_functions import *
 
 @app.route('/')
 @app.route('/index')
@@ -289,10 +289,12 @@ def head_to_head():
   # if query string arguments exist (form submitted), create these variables using query string
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
-  user1_win_count = request.args.get('user1_win_count')
-  user2_win_count = request.args.get('user2_win_count')
-  user1_won_matches = request.args.get('user1_won_matches')
-  user2_won_matches = request.args.get('user2_won_matches')
+  user1_set_win_count = request.args.get('user1_set_win_count')
+  user2_set_win_count = request.args.get('user2_set_win_count')
+  user1_match_win_count = request.args.get('user1_match_win_count')
+  user2_match_win_count = request.args.get('user2_match_win_count')
+  h2h_sets_played = request.args.get('h2h_sets_played')
+  h2h_matches_played = request.args.get('h2h_matches_played')
 
   # to be displayed when tag1 and tag2 are valid Users, but needs to be initialized here so the pre_submit template doesn't crash 
   all_sets = []
@@ -300,22 +302,16 @@ def head_to_head():
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
-    user1_won_sets = Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==tag2)).all()
-    user2_won_sets = Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==tag1)).all()
-    # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
-    user1_win_count = len(user1_won_sets)
-    user2_win_count = len(user2_won_sets)
+    h2h_sets_played = h2h_get_sets_played(tag1, tag2)
+    user1_set_win_count = len(h2h_get_sets_won(tag1, tag2))
+    user2_set_win_count = len(h2h_get_sets_won(tag2, tag1))
 
-    all_sets = user1_won_sets + user2_won_sets
-    all_sets = sorted(all_sets, key=lambda x: x.id) # Sort by Set id
-
-    # before moving forward, iterate through set lists and calculate total matches to display that number in template
-    user1_won_matches = 0 
-    user2_won_matches = 0 
-    for set in all_sets:
-      user1_won_matches += set.matches.filter(Match.winner==tag1).count()
-      user2_won_matches += set.matches.filter(Match.winner==tag2).count() 
-    all_matches = user1_won_matches + user2_won_matches
+    # before moving forward, calculate matches by iterating through sets 
+    h2h_matches_played = h2h_get_matches_played(h2h_sets_played) 
+    user1_matches_won = h2h_get_matches_won(tag1, tag2, h2h_matches_played)
+    user2_matches_won = h2h_get_matches_won(tag2, tag1, h2h_matches_played)
+    user1_match_win_count = len(user1_matches_won)
+    user2_match_win_count = len(user2_matches_won)
 
     # if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':
@@ -339,12 +335,12 @@ def head_to_head():
                         title="Head to Head",
                         tag1=tag1,
                         tag2=tag2,
-                        user1_win_count=user1_win_count,
-                        user2_win_count=user2_win_count,
-                        user1_won_matches=user1_won_matches,
-                        user2_won_matches=user2_won_matches,
-                        all_matches=all_matches,
-                        all_sets=all_sets,
+                        user1_set_win_count=user1_set_win_count,
+                        user2_set_win_count=user2_set_win_count,
+                        user1_match_win_count=user1_match_win_count,
+                        user2_match_win_count=user2_match_win_count,
+                        h2h_matches_played=h2h_matches_played,
+                        h2h_sets_played=h2h_sets_played,
                         form=form) 
 
 
