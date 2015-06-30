@@ -49,7 +49,7 @@ class User(db.Model):
     return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
   
   def __str__(self):
-    return self.tag + ' | Region: ' + str(self.region) + ' | Main: ' + self.main + ' | Secondaries: ' + str(self.secondaries.all())
+    return str(self.tag) + ' | Seed: ' + str(self.seed) + ' | Region: ' + str(self.region) + ' | Main: ' + str(self.main) + ' | Secondaries: ' + str(self.secondaries.all())
   
 
   # User-Set Relationship functions
@@ -112,26 +112,18 @@ class User(db.Model):
         character = Character.query.filter(Character.name == characterlist[i]).first()
         self.remove_secondaries(character)
     return self
-
-  # Takes strings winner and loser tag , queries User database to locate the respective Users; if not found, creates new ones and assigns them as the winner and loser of the set. This is a standalone function to be called BEFORE a set is created
-def check_users(set_winner_tag, set_loser_tag):
-  set_winner = User.query.filter(User.tag==set_winner_tag).first()
-  if set_winner is None:
-    # Create new user, initializing tag (User.id automatically assigned)
-    set_winner = User(tag=set_winner_tag) 
-    set_winner_id = set_winner.id
-    db.session.add(set_winner)
-  else:
-    set_winner_id = set_winner.id
    
-  set_loser = User.query.filter(User.tag==set_loser_tag).first()
-  if set_loser is None:
-    # Create new user, initializing tag (User.id automatically assigned) 
-    set_loser = User(tag=set_winner_tag)
-    set_loser_id = set_loser.id
-    db.session.add(set_loser)
-  else:
-    set_loser_id = set_loser.id
+
+# Based on tag parameter, queries User database to locate the respective User; if not found, creates new one, and adds to the database; in either case User is returned.
+def check_set_user(set_user_tag):
+  set_user  = User.query.filter(User.tag==set_user_tag).first()
+  if set_user is None:
+    # Create new user, initializing tag (User.id automatically assigned)
+    set_user = User(tag=set_user_tag) 
+    db.session.add(set_user) 
+    db.session.commit()
+  return set_user
+
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
@@ -149,10 +141,10 @@ class Set(db.Model):
   round_type = db.Column(db.Integer)
   
   def __repr__(self):
-    return '<tournament %s: | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
+    return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __str__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.tournament + ': ' + self.winner_tag + '_' + str(self.winner_id) + ' vs ' + self.loser_tag + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag
+    return str(self.tournament) + ', Round: ' + str(self.round_type) + ' | ' + str(self.winner_tag) + '_' + str(self.winner_id) + ' vs ' + str(self.loser_tag) + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + str(self.winner_tag)
   
   # returns winner (user) of this set
   def getSetWinner(self):
@@ -184,26 +176,6 @@ class Set(db.Model):
     ((self.winner_score > ((self.max_match_count / 2.0) + 1)) or 
     (self.winner_score < (self.max_match_count / 2.0)))):
         return True 
-
-  # Based on winner and loser tag submitted through form, queries User database to locate the respective Users; if not found, creates new ones and assigns them as the winner and loser of the set
-  def check_users(set_winner_tag, set_loser_tag):
-    set_winner = User.query.filter(User.tag==set_winner_tag).first()
-    if set_winner is None:
-      # Create new user, initializing tag (User.id automatically assigned)
-      set_winner = User(tag=set_winner_tag) 
-      set_winner_id = set_winner.id
-      db.session.add(set_winner)
-    else:
-      set_winner_id = set_winner.id
-     
-    set_loser = User.query.filter(User.tag==set_loser_tag).first()
-    if set_loser is None:
-      # Create new user, initializing tag (User.id automatically assigned) 
-      set_loser = User(tag=set_winner_tag)
-      set_loser_id = set_loser.id
-      db.session.add(set_loser)
-    else:
-      set_loser_id = set_loser.id
 
 
 # Match is the many in a one-to-many relationship with model Set

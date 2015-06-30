@@ -44,11 +44,11 @@ def parse_top_match(tag_list):
       end_index = processed_div_score.index('<') 
       # Check for alternate win scores: checkmark Unicode character, empty score
       if processed_div_score[start_index:end_index] == "\xe2\x9c\x93":
-        top_half["score"] = 'W'
+        top_half["score"] = 1
       elif processed_div_score[start_index:end_index] == '':
-        top_half["score"] = 'L'
+        top_half["score"] = 0
       else:
-        top_half["score"] = ''
+        top_half["score"] = 0
 
     return top_half
 
@@ -89,17 +89,18 @@ def parse_bottom_match(tag_list):
       end_index = processed_div_score.index('<') 
       # Check for alternate win scores: checkmark Unicode character, empty score
       if processed_div_score[start_index:end_index] == "\xe2\x9c\x93":
-        bottom_half["score"] = 'W'
+        bottom_half["score"] = 1
       elif processed_div_score[start_index:end_index] == '':
-        bottom_half["score"] = 'L'
+        bottom_half["score"] = 0
       else:
-        bottom_half["score"] = ''
+        bottom_half["score"] = 0
 
     return bottom_half
 
 # currently grabbing from: CEO 2014 Top 32 Bracket
-conn = urllib3.connection_from_url("http://ceogaming.challonge.com/ceo2014ssbmtop32")
-r1 = conn.request("GET", "http://ceogaming.challonge.com/ceo2014ssbmtop32")
+Tournament = "http://ceogaming.challonge.com/ceo2014ssbmtop32"
+conn = urllib3.connection_from_url(Tournament)
+r1 = conn.request("GET", Tournament)
 soup = BeautifulSoup(r1.data)
 soup.prettify()
 
