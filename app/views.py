@@ -199,7 +199,7 @@ def set_edit(set_id):
       # Create new user, initializing tag (User.id automatically assigned) 
       set_loser = User(tag=form.edit_loser_tag.data) 
       db.session.add(set_loser)
-   
+    
     current_set.winner_tag = set_winner.tag
     current_set.winner_id = set_winner.id
     current_set.loser_tag = set_loser.tag

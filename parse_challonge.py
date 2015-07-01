@@ -14,7 +14,7 @@ def parse_top_match(top_item_list):
 
   for item in top_item_list:
     round_item = item.find("div", {"class" : "inner_content"})
-    round_number = round_item['data-round']
+    round_number = round_item["data-round"]
     if round_number:
       top_half["round"] = int(round_number)
 
@@ -159,9 +159,6 @@ def import_challonge_data(matchlist, tournament_name):
     winner_user = check_set_user(set_winner['tag'])
     loser_user = check_set_user(set_loser['tag'])
 
-    print winner_user
-    print loser_user
-
     # If seed doesn't exist, do nothing; else, assign to User attribute seed
     if 'seed' in set_winner:
       winner_user.seed = set_winner['seed']
@@ -174,8 +171,6 @@ def import_challonge_data(matchlist, tournament_name):
     else:
       # prevent crashing when creating the Set without existing variable round_number
       round_number = 0
-
-    # Convert scores to integers
 
     new_set = Set(tournament=tournament_name,
                   round_type=round_number,
