@@ -124,6 +124,27 @@ def check_set_user(set_user_tag):
     db.session.commit()
   return set_user
 
+# transfers the data the User represented by joined_tag has to User root_tag, while deleting the User represented by joined_tag
+# currently doesn't actually link the Users or tag in any way before deletion
+# currently doesn't change Matches
+def make_same_user(root_tag, joined_tag):
+  root_user = User.query.filter(User.tag==root_tag).first()
+  print root_user
+  joined_user = User.query.filter(User.tag==joined_tag).first()
+  print joined_user
+  # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
+  joined_sets = joined_user.getAllSets()
+  for set in joined_sets:
+    if set.winner_tag==joined_user.tag:
+      set.winner_tag = root_user.tag
+      set.winner_id = root_user.id
+    else:
+      set.loser_tag = root_user.tag
+      set.loser_id = root_user.id
+
+  db.session.delete(joined_user) 
+  db.session.commit()
+  return root_user
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):

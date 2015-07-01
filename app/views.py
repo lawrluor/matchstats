@@ -383,11 +383,15 @@ def user(tag):
 
   # Store all user's sets in variable user_sets 
   user_sets = user.getAllSets() 
+  user_wins = user.getWonSets()
+  user_losses = user.getLostSets()
   user_secondaries = user.get_secondaries()
   return render_template("user.html",
                         title=tag,
                         user=user,
                         user_sets=user_sets,
+                        user_wins=user_wins,
+                        user_losses=user_losses,
                         user_secondaries=user_secondaries)
 
 
