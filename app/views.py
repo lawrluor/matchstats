@@ -151,6 +151,9 @@ def set_create():
       # if no recorded matches in set, create Set and redirect to /browse_sets
       flash("Set submitted.")
       return redirect(url_for('browse_sets'))
+    elif form.no_match_info.data == True:
+      flash("Set submitted.")
+      return redirect(url_for('browse_sets'))
     else:
       flash('Next, enter data for the individual matches.') # if Set is created successfully, redirect to the match_create page, where data for individual matches entered
       return redirect(url_for('match_submit', set_id=str(new_set.id), total_matches=int(new_set.total_matches), set_winner_tag=set_winner_tag, set_loser_tag=set_loser_tag))

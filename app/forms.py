@@ -55,7 +55,8 @@ class SetCreate(Form):
   set_loser_tag = StringField('loser_tag', validators=[DataRequired()])
   set_winner_score = StringField('winner_score', validators=[DataRequired(), set_score_check()]) 
   set_loser_score = StringField('loser_score', validators=[DataRequired(), set_score_check()])
-  set_max_match_count = SelectField('Best of:', choices = [('1','1'), ('3','3'), ('5','5'), ('7','7')], validators=[Required()]) # choices are strings, not integers, but are converted to integers in views.py - this is because it was buggy otherwise.
+  set_max_match_count = SelectField('Best of:', choices = [('1','1'), ('3','3'), ('5','5'), ('7','7')], validators=[Required()])
+  no_match_info = BooleanField('no_match_info')
 
 class SetEdit(Form):
   edit_tournament = StringField('tournament')

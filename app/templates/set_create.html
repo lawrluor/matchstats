@@ -17,6 +17,8 @@
       Please enter the loser's tag: {{ form.set_loser_tag(size=15) }}<br>
       <br>
       Please enter the loser's score: {{ form.set_loser_score(size=15) }}<br>
+      <br>
+      {{ form.no_match_info }} check this field if this set has NO match information<br>
 
       <!-- may be buggy with or statements -->
       {% for error in form.set_winner_tag.errors or form.set_loser_tag.errors or form.set_winner_score.errors or form.set_loser_score.errors %} 
