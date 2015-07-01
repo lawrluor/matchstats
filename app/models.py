@@ -168,7 +168,7 @@ class Set(db.Model):
   
   # returns True if Set has invalid, impossible score counts for Set
   def invalidScores(self):
-    if (winner_score==1 and loser_score==0):
+    if (winner_score==1 and loser_score==0) or (winner_score==0 and loser_score==-1):
       return False
     else:
       # if standard integers, run calculations to check that scores are valid

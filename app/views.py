@@ -80,7 +80,6 @@ def user_edit(user):
                           user=current_user,
                           form=form)
 
-legal_non_int = ['-1', 'W', 'L']
 @app.route('/set_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
 def set_create():
   form = SetCreate() # instantiate object from SetCreate() class in app/forms.py
@@ -108,22 +107,20 @@ def set_create():
     else:
       set_loser_id = set_loser.id
 
-    # process the input for winner score and loser score, and convert to integers if possible
-    if form.set_winner_score.data in legal_non_int:
-      created_set_winner_score = form.set_winner_score.data
+    # process the input for winner score and loser score, and "convert" to integers if possible
+    if form.set_winner_score.data=='W' or form.set_loser_score.data=='L':
+      # special 'W' and 'L' scores converted to a 1-0 set; if either is character, render set a 1-0
+      created_set_winner_score = 1
+      created_set_loser_score = 0
     else:
       created_set_winner_score = int(form.set_winner_score.data)
-
-    if form.set_loser_score.data in legal_non_int:
-      created_set_loser_score = form.set_loser_score.data
-    else:
       created_set_loser_score = int(form.set_loser_score.data)
-    
-    # process input for total_matches; if either winner or loser score is a standard integer, total_matches is their sum; else, total_matches = 0
-    if type(created_set_loser_score)==int and type(created_set_winner_score)==int:
-      created_total_matches = created_set_loser_score + created_set_winner_score
+
+    # Calculate created_total_matches, total matches in the Set
+    if (created_set_winner_score==0 and created_set_loser_score==-1):
+      created_total_matches = 0 
     else:
-      created_total_matches = 0
+      created_total_matches = created_set_winner_score + created_set_loser_score
 
     created_set_tournament = form.set_tournament.data
     created_max_match_count = int(form.set_max_match_count.data)
@@ -165,8 +162,8 @@ def set_create():
 
 # helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
 def invalidScores(winner_score, loser_score, max_match_count):
-  # if non-standard integers/strings, ignore them
-  if (winner_score==1 and loser_score==0):
+  # if non-standard integers/strings, ignore them; cases for reported W/L without full score, or a DQ score
+  if (winner_score==1 and loser_score==0) or (winner_score==0 and loser_score==-1):
     return False
   else:
     # if standard integers, run calculations to check that scores are valid
