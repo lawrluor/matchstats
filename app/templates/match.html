@@ -1,4 +1,15 @@
 <!-- prints Match representation in HTML given a Match object -->
-<p><div>
-	<b>Match {{i+1}}</b> - <b>Stage: </b>{{ matchlist[i].stage }} | <b>Winner:</b> {{ matchlist[i].winner }} ({{matchlist[i].winner_char}}) | <b>Loser:</b> {{ matchlist[i].loser }} ({{matchlist[i].loser_char}})
-</div></p>
+<div class="row">
+	<div class="col-md-2">
+		<b>Match {{i+1}}</b>
+	</div>
+	<div class="col-md-2">
+	<b>Stage: </b>{{ matchlist[i].stage }}
+	</div>
+	<div class="col-md-2">
+	<b>Winner:</b> {{ matchlist[i].winner }} ({{matchlist[i].winner_char}})
+	</div>
+	<div class="col-md-2">
+	<b>Loser:</b> {{ matchlist[i].loser }} ({{matchlist[i].loser_char}})
+	</div>
+</div>

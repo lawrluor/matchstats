@@ -247,10 +247,9 @@ def set_edit(set_id):
                           set=current_set
                           )
 
-
+# set_id, total_matches, set_winner, set_loser passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
 @app.route('/match_submit', methods=['GET', 'POST'])
-def match_submit(): # set_id, total_matches, set_winner, set_loser passed through url from route /set_create as query strings automatically because they weren't passed as parameters of match_sbumit or part of the route /match_submit
- 
+def match_submit(): 
   set_id = request.args.get('set_id')
   total_matches = request.args.get('total_matches')
   set_winner = request.args.get('set_winner_tag')
@@ -294,6 +293,11 @@ def match_submit(): # set_id, total_matches, set_winner, set_loser passed throug
                           title='Submit Match',
                           form=form)
 
+@app.route('/match_edit', methods=['GET', 'POST'])
+def match_edit():
+  set_id = request.args.get('set_id')
+  current_set = Set.query.filter(Set.id==set_id).first()
+  return "Unfinished"
 
 # Head to Head page to begin querying User head to head. tag1 and tag2 refer to users submitted after the redirect.
 @app.route('/head_to_head', methods=['GET', 'POST'])

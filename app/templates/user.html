@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
   <table> <!-- Puts things into a table format neatly -->
     <tr valign="top"> <!-- HTML table with two columns and two rows -->
       <td>
@@ -46,5 +47,5 @@
   {% for set in user_sets %} <!-- user_sets is variable containing the result of user.getAllSets passed from views -->
     {% include 'set.html' %}
   {% endfor %}
-
+</div>
 {% endblock %}
