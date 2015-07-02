@@ -213,14 +213,28 @@ def set_edit(set_id):
     # implicit else: scores are valid, and store them in appropriate Set attributes
     current_set.winner_score = int(form.edit_winner_score.data)
     current_set.loser_score = int(form.edit_loser_score.data)
+    current_set.total_matches = current_set.loser_score + current_set.winner_score
      
     db.session.commit()
     flash('Changes have been saved.') 
-    return redirect(url_for('set_edit', set_id=set_id))
 
+    # if indication to edit Matches
+    if form.edit_match_info.data==True:
+      # if the Set has matches, send to edit Match page with link to Set and count of total_matches; else, redirect to match submit page
+      if current_set.matches.all():
+        return redirect(url_for('match_edit', set_id=set_id, total_matches=current_set.total_matches))
+      else:
+        return redirect(url_for('match_submit', set_id=set_id, total_matches=current_set.total_matches, set_winner_tag=current_set.winner_tag, set_loser_tag=current_set.loser_tag))
+    else:
+      # if no indiciation to edit Matches, then Set editing is done.
+      return redirect(url_for('set_edit', set_id=set_id))
   else:
     # if not submitted form, pre-populate them with the set's current (prior to edit) info
-    form.edit_max_match_count.data = current_set.max_match_count
+    if current_set.max_match_count==0:
+      form.edit_max_match_count.data = 0
+    else:
+      form.edit_max_match_count.data = current_set.max_match_count
+
     form.edit_tournament.data = current_set.tournament
     form.edit_winner_tag.data = current_set.winner_tag
     form.edit_loser_tag.data = current_set.loser_tag

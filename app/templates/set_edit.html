@@ -45,6 +45,10 @@
               <td>Edit Loser Score:</td>
               <td>{{ form.edit_loser_score(size=18) }}</td>
           </tr>
+          <tr>
+            <td>Edit Match Info?</td>
+            <td>{{ form.edit_match_info }}</td>
+          </tr>
 
           {% for error in form.edit_max_match_count.errors or form.edit_tournament.errors or form.edit_winner_tag.errors or form.edit_loser_tag.errors or form.edit_loser_score.errors %} <!-- may be buggy with or statements -->
         <span style="color: red;">[{{ error }}]</span> <!-- flash error message if user_tag is invalid -->

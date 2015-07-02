@@ -60,11 +60,12 @@ class SetCreate(Form):
 
 class SetEdit(Form):
   edit_tournament = StringField('tournament')
-  edit_winner_tag = StringField('winner_tag', validators=[DataRequired(), not_equal_to("edit_loser_tag")])
-  edit_loser_tag = StringField('loser_tag', validators=[DataRequired(), not_equal_to("Tonic")])
+  edit_winner_tag = StringField('winner_tag', validators=[DataRequired()])
+  edit_loser_tag = StringField('loser_tag', validators=[DataRequired()])
   edit_winner_score = IntegerField('winner_score', validators=[InputRequired()])
   edit_loser_score = IntegerField('loser_score', validators=[InputRequired()])
   edit_max_match_count = IntegerField('max_match_count', validators=[InputRequired()])
+  edit_match_info = BooleanField('edit_match_info')
 
 class MatchSubmit(Form):
   match_stage = SelectField('match_stage', choices = [('Battlefield', 'Battlefield'), ('Dream Land', 'Dream Land'), ('Final Destination', 'Final Destination'), ('Fountain of Dreams', 'Fountain of Dreams'), ('Pokemon Stadium', 'Pokemon Stadium'), ('Yoshi\'s Story', 'Yoshi\'s Story'), ('Other', 'Other')], coerce=str)
