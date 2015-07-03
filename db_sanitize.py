@@ -1,52 +1,45 @@
 #!flask/bin/python
+import sys
+from app import app, db, models
+sys.path.append('./sanitize')
+from sanitize_utils import check_and_sanitize_tag
 
-from app import app, db
-from app.models import *
+def sanitize_users():
+  users = models.User.query.all()
+  for user in users:
+    sanitized_tag = check_and_sanitize_tag(user.tag)
+    if sanitized_tag and not sanitized_tag == user.tag:
+      sanitized_user = models.User.query.filter(models.User.tag==sanitized_tag).first()
+      if not sanitized_user:
+        sanitized_user = models.User(tag=sanitized_tag)
+        db.session.add(sanitized_user)
+        db.session.commit()
+      sanitize_sets(user, sanitized_user, sanitized_tag)
+      db.session.delete(user)
+      db.session.commit()
 
+def sanitize_sets(user, sanitized_user, sanitized_tag):
+  sets = user.getAllSets()
+  for set_ in sets:
+    if set_.winner_tag == user.tag:
+      sanitize_matches(set_, sanitized_tag)
+      set_.winner_tag = sanitized_tag
+      set_.winner_id = sanitized_user.id
+    elif set_.loser_tag == user.tag:
+      sanitize_matches(set_, sanitized_tag)
+      set_.loser_tag = sanitized_tag
+      set_.loser_id = sanitized_user.id 
 
-fake_userlist = ['Cloud 9 | Mango', 'C9 Mang0', 'Mango',
-								'Alliance | Armada', 'P4K EMP Armada', 
-								'Evil Geniuses | PPMD', 'EG | PPMD', 'Dr. PP',
-								'MVG | Mew2King', 'P4K EMP Mew2King', 'M2K',
-								'Curse | Hungrybox', 'Crs.Hungrybox', 'Liquid` Hungrybox', 'Liquid Hungrybox',
-								'TSM | Leffen', 'Leffen',
-								'MVG | Axe', 'MOR Axe', 'MOR | Axe',
-								'VGBC | Hax',
-								'Westballz',
-								'SS | Colbol',
-								'CLG | PewPewU', 'MIOM : PewPewU', 'PPU',
-								'MMG Shroomed',
-								'VGBC | aMSa']
+def sanitize_matches(set_, sanitized_tag):
+  matches = set_.matches.all()
+  for match in matches:
+    if matches.winner == set_.winner_tag:
+      matches.winner = sanitized_tag
+    elif matches.loser == set_.loser_tag:
+      matches.loser = sanitized_tag
 
-top_player_list = ['mango', 'armada', 'ppmd', 'mew2king', 'hungrybox', 
-									'leffen', 'axe', 'hax', 'westballz', 'colbol',
-									'fly amanita', 'lucky', 'pewpewu', 'shroomed', 'silentwolf',
-									'plup', 'fiction', 's2j', 'ice', 'sfat', 
-									'zhu', 'amsa', 'kirbykaze', 'nintendude', 'macd']
+def main():
+  sanitize_users()
 
-for user_tag in fake_userlist:
-	# remove sponsorship dividers or other unwanted characters, and make lowercase
-	normalized_tag = user_tag.lower()
-	for player in top_player_list:
-		tag_start = normalized_tag.find(player)
-		if tag_start != -1:
-			# if found a substring, this should be the user's true tag.
-			print normalized_tag
-			tag = normalized_tag[tag_start:]
-			print tag
-
-			# check for chars before the tag substring; these should be teams or sponsors preceding the true tag.
-			# take out whitespace and extraneous characters that divide the tag
-			team = normalized_tag[:tag_start]
-			team = team.strip('|`.: ')
-			print team
-			print len(team)
-
-	print '\n'
-
-"""
-# query database
-userlist = User.query.all()
-for user in userlist:
-	do stuff
-"""
+if __name__ == '__main__':
+  main()
