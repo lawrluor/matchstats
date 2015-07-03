@@ -8,6 +8,7 @@ def sanitize_users():
   users = models.User.query.all()
   for user in users:
     sanitized_tag = check_and_sanitize_tag(user.tag)
+    # If tag already sanitized, skip sanitation.
     if sanitized_tag and not sanitized_tag == user.tag:
       sanitized_user = models.User.query.filter(models.User.tag==sanitized_tag).first()
       if not sanitized_user:

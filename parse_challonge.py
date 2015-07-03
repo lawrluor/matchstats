@@ -2,6 +2,9 @@
 # Currently supports: fully loaded Challonge Bracket with: seed or no seed displayed, score=int or \xe2\x9c\x93 (checkmark) unicode, data-round=int, <span> title=str
 # Note: Challonge refers to Sets as "match". I will adopt the term "match" to represent Set only in this file, for the sake of simplicity.
 from app.models import *
+import sys
+sys.path.append('./sanitize')
+from sanitize_utils import check_and_sanitize_tag
 
 import urllib3
 from bs4 import BeautifulSoup
@@ -21,7 +24,7 @@ def parse_top_match(top_item_list):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
-      top_half["tag"] = str(tag)
+      top_half["tag"] = check_and_sanitize_tag(str(tag))
 
     seed_item = item.find("div", {"class" : "top_seed"})
     if seed_item is not None:
@@ -56,7 +59,7 @@ def parse_bottom_match(bottom_item_list):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
-      bottom_half["tag"] = str(tag)
+      bottom_half["tag"] = check_and_sanitize_tag(str(tag))
 
     seed_item = item.find("div", {"class" : "bottom_seed"})
     if seed_item is not None:
