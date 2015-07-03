@@ -14,12 +14,13 @@ def sanitize_tag(tag, regex_list, sanitized_list):
   for i in range(len(regex_list)):
     if regex_list[i].match(tag):
       return sanitized_list[i]
+  return tag
 
 
 # Regular expressions representing top players.
 top_player_regex_raw_list = [
     '.*(mang[o0])',
-    '.*(armada)|.*(\[a\]rmada)',
+    '.*(armada)|.*(\[a\]rmada).*',
     '.*(ppmd)|.*(dr\. pp)',
     '.*(mew2king)|.*(m2k)',
     '.*(hungrybox)|.*(hbox)',
