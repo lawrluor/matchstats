@@ -7,9 +7,12 @@
 			Non-Tourney 
 		{% endif %}
 	</td>
-	<td class="col-md-4 text-center">
+	<td class="col-md-2 text-right">
 		<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a> 
-		({{ set.winner_score }} - {{ set.loser_score }}) 
+		({{ set.winner_score }} -
+        </td>
+        <td class="col-md-2 text-left">
+                {{ set.loser_score }}) 
 		<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a> 
 	</td>
 	<td class="col-md-4 text-right">

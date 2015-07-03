@@ -3,32 +3,37 @@
 
 {% block content %}
 <div class="container">
+  <header class="jumbotron ">
   <table> <!-- Puts things into a table format neatly -->
     <tr valign="top"> <!-- HTML table with two columns and two rows -->
       <td>
-        <h1>User: <a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> 
+        <h1><a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> 
 
           {% if user.region %}
-            <p><b>Region:</b>
+            <p><b></b>
             <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
             </p>
           {% else %}
-          <p><b>Region: No Region</b></p>
-            {% endif %}
-
-
-          {% if user.main %}
-            <p><b>Main:</b>
-            <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
-            </p>
-          {% else %}
-            <p><b>Main:</b>
-            <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
-            </p>
+          <p><b>No Region</b></p>
           {% endif %}
 
+
+          <p><b>Main:</b>
+          {% if user.main %}
+            <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+          {% else %}
+            <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
+          {% endif %}
+          </p>
+
           {% if user.secondaries %}
-            <p><b>Secondaries:</b> {{ user_secondaries }} </p>
+          <p><b>Secondaries:</b> 
+            {% if user_secondaries|length > 0 %}
+              {{ user_secondaries }} 
+            {% else %}
+              None
+            {% endif %}
+          </p>
           {% endif %}
 
           <!-- Route to edit User -->
@@ -37,15 +42,27 @@
       </td>
     </tr>
   </table>
-
+  </header>
   <hr> <!-- theme change -->
-  <h2>{{ user.tag }}'s Set History</h2>
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>{{ user.tag }}'s Set History</h2>
+  </div>
+  <div class="panel-body">
+  <table class="table bootstrap-datatable">
   <!-- print all items in array user_sets (currently each item is a fake set) -->
-  <h4>Total Sets: {{ user_sets|length }} | Record: [{{user_wins|length}}-{{user_losses|length}}]</h4>
-  <br>
-  
+  <thead>
+    <tr>
+    <th>Total Sets: {{ user_sets|length }} | Record: [{{user_wins|length}}-{{user_losses|length}}]</th>
+    </tr>
+  </thead>
+  <tbody>
   {% for set in user_sets %} <!-- user_sets is variable containing the result of user.getAllSets passed from views -->
     {% include 'set.html' %}
   {% endfor %}
+  </tbody>
+  </table>
+  </div>
+  </div>
 </div>
 {% endblock %}
