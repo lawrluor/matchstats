@@ -1,18 +1,18 @@
 <!-- prints Set representation in HTML given a Set object -->
 <div class="row"><h5><b>
-	<div class="col-md-2">
+	<div class="col-md-4">
 		{% if set.tournament %} 
 			<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a>
 		{% else %}
 			Non-Tourney 
 		{% endif %}
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4 text-center">
 		<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a> 
 		({{ set.winner_score }} - {{ set.loser_score }}) 
 		<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a> 
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-4 text-right">
   	<a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}"> View Head-to-Head</a>
 	</div>
 </b></h5></div> 
@@ -20,7 +20,8 @@
   <!-- store set.total_matches into variable for use in other templates -->
   {% set total_matches = set.total_matches -%}	
   
-  {% set matchlist = set.matches.all() -%}
+  <!-- currently not working with matches -->
+  {% set matchlist = [] %}<!--set.matches.all() -%}-->
   <!-- print Match representation in HTML for all Matches in Set -->
   {% for i in range(matchlist|length) %}
     {% include 'match.html' %}
