@@ -34,46 +34,86 @@
 
     {% if tag1 != None and tag2 != None %} 
     <!--<h2>Head-to-Head between {{ tag1 }} and {{ tag2 }}</h2>-->
+    <div class="panel panel-default">
+    <div class="panel-heading">
       <h3> Stats </h3>
-        <div class="row">
-          <div class="col-md-4"> 
-          <div><b>Total Sets Played: {{ user1_set_win_count + user2_set_win_count }}</b></div>
-          <div>{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</div>
-          </div>
-
-          <div class="col-md-4 text-center">
-          <div><b>Total Matches Played: {{ h2h_matches_played|length }}</b></div>
-          <div>{{ tag1 }} [{{ user1_match_win_count }}-{{ user2_match_win_count }}] vs {{ tag2 }}</div>
-          </div>
-          
-          <div class="col-md-4 text-right">
-          <div><b>Stage Record: </b></div>
-          <div>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</div>
-          <div>Dream Land: {{ h2h_stages_played["Dreamland"]|length }}</div>
-          <div>Final Destination: {{ h2h_stages_played["Final Destination"]|length }}</div>
-          <div>Fountain of Dreams: {{ h2h_stages_played["Fountain of Dreams"]|length }}</div>
-          <div>Pokemon Stadium: {{ h2h_stages_played["Pokemon Stadium"]|length }}</div>
-          <div>Yoshi's Story: {{ h2h_stages_played["Yoshi's Story"]|length }}</div>
-          </div>
-        </div>
-
-
-      <h3> Set History </h3>
-      <!-- "Table" column names -->
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Tournament</h4>
-        </div>
-
-        <div class="col-md-4 text-center">
-          <h4>Result</h4>
-        </div>
+    </div>
+    <div class="panel-body">
+    <table class="table bootstrap-datatable">
+      <thead>
+        <tr>
+          <th><b>Total Sets Played: {{ user1_set_win_count + user2_set_win_count }}</b></th>
+          <th><b>Total Matches Played: {{ h2h_matches_played|length }}</b></th>
+          <th><b>Stage Record: </b></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</td>
+          <td>{{ tag1 }} [{{ user1_match_win_count }}-{{ user2_match_win_count }}] vs {{ tag2 }}</td>
+          <td>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Dream Land: {{ h2h_stages_played["Dreamland"]|length }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Final Destination: {{ h2h_stages_played["Final Destination"]|length }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Fountain of Dreams: {{ h2h_stages_played["Fountain of Dreams"]|length }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Yoshi's Story: {{ h2h_stages_played["Yoshi's Story"]|length }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>Pokemon Stadium: {{ h2h_stages_played["Pokemon Stadium"]|length }}</td>
+        </tr>
+      </tbody>
+      </table>
       </div>
+      </div>
+
+
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3> Set History </h3>
+      </div>
+      <div class="panel-body">
+      <!-- "Table" column names -->
+      <table class="table bootstrap-datatable">
+        <thead>
+          <tr>
+            <th>
+              <h4>Tournament</h4>
+            </th>
+
+            <th class="text-center">
+              <h4>Result</h4>
+            </th>
+            <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
       
       <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
       {% for set in h2h_sets_played %}
   	    {% include 'set.html' %}
       {% endfor %}
+      </tbody>
+      </table>
+        </div>
+      </div>
     {% endif %}
 
   </form>
