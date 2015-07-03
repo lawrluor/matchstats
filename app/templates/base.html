@@ -22,7 +22,7 @@
 
 
   <body>
-        <!-- header linking to different web features, across all pages on site -->
+  <!-- header linking to different web features, across all pages on site -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -54,7 +54,9 @@
                         <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
                     </li>
                     <li>
-                    <form style="display: inline;" action="{{ url_for('search') }}" method="post" name="search">{{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=20) }}<input type="submit" value="Search"></form>
+                    <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
+                        {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=15, class="form-control") }}
+                        <input type="submit" class="form-control" value="Search"></form>
                     </li>
                 </ul>
             </div>

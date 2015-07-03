@@ -7,6 +7,10 @@ from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToH
 from sqlalchemy import and_
 from h2h_stats_functions import *
 
+import sys
+sys.path.append('./sanitize')
+from sanitize_utils import check_and_sanitize_tag
+
 # Registers a function to run before each request. g.search_form makes form global so the field's data can be accessed from anywhere
 @app.before_request
 def before_request():
@@ -517,7 +521,8 @@ def search():
 
 @app.route('/search_results/<query>')
 def search_results(query):
-  results = User.query.filter(User.tag==query).all()
+  sanitized_query = check_and_sanitize_tag(query)
+  results = User.query.filter(User.tag==sanitized_query).all()
   return render_template('search_results.html',
                          query=query,
                          results=results)
