@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
   <h1>Browse All Sets</h1>
   <!-- print all items in list setlist (currently containing all sets) -->
   {% for set in setlist %}
   	{% include 'set.html' %}
   {% endfor %}
 {% endblock %}
+</div>

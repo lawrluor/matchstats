@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Browse All Characters</h1>
-  <!-- simply prints all characters (strings) in characterlist -->
-  {% for character in characterlist %}
-    <div><b><a href="{{ url_for("character", character=character) }}">{{ character }}</a></b></div>
-  {% endfor %}
+	<div class="container">
+	  <h1>Browse All Characters</h1>
+	  <!-- simply prints all characters (strings) in characterlist -->
+	  {% for character in characterlist %}
+	    <div><b><a href="{{ url_for("character", character=character) }}">{{ character }}</a></b></div>
+	  {% endfor %}
+	</div>
 {% endblock %}

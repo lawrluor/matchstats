@@ -2,8 +2,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
   <h1>Welcome to Matchstats!</h1>
   <BR>&nbsp;<BR>
+
 
   <h2>Recent Tournaments</h2>
   <div><a href="{{ url_for("tournament", tournament="Apex 2015")}}">Apex 2015</a></div>
@@ -15,6 +17,7 @@
   <ul>
     <li> editing Set now redirects to editing Matches if indicated on the form, depending on how many matches are in the set. </li>
     <li> implemented bootstrap templating to the templates</li>
+    <li> templates now are enclosed in containers; Set and User displayed tabulated </li>
   </ul>
 
   <h4> July 1, 2015 </h4>
@@ -163,4 +166,5 @@
 <hr>
 <div><b>Current database version: 38</b></div>
 
+</div>
 {% endblock %}
