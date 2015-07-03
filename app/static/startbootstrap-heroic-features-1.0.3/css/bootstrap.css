@@ -13,6 +13,10 @@ html {
 body {
   margin: 0;
 }
+.scroll400 {
+  overflow-y: scroll;
+  height: 400px;
+}
 article,
 aside,
 details,
