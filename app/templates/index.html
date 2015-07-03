@@ -3,36 +3,42 @@
 
 {% block content %}
 <div class="container">
+  <header class="jumbotron hero-spacer">
   <h1>Welcome to Matchstats!</h1>
-  <BR>&nbsp;<BR>
-
-
   <div><h3><a href="{{url_for("browse_tournaments")}}">Browse Recent Tournaments</a></h3></div>
-  <BR>&nbsp;<BR>
+  </header>
+  <hr>
 
   <h3>Recent Updates</h3>
 
-  <h5> July 3, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> July 3, 2015 </h5>
   <ul>
     <li> added page /browse_tournaments to display list of tournaments routing to their display pages /tournament </li>
     <li> updated display page for /tournament, and linked /browse_tournaments from /index </li>
     <li> added footer to /base to appear in all templates </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> July 2, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> July 2, 2015 </h5>
   <ul>
     <li> editing Set now redirects to editing Matches if indicated on the form, depending on how many matches are in the set. </li>
     <li> implemented bootstrap templating to the templates</li>
     <li> templates now are enclosed in containers; Set and User displayed tabulated </li>
     <li> prettified templates, Stats now displayed better in /head-to-head </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> July 1, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> July 1, 2015 </h5>
   <ul>
     <li> ./make_same_user in models transfers Set data from one User to another and deletes the transferrer, essentially merging Users. /user (profile) now displays overall Set stats </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 30, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 30, 2015 </h5>
   <ul>
     <li> modified invalidScore in Set model and views.py to let special set score of (1-0) pass </li>
     <li> implemented new database designed to store data from setlists in the format parse_challonge.py gives. Also copied functions from view and put them in models </li>
@@ -40,27 +46,35 @@
     <li> parsing is now done not using substrings but tag ids. Compiled all functioning methods into parse_challonge, and successfully tested importing to database </li>
     <li> updated filtering for valid scores in /set_create </li>
     <li> added BooleanField to /set_create which skips match submission if checked. Currently, it defaults to expecting match information </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 29, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 29, 2015 </h5>
   <ul>
     <li> /set_create now accepts non-standard integers for DQ ('-1'), Win ('W') and Loss ('L') as Set scores. Set score checking accounts for this. </li>
     <li> implemented h2h_stats_functions.py in views to optimize /head_to_head </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5>June 28, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5>June 28, 2015 </h5>
   <ul>
     <li> created and finished testing helper functions for stats in h2h_stats_functions.py </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5>June 27, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5>June 27, 2015 </h5>
   <ul>
     <li> /head_to_head now displays total match count with win# for each User </li>
     <li> edited issues pointed out in collaborator's code review </li>
     <li> added many functions for finding statistics in /head_to_head, currently in h2h_stats_functions.py </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 26, 2015 </h6>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 26, 2015 </h6>
   <ul>
     <li> in /edit_user, add_secondaries fields only allow selection of non-main and non-secondary characters, and remove_secondaries fields only allow selection of User secondaries characters </li>
     <li> user.html (user profile) now displays in order: tag, region, main, secondary. (idiomatic of User) </li>
@@ -78,9 +92,11 @@
     <li> fixed bugs regarding creating new Users automatically </li>
     <li> /head_to_head now displays overall win record between Users. revised functions in /head_to_head and associated templates </li>
     <li> reworked Set to display all Matches using an indexed for loop. reformatted Head to Head template to display relevant information at the top before the Set History </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 25, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 25, 2015 </h5>
   <ul>
     <li> implemented Character-User functions from Character class, and updated unit test (tests.py) </li>
     <li> implemented creation of secondaries column from /create_user when creating User. Hardcoded database of Character objects </li>
@@ -98,9 +114,11 @@
     <li> revised /set_create and form to take in tournament information </li>
     <li> added /edit_user template to edit user, for User.tag, User.main, User.regions </li>
     <li> added addition/removal of secondaries to /edit_user, defined User functions for processing lists of Characters </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 24, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 24, 2015 </h5>
   <ul>
     <li> NOTE: large bug: werkzeug.routing.BuildError, when viewing /browse_users and /browse_regions when it claims that the route to /region/region when displaying a user (tag, region, main) doesn't exist. This is actually because it is being passed a parameter of None from a new User who does not have the attribute region filled out, so the route is essentially /region/None rather than /region/region. The same holds true for other empty yet required attributes. Clear the database of these types of objects </li>
     <li> optimized /head_to_head, and now checks for query string variable existence first </li>
@@ -109,9 +127,11 @@
     <li> added Characters as Model, Secondaries as relationship table between Characters and Users </li>
     <li> fixed User functions for querying and displaying User.secondaries </li>
     <li> revised User-Character functions, updated unit test (tests.py) </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 23, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 23, 2015 </h5>
   <ul>
     <li> merged 'versus.html' into 'head_to_head.html', and merged route /versus into /head_to_head so that only head_to_head references exist. Revised template to display head to head history on the same page as the search page, /head_to_head. Fixed bugs regarding head to head displays</li>
     <li> Users now explicitly ordered by user_id in /browse_users. Sets now explicitly ordered by set_id in /browse_sets; sets displayed on user and head to head pages now explicitly ordered by set_id </li>
@@ -120,14 +140,18 @@
     <li> changed /browse_regions to display all regions currently populated, and changed /region to be the page that actually displays users populating the region. </li>
     <li> added /browse_regions and /browse_characters routes to the base template </li>
     <li> updated all links to properly route to region and character pages </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 22, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 22, 2015 </h5>
   <ul>
     <li> fixed bugs in head to head and revised templates; additionally, all sets now link to the match history page between two users </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 21, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 21, 2015 </h5>
   <ul>
       <li> added "view_region.html" as a template to view all user from a specific regions, and added a route to view_region </li>
       <li> winner character and loser character are now selected as a dropdown SelectField list rather than a string input </li>
@@ -135,9 +159,11 @@
       <li> match_submit now takes variables through URL from /set_create and /match_submit by using a query string on the URL </li>
       <li> implemented head to head page (route /versus) between two users, which currently displays their played sets </li>
       <li> implemented form and head_to_head.html page to allow searching for two users, then redirects to /versus to actually display their set history </li>
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 20, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 20, 2015 </h5>
   <ul>
     <li> rendered index "Recent Update" changelog as unordered list</li>
     <li> fixed User query methods from Set</li>
@@ -152,9 +178,11 @@
     <li> added intelligent "validation" system to ensure legal sets are created </li>
     <li> Created 'match.html' and revised 'set.html' template to import 'match.html' when rendering a set. It now prints Match representation in HTML given Match object rather than print a Match object using the Match __str__ method </li>
     <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li> 
-  </ul>
+  </ul></div></div>
+  </div>
 
-  <h5> June 19, 2015 </h5>
+  <div class="col-md-3 col-sm-6 hero-feature">
+  <div class="thumbnail"><div class="caption scroll400"><h5> June 19, 2015 </h5>
   <ul>
     <li> Added "region" field to User model </li>
     <li> added support for region in web form, application </li>
@@ -169,7 +197,9 @@
     <li> created production mode 'runp.py' for public use, along with 404 and 500 error templates</li>
     <li> updated 'index.html' to display updates and recent tournaments</li>
     <li> filled database with results from Apex 2015 Top 8</li>
-  <ul>
+  </ul></div>
+  </div>
+  </div>
 
 </div>
 {% endblock %}
