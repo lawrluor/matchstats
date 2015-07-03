@@ -5,9 +5,10 @@
 <div class="container">
 	<h2> Browse Tournaments </h2>
 
-<!-- Display list of all tournaments with hyperlink -->
-{% for tournament in tournamentlist %}
-	<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
-{% endfor %}
+	<!-- Display list of all tournaments with hyperlink -->
+	{% for tournament in tournamentlist %}
+		<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
+	{% endfor %}
 </div>
+
 {% endblock %}
