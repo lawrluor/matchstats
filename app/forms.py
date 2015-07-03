@@ -86,6 +86,3 @@ class HeadToHead(Form):
 # search form in navigation bar
 class SearchForm(Form):
   search = StringField('search', validators=[DataRequired()])
-
-  def __repr__():
-    return "sup"
