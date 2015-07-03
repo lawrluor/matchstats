@@ -1,0 +1,13 @@
+<!-- A list of recent tournaments -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<h1> Browse Tournaments </h1>
+
+<!-- Display list of all tournaments with hyperlink -->
+{% for tournament in tournamentlist %}
+	<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
+{% endfor %}
+</div>
+{% endblock %}

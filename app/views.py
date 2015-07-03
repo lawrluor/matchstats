@@ -472,8 +472,28 @@ def character(character):
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
 
+# Lists all tournaments 
+@app.route('/browse_tournaments')
+def browse_tournaments():
+  # with_entities returns a list of tuple values: (Set.tournament, None)
+  all_tournaments = Set.query.with_entities(Set.tournament)
 
-#Displays all sets in a given tournament
+  tournamentlist = []
+  # add tuple objects to tournamentlist if they are unique
+  for tournament in all_tournaments:
+    if tournament not in tournamentlist:
+      tournamentlist.append(tournament)
+  
+  # iterate through indices and replace each tuple object with the first value in its tuple, Set.tournament (list[i][0])
+  for i in range(len(tournamentlist)):
+    if tournamentlist[i][0] not in tournamentlist:
+      tournamentlist[i] = tournamentlist[i][0].encode('ascii', 'ignore')
+
+  return render_template("browse_tournaments.html",
+                         tournamentlist=tournamentlist)
+    
+
+# Displays all sets in a given tournament
 @app.route('/tournament/<tournament>')
 def tournament(tournament):
   tournament_setlist = Set.query.filter(Set.tournament==tournament).order_by(Set.id).all()
