@@ -1,11 +1,16 @@
 # Currently returns index template to be displayed on client's web browser. Routes map URLs to the function.
 
-from flask import render_template, flash, redirect, request, url_for
+from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
 from models import User, Set, Match, Character, secondaries
-from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
+from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
 from h2h_stats_functions import *
+
+# Registers a function to run before each request. g.search_form makes form global so the field's data can be accessed from anywhere
+@app.before_request
+def before_request():
+  g.search_form = SearchForm()
 
 @app.route('/')
 @app.route('/index')
@@ -503,6 +508,19 @@ def tournament(tournament):
   return render_template("tournament.html",
                          tournament=tournament,
                          tournament_setlist=tournament_setlist)
+
+@app.route('/search', methods=['POST'])
+def search():
+  if not g.search_form.validate_on_submit():
+    return redirect(url_for('index'))
+  return redirect(url_for('search_results', query=g.search_form.search.data))
+
+@app.route('/search_results/<query>')
+def search_results(query):
+  results = User.query.filter(User.tag==query).all()
+  return render_template('search_results.html',
+                         query=query,
+                         results=results)
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)

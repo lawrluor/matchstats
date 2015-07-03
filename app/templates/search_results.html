@@ -1,0 +1,9 @@
+<!-- displays search results-->
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Search results for "{{ query }}":</h1>
+  {% for user in results %}
+      {% include 'user_display.html' %}
+  {% endfor %}
+{% endblock %}

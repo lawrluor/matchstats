@@ -30,8 +30,11 @@
       | <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
       | <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
       | <a href="{{ url_for('head_to_head') }}">Head to Head</a>
+      | <form style="display: inline;" action="{{ url_for('search') }}" method="post" name="search">{{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=20) }}<input type="submit" value="Search"></form>
+    <!--
       | <a href="{{ url_for('user_create') }}">Create User</a>
       | <a href="{{ url_for('set_create') }}">Create Set</a>
+    -->
     </div>
 
     <hr>

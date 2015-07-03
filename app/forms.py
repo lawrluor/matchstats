@@ -83,4 +83,6 @@ class HeadToHead(Form):
   user1 = StringField('user1', validators=[DataRequired()])
   user2 = StringField('user2', validators=[DataRequired()])
 
-
+# search form in navigation bar
+class SearchForm(Form):
+  search = StringField('search', validators=[DataRequired()])
