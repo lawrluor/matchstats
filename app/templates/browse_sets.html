@@ -2,6 +2,18 @@
 {% block content %}
 <div class="container">
   <h1>Browse All Sets</h1>
+
+  <!-- "Table" column names -->
+  <div class="row">
+  	<div class="col-md-2">
+  		<h4>Tournament</h4>
+  	</div>
+
+  	<div class="col-md-2">
+  		<h4>Contestants</h4>
+  	</div>
+  </div>
+
   <!-- print all items in list setlist (currently containing all sets) -->
   {% for set in setlist %}
   	{% include 'set.html' %}
