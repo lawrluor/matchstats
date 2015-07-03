@@ -16,14 +16,15 @@ from sanitize_utils import check_and_sanitize_tag
 def before_request():
   g.search_form = SearchForm()
 
+
+# Home page
 @app.route('/')
 @app.route('/index')
 def index():
-  return render_template('index.html',
-                        title ='Home')
+  return render_template('index.html')
 
 
-@app.route('/user_create', methods=['GET', 'POST']) # 'POST' allows us to receive POST requests, which will bring in form data entered by the user
+@app.route('/user_create', methods=['GET', 'POST'])
 def user_create():
   form = UserCreate() # instantiate object from UserCreate() class in app/forms.py
   if form.validate_on_submit(): # if True, indicates data is valid and can be processed
@@ -481,11 +482,10 @@ def character(character):
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
 
-# Lists all tournaments 
-@app.route('/browse_tournaments')
-def browse_tournaments():
+# helper function that returns an ascii list of tournament names by querying database
+def get_tournament_list():
   # with_entities returns a list of tuple values: (Set.tournament, None)
-  all_tournaments = Set.query.with_entities(Set.tournament)
+  all_tournaments = Set.query.with_entities(Set.tournament).all()
 
   tournamentlist = []
   # add tuple objects to tournamentlist if they are unique
@@ -498,6 +498,13 @@ def browse_tournaments():
     if tournamentlist[i][0] not in tournamentlist:
       tournamentlist[i] = tournamentlist[i][0].encode('ascii', 'ignore')
 
+  return tournamentlist
+
+
+# Lists all tournaments 
+@app.route('/browse_tournaments')
+def browse_tournaments():
+  tournamentlist = get_tournament_list()
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist)
     
@@ -513,19 +520,32 @@ def tournament(tournament):
                          tournament=tournament,
                          tournament_setlist=tournament_setlist)
 
+
 @app.route('/search', methods=['POST'])
 def search():
   if not g.search_form.validate_on_submit():
     return redirect(url_for('index'))
   return redirect(url_for('search_results', query=g.search_form.search.data))
 
+
+# processes query from /search and returns search results for Users and tournaments (Set.tournament) on this page
 @app.route('/search_results/<query>')
 def search_results(query):
+  tournamentlist = get_tournament_list() 
+
+  tournament_results = []
+  for tournament in tournamentlist:
+    if tournament==query:
+      tournament_results.append(query)
+
   sanitized_query = check_and_sanitize_tag(query)
-  results = User.query.filter(User.tag==sanitized_query).all()
+  user_results = User.query.filter(User.tag==sanitized_query).all()
+
   return render_template('search_results.html',
                          query=query,
-                         results=results)
+                         tournament_results=tournament_results,
+                         user_results=user_results)
+
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
 @app.errorhandler(404)
