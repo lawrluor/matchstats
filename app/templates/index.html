@@ -2,8 +2,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container">
   <h1>Welcome to Matchstats!</h1>
   <BR>&nbsp;<BR>
+
 
   <h2>Recent Tournaments</h2>
   <div><a href="{{ url_for("tournament", tournament="Apex 2015")}}">Apex 2015</a></div>
@@ -11,17 +13,19 @@
 
   <h3>Recent Updates</h3>
 
-  <h4> July 2, 2015 </h4>
+  <h5> July 2, 2015 </h5>
   <ul>
     <li> editing Set now redirects to editing Matches if indicated on the form, depending on how many matches are in the set. </li>
     <li> implemented bootstrap templating to the templates</li>
+    <li> templates now are enclosed in containers; Set and User displayed tabulated </li>
+    <li> prettified templates, Stats now displayed better in /head-to-head </li>
   </ul>
 
-  <h4> July 1, 2015 </h4>
+  <h5> July 1, 2015 </h5>
   <ul>
     <li> ./make_same_user in models transfers Set data from one User to another and deletes the transferrer, essentially merging Users. /user (profile) now displays overall Set stats </li>
   </ul>
-  <h4> June 30, 2015 </h4>
+  <h5> June 30, 2015 </h5>
   <ul>
     <li> modified invalidScore in Set model and views.py to let special set score of (1-0) pass </li>
     <li> implemented new database designed to store data from setlists in the format parse_challonge.py gives. Also copied functions from view and put them in models </li>
@@ -31,25 +35,25 @@
     <li> added BooleanField to /set_create which skips match submission if checked. Currently, it defaults to expecting match information </li>
   </ul>
 
-  <h4> June 29, 2015 </h4>
+  <h5> June 29, 2015 </h5>
   <ul>
     <li> /set_create now accepts non-standard integers for DQ ('-1'), Win ('W') and Loss ('L') as Set scores. Set score checking accounts for this. </li>
     <li> implemented h2h_stats_functions.py in views to optimize /head_to_head </li>
   </ul>
 
-  <h4>June 28, 2015 </h4>
+  <h5>June 28, 2015 </h5>
   <ul>
     <li> created and finished testing helper functions for stats in h2h_stats_functions.py </li>
   </ul>
 
-  <h4>June 27, 2015 </h4>
+  <h5>June 27, 2015 </h5>
   <ul>
     <li> /head_to_head now displays total match count with win# for each User </li>
     <li> edited issues pointed out in collaborator's code review </li>
     <li> added many functions for finding statistics in /head_to_head, currently in h2h_stats_functions.py </li>
   </ul>
 
-  <h4> June 26, 2015 </h6>
+  <h5> June 26, 2015 </h6>
   <ul>
     <li> in /edit_user, add_secondaries fields only allow selection of non-main and non-secondary characters, and remove_secondaries fields only allow selection of User secondaries characters </li>
     <li> user.html (user profile) now displays in order: tag, region, main, secondary. (idiomatic of User) </li>
@@ -69,7 +73,7 @@
     <li> reworked Set to display all Matches using an indexed for loop. reformatted Head to Head template to display relevant information at the top before the Set History </li>
   </ul>
 
-  <h4> June 25, 2015 </h5>
+  <h5> June 25, 2015 </h5>
   <ul>
     <li> implemented Character-User functions from Character class, and updated unit test (tests.py) </li>
     <li> implemented creation of secondaries column from /create_user when creating User. Hardcoded database of Character objects </li>
@@ -89,7 +93,7 @@
     <li> added addition/removal of secondaries to /edit_user, defined User functions for processing lists of Characters </li>
   </ul>
 
-  <h4> June 24, 2015 </h4>
+  <h5> June 24, 2015 </h5>
   <ul>
     <li> NOTE: large bug: werkzeug.routing.BuildError, when viewing /browse_users and /browse_regions when it claims that the route to /region/region when displaying a user (tag, region, main) doesn't exist. This is actually because it is being passed a parameter of None from a new User who does not have the attribute region filled out, so the route is essentially /region/None rather than /region/region. The same holds true for other empty yet required attributes. Clear the database of these types of objects </li>
     <li> optimized /head_to_head, and now checks for query string variable existence first </li>
@@ -100,7 +104,7 @@
     <li> revised User-Character functions, updated unit test (tests.py) </li>
   </ul>
 
-  <h4> June 23, 2015 </h4>
+  <h5> June 23, 2015 </h5>
   <ul>
     <li> merged 'versus.html' into 'head_to_head.html', and merged route /versus into /head_to_head so that only head_to_head references exist. Revised template to display head to head history on the same page as the search page, /head_to_head. Fixed bugs regarding head to head displays</li>
     <li> Users now explicitly ordered by user_id in /browse_users. Sets now explicitly ordered by set_id in /browse_sets; sets displayed on user and head to head pages now explicitly ordered by set_id </li>
@@ -111,12 +115,12 @@
     <li> updated all links to properly route to region and character pages </li>
   </ul>
 
-  <h4> June 22, 2015 </h4>
+  <h5> June 22, 2015 </h5>
   <ul>
     <li> fixed bugs in head to head and revised templates; additionally, all sets now link to the match history page between two users </li>
   </ul>
 
-  <h4> June 21, 2015 </h4>
+  <h5> June 21, 2015 </h5>
   <ul>
       <li> added "view_region.html" as a template to view all user from a specific regions, and added a route to view_region </li>
       <li> winner character and loser character are now selected as a dropdown SelectField list rather than a string input </li>
@@ -126,7 +130,7 @@
       <li> implemented form and head_to_head.html page to allow searching for two users, then redirects to /versus to actually display their set history </li>
   </ul>
 
-  <h4> June 20, 2015 </h4>
+  <h5> June 20, 2015 </h5>
   <ul>
     <li> rendered index "Recent Update" changelog as unordered list</li>
     <li> fixed User query methods from Set</li>
@@ -143,7 +147,7 @@
     <li> updated 'browse_sets.html' template to display set winner and loser as hyperlink routes to User profiles </li> 
   </ul>
 
-  <h4> June 19, 2015 </h4>
+  <h5> June 19, 2015 </h5>
   <ul>
     <li> Added "region" field to User model </li>
     <li> added support for region in web form, application </li>
@@ -163,4 +167,5 @@
 <hr>
 <div><b>Current database version: 38</b></div>
 
+</div>
 {% endblock %}

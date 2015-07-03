@@ -1,8 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
+
+<div class="container">
   <h1>Browse All Users</h1>
+
+	<!-- "Table" Column Titles -->
+	<div class="row">
+	  <div class="col-md-2">
+	  	<h4>User</h4>
+	  </div>
+
+	  <div class="col-md-2">
+	  	<h4>Region</h4>
+	  </div>
+
+	  <div class="col-md-2">
+	  	<h4>Main Character</h4>
+	  </div>
+
+	  <div class="col-md-2">
+	  	<h4>Secondaries</h4>
+	  </div>
+	</div>
+
   <!-- print all items in list userlist (currently containing all users) -->
   {% for user in userlist %}
     {% include 'user_display.html' %}
   {% endfor %}
+  
+</div>
 {% endblock %}

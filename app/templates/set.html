@@ -2,18 +2,18 @@
 <div class="row"><h5><b>
 	<div class="col-md-2">
 		{% if set.tournament %} 
-			<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a> - 
+			<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a>
 		{% else %}
 			Non-Tourney 
 		{% endif %}
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-4">
 		<a href="{{url_for("user", tag=set.winner_tag)}}">{{ set.winner_tag }}</a> 
 		({{ set.winner_score }} - {{ set.loser_score }}) 
 		<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a> 
 	</div>
 	<div class="col-md-2">
-  	<a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}"> (View Head to Head)</a>
+  	<a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}"> View Head-to-Head</a>
 	</div>
 </b></h5></div> 
 

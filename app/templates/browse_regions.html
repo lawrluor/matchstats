@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+
 {% block content %}
+<div class="container">
   <h1>Browse All Regions</h1>
   <!-- simply prints all regions (simple string) in regionlist -->
   {% for region in regionlist %}
     <div><b><a href="{{ url_for("region", region=region) }}">{{ region }}</a></b></div>
   {% endfor %}
+ </div>
 {% endblock %}
