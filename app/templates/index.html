@@ -7,11 +7,17 @@
   <BR>&nbsp;<BR>
 
 
-  <h2>Recent Tournaments</h2>
-  <div><a href="{{ url_for("tournament", tournament="Apex 2015")}}">Apex 2015</a></div>
+  <div><h3><a href="{{url_for("browse_tournaments")}}">Browse Recent Tournaments</a></h3></div>
   <BR>&nbsp;<BR>
 
   <h3>Recent Updates</h3>
+
+  <h5> July 3, 2015 </h5>
+  <ul>
+    <li> added page /browse_tournaments to display list of tournaments routing to their display pages /tournament </li>
+    <li> updated display page for /tournament, and linked /browse_tournaments from /index </li>
+    <li> added footer to /base to appear in all templates </li>
+  </ul>
 
   <h5> July 2, 2015 </h5>
   <ul>
@@ -25,6 +31,7 @@
   <ul>
     <li> ./make_same_user in models transfers Set data from one User to another and deletes the transferrer, essentially merging Users. /user (profile) now displays overall Set stats </li>
   </ul>
+
   <h5> June 30, 2015 </h5>
   <ul>
     <li> modified invalidScore in Set model and views.py to let special set score of (1-0) pass </li>
@@ -163,9 +170,6 @@
     <li> updated 'index.html' to display updates and recent tournaments</li>
     <li> filled database with results from Apex 2015 Top 8</li>
   <ul>
-
-<hr>
-<div><b>Current database version: 38</b></div>
 
 </div>
 {% endblock %}

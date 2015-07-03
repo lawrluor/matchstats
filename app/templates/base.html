@@ -1,6 +1,6 @@
+<!--Bootstrap imports -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
@@ -9,26 +9,31 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<!-- Base template begins -->
+
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - Matchstats</title>
+    <title><b>{{ title }} - Matchstats<b></title>
     {% else %}
-    <title>Matchstats</title>
+    <title><b>Matchstats</b></title>
     {% endif %}
   </head>
+
+
   <body>
     <!-- header linking to different web features, across all pages on site -->
-    <div>Matchstats:
+    <div class="container">Matchstats:
       <a href="{{ url_for('index') }}">Home</a>
-      | <a href="{{ url_for('browse_sets') }}">Browse Sets</a>
+      | <a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a>
       | <a href="{{ url_for('browse_users') }}">Browse Users</a>
       | <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
       | <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
       | <a href="{{ url_for('head_to_head') }}">Head to Head</a>
       | <a href="{{ url_for('user_create') }}">Create User</a>
       | <a href="{{ url_for('set_create') }}">Create Set</a>
-    <div>
+    </div>
+
     <hr>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -39,6 +44,14 @@
         </ul>
       {% endif %}
     {% endwith %}
+
+    <!-- individual page templates begin -->
     {% block content %}{% endblock %}
+
+  <hr>
+  <footer>
+    <div class="container"><b>© 2015 Matchstats | <a href="mailto:matchstats@example.com">matchstats@example.com</a> | Current database version: 38</b></div>
+  </footer>
+
   </body>
 </html>

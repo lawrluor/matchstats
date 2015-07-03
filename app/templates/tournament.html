@@ -1,12 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
   <h1> Sets from {{ tournament }} </h1>
   <br>
   {% if tournament_setlist|length < 1 %}
   	There were no sets found for this tournament.
   {% else %}
+  	<!-- "Table" Column Titles -->
+  	<div class="row">
+  		<div class="col-md-2">
+  			<h4>Tournament</h4>
+  		</div>
+
+  		<div class="col-md-4">
+  			<h4>Contestants</h4>
+  		</div>
+  	</div>
+
+  	<!-- display all Set in tournament -->
   	{% for set in tournament_setlist %}
     	{% include 'set.html' %}
   	{% endfor %}
   {% endif %}
+
+ </div>
 {% endblock %}

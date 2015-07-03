@@ -7,6 +7,8 @@ from app.models import *
 def compile_case_i_re(string):
   return re.compile(string, re.IGNORECASE)
 
+wildcard = '.*'
+sep = '[\| \.`]'
 top_player_regex_raw_list = [
     '.*(mang[o0])',
     '.*(armada)',
@@ -26,7 +28,18 @@ top_player_regex_raw_list = [
     '.*(plup)',
     '.*(fiction)',
     '.*(s2j)',
-    '.*(amsa)'
+    '.*(ice)',
+    '.*(sfat)',
+    '.*(zhu)',
+    '.*(kirbykaze)|.*(kk)',
+    '.*(nintendude)',
+    '.*(macd)',
+    '.*(amsa)',
+    '.*(chillindude)|.*(chillindude829)',
+    '.*(javi)',
+    '.*(kels)',
+    '.*(wizzrobe)|.*(wizzy)',
+    '.*(the moon)'
     ]
 
 sanitized_tags = [
@@ -48,7 +61,18 @@ sanitized_tags = [
     'plup',
     'fiction',
     's2j',
-    'amsa'
+    'ice',
+    'sfat',
+    'zhu',
+    'kirbykaze',
+    'nintendude',
+    'macd',
+    'amsa',
+    'chillindude',
+    'javi',
+    'kels',
+    'wizzrobe',
+    'the moon'
     ]
 
 top_player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
@@ -108,10 +132,3 @@ print sanitize_tag("amsa", top_player_regex_list, sanitized_tags)
 #			print len(team)
 #
 #	print '\n'
-
-"""
-# query database
-userlist = User.query.all()
-for user in userlist:
-	do stuff
-"""
