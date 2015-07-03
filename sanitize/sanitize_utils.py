@@ -19,7 +19,7 @@ def sanitize_tag(tag, regex_list, sanitized_list):
 # Regular expressions representing top players.
 top_player_regex_raw_list = [
     '.*(mang[o0])',
-    '.*(armada)',
+    '.*(armada)|.*(\[a\]rmada)',
     '.*(ppmd)|.*(dr\. pp)',
     '.*(mew2king)|.*(m2k)',
     '.*(hungrybox)|.*(hbox)',
