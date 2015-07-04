@@ -10,7 +10,7 @@
         <h1><a href="{{ url_for ("user", tag=user.tag) }}">{{user.tag}}</a></h1> 
 
           {% if user.region %}
-            <p><b></b>
+            <p>
             <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a>
             </p>
           {% else %}
@@ -65,7 +65,7 @@
       </tbody>
     </table>
   </div>
-  
+
   </div>
 </div>
 {% endblock %}

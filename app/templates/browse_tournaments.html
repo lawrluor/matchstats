@@ -9,13 +9,21 @@
 	</div>
 
 	<div class="panel-body">
-		<table class="table bootstrap-datatable">
-			<tbody>
+		<table class="table bootstrap-datatable table-hover">
+			<thead>
 				<tr>
-					{% for tournament in tournamentlist %}
-						<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
-					{% endfor %}
+					<th>
+						Recent Tournaments
+					</th>
 				</tr>
+			</thead>
+
+			<tbody>
+				{% for tournament in tournamentlist %}
+				<tr>
+						<td><b><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></b></td>
+				</tr>
+					{% endfor %}
 			</tbody>
 		</table>
 	</div>

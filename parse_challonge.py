@@ -1,6 +1,7 @@
 #!flask/bin/python
 # Currently supports: fully loaded Challonge Bracket with: seed or no seed displayed, score=int or \xe2\x9c\x93 (checkmark) unicode, data-round=int, <span> title=str
 # Note: Challonge refers to Sets as "match". I will adopt the term "match" to represent Set only in this file, for the sake of simplicity.
+
 from app.models import *
 import sys
 sys.path.append('./sanitize')
@@ -174,6 +175,10 @@ def import_challonge_data(matchlist, tournament_name):
     else:
       # prevent crashing when creating the Set without existing variable round_number
       round_number = 0
+
+    # Check tournament name; if None, set Set.tournament="Non-Tourney"
+    if not tournament_name:
+      tournament_name = "Non-Tourney"
 
     new_set = Set(tournament=tournament_name,
                   round_type=round_number,

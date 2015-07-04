@@ -132,7 +132,12 @@ def set_create():
     else:
       created_total_matches = created_set_winner_score + created_set_loser_score
 
-    created_set_tournament = form.set_tournament.data
+    # Check tournament name; if None, default is "Non-Tourney"
+    if form.set_tournament.data:
+      created_set_tournament = form.set_tournament.data
+    else:
+      created_set_tournament = "Non-Tourney"
+
     created_max_match_count = int(form.set_max_match_count.data)
    
     # Check to see if set score count is valid for type of set, and winner score>loser score
@@ -490,7 +495,7 @@ def get_tournament_list():
   tournamentlist = []
   # add tuple objects to tournamentlist if they are unique
   for tournament in all_tournaments:
-    if tournament not in tournamentlist:
+    if tournament not in tournamentlist and (tournament[0] != "" and tournament[0] != "Non-Tourney"):
       tournamentlist.append(tournament)
   
   # iterate through indices and replace each tuple object with the first value in its tuple, Set.tournament (list[i][0])
