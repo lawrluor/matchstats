@@ -11,12 +11,15 @@
 	<div class="panel-body">
 		<table class="table bootstrap-datatable">
 			<tbody>
-				{% for tournament in tournamentlist %}
-					<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
-				{% endfor %}
+				<tr>
+					{% for tournament in tournamentlist %}
+						<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
+					{% endfor %}
+				</tr>
 			</tbody>
 		</table>
 	</div>
+
 	</div>
 </div>
 

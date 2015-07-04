@@ -17,6 +17,10 @@ body {
   overflow-y: scroll;
   height: 400px;
 }
+.horizontal-overflow {
+  word-wrap: break-word;
+  max-width: 350px;
+}
 article,
 aside,
 details,

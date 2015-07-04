@@ -21,16 +21,17 @@
         <th></th>
       </tr>
     </thead>
+
   	<tbody>
       <!-- display all Set in tournament -->
       {% for set in tournament_setlist %}
         {% include 'set.html' %}
       {% endfor %}
-  	<tbody>
+  	</tbody>
   </table>
 
   {% endif %}
   </div>
-
+  </div>
  </div>
 {% endblock %}

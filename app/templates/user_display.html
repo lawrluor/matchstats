@@ -1,31 +1,31 @@
 <!-- prints User representation in HTML given a User object, with route hyperlink to /user (profile), /region, /character -->
 
-<div class="row">
-    <div class="col-md-2">
+<tr>
+    <td class="col-md-2 horizontal-overflow">
         <b><a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a></b>
-	</div>
+    </td>
 
-    <div class="col-md-2">
-    	{% if user.region %}
-    	<a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a> 
+
+    <td class="col-md-2">
+        {% if user.region %}
+    	   <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a> 
     	{% else %}
-	   No Region
-	   {% endif %}
-    </div>
+	       No Region
+	    {% endif %}
+    </td>
 
-    <div class="col-md-2">
+    <td class="col-md-2">
     	{% if user.main %}
         <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
         {% else %}
         <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
         {% endif %}
-    </div>
-
-    <!-- store value of user.get_secondaries() (a list of Character objects) in user_secondaries -->
-    {% set user_secondaries = user.get_secondaries() -%}
+    </td>
 
     <!-- different ways of representing User based on # of secondaries User has. pay close attention to characters that are printed outside of the variables -->
-    <div class="col-md-4">
+    <td class="col-md-4">
+    <!-- store value of user.get_secondaries() (a list of Character objects) in user_secondaries -->
+    {% set user_secondaries = user.get_secondaries() -%}
     {% if user_secondaries|length > 3 %}
     	 | [ 
         <a href="{{ url_for("character", character=user_secondaries[1]) }}">{{user_secondaries[1]}}</a>, 
@@ -46,10 +46,5 @@
     	{% endfor %}
 		]
    	{% endif %}
-   </div>
-
-   	<!-- None of these prints are actual lists. They are strings joined within string '[', ']' brackets. -->
-
-</div>
-
-<br>
+   </td>
+</tr>

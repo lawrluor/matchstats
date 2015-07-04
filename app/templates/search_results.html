@@ -2,14 +2,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>User results for "{{ query }}":</h3>
-  {% for user in user_results %}
-    {% include 'user_display.html' %}
-  {% endfor %}
+	<div class="container">
+	  <h3>User results for "{{ query }}":</h3>
+	  {% for user in user_results %}
+	    {% include 'user_display.html' %}
+	  {% endfor %}
 
-  <h3>Tournament results for " {{query }}":</h3>
-  {% for tournament in tournament_results %}
-  	<a href="{{url_for('tournament', tournament=tournament)}}">{{ tournament }}</a>
-  {% endfor %}
+	  <h3>Tournament results for "{{ query }}":</h3>
+	  {% for tournament in tournament_results %}
+	  	<a href="{{url_for('tournament', tournament=tournament)}}">{{ tournament }}</a>
+	  {% endfor %}
+	</div>
 
 {% endblock %}

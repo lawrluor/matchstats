@@ -38,26 +38,28 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('browse_users') }}">Browse Users</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('head_to_head') }}">Head to Head</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
-                    </li>
-                    <li>
+                  <li>
+                    <a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('browse_users') }}">Browse Users</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('head_to_head') }}">Head to Head</a>
+                  </li>
+                  <li>
                     <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
-                        {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=15, class="form-control") }}
-                        <input type="submit" class="form-control" value="Search"></form>
-                    </li>
+                    {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=15, class="form-control") }}
+                    <input type="submit" class="form-control" value="Search"></form>
+                  </li>
+                  <!-- Not needed currently
+                  <li>
+                    <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
+                  </li>
+                  -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -80,7 +82,7 @@
   <hr>
   <div class="container">
   <footer>
-    <b>© 2015 SmashStats | <a href="mailto:Smashstats@example.com">Smashstats@example.com</a> | Current database version: 38</b>
+    <b>© 2015 SmashStats | <a href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Current database version: 38</b>
   </footer>
   </div>
 

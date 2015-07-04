@@ -2,31 +2,33 @@
 {% block content %}
 
 <div class="container">
-  <h2>Browse All Users</h2>
+	<div class="panel panel-default">
+	<div class="panel-heading">
+  	<h2>Browse All Users</h2>
+  </div>
 
-	<!-- "Table" Column Titles -->
-	<div class="row">
-	  <div class="col-md-2">
-	  	<h4>User</h4>
-	  </div>
-
-	  <div class="col-md-2">
-	  	<h4>Region</h4>
-	  </div>
-
-	  <div class="col-md-2">
-	  	<h4>Main Character</h4>
-	  </div>
-
-	  <div class="col-md-2">
-	  	<h4>Secondaries</h4>
-	  </div>
+  <!-- "Table" Column Titles -->
+  <div class="panel-body">
+	<table class="table bootstrap-datatable table-hover">
+	  <thead>
+	    <tr>
+        <th><h4>User</h4></th>
+	      <th><h4>Region</h4></th>
+	      <th><h4>Main</h4></th>
+	      <th><h4>Secondaries</h4></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		  <!-- print all items in list userlist (currently containing all users) -->
+		  {% for user in userlist %}
+		    {% include 'user_display.html' %}
+		  {% endfor %}
+	  </tbody>
+	</table>
 	</div>
 
-  <!-- print all items in list userlist (currently containing all users) -->
-  {% for user in userlist %}
-    {% include 'user_display.html' %}
-  {% endfor %}
+	</div>
+
   
 </div>
 {% endblock %}
