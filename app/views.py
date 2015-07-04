@@ -336,9 +336,12 @@ def head_to_head():
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
+    tag1 = check_and_sanitize_tag(tag1)
+    tag2 = check_and_sanitize_tag(tag2)
     h2h_sets_played = h2h_get_sets_played(tag1, tag2)
     user1_set_win_count = len(h2h_get_sets_won(tag1, tag2))
     user2_set_win_count = len(h2h_get_sets_won(tag2, tag1))
+
     # before moving forward, calculate matches by iterating through sets 
     h2h_matches_played = h2h_get_matches_played(h2h_sets_played) 
     user1_matches_won = h2h_get_matches_won(tag1, tag2, h2h_matches_played)
@@ -356,8 +359,8 @@ def head_to_head():
 
   if form.validate_on_submit():
     # user1 and user2 is a string that represents the first user's tag
-    user1 = form.user1.data
-    user2 = form.user2.data
+    user1 = check_and_sanitize_tag(form.user1.data)
+    user2 = check_and_sanitize_tag(form.user2.data)
 
     valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
 

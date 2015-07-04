@@ -3,15 +3,38 @@
 
 {% block content %}
 	<div class="container">
-	  <h3>User results for "{{ query }}":</h3>
-	  {% for user in user_results %}
-	    {% include 'user_display.html' %}
-	  {% endfor %}
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3>User results for "{{ query }}":</h3>
+		</div>
 
-	  <h3>Tournament results for "{{ query }}":</h3>
-	  {% for tournament in tournament_results %}
-	  	<a href="{{url_for('tournament', tournament=tournament)}}">{{ tournament }}</a>
-	  {% endfor %}
+		<div class="panel-body">
+			<table class="table bootstrap-datatable table-hover">
+				<body>
+				  {% for user in user_results %}
+				    {% include 'user_display.html' %}
+				  {% endfor %}
+				</body>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+	<div class="panel-heading">
+	  <h3>Tournaments named "{{ query }}":</h3>
+	</div>
+
+	<div class="panel-body">
+		<table class"=table bootstrap-datatable table-hover">
+			<body>
+			  {% for tournament in tournament_results %}
+			  	<a href="{{url_for('tournament', tournament=tournament)}}">{{ tournament }}</a>
+			  {% endfor %}
+			 </body>
+			</table>
+		</div>
+	</div>
+
 	</div>
 
 {% endblock %}
