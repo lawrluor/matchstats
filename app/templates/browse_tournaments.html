@@ -3,12 +3,21 @@
 
 {% block content %}
 <div class="container">
-	<h2> Browse Tournaments </h2>
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2> Browse Tournaments </h2>
+	</div>
 
-	<!-- Display list of all tournaments with hyperlink -->
-	{% for tournament in tournamentlist %}
-		<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
-	{% endfor %}
+	<div class="panel-body">
+		<table class="table bootstrap-datatable">
+			<tbody>
+				{% for tournament in tournamentlist %}
+					<div><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	</div>
 </div>
 
 {% endblock %}

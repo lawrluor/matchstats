@@ -3,29 +3,31 @@
 <div class="container">
   <div class="panel panel-default">
   <div class="panel-heading">
-  <h1> Sets from {{ tournament }} </h1>
+    <h1> Sets from {{ tournament }} </h1>
   </div>
   <div class="panel-body">
+
   {% if tournament_setlist|length < 1 %}
   	There were no sets found for this tournament.
   {% else %}
-  	<!-- "Table" Column Titles -->
-        <table class="table bootstrap-datatable">
-        <thead>
-          <tr>
-            <th><h4>Results</h4></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
+
+  <!-- "Table" Column Titles -->
+  <table class="table bootstrap-datatable">
+    <thead>
+      <tr>
+        <th><h4>Results</h4></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
   	<tbody>
-          <!-- display all Set in tournament -->
-          {% for set in tournament_setlist %}
-          {% include 'set.html' %}
-          {% endfor %}
+      <!-- display all Set in tournament -->
+      {% for set in tournament_setlist %}
+        {% include 'set.html' %}
+      {% endfor %}
   	<tbody>
-        </table>
+  </table>
 
   {% endif %}
   </div>

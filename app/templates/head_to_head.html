@@ -4,41 +4,50 @@
 
 {% block content %}
 <div class="container">
-        <!--<h1>View Head to Head Set History Between Two Players</h1>-->
+  <header class="jumbotron">
+  <!-- <h1>View Head to Head Set History Between Two Players</h1> -->
   <form action="" method="post" name="head_to_head">
     {{ form.hidden_tag() }} <!-- this template argument will get replaced with hidden field that enables CSRF prevention in config. -->
-    <div class="row"> 
-            <div class="col-md-6">
-                    <h3 class="text-left">Player 1</h3>
-            </div>
-            <div class="col-md-6">
-                    <h3 class="text-right">Player 2</h3>
-            </div>
-    </div>
-    <div class="row"> 
-            <div class="col-md-6">
-                    <p class="text-left">{{ form.user1(size=30) }}</p>
 
-            </div>
-            <div class="col-md-6">
-                    <p class="text-right">{{ form.user2(size=30) }}</p>
-            </div>
+    <div class="row"> 
+      <div class="col-md-6">
+        <h2 class="text-left">Player 1</h2>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="text-right">Player 2</h2>
+      </div>
     </div>
+
+    <div class="row"> 
+      <div class="col-md-3">
+        <p class="text-left">{{ form.user1(size=15, class="form-control") }}</p>
+      </div>
+
+      <div class="col-md-6">
+        <!-- Customized button input -->
+        <p class="text-center"><input class="btn btn-primary btn-md" type="submit" value="Look up Head-to-Head"></p>
+      </div>
+
+      <div class="col-md-3">
+        <p class="text-right">{{ form.user2(size=15, class="form-control") }}</p>
+      </div>
+    </div>
+
     {% for error in form.user1.errors or form.user2.errors %}
       <span style="color: red;">[{{error}}]</span>
     {% endfor %}
 
-    <!-- Customized button input -->
-    <p class="text-center"><input class="btn btn-primary btn-md" type="submit" value="Look up Head to Head"></p>
-    <br>
+  </header>
 
     {% if tag1 != None and tag2 != None %} 
     <!--<h2>Head-to-Head between {{ tag1 }} and {{ tag2 }}</h2>-->
     <div class="panel panel-default">
     <div class="panel-heading">
-      <h3> Stats </h3>
+      <h2><b> Stats </b></h2>
     </div>
     <div class="panel-body">
+
     <table class="table bootstrap-datatable">
       <thead>
         <tr>
@@ -47,6 +56,7 @@
           <th><b>Stage Record: </b></th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td>{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</td>
@@ -80,15 +90,16 @@
         </tr>
       </tbody>
       </table>
-      </div>
-      </div>
 
+      </div>
+      </div>
 
       <div class="panel panel-default">
       <div class="panel-heading">
-      <h3> Set History </h3>
+        <h3> Set History </h3>
       </div>
       <div class="panel-body">
+        
       <!-- "Table" column names -->
       <table class="table bootstrap-datatable">
         <thead>
@@ -100,21 +111,25 @@
             <th class="text-center">
               <h4>Result</h4>
             </th>
+
+            <th>
+            </th>
+
             <th>
             </th>
           </tr>
         </thead>
+
         <tbody>
-      
-      <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
-      {% for set in h2h_sets_played %}
-  	    {% include 'set.html' %}
-      {% endfor %}
-      </tbody>
-      </table>
-        </div>
-      </div>
-    {% endif %}
+          <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
+          {% for set in h2h_sets_played %}
+      	    {% include 'set.html' %}
+          {% endfor %}
+        </tbody>
+          </table>
+            </div>
+          </div>
+        {% endif %}
 
   </form>
 </div>
