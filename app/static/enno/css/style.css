@@ -30,7 +30,7 @@ a {
     -webkit-transition: all 0.1s ease-in-out;
     -o-transition: all 0.1s ease-in-out;
     outline: none;
-	color:#333;
+	color:#1E243A;
 }
 a:hover {
   /* Text Hover Color */
@@ -187,10 +187,10 @@ a.navbar-brand span {
   background-color: #fff;
   border-color: #ccc;
 }
-
+/* Button Hover Colors - Flash */
 .btn-primary {
   padding: 8px 20px;
-  background: #36CBD4;
+  background: #eb9316;
   color: #fff;
   border:none;
   margin-top: 10px;
@@ -311,10 +311,10 @@ a.navbar-brand span {
   border-bottom-color:#eee;
 }
 .panel-default > .panel-heading {
-  color: #fff;
+  color: #1E243A;
   background-color: #36CBD4;
   /* bottom border for panel heading */
-  border-color: #D5A377;
+  border-color: #E8E8E8;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #eee;
@@ -460,7 +460,9 @@ textarea#message{
  ================= */
 
 footer {
-  background: #fff;
+  /* footer color */
+  background: #1E243A;
+  color: #E8E8E8;
 }
 
 .inner-footer  ul li,a  {
