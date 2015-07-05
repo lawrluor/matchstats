@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='startbootstrap-heroic-features-1.0.3/css/heroic-features.css') }}">
 
 <!-- Latest compiled and minified JavaScript -->
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/chosen.jquery.js') }}"></script>
 
 <!-- Base template begins -->
 <html>
@@ -20,6 +22,12 @@
     {% else %}
     <title>Matchstats</title>
     {% endif %}
+    <script>
+      $(function() {
+        $('.chosen-select').chosen();
+        $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+      });
+    </script>
   </head>
 
 
@@ -55,7 +63,8 @@
                   <li>
                     <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
                     {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=15, class="form-control") }}
-                    <input type="submit" class="form-control" value="Search"></form>
+                    <input type="submit" class="form-control" value="Search">
+                    </form>
                   </li>
                   <!-- Not needed currently
                   <li>
