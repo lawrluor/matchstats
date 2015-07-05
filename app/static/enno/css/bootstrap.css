@@ -4270,7 +4270,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
-  color: #9d9d9d;
+  /*Title color */
+  color: #FCF7EE;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4281,7 +4282,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #9d9d9d;
+  /* navbar pages titles */
+  color: #FCF7EE;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4629,10 +4631,11 @@ a.badge:focus {
   margin-left: 3px;
 }
 .jumbotron {
+  /* jumbotron saying "Welcome to SmashStats"*/
   padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #eee;
+  background-color: #FCF7EE;
 }
 .jumbotron h1,
 .jumbotron .h1 {
