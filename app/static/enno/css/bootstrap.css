@@ -2093,7 +2093,8 @@ th {
 }
 .table > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #ddd;
+  /* border between table header and body */
+  border-bottom: 2px solid #1E243A;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -2136,7 +2137,7 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5;
+  background-color: #EBD29D;
 }
 table col[class*="col-"] {
   position: static;
@@ -4271,7 +4272,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-brand {
   /*Title color */
-  color: #FCF7EE;
+  color: #E8E8E8;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4283,7 +4284,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-nav > li > a {
   /* navbar pages titles */
-  color: #FCF7EE;
+  color: #E8E8E8;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4635,7 +4636,7 @@ a.badge:focus {
   padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #FCF7EE;
+  background-color: #E8E8E8;
 }
 .jumbotron h1,
 .jumbotron .h1 {

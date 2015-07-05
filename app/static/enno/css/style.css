@@ -10,12 +10,13 @@ body {
 	font-size:14px;
 	font-weight:300;
 	line-height:1.6em;
-	color:#333;
-	background-color:#1E243A;
+	color:#1E243A; /* Font Color */
+	background-color:#1E243A; /* Background Color */
 }
 
 hi,h2,h3,h4,h5,h6 {
-	color:#333;
+  /* Header Font Color */
+	color:#1E243A;
 	line-height:1.1em;
 }
 
@@ -32,8 +33,9 @@ a {
 	color:#333;
 }
 a:hover {
+  /* Text Hover Color */
   text-decoration: none;
-  color:#36CBD4;	
+  color:#fff;	
 }
 
 hr {
@@ -289,7 +291,8 @@ a.navbar-brand span {
 .panel {
 	margin-top:20px;
   margin-bottom: 20px;
-  background-color: #fff;
+  /* panel body color 8 */
+  background-color: #E8E8E8;
   border:#eee 1px solid transparent;
   border-radius: 0;
    -webkit-box-shadow: none;
@@ -310,7 +313,8 @@ a.navbar-brand span {
 .panel-default > .panel-heading {
   color: #fff;
   background-color: #36CBD4;
-  border-color: #eee;
+  /* bottom border for panel heading */
+  border-color: #D5A377;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #eee;
