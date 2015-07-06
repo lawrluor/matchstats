@@ -35,7 +35,7 @@ a {
 a:hover {
   /* Text Hover Color */
   text-decoration: none;
-  color:#fff;	
+  color:#ADADD6;	
 }
 
 hr {
@@ -292,7 +292,7 @@ a.navbar-brand span {
 	margin-top:20px;
   margin-bottom: 20px;
   /* panel body color 8 */
-  background-color: #E8E8E8;
+  background-color: #fff;
   border:#eee 1px solid transparent;
   border-radius: 0;
    -webkit-box-shadow: none;
@@ -314,7 +314,7 @@ a.navbar-brand span {
   color: #1E243A;
   background-color: #36CBD4;
   /* bottom border for panel heading */
-  border-color: #E8E8E8;
+  border-color: #fff;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #eee;

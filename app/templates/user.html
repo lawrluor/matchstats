@@ -22,7 +22,8 @@
           {% if user.main %}
             <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
           {% else %}
-            <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a>
+            Unchosen
+            <!-- <a href="{{ url_for("character", character="Unchosen") }}">Unchosen</a> -->
           {% endif %}
           </p>
 
@@ -36,8 +37,9 @@
           </p>
           {% endif %}
 
-          <!-- Route to edit User -->
+          <!-- Route to edit User 
           <a href="{{ url_for("user_edit", user=user.tag) }}">Edit User</a>
+          -->
 
       </td>
     </tr>
@@ -51,7 +53,7 @@
   </div>
 
   <div class="panel-body">
-    <table class="table bootstrap-datatable">
+    <table class="table bootstrap-datatable table-hover">
       <thead>
         <tr>
         <th>Total Sets: {{ user_sets|length }} | Record: [{{user_wins|length}}-{{user_losses|length}}]</th>
