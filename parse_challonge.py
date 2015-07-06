@@ -150,7 +150,8 @@ def import_challonge_data(matchlist, tournament_name):
 
     # check scores; if either score is a DQ score, break and don't store set 
     if top_player['score']==-1 or bottom_player['score']==-1:
-      break
+      print "DQ SCORE DETECTED" + '\n'
+      continue
 
     if top_player['score'] > bottom_player['score']:
       set_winner = top_player
@@ -196,8 +197,7 @@ def import_challonge_data(matchlist, tournament_name):
                   total_matches=winner_score+loser_score)
 
     db.session.add(new_set)
-    print new_set
-    print '\n'
+    print new_set + '\n'
 
   db.session.commit()
 
