@@ -13,13 +13,14 @@ def compile_case_i_re(string):
 def sanitize_tag(tag, regex_list, sanitized_list):
   for i in range(len(regex_list)):
     if regex_list[i].match(tag):
+      print regex_list[i]
       return sanitized_list[i]
   return tag
 
 # Takes top_player_regex_raw_list as a parameter through map, meaning that each index is one list inside the list of regex expressions in top_player_regex_raw_list.
 def add_prefixes(regex_list):
   wildcard = '.*'
-  sep = '[\| \.`]'
+  sep = '[| .`]'
   prefix = wildcard + sep
   prefix_list = []
    
@@ -31,17 +32,6 @@ def add_prefixes(regex_list):
   prefix_list.append(joined_regex)
   return joined_regex
     
-"""
-# Map function generating full regex list; appends special characters to top_player_regex_raw_list '[\| \.`].*' + 'mango'
-def add_prefixes(regex_raw_list):
-  wildcard = '.*'
-  sep = '[\| \.`]'
-
-  for i in range(len(regex_raw_list)):
-    for j in range(len(regex_raw_list[i])):
-      regex_raw_list[i][j] = wildcard.join(regex_raw_list[i][j])
-      return regex_raw_list[i][j]
-"""
 # Regular expressions representing top players.
 top_player_regex_raw_list = [
     ['(mang[o0])'],
@@ -76,46 +66,6 @@ top_player_regex_raw_list = [
     ['(the moon)']
     ]
 
-wildcard = '.*'
-sep = '[\| \.`]'
-prefix = wildcard + sep
-
-# Regular expressions representing top players.
-top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
-"""
-[
-    [prefix + '(mang[o0])'],
-    [prefix + '(armada)', prefix + '(\[a\]rmada)'],
-    [prefix + '(ppmd)', prefix + '(dr\. pp)'],
-    [prefix + '(mew2king)', prefix + '(m2k)'],
-    [prefix + '(hungrybox)', prefix + '(hbox)'],
-    [prefix + '(leffen)', prefix + '(l3ff3n)'],
-    [prefix + '(axe)'],
-    [prefix + '(hax)', prefix + '(hax\$)'],
-    [prefix + '(westballz)'],
-    [prefix + '(colbol)'],
-    [prefix + '(fly amanita)'],
-    [prefix + '(lucky)'],
-    [prefix + '(pewpewu)', prefix + '(ppu)', prefix + '(pewpewyou)'],
-    [prefix + '(shroomed)'],
-    [prefix + '(silentwolf)'],
-    [prefix + '(plup)'],
-    [prefix + '(fiction)'],
-    [prefix + '(s2j)'],
-    [prefix + '(ice)'],
-    [prefix + '(sfat)'],
-    [prefix + '(zhu)'],
-    [prefix + '(kirbykaze)', prefix + '(kk)'],
-    [prefix + '(nintendude)'],
-    [prefix + '(macd)'],
-    [prefix + '(amsa)'],
-    [prefix + '(chillindude)', prefix + '(chillindude829)'],
-    [prefix + '(javi)'],
-    [prefix + '(kels)'],
-    [prefix + '(wizzrobe)', prefix + '(wizzy)'],
-    [prefix + '(the moon)']
-    ]
-"""
 
 # Sanitized tags representing top players.
 sanitized_tags = [
@@ -150,7 +100,11 @@ sanitized_tags = [
     'wizzrobe',
     'the moon'
     ]
+   
+# Convert top_player_regex_raw_list to a version with regular expression prefixes wildcard and sep added
+top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
 
+# Convert the list with prefixes added to all lowercase tags
 top_player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
 
 # Wrapper for sanitize_tag.
