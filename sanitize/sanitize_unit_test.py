@@ -87,7 +87,6 @@ sanitized_tags = [
     ]
 
 print top_player_regex_raw_list
-
 top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
 print top_player_regex_raw_list
 

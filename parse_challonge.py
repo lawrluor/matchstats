@@ -147,6 +147,11 @@ def import_challonge_data(matchlist, tournament_name):
     # Determine the set winner and loser based on their scores. Once assigned, no more references 
     # will be made to the ambiguous top and bottom player, but instead to set_winner and set_loser
     # Both set_winner and set_loser are DICTIONARIES. Scores are stored in respective variables
+
+    # check scores; if either score is a DQ score, break and don't store set 
+    if top_player['score']==-1 or bottom_player['score']==-1:
+      break
+
     if top_player['score'] > bottom_player['score']:
       set_winner = top_player
       set_loser = bottom_player
