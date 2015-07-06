@@ -197,7 +197,8 @@ def import_challonge_data(matchlist, tournament_name):
                   total_matches=winner_score+loser_score)
 
     db.session.add(new_set)
-    print new_set + '\n'
+    print new_set
+    print '\n'
 
   db.session.commit()
 

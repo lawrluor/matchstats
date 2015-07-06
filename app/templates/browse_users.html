@@ -8,7 +8,7 @@
   </div>
 
   <!-- "Table" Column Titles -->
-  <div class="panel-body">
+  <div class="panel-body text-center">
 	<table class="table bootstrap-datatable table-hover">
 	  <thead>
 	    <tr>
@@ -19,12 +19,16 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-		  <!-- print all items in list userlist (currently containing all users) -->
-		  {% for user in userlist %}
+		  <!-- userlist is a Pagination object -->
+		  {% for user in userlist.items %}
 		    {% include 'user_display.html' %}
 		  {% endfor %}
 	  </tbody>
 	</table>
+		<!-- Navigating the paginated display -->
+	  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% else %} First Page{% endif %} | 
+
+	  {% if userlist.has_next %}<a href="{{ url_for('browse_users', page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% else %}Last Page {% endif %}
 	</div>
 
 	</div>

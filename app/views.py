@@ -6,6 +6,7 @@ from models import User, Set, Match, Character, secondaries
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
 from h2h_stats_functions import *
+from config import USERS_PER_PAGE
 
 import sys
 sys.path.append('./sanitize')
@@ -403,8 +404,9 @@ def browse_sets():
 
 # browse users
 @app.route('/browse_users')
-def browse_users():
-  userlist = User.query.order_by(User.id).all()
+@app.route('/browse_users/<int:page>')
+def browse_users(page=1):
+  userlist = User.query.order_by(User.tag).paginate(page, USERS_PER_PAGE, False)
   return render_template("browse_users.html",
                         userlist=userlist)
 
