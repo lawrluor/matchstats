@@ -2137,7 +2137,8 @@ th {
   background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
-  background-color: #EBD29D;
+  /* table row hover color */
+  background-color: #A68400;
 }
 table col[class*="col-"] {
   position: static;
@@ -2371,7 +2372,7 @@ output {
   font-size: 14px;
   line-height: 1.42857143;
   /* form font Color */
-  color: #555;
+  color: #1E243A;
   /* form background color */
   background-color: #fff;
   background-image: none;
@@ -4639,7 +4640,7 @@ a.badge:focus {
   padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: #E8E8E8;
+  background-color: #fff;
 }
 .jumbotron h1,
 .jumbotron .h1 {

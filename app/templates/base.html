@@ -62,8 +62,8 @@
                   </li>
                   <li>
                     <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
-                    {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=15, class="form-control") }}
-                    <input type="submit" class="form-control" value="Search">
+                    {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=12, class="form-control") }}
+                    <input type="submit" class="btn-primary form-control" value="Search">
                     </form>
                   </li>
                   <!-- Not needed currently
@@ -92,9 +92,9 @@
 
   <hr>
   <div class="container">
-  <footer>
-    <b>© 2015 SmashStats | <a href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Current database version: 38</b>
-  </footer>
+    <footer>
+      <b>© 2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Current database version: 38</b>
+    </footer>
   </div>
 
   </body>

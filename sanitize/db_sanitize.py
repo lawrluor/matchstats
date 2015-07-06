@@ -1,47 +1,58 @@
 #!flask/bin/python
 
 import re
-from app import app, db
-from app.models import *
+from sanitize_utils import add_prefixes
 
-def compile_case_i_re(string):
-  return re.compile(string, re.IGNORECASE)
+fake_userlist = ['Cloud 9 | Mango', 'C9 Mang0', 'Mango',
+								'Alliance | Armada', 'P4K EMP Armada', 
+								'Evil Geniuses | PPMD', 'EG | PPMD', 'Dr. PP',
+								'MVG | Mew2King', 'P4K EMP Mew2King', 'M2K',
+								'Curse | Hungrybox', 'Crs.Hungrybox', 'Liquid` Hungrybox', 'Liquid Hungrybox',
+								'TSM | Leffen', 'Leffen',
+								'MVG | Axe', 'MOR Axe', 'MOR | Axe',
+								'VGBC | Hax',
+								'Westballz',
+								'SS | Colbol',
+								'CLG | PewPewU', 'MIOM : PewPewU', 'PPU',
+								'MMG Shroomed',
+								'lucky',
+								'VGBC | aMSa']
 
-wildcard = '.*'
-sep = '[\| \.`]'
+# Regular expressions representing top players.
 top_player_regex_raw_list = [
-    '.*(mang[o0])',
-    '.*(armada)',
-    '.*(ppmd)|.*(dr\. pp)',
-    '.*(mew2king)|.*(m2k)',
-    '.*(hungrybox)|.*(hbox)',
-    '.*(leffen)|.*(l3ff3n)',
-    '.*(axe)',
-    '.*(hax)|.*(hax\$)',
-    '.*(westballz)',
-    '.*(colbol)',
-    '.*(fly amanita)',
-    '.*(lucky)',
-    '.*(pewpewu)|.*(ppu)',
-    '.*(shroomed)',
-    '.*(silentwolf)',
-    '.*(plup)',
-    '.*(fiction)',
-    '.*(s2j)',
-    '.*(ice)',
-    '.*(sfat)',
-    '.*(zhu)',
-    '.*(kirbykaze)|.*(kk)',
-    '.*(nintendude)',
-    '.*(macd)',
-    '.*(amsa)',
-    '.*(chillindude)|.*(chillindude829)',
-    '.*(javi)',
-    '.*(kels)',
-    '.*(wizzrobe)|.*(wizzy)',
-    '.*(the moon)'
+    ['(mang[o0])'],
+    ['(armada)', '(\[a\]rmada)'],
+    ['(ppmd)', '(dr\. pp)'],
+    ['(mew2king)', '(m2k)'],
+    ['(hungrybox)', '(hbox)'],
+    ['(leffen)', '(l3ff3n)'],
+    ['(axe)'],
+    ['(hax)', '(hax\$)'],
+    ['(westballz)'],
+    ['(colbol)'],
+    ['(fly amanita)'],
+    ['(lucky)'],
+    ['(pewpewu)', '(ppu)', '(pewpewyou)'],
+    ['(shroomed)'],
+    ['(silentwolf)'],
+    ['(plup)'],
+    ['(fiction)'],
+    ['(s2j)'],
+    ['(ice)'],
+    ['(sfat)'],
+    ['(zhu)'],
+    ['(kirbykaze)', '(kk)'],
+    ['(nintendude)'],
+    ['(macd)'],
+    ['(amsa)'],
+    ['(chillindude)', '(chillindude829)'],
+    ['(javi)'],
+    ['(kels)'],
+    ['(wizzrobe)', '(wizzy)'],
+    ['(the moon)']
     ]
 
+# Sanitized tags representing top players.
 sanitized_tags = [
     'mango',
     'armada',
@@ -75,37 +86,10 @@ sanitized_tags = [
     'the moon'
     ]
 
-top_player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
+print top_player_regex_raw_list
 
-
-# Make sure sanitized_list and regex_list are the same size.
-def sanitize_tag(tag, regex_list, sanitized_list):
-  for i in range(len(regex_list)):
-    if regex_list[i].match(tag):
-      return sanitized_list[i]
-
-
-fake_userlist = ['Cloud 9 | Mango', 'C9 Mang0', 'Mango',
-								'Alliance | Armada', 'P4K EMP Armada', 
-								'Evil Geniuses | PPMD', 'EG | PPMD', 'Dr. PP',
-								'MVG | Mew2King', 'P4K EMP Mew2King', 'M2K',
-								'Curse | Hungrybox', 'Crs.Hungrybox', 'Liquid` Hungrybox', 'Liquid Hungrybox',
-								'TSM | Leffen', 'Leffen',
-								'MVG | Axe', 'MOR Axe', 'MOR | Axe',
-								'VGBC | Hax',
-								'Westballz',
-								'SS | Colbol',
-								'CLG | PewPewU', 'MIOM : PewPewU', 'PPU',
-								'MMG Shroomed',
-								'lucky',
-								'VGBC | aMSa']
-
-top_player_list = ['mango', 'armada', 'ppmd', 'mew2king', 'hungrybox', 
-									'leffen', 'axe', 'hax', 'westballz', 'colbol',
-									'fly amanita', 'lucky', 'pewpewu', 'shroomed', 'silentwolf',
-									'plup', 'fiction', 's2j', 'ice', 'sfat', 
-									'zhu', 'amsa', 'kirbykaze', 'nintendude', 'macd']
-
+top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
+print top_player_regex_raw_list
 
 for tag in fake_userlist:
   print tag 
