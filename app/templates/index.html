@@ -1,15 +1,13 @@
-<!-- extend base layout -->
 {% extends "base.html" %}
 
 {% block content %}
 <div class="container">
   <header class="jumbotron">
-  <h1>Welcome to SmashStats!</h1>
-  <div><h3><a href="{{url_for("browse_tournaments")}}">Browse Recent Tournaments</a></h3></div>
+    <h1>Welcome to SmashStats!</h1>
+    <!-- <div><h3><a href="{{url_for("browse_tournaments")}}">Browse Recent Tournaments</a></h3></div> -->
+    <p>Smashstats tracks the stats of tournament-level players in the eSports Super Smash Bros. Melee scene. It parses data from tournament brackets and neatly presents statistics of tournament attendance, comprehensive set records, and head to head histories between players.</p>
   </header>
   <hr>
-
-  <h3>Recent Updates</h3>
 
   <div class="col-md-3 col-sm-6 hero-feature">
   <div class="thumbnail"><div class="caption scroll400"><h5> July 7, 2015 </h5>
@@ -17,6 +15,7 @@
     <li> expanded recognized top player substrings to top100 in MIOM 2013 Rankings </li>
     <li> more bugtesting for recognized players; heroku checkpoint </li>
     <li> reformatted user.html profile page, standardized tables </li>
+    <li> added route /about and included that information in /index </li>
   </ul></div></div>
   </div>
 

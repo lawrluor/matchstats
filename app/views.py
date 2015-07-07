@@ -24,6 +24,11 @@ def before_request():
 def index():
   return render_template('index.html')
 
+# About page (more info)
+@app.route('/about')
+def about():
+  return render_template('about.html')
+
 
 @app.route('/user_create', methods=['GET', 'POST'])
 def user_create():
