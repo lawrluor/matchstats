@@ -49,7 +49,7 @@ class User(db.Model):
     return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
   
   def __str__(self):
-    return self.tag.encode('utf-8') + ' | Seed: ' + str(self.seed) + ' | Region: ' + self.region.encode('utf-8') + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
+    return self.tag.encode('utf-8', 'ignore') + ' | Seed: ' + str(self.seed) + ' | Region: ' + self.region.encode('utf-8', 'ignore') + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
   
 
   # User-Set Relationship functions
@@ -165,7 +165,7 @@ class Set(db.Model):
     return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __str__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.tournament.encode('utf-8') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8')
+    return self.tournament.encode('utf-8', 'ignore') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
   
   # returns winner (user) of this set
   def getSetWinner(self):

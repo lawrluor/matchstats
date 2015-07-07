@@ -20,13 +20,14 @@ def sanitize_tag(tag, regex_list, sanitized_list):
 # Takes top_player_regex_raw_list as a parameter through map, meaning that each index is one list inside the list of regex expressions in top_player_regex_raw_list.
 def add_prefixes(regex_list):
   wildcard = '.*'
-  sep = '[| .`]'
+  sep = '[|.` ]'
   prefix = wildcard + sep
   prefix_list = []
    
   inner_list = []
-  for i in range(len(regex_list)):
-    inner_list.append(prefix + regex_list[i])
+  for regex in regex_list:
+    inner_list.append(prefix + regex)
+    inner_list.append(regex)
 
   joined_regex = '|'.join(inner_list)
   prefix_list.append(joined_regex)

@@ -124,10 +124,18 @@ sanitized_tags = [
 
 fake_regex_list = ['.*[| .`](mang[o0])', '.*[| .`](armada)|.*[| .`](\[a\]rmada)', '.*[| .`](ppmd)|.*[| .`](dr\\. pp)', '.*[| .`](mew2king)|.*[| .`](m2k)', '.*[| .`](hungrybox)|.*[| .`](hbox)', '.*[| .`](leffen)|.*[| .`](l3ff3n)', '.*[| .`](axe)', '.*[| .`](hax)|.*[| .`](hax\\$)', '.*[| .`](westballz)', '.*[| .`](colbol)', '.*[| .`](fly amanita)', '.*[| .`](lucky)', '.*[| .`](pewpewu)|.*[| .`](ppu)|.*[| .`](pewpewyou)', '.*[| .`](shroomed)', '.*[| .`](silentwolf)', '.*[| .`](plup)', '.*[| .`](fiction)', '.*[| .`](s2j)', '.*[| .`](ice)', '.*[| .`](sfat)', '.*[| .`](zhu)', '.*[| .`](kirbykaze)|.*[| .`](kk)', '.*[| .`](nintendude)', '.*[| .`](macd)', '.*[| .`](amsa)', '.*[| .`](chillindude)|.*[| .`](chillindude829)', '.*[| .`](javi)', '.*[| .`](kels)', '.*[| .`](wizzrobe)|.*[| .`](wizzy)', '.*[| .`](the moon)']
 
-print fake_regex_list
-# top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
+# print fake_regex_list
+# top_player_regex_list = map(compile_case_i_re, fake_regex_list)
 
-top_player_regex_list = map(compile_case_i_re, fake_regex_list)
+print top_player_regex_raw_list
+print '\n'
+top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
+
+for player in top_player_regex_raw_list:
+  print player
+
+
+top_player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
 
 for tag in fake_userlist:
   print tag 
