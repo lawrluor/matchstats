@@ -20,7 +20,7 @@ def sanitize_tag(tag, regex_list, sanitized_list):
 # Takes top_player_regex_raw_list as a parameter through map, meaning that each index is one list inside the list of regex expressions in top_player_regex_raw_list.
 def add_prefixes(regex_list):
   wildcard = '.*'
-  sep = '[|.` ]'
+  sep = '[|.`\' ]'
   prefix = wildcard + sep
   prefix_list = []
    
@@ -35,7 +35,7 @@ def add_prefixes(regex_list):
     
 # Regular expressions representing top players.
 top_player_regex_raw_list = [
-    ['(mang[o0])'],
+    ['(mang[o0])', '(c9mang[o0])'],
     ['(armada)', '(\[a\]rmada)'],
     ['(ppmd)', '(dr\. pp)', '(dr\. peepee)', '(dr pp)', '(dr peepee)', '(doctor pp)', '(doctor peepee)'],
     ['(mew2king)', '(m2k)'],
@@ -49,7 +49,7 @@ top_player_regex_raw_list = [
     ['(lucky)'],
     ['(pewpewu)', '(ppu)', '(pewpewyou)'],
     ['(shroomed)'],
-    ['(silentwolf)'],
+    ['(silentwolf)', '(silent wolf)'],
     ['(plup)'],
     ['(fiction)'],
     ['(s2j)', '(smoke2jointz)'],
@@ -137,7 +137,7 @@ top_player_regex_raw_list = [
     ['(esam)'],
     # MIOM 2013 Rank Begins
     ['(wobbles)', '(wobbles the phoenix)'],
-    ['(unknown522)', '(unknown 522)'],
+    ['(unknown522)', '(unknown 522)', '(ryan ford)'],
     ['(taj)'],
     ['(overtriforce)', '(over)', '(over triforce)'],
     ['(dashizwiz)', '(shiz)', '(da shiz wiz)'],

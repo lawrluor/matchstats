@@ -200,5 +200,6 @@ def import_challonge_data(matchlist, tournament_name):
     print new_set
 
   db.session.commit()
+  print '\n'
 
   return "Import Successful"
