@@ -1,5 +1,7 @@
 #!flask/bin/python
 
+# THIS FILE SERVES ONLY AS A UNIT TEST FOR /sanitize FUNCTIONS
+
 import re
 from sanitize_utils import *
 
