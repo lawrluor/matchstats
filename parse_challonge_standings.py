@@ -46,6 +46,8 @@ def parse_challonge_standings(tournament_url):
     print '\n'
 
   print all_placements
+  print '\n'
+
   return all_placements
 
 
@@ -55,6 +57,83 @@ def parse_challonge_info(tournament_url):
   soup3 = BeautifulSoup(r3.data)
   soup3.prettify()
 
-  found = soup3.find_all("meta") 
-  print found
+  tournament_info = {}
+
+  title_item = soup3.find("div", id='title') 
+  if title_item is not None:
+    title = title_item.getText()
+  else:
+    title = None
+
+  tournament_info['title'] = title
+  print title
+  print '\n'
+
+  host_item = soup3.find("div", {"class" : "text"})
+  if host_item is not None:
+    # text is a string containing a string, i.e. "Hosted by CEO Gaming"
+    text = host_item.getText()
+    host_index = text.find("by")
+    if host_index != -1:
+      # use index when "host" starts, host_index, and account for the word and whitespace to get everything after "by "
+      host = text[host_index+2:]
+    else:
+      host = text
+
+  tournament_info['host'] = host
+  print host
+  print '\n'
+
+  # Change so as to contain substring challonge.com/games
+  game_type_item = soup3.find("a", {"href" : "http://challonge.com/games/super-smash-bros-melee/tournaments"})
+  if game_type_item is not None:
+    game_type = game_type_item.getText()
+  else:
+    game_type = None
+
+  tournament_info['game_type'] = game_type
+  print game_type
+  print '\n'
+
+  date_item = soup3.find("span", id='start-time') 
+  if date_item is not None:
+    full_date = date_item.getText()
+    # full_date is a string, i.e. "June 27, 2015 at 6:00 PM EDT". This will be truncated to just the month, day, and year
+    date_index = full_date.find("at")
+    if date_index != -1:
+      date = full_date[:(date_index-1)] 
+    else:
+      date = full_date
+
+  tournament_info['date'] = date
+  print date
+  print '\n'
+
+  bracket_locator = soup3.find("i", {"class" : "icon-info-sign"})
+  if bracket_locator is not None:
+    # next line happens to contain a string with the bracket information and entrant number, i.e. "32 player Double Elimination"
+    bracket_info = bracket_locator.nextSibling
+    print bracket_info
+
+    # find start index for player, subtract 1 (whitespace) to get just the number of entrants "32" and convert to int
+    player_index = bracket_info.find("player") 
+    if player_index != -1:
+      number_entrants = int(bracket_info[:(player_index-1)])
+      # use index when "player" starts, player_index, and account for the word and whitespace to get everything after "player "
+      bracket_type = bracket_info[(player_index+7):]
+    else:
+      number_entrants = bracket_info
+      bracket_type = bracket_info
+    
+    tournament_info['number_entrants'] = number_entrants
+    tournament_info['bracket_type'] = bracket_type
+    print number_entrants
+    print bracket_type
+    print '\n'
+
+  print tournament_info
+  return tournament_info
+
+  # found = soup3.find_all(attrs={'content' : re.compile('{.*')})
+  # print found
 
