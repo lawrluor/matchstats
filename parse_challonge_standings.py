@@ -50,7 +50,7 @@ def parse_challonge_standings(tournament_url):
 
   return all_placements
 
-
+# function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
   conn3 = urllib3.connection_from_url(tournament_url)
   r3 = conn3.request("GET", tournament_url)
@@ -62,11 +62,9 @@ def parse_challonge_info(tournament_url):
   title_item = soup3.find("div", id='title') 
   if title_item is not None:
     title = title_item.getText()
-  else:
-    title = None
-
-  tournament_info['title'] = title
-  print title
+    title = title.strip('\n')
+    tournament_info['title'] = title
+    print title
   print '\n'
 
   host_item = soup3.find("div", {"class" : "text"})
@@ -79,20 +77,18 @@ def parse_challonge_info(tournament_url):
       host = text[host_index+2:]
     else:
       host = text
-
-  tournament_info['host'] = host
-  print host
+    
+    host = host.strip('\n')
+    tournament_info['host'] = host
+    print host
   print '\n'
 
-  # Change so as to contain substring challonge.com/games
-  game_type_item = soup3.find("a", {"href" : "http://challonge.com/games/super-smash-bros-melee/tournaments"})
+  game_type_item = soup3.find("a", {"href" : re.compile('http://challonge.com/games/.*')})
   if game_type_item is not None:
     game_type = game_type_item.getText()
-  else:
-    game_type = None
-
-  tournament_info['game_type'] = game_type
-  print game_type
+    game_type = game_type.strip('\n')
+    tournament_info['game_type'] = game_type
+    print game_type
   print '\n'
 
   date_item = soup3.find("span", id='start-time') 
@@ -105,10 +101,12 @@ def parse_challonge_info(tournament_url):
     else:
       date = full_date
 
-  tournament_info['date'] = date
-  print date
+    date = date.strip('\n')
+    tournament_info['date'] = date
+    print date
   print '\n'
-
+  
+  # locates an info icon near the bracket type description, because the bracket_type description does not exist inside a tag
   bracket_locator = soup3.find("i", {"class" : "icon-info-sign"})
   if bracket_locator is not None:
     # next line happens to contain a string with the bracket information and entrant number, i.e. "32 player Double Elimination"
@@ -120,20 +118,21 @@ def parse_challonge_info(tournament_url):
     if player_index != -1:
       number_entrants = int(bracket_info[:(player_index-1)])
       # use index when "player" starts, player_index, and account for the word and whitespace to get everything after "player "
-      bracket_type = bracket_info[(player_index+7):]
+      bracket_type = bracket_info[(player_index+7):].strip('\n')
     else:
-      number_entrants = bracket_info
-      bracket_type = bracket_info
-    
+      number_entrants = bracket_info.strip('\n')
+      bracket_type = bracket_info.strip('\n')
+
     tournament_info['number_entrants'] = number_entrants
     tournament_info['bracket_type'] = bracket_type
     print number_entrants
     print bracket_type
-    print '\n'
+  print '\n'
 
   print tournament_info
   return tournament_info
 
+  # <meta content> method of parsing
   # found = soup3.find_all(attrs={'content' : re.compile('{.*')})
   # print found
 
