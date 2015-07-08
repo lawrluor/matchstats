@@ -158,8 +158,9 @@ class Set(db.Model):
   max_match_count = db.Column(db.Integer)
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
-  tournament = db.Column(db.String(64), index=True)
+  tournament = db.Column(db.String(128), index=True)
   round_type = db.Column(db.Integer)
+  tournament_relation = db.Column(db.Integer, ForeignKey('tournament.id'))
   
   def __repr__(self):
     return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
@@ -215,3 +216,16 @@ class Match(db.Model):
   def __str__(self): # String representation to be printed in html. Ex: Stage: Battlefield | Winner: Mango | Loser: Armada
     string_Match = 'Stage: ' + self.stage + ' | Winner: ' + self.winner + ' (' + str(self.winner_char) + ') | Loser: ' + self.loser + ' (' + str(self.loser_char) + ')'
     return string_Match
+
+# Tournament is the one in a one=to-many relationship with model Set
+class Tournament(db.Model):
+  __tablename__ = 'tournament'
+  id = db.Column(db.Integer, primary_key=True)
+  title =  db.Column(db.String(128), index=True)
+  host = db.Column(db.String(128), index=True)
+  entrants = db.Column(db.Integer)
+  bracket_type = db.Column(db.String(128), index=True)
+  game_type = db.Column(db.String(128), index=True)
+  date = db.Column(db.String(128), index=True)
+  sets = relationship("Set", backref="tournament") 
+  
