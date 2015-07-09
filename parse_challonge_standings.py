@@ -132,7 +132,52 @@ def parse_challonge_info(tournament_url):
   print tournament_info
   return tournament_info
 
-  # <meta content> method of parsing
-  # found = soup3.find_all(attrs={'content' : re.compile('{.*')})
-  # print found
+# get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
+def import_challonge_info(tournament_info, tournament_name):
+  print tournament_info
+  
+  if 'title' in tournament_info:
+    tournament_title = tournament_info['title']
+  else:
+    tournamemnt_title = None
+  
+  if 'host' in tournament_info:
+    tournament_host = tournament_info['host']
+  else:
+    tournament_host = None
+
+  if 'entrants' in tournament_info:
+    tournament_entrants = tournament_info['entrants']
+  else:
+    tournament_entrants = None
+
+  if 'bracket_type' in tournament_info:
+    tournament_bracket_type = tournament_info['bracket_type']
+  else:
+    tournament_bracket_type = None
+
+  if 'game_type' in tournament_info:
+    tournament_game_type = tournament_info['game_type']
+  else:
+    tournament_game_type = None
+
+  if 'date' in tournament_info:
+    tournament_date = tournament_info['date']
+  else:
+    tournament_date = None
+
+  if tournament_name is None:
+    tournament_name = "Non-Tourney"
+ 
+  new_tournament = Tournament(official_title=tournament_title,
+                              host=tournament_host,
+                              entrants=tournament_entrants,
+                              bracket_type=tournament_bracket_type,
+                              game_type=tournament_game_type,
+                              date=tournament_date,
+                              name=tournament_name)
+
+  print new_tournament
+  return new_tournament
+
 

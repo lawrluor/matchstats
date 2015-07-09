@@ -139,7 +139,7 @@ def parse_challonge(tournament_url):
 
 
 # Get: score, tag, seed, round given a matchlist from parse_challonge, and a string tournamnent name (to fill out Set.attribute)
-def import_challonge_data(matchlist, tournament_name):
+def import_challonge_sets(matchlist, tournament_name):
   for set in matchlist:
     top_player = set[0]
     bottom_player = set[1]
@@ -182,11 +182,7 @@ def import_challonge_data(matchlist, tournament_name):
       # prevent crashing when creating the Set without existing variable round_number
       round_number = 0
 
-    # Check tournament name; if None, set Set.tournament="Non-Tourney"
-    if not tournament_name:
-      tournament_name = "Non-Tourney"
-
-    new_set = Set(tournament=tournament_name,
+    new_set = Set(
                   round_type=round_number,
                   winner_tag=winner_user.tag,
                   loser_tag=loser_user.tag,

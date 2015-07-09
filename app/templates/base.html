@@ -1,3 +1,5 @@
+<!-- Base template for all page templates in app -->
+
 <!--Bootstrap imports -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="{{ url_for('static', filename='enno/css/bootstrap.css') }}">
@@ -18,9 +20,9 @@
 <html>
   <head>
     {% if title %}
-    <title>{{ title }} - Matchstats</title>
+      <title>{{ title }} - Matchstats</title>
     {% else %}
-    <title>Matchstats</title>
+      <title>Matchstats</title>
     {% endif %}
     <script>
       $(function() {
@@ -30,69 +32,70 @@
     </script>
   </head>
 
-
   <body>
   <!-- header linking to different web features, across all pages on site -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">SmashStats</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                  <li>
-                    <a href="{{ url_for('about') }}">About</a>
-                  </li>
-                  <li>
-                    <a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a>
-                  </li>
-                  <li>
-                    <a href="{{ url_for('browse_users') }}">Browse Users</a>
-                  </li>
-                  <li>
-                    <a href="{{ url_for('head_to_head') }}">Head to Head</a>
-                  </li>
-                  <li>
-                    <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
-                    {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=12, class="form-control") }}
-                    <input type="submit" class="btn-primary form-control" value="Search">
-                    </form>
-                  </li>
-                  <!-- Not needed currently
-                  <li>
-                    <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
-                  </li>
-
-                  <li>
-                    <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
-                  </li>
-                  -->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-          <li>{{ message }} </li>
-        {% endfor %}
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <!-- Dropdown Menu in Mobile -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}">SmashStats</a>
+      </div>
+      
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{ url_for('about') }}">About</a>
+          </li>
+          <li>
+            <a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a>
+          </li>
+          <li>
+            <a href="{{ url_for('browse_users') }}">Browse Users</a>
+          </li>
+          <li>
+            <a href="{{ url_for('head_to_head') }}">Head to Head</a>
+          </li>
+          <li>
+            <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
+              {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=12, class="form-control") }}
+              <input type="submit" class="btn-primary form-control" value="Search">
+            </form>
+          </li>
+          <!-- Not needed currently
+          <li>
+            <a href="{{ url_for('browse_characters') }}">Browse Characters</a>
+          </li>
+          <li>
+            <a href="{{ url_for('browse_regions') }}">Browse Regions</a>
+          </li>
+          -->
         </ul>
-      {% endif %}
-    {% endwith %}
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
 
-    <!-- individual page templates begin -->
-    {% block content %}{% endblock %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+      {% for message in messages %}
+        <li>{{ message }} </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <!-- individual page templates begin -->
+  {% block content %}{% endblock %}
 
   <hr>
   <div class="container">

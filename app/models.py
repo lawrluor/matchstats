@@ -31,7 +31,6 @@ secondaries = db.Table('secondaries',
                         db.Column('character_id', db.Integer, db.ForeignKey('character.id'))
                        )
 
-
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
   __tablename__ = 'user'
@@ -146,6 +145,31 @@ def make_same_user(root_tag, joined_tag):
   db.session.commit()
   return root_user
 
+#association object between Tournament and User
+class Placement(db.Model):
+  __tablename__ = 'placement'
+  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
+  user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
+  placement = db.Column(db.Integer)
+  users = relationship("User", backref="tournament_assocs")
+
+# Tournament is the many in a one=to-many relationship with model Set
+class Tournament(db.Model):
+  __tablename__ = 'tournament'
+  id = db.Column(db.Integer, primary_key=True)
+  official_title =  db.Column(db.String(128), index=True)
+  host = db.Column(db.String(128), index=True)
+  entrants = db.Column(db.Integer)
+  bracket_type = db.Column(db.String(128), index=True)
+  game_type = db.Column(db.String(128), index=True)
+  date = db.Column(db.String(128), index=True)
+  name = db.Column(db.String(128), index=True)
+  sets = relationship("Set", backref="tournament") 
+  users = relationship("Placement", backref="tournament")
+
+  def __repr__(self):
+    return '<tournament: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -158,7 +182,6 @@ class Set(db.Model):
   max_match_count = db.Column(db.Integer)
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
-  tournament = db.Column(db.String(128), index=True)
   round_type = db.Column(db.Integer)
   tournament_relation = db.Column(db.Integer, ForeignKey('tournament.id'))
   
@@ -217,15 +240,4 @@ class Match(db.Model):
     string_Match = 'Stage: ' + self.stage + ' | Winner: ' + self.winner + ' (' + str(self.winner_char) + ') | Loser: ' + self.loser + ' (' + str(self.loser_char) + ')'
     return string_Match
 
-# Tournament is the one in a one=to-many relationship with model Set
-class Tournament(db.Model):
-  __tablename__ = 'tournament'
-  id = db.Column(db.Integer, primary_key=True)
-  title =  db.Column(db.String(128), index=True)
-  host = db.Column(db.String(128), index=True)
-  entrants = db.Column(db.Integer)
-  bracket_type = db.Column(db.String(128), index=True)
-  game_type = db.Column(db.String(128), index=True)
-  date = db.Column(db.String(128), index=True)
-  sets = relationship("Set", backref="tournament") 
-  
+

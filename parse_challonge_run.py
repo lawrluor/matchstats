@@ -14,7 +14,7 @@ from parse_challonge import *
 def main():
 	# Simulation of what would happen if one called these methods from parse_challonge from anywhere
 	matchlist = parse_challonge(sys.argv[1])
-	import_challonge_data(matchlist, sys.argv[2].decode('utf-8'))
+	import_challonge_sets(matchlist, sys.argv[2].decode('utf-8'))
 
 if __name__ == "__main__":
 	main()
