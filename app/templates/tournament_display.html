@@ -1,0 +1,9 @@
+<!-- prints tournament display as part of a table body-->
+
+{% if tournament.name != "Non-Tourney" %}
+<tr>
+	<td><b>{{tournament.date}}</b></td>
+	<td><b><a href="{{ url_for("tournament", tournament_name=tournament.name)}}">{{tournament.name}}</a></b></td>
+	<td>{{tournament.entrants}}</td>
+</tr>
+{% endif %}

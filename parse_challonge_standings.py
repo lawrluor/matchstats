@@ -70,10 +70,6 @@ def import_challonge_standings(all_placements, tournament):
   print tournament
   print tournament.name
 
-  westballz = User.query.filter(User.tag=="Westballz").first()
-  print westballz.tournament_assocs
-
-
 # function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
   conn3 = urllib3.connection_from_url(tournament_url)
@@ -140,16 +136,16 @@ def parse_challonge_info(tournament_url):
     # find start index for player, subtract 1 (whitespace) to get just the number of entrants "32" and convert to int
     player_index = bracket_info.find("player") 
     if player_index != -1:
-      number_entrants = int(bracket_info[:(player_index-1)])
+      entrants = int(bracket_info[:(player_index-1)])
       # use index when "player" starts, player_index, and account for the word and whitespace to get everything after "player "
       bracket_type = bracket_info[(player_index+7):].strip('\n')
     else:
-      number_entrants = bracket_info.strip('\n')
+      entrants = bracket_info.strip('\n')
       bracket_type = bracket_info.strip('\n')
 
-    tournament_info['number_entrants'] = number_entrants
+    tournament_info['entrants'] = entrants
     tournament_info['bracket_type'] = bracket_type
-    print number_entrants
+    print entrants
     print bracket_type
   print '\n'
 

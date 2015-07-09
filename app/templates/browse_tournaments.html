@@ -19,9 +19,7 @@
 
 			<tbody>
 				{% for tournament in tournamentlist %}
-					<tr>
-						<td><b><a href="{{ url_for("tournament", tournament=tournament)}}">{{tournament}}</a></b></td>
-					</tr>
+					{% include 'tournament_display.html' %}
 				{% endfor %}
 			</tbody>
 		</table>

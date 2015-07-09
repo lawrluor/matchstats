@@ -2,10 +2,10 @@
 
 <tr><h5><b>
 	<td class="col-sm-3"><b>
-		{% if set.tournament != "Non-Tourney" %}
-			<a href="{{url_for("tournament", tournament=set.tournament)}}">{{ set.tournament }}</a>
+		{% if set.tournament_name != "Non-Tourney" %}
+			<a href="{{url_for("tournament", tournament_name=set.tournament_name)}}">{{ set.tournament_name }}</a>
 		{% else %}
-			{{ set.tournament }}
+			{{ set.tournament_name }}
 		{% endif %}
 	</b></td>
 

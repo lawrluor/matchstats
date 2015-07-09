@@ -496,7 +496,7 @@ def character(character):
                          main_matching_users=main_matching_users,
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
-
+"""
 # helper function that returns an ascii list of tournament names by querying database
 def get_tournament_list():
   # with_entities returns a list of tuple values: (Set.tournament, None)
@@ -514,25 +514,27 @@ def get_tournament_list():
       tournamentlist[i] = tournamentlist[i][0].encode('ascii', 'ignore')
 
   return tournamentlist
-
+"""
 
 # Lists all tournaments 
 @app.route('/browse_tournaments')
 def browse_tournaments():
-  tournamentlist = get_tournament_list()
+  tournamentlist = Tournament.query.all()
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist)
     
 
 # Displays all sets in a given tournament
-@app.route('/tournament/<tournament>')
-def tournament(tournament):
-  tournament_setlist = Set.query.filter(Set.tournament==tournament).order_by(Set.id).all()
+@app.route('/tournament/<tournament_name>')
+def tournament(tournament_name):
+  tournament_obj = Tournament.query.filter(Tournament.name==tournament_name).first()
+  tournament_setlist = tournament_obj.sets 
   if tournament_setlist == []:
     flash('No sets found for this tournament.')
   
+  print tournament_setlist
   return render_template("tournament.html",
-                         tournament=tournament,
+                         tournament=tournament_obj,
                          tournament_setlist=tournament_setlist)
 
 

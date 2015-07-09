@@ -2,14 +2,14 @@
 {% block content %}
 <div class="container">
   <header class="jumbotron">
-    <h1> [Tournament Name]</h1>
-    <h2> [Date] </h2>
-    <h2> [Entrants] + [Bracket Type] </h2>
+    <h1> {{ tournament.name }} </h1>
+    <h2> {{ tournament.date }} </h2>
+    <h2> {{ tournament.entrants }} player {{ tournament.bracket_type }} </h2>
   </header>
 
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><b> Sets from {{ tournament }} </b></h1>
+    <h1><b> Sets from {{ tournament.name }} </b></h1>
   </div>
   <div class="panel-body">
 
