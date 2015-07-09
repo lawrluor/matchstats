@@ -50,6 +50,28 @@ def parse_challonge_standings(tournament_url):
 
   return all_placements
 
+# given all_placements dictionary from parse_challonge_standings, and a Tournament object created in import_challonge_info, add placements data to Tournament object.
+def import_challonge_standings(all_placements, tournament):
+  for placement in all_placements:
+    for player in all_placements[placement]:
+      # checked_player is a User object
+      checked_player = check_set_user(player)
+      
+      tournament.users.append(Placement(tournament_id = tournament.id,
+                                        user_id=checked_player.id,
+                                        placement=placement
+                                        ))
+      db.session.commit()
+
+  placements = db.session.query(Tournament).join('users', 'user')
+  for placement in placements:
+    print placement
+    print '\n'
+
+  westballz = User.query.filter(User.tag=="Westballz").first()
+  print westballz.tournament_assocs
+
+
 # function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
   conn3 = urllib3.connection_from_url(tournament_url)
@@ -177,7 +199,7 @@ def import_challonge_info(tournament_info, tournament_name):
                               date=tournament_date,
                               name=tournament_name)
 
+  db.session.add(new_tournament)
+  db.session.commit()
   print new_tournament
   return new_tournament
-
-

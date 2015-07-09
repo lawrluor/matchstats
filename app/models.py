@@ -46,9 +46,11 @@ class User(db.Model):
 
   def __repr__(self):
     return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
-  
+ 
+  """
   def __str__(self):
     return self.tag.encode('utf-8', 'ignore') + ' | Seed: ' + str(self.seed) + ' | Region: ' + self.region.encode('utf-8', 'ignore') + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
+  """
   
 
   # User-Set Relationship functions
@@ -151,7 +153,10 @@ class Placement(db.Model):
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
-  users = relationship("User", backref="tournament_assocs")
+  user = relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
+
+  def __repr__(self):
+    return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
 
 # Tournament is the many in a one=to-many relationship with model Set
 class Tournament(db.Model):

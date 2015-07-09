@@ -12,6 +12,7 @@ from app.models import *
 userlist = User.query.all()
 setlist = Set.query.all()
 matchlist = Match.query.all()
+tournamentlist = Tournament.query.all()
 
 for user in userlist:
 	db.session.delete(user)
@@ -22,8 +23,12 @@ for set in setlist:
 for match in matchlist:
 	db.session.delete(match)
 
+for tournament in tournamentlist:
+	db.session.delete(tournament)
+
 db.session.commit()
 
 print userlist
 print setlist
 print matchlist
+print tournamentlist
