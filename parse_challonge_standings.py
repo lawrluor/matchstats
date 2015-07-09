@@ -57,16 +57,18 @@ def import_challonge_standings(all_placements, tournament):
       # checked_player is a User object
       checked_player = check_set_user(player)
       
+      # append relationship to Tournament as a Placement object
       tournament.users.append(Placement(tournament_id = tournament.id,
                                         user_id=checked_player.id,
                                         placement=placement
                                         ))
       db.session.commit()
 
+  # query Tournaments to see
   placements = db.session.query(Tournament).join('users', 'user')
-  for placement in placements:
-    print placement
-    print '\n'
+
+  print tournament
+  print tournament.name
 
   westballz = User.query.filter(User.tag=="Westballz").first()
   print westballz.tournament_assocs

@@ -153,7 +153,8 @@ class Placement(db.Model):
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
-  user = relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
+  tournament_name = db.Column(db.String(128))
+  user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
     return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
@@ -169,8 +170,8 @@ class Tournament(db.Model):
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.String(128), index=True)
   name = db.Column(db.String(128), index=True)
-  sets = relationship("Set", backref="tournament") 
-  users = relationship("Placement", backref="tournament")
+  sets = db.relationship("Set", backref="tournament") 
+  users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
     return '<tournament: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
@@ -188,13 +189,14 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   round_type = db.Column(db.Integer)
-  tournament_relation = db.Column(db.Integer, ForeignKey('tournament.id'))
+  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'))
+  tournament_name = db.Column(db.String(128))
   
   def __repr__(self):
-    return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
+    return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __str__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.tournament.encode('utf-8', 'ignore') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
+    return self.tournament_name.encode('utf-8', 'ignore') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
   
   # returns winner (user) of this set
   def getSetWinner(self):

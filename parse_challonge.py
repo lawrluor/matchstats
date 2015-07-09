@@ -182,7 +182,15 @@ def import_challonge_sets(matchlist, tournament_name):
       # prevent crashing when creating the Set without existing variable round_number
       round_number = 0
 
-    new_set = Set(
+    # get associated Tournament
+    if tournament_name is not None:
+      assocs_tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
+    else:
+      # Default Tournament object "Non-Tourney", id=1
+      assocs_tournament = Tournament.query.filter(Tournament.name=="Non-Tourney".first())
+
+    new_set = Set(tournament_id=assocs_tournament.id,
+                  tournament_name=assocs_tournament.name,
                   round_type=round_number,
                   winner_tag=winner_user.tag,
                   loser_tag=loser_user.tag,

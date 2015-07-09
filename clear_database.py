@@ -23,8 +23,9 @@ for set in setlist:
 for match in matchlist:
 	db.session.delete(match)
 
-for tournament in tournamentlist:
-	db.session.delete(tournament)
+# Keep default "Non-Tourney" Tournament object at id=1
+for i in range(1, len(tournamentlist)):
+	db.session.delete(tournamentlist[i])
 
 db.session.commit()
 
