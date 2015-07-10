@@ -49,6 +49,7 @@ def import_challonge_standings(all_placements, tournament):
     for player in all_placements[placement]:
       # checked_player is a User object
       checked_player = check_set_user(player)
+      checked_player.tag = check_and_sanitize_tag(checked_player.tag)
       
       # append relationship to Tournament as a Placement object
       tournament.users.append(Placement(tournament_id = tournament.id,
