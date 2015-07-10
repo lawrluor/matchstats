@@ -81,7 +81,7 @@ def parse_bottom_match(bottom_item_list):
 
     return bottom_half
 
-def parse_challonge(tournament_url):
+def parse_challonge_matches(tournament_url):
   conn = urllib3.connection_from_url(tournament_url)
   r1 = conn.request("GET", tournament_url)
   soup = BeautifulSoup(r1.data)
@@ -139,7 +139,7 @@ def parse_challonge(tournament_url):
 
 
 # Get: score, tag, seed, round given a matchlist from parse_challonge, and a string tournamnent name (to fill out Set.attribute)
-def import_challonge_sets(matchlist, tournament_name):
+def import_challonge_matches(matchlist, tournament_name):
   for set in matchlist:
     top_player = set[0]
     bottom_player = set[1]

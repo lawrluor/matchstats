@@ -9,12 +9,29 @@ import re
 
 import sys
 
-from parse_challonge import *
+from parse_challonge_standings import *
+from parse_challonge_info import *
+from parse_challonge_matches import *
 
 def main():
-	# Simulation of what would happen if one called these methods from parse_challonge from anywhere
-	matchlist = parse_challonge(sys.argv[1])
-	import_challonge_sets(matchlist, sys.argv[2].decode('utf-8'))
+  tournament_url = sys.argv[1]
+  tournament_name = sys.argv[2]
+
+  # Create and return dictionary of values for Tournament attributes
+  tournament_info = parse_challonge_info(tournament_url)
+  # create new Tournament by assigning the tournament_info dictionary, given the tournament name as well.
+  new_tourney = import_challonge_info(tournament_info, tournament_name)
+ 
+  # Returns dictionary of placements : tags given tournament url
+  all_placements = parse_challonge_standings(tournament_url)
+  # given the dictionary of placements and the Tournament object, link Tournament and User with Placement object. Users checked and sanitized here.
+  import_challonge_standings(all_placements, new_tourney)
+
+  # given the tournament_url, return a list of dictionaries with values for Set attributes
+  matchlist = parse_challonge_matches(tournament_url)
+  # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
+  import_challonge_matches(matchlist, tournament_name)
+
 
 if __name__ == "__main__":
 	main()
