@@ -7,6 +7,10 @@
     <h2> {{ tournament.entrants }} player {{ tournament.bracket_type }} </h2>
   </header>
 
+  {% for user in tournament.users %}
+    {{ user }}
+  {% endfor %}
+
   <div class="panel panel-default">
   <div class="panel-heading">
     <h1><b> Sets from {{ tournament.name }} </b></h1>

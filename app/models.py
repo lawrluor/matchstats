@@ -14,7 +14,7 @@ class Character(db.Model):
     return '<id: %s, name: %s>' % (self.id, self.name)
   
   # for incorporation into other features, simply displays Character name
-  def __str__(self):
+  def __unicode__(self):
     return self.name
   
   # Uses users backref to query for Users
@@ -47,11 +47,8 @@ class User(db.Model):
   def __repr__(self):
     return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
  
-  """
-  def __str__(self):
-    return self.tag.encode('utf-8', 'ignore') + ' | Seed: ' + str(self.seed) + ' | Region: ' + self.region.encode('utf-8', 'ignore') + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
-  """
-  
+  def __unicode__(self):
+    return self.tag + ' | Seed: ' + self.seed + ' | Region: ' + self.region + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -159,6 +156,9 @@ class Placement(db.Model):
   def __repr__(self):
     return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
 
+  def __unicode__(self):
+    return str(self.placement) + ": " + str(self.user)
+
 # Tournament is the many in a one=to-many relationship with model Set
 class Tournament(db.Model):
   __tablename__ = 'tournament'
@@ -195,7 +195,7 @@ class Set(db.Model):
   def __repr__(self):
     return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
-  def __str__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
+  def __unicode__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
     return self.tournament_name.encode('utf-8', 'ignore') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
   
   # returns winner (user) of this set
@@ -243,7 +243,7 @@ class Match(db.Model):
   def __repr__(self):
     return '<Stage: %r, Winner: %r (%r), Loser: %r (%r)>' % (self.stage, self.winner, self.winner_char, self.loser, self.loser_char)
 
-  def __str__(self): # String representation to be printed in html. Ex: Stage: Battlefield | Winner: Mango | Loser: Armada
+  def __unicode__(self): # String representation to be printed in html. Ex: Stage: Battlefield | Winner: Mango | Loser: Armada
     string_Match = 'Stage: ' + self.stage + ' | Winner: ' + self.winner + ' (' + str(self.winner_char) + ') | Loser: ' + self.loser + ' (' + str(self.loser_char) + ')'
     return string_Match
 
