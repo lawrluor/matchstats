@@ -48,7 +48,7 @@ class User(db.Model):
     return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
  
   def __unicode__(self):
-    return self.tag + ' | Seed: ' + self.seed + ' | Region: ' + self.region + ' | Main: ' + self.main + ' | Secondaries: ' + self.secondaries.all()
+    return str(self.tag) + ' | Seed: ' + str(self.seed) + ' | Region: ' + str(self.region) + ' | Main: ' + str(self.main) + ' | Secondaries: ' + str(self.secondaries.all())
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -171,6 +171,7 @@ class Tournament(db.Model):
   date = db.Column(db.String(128), index=True)
   name = db.Column(db.String(128), index=True)
   sets = db.relationship("Set", backref="tournament") 
+  # users is a list of Placement objects
   users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):

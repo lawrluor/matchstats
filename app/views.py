@@ -496,7 +496,7 @@ def character(character):
                          main_matching_users=main_matching_users,
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
-"""
+""""
 # helper function that returns an ascii list of tournament names by querying database
 def get_tournament_list():
   # with_entities returns a list of tuple values: (Set.tournament, None)
@@ -531,11 +531,41 @@ def tournament(tournament_name):
   tournament_setlist = tournament_obj.sets 
   if tournament_setlist == []:
     flash('No sets found for this tournament.')
+
+  userlist = []
+  placings = []
+
+  for placement_obj in tournament_obj.users:
+    userlist.append(placement_obj.user.tag)
+    placings.append(convert_placement(placement_obj.placement))
   
-  print tournament_setlist
   return render_template("tournament.html",
                          tournament=tournament_obj,
-                         tournament_setlist=tournament_setlist)
+                         tournament_setlist=tournament_setlist,
+                         userlist=userlist,
+                         placings=placings)
+
+# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
+def convert_placement(integer):
+  if integer % 10 == 1:
+    if integer != 11:
+      placement = str(integer) + "st"
+    else:
+      placement = "11th"
+  elif integer % 10 == 2:
+    if integer != 12:
+      placement = str(integer) + "nd" 
+    else:
+      placement = "12th"
+  elif integer % 10 == 3:
+    if integer != 13:
+      placement = str(integer) + "rd"
+    else:
+      placement = "13th"
+  else:
+    placement = str(integer) + "th"
+
+  return placement
 
 
 @app.route('/search', methods=['POST'])

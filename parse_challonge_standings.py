@@ -24,8 +24,6 @@ def parse_challonge_standings(tournament_url):
   all_placements = {}
   current_placement = 0
   for i in range(1, len(player_rows)):
-    print player_rows[i] 
-    print '\n'
 
     standing_item = player_rows[i].find("td", {"class" : "rank"})
     if standing_item is not None:
@@ -41,13 +39,8 @@ def parse_challonge_standings(tournament_url):
     placing = all_placements.setdefault(standing, [])
     placing.append(tag)
      
-    print standing
-    print tag
-    print '\n'
-
   print all_placements
   print '\n'
-
   return all_placements
 
 # given all_placements dictionary from parse_challonge_standings, and a Tournament object created in import_challonge_info, add placements data to Tournament object.
@@ -62,14 +55,9 @@ def import_challonge_standings(all_placements, tournament):
                                         user_id=checked_player.id,
                                         placement=placement
                                         ))
-      db.session.commit()
-
-  # query Tournaments to see
-  placements = db.session.query(Tournament).join('users', 'user')
-
-  print tournament
-  print tournament.name
-
+  db.session.commit()
+  return tournament
+  
 # function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
   conn3 = urllib3.connection_from_url(tournament_url)

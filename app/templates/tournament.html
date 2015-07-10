@@ -7,9 +7,16 @@
     <h2> {{ tournament.entrants }} player {{ tournament.bracket_type }} </h2>
   </header>
 
-  {% for user in tournament.users %}
-    {{ user }}
-  {% endfor %}
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h1><b> Placements </b></h1>
+  </div>
+  <div class="panel-body">
+    {% for i in range(userlist|length) %}
+      {{ placings[i] }} {{ userlist[i] }}
+    {% endfor %}
+  </div>
+  </div>
 
   <div class="panel panel-default">
   <div class="panel-heading">
