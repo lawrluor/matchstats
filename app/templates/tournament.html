@@ -12,11 +12,30 @@
     <h1><b> Placements </b></h1>
   </div>
   <div class="panel-body">
-    {% for i in range(userlist|length) %}
-      {{ placings[i] }} {{ userlist[i] }}
-    {% endfor %}
+  <!-- Table for Placements -->
+  <table class="table bootstrap-datatable table-condensed table-hover">
+    <!-- Empty header (generates navy-colored divider) -->
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for i in range(userlist|length) %}
+      <tr>
+        <td class="col-sm-6 text-right"><b> {{ placings[i] }}: </b></td>
+        <td class="col-sm-6 text-left"><b><a href="{{ url_for("user", tag=userlist[i]) }}"> {{ userlist[i] }}</a></b></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   </div>
   </div>
+
 
   <div class="panel panel-default">
   <div class="panel-heading">
@@ -30,6 +49,15 @@
 
   <!-- "Table" Column Titles -->
   <table class="table bootstrap-datatable table-condensed table-hover">
+    <!-- Empty header (generates navy-colored divider) -->
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
   	<tbody>
       <!-- display all Set in tournament -->
