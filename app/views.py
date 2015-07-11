@@ -332,6 +332,8 @@ def head_to_head():
   user2_set_win_count = request.args.get('user2_set_win_count')
   user1_match_win_count = request.args.get('user1_match_win_count')
   user2_match_win_count = request.args.get('user2_match_win_count')
+  user1_score_matches_won = request.args.get('user1_score_matches_won')
+  user2_score_matches_won = request.args.get('user2_score_matches_won')
   h2h_sets_played = request.args.get('h2h_sets_played')
   h2h_matches_played = request.args.get('h2h_matches_played')
   h2h_stages_played = request.args.get('h2h_stages_played')
@@ -354,6 +356,17 @@ def head_to_head():
     user2_matches_won = h2h_get_matches_won(tag2, tag1, h2h_matches_played)
     user1_match_win_count = len(user1_matches_won)
     user2_match_win_count = len(user2_matches_won)
+
+    # for Set with no Match objects available, look into Set scores to determine match wins and losses
+    user1_score_matches_won = 0
+    user2_score_matches_won = 0
+    for set in h2h_sets_played:
+      if set.winner_tag == tag1:
+        user1_score_matches_won += set.winner_score
+        user2_score_matches_won += set.loser_score
+      else:
+        user2_score_matches_won += set.winner_score
+        user1_score_matches_won += set.loser_score
 
     # calculate stage information
     h2h_stages_played = h2h_get_stages_played(h2h_matches_played)
@@ -384,6 +397,8 @@ def head_to_head():
                         user2_set_win_count=user2_set_win_count,
                         user1_match_win_count=user1_match_win_count,
                         user2_match_win_count=user2_match_win_count,
+                        user1_score_matches_won=user1_score_matches_won,
+                        user2_score_matches_won=user2_score_matches_won,
                         h2h_sets_played=h2h_sets_played,
                         h2h_matches_played=h2h_matches_played,
                         h2h_stages_played=h2h_stages_played,
@@ -429,6 +444,11 @@ def user(tag):
   user_wins = user.getWonSets()
   user_losses = user.getLostSets()
   user_secondaries = user.get_secondaries()
+  
+  user_tournaments = user.tournament_assocs
+  print user_tournaments
+
+
   return render_template("user.html",
                         title=tag,
                         user=user,

@@ -72,7 +72,7 @@
       <thead>
         <tr>
           <th><b>Total Sets Played: {{ user1_set_win_count + user2_set_win_count }}</b></th>
-          <th><b>Total Matches Played: {{ h2h_matches_played|length }}</b></th>
+          <th><b>Total Matches Played: {{ h2h_matches_played|length + user1_score_matches_won +  user2_score_matches_won }}</b></th>
           <th><b>Stage Record: </b></th>
         </tr>
       </thead>
