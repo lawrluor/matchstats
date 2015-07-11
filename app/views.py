@@ -446,8 +446,15 @@ def user(tag):
   user_losses = user.getLostSets()
   user_secondaries = user.get_secondaries()
   
+  # create dictionary with Tournament name and respective placement
+  user_placements = {}
+  # user's backref to Placement objects
   user_tournaments = user.tournament_assocs
-  print user_tournaments
+  for placement_obj in user_tournaments:
+    # Placement object backref to Tournament object
+    tournament_name = placement_obj.tournament.name
+    placement  = convert_placement(placement_obj.placement)
+    user_placements[tournament_name] = placement
 
   return render_template("user.html",
                         title=tag,
@@ -455,7 +462,9 @@ def user(tag):
                         user_sets=user_sets,
                         user_wins=user_wins,
                         user_losses=user_losses,
-                        user_secondaries=user_secondaries)
+                        user_secondaries=user_secondaries,
+                        user_tournaments=user_tournaments,
+                        user_placements=user_placements)
 
 
 # Displays all users given a region. Routed to from /browse_regions
@@ -516,7 +525,7 @@ def character(character):
                          main_matching_users=main_matching_users,
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
-""""
+"""
 # helper function that returns an ascii list of tournament names by querying database
 def get_tournament_list():
   # with_entities returns a list of tuple values: (Set.tournament, None)
