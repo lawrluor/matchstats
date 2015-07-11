@@ -11,6 +11,7 @@ from config import USERS_PER_PAGE
 import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
+import collections
 
 # Registers a function to run before each request. g.search_form makes form global so the field's data can be accessed from anywhere
 @app.before_request
@@ -448,7 +449,6 @@ def user(tag):
   user_tournaments = user.tournament_assocs
   print user_tournaments
 
-
   return render_template("user.html",
                         title=tag,
                         user=user,
@@ -547,28 +547,29 @@ def browse_tournaments():
 # Displays all sets in a given tournament
 @app.route('/tournament/<tournament_name>')
 def tournament(tournament_name):
+  # get Tournament object given string name
   tournament_obj = Tournament.query.filter(Tournament.name==tournament_name).first()
+
+  # get Sets
   tournament_setlist = tournament_obj.sets 
   if tournament_setlist == []:
     flash('No sets found for this tournament.')
 
-  userlist = []
-  placings = []
+  # generates list of Users in order of their placement
+  placement_dict = collections.OrderedDict()
+  test_list = Placement.query.filter(Placement.tournament_id==tournament_obj.id).order_by(Placement.placement).all()
+  print test_list
 
-  for placement_obj in tournament_obj.users:
-    userlist.append(placement_obj.user.tag)
-    placings.append(convert_placement(placement_obj.placement))
+  # store into dictionary to pass to template
+  for placement_obj in test_list: 
+    placing = placement_dict.setdefault(convert_placement(placement_obj.placement), [])
+    placing.append(placement_obj.user.tag)
+  print placement_dict
 
-  for placing in placings:
-    print placing
-  
-  for user in userlist:
-    print user
   return render_template("tournament.html",
                          tournament=tournament_obj,
                          tournament_setlist=tournament_setlist,
-                         userlist=userlist,
-                         placings=placings)
+                         placement_dict=placement_dict)
 
 # helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
 def convert_placement(integer):

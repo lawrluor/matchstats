@@ -3,7 +3,7 @@
 <div class="container">
   <header class="jumbotron">
     <h1> {{ tournament.name }} </h1>
-    
+
     <h2>
     {% if tournament.game_type %}
       {{ tournament.game_type }}
@@ -41,11 +41,13 @@
     </thead>
     
     <tbody>
-      {% for i in range(placings|length) %}
-      <tr>
-        <td class="col-sm-6 text-right"><b> {{ placings[i] }}: </b></td>
-        <td class="col-sm-6 text-left"><b><a href="{{ url_for("user", tag=userlist[i]) }}"> {{ userlist[i] }}</a></b></td>
-      </tr>
+      {% for placing in placement_dict %} 
+        {% for tag in placement_dict[placing] %}
+          <tr>
+            <td class="col-sm-6 text-right"><b> {{ placing }}: </b></td>
+            <td class="col-sm-6 text-left"><a href="{{ url_for("user", tag=tag) }}"><b> {{ tag }} </b></a></td>
+          </tr>
+        {% endfor %}
       {% endfor %}
     </tbody>
   </table>
