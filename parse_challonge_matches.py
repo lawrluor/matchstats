@@ -187,7 +187,7 @@ def import_challonge_matches(matchlist, tournament_name):
       assocs_tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
     else:
       # Default Tournament object "Non-Tourney", id=1
-      assocs_tournament = Tournament.query.filter(Tournament.name=="Non-Tourney".first())
+      assocs_tournament = Tournament.query.filter(Tournament.name=="Non-Tourney").first()
 
     new_set = Set(tournament_id=assocs_tournament.id,
                   tournament_name=assocs_tournament.name,

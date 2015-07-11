@@ -558,7 +558,12 @@ def tournament(tournament_name):
   for placement_obj in tournament_obj.users:
     userlist.append(placement_obj.user.tag)
     placings.append(convert_placement(placement_obj.placement))
+
+  for placing in placings:
+    print placing
   
+  for user in userlist:
+    print user
   return render_template("tournament.html",
                          tournament=tournament_obj,
                          tournament_setlist=tournament_setlist,

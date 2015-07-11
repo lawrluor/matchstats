@@ -25,7 +25,7 @@
     </thead>
     
     <tbody>
-      {% for i in range(userlist|length) %}
+      {% for i in range(placings|length) %}
       <tr>
         <td class="col-sm-6 text-right"><b> {{ placings[i] }}: </b></td>
         <td class="col-sm-6 text-left"><b><a href="{{ url_for("user", tag=userlist[i]) }}"> {{ userlist[i] }}</a></b></td>

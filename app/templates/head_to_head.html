@@ -80,7 +80,7 @@
       <tbody>
         <tr>
           <td>{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</td>
-          <td>{{ tag1 }} [{{ user1_match_win_count }}-{{ user2_match_win_count }}] vs {{ tag2 }}</td>
+          <td>{{ tag1 }} [{{ user1_match_win_count + user1_score_matches_won }}-{{ user2_match_win_count + user2_score_matches_won }}] vs {{ tag2 }}</td>
           <td>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</td>
         </tr>
         <tr>
