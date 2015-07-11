@@ -58,7 +58,6 @@ def import_challonge_standings(all_placements, tournament):
                                         user_id=checked_player.id,
                                         placement=placement
                                         ))
-      print tournament.users
   db.session.commit()
   print "CHECK"
   print tournament
