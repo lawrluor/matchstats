@@ -37,7 +37,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
-  region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a str when using it
+  region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a unicode when using it
   seed = db.Column(db.Integer)
   secondaries = db.relationship("Character",
                               secondary=secondaries,
@@ -45,10 +45,10 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, str(self.secondaries.all()))
+    return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
-    return str(self.tag) + ' | Seed: ' + str(self.seed) + ' | Region: ' + str(self.region) + ' | Main: ' + str(self.main) + ' | Secondaries: ' + str(self.secondaries.all())
+    return unicode(self.tag) + ' | Seed: ' + unicode(self.seed) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -79,7 +79,7 @@ class User(db.Model):
 
     processed_secondaries = []
     for i in range(len(all_secondaries)):
-      char_name = str(all_secondaries[i])
+      char_name = unicode(all_secondaries[i])
       processed_secondaries.append(char_name)
 
     return processed_secondaries # This is a list of strings that represent Character objects
@@ -157,7 +157,7 @@ class Placement(db.Model):
     return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
 
   def __unicode__(self):
-    return str(self.placement) + ": " + str(self.user)
+    return unicode(self.placement) + ": " + unicode(self.user)
 
 # Tournament is the many in a one=to-many relationship with model Set
 class Tournament(db.Model):
@@ -197,7 +197,7 @@ class Set(db.Model):
     return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __unicode__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
-    return self.tournament_name.encode('utf-8', 'ignore') + ', Round: ' + str(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + str(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + str(self.loser_id) + ': (' + str(self.winner_score) + '-' + str(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
+    return self.tournament_name.encode('utf-8', 'ignore') + ', Round: ' + unicode(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + unicode(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + unicode(self.loser_id) + ': (' + unicode(self.winner_score) + '-' + unicode(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')
   
   # returns winner (user) of this set
   def getSetWinner(self):
@@ -245,7 +245,7 @@ class Match(db.Model):
     return '<Stage: %r, Winner: %r (%r), Loser: %r (%r)>' % (self.stage, self.winner, self.winner_char, self.loser, self.loser_char)
 
   def __unicode__(self): # String representation to be printed in html. Ex: Stage: Battlefield | Winner: Mango | Loser: Armada
-    string_Match = 'Stage: ' + self.stage + ' | Winner: ' + self.winner + ' (' + str(self.winner_char) + ') | Loser: ' + self.loser + ' (' + str(self.loser_char) + ')'
+    string_Match = 'Stage: ' + self.stage + ' | Winner: ' + self.winner + ' (' + unicode(self.winner_char) + ') | Loser: ' + self.loser + ' (' + unicode(self.loser_char) + ')'
     return string_Match
 
 

@@ -40,7 +40,6 @@ def parse_challonge_standings(tournament_url):
 
     placing = all_placements.setdefault(standing, [])
     placing.append(sanitized_tag)
-    print placing
      
   print "MARK"
   print all_placements
@@ -50,11 +49,9 @@ def parse_challonge_standings(tournament_url):
 # given all_placements dictionary from parse_challonge_standings, and a Tournament object created in import_challonge_info, add placements data to Tournament object.
 def import_challonge_standings(all_placements, tournament):
   for placement in all_placements:
-    print all_placements[placement]
     for player in all_placements[placement]:
       # check or create new User object, tag=player
       checked_player = check_set_user(player)
-      print checked_player
       
       # append relationship to Tournament as a Placement object
       tournament.users.append(Placement(tournament_id = tournament.id,

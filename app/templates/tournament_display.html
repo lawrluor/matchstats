@@ -2,8 +2,16 @@
 
 {% if tournament.name != "Non-Tourney" %}
 <tr>
-	<td><b>{{tournament.date}}</b></td>
+	<td><b>
+	{% if tournament.date %}
+		{{ tournament.date }}
+	{% else %}
+		Date Unknown
+	{% endif %}
+	</b></td>
+
 	<td><b><a href="{{ url_for("tournament", tournament_name=tournament.name)}}">{{tournament.name}}</a></b></td>
-	<td>{{tournament.entrants}}</td>
+	
+	<td><b>{{ tournament.entrants }}</b></td>
 </tr>
 {% endif %}

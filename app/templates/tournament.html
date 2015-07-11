@@ -3,8 +3,24 @@
 <div class="container">
   <header class="jumbotron">
     <h1> {{ tournament.name }} </h1>
-    <h2> {{ tournament.date }} </h2>
-    <h2> {{ tournament.entrants }} player {{ tournament.bracket_type }} </h2>
+    
+    <h2>
+    {% if tournament.game_type %}
+      {{ tournament.game_type }}
+    {% else %}
+      Game Unknown
+    {% endif %}
+    </h2>
+
+    <h2>
+    {% if tournament.date %}
+      {{ tournament.date }}
+    {% else %}
+      Date Unknown
+    {% endif %}
+    </h2>
+
+    <h2> {{ tournament.entrants }} Player {{ tournament.bracket_type }} </h2>
   </header>
 
   <div class="panel panel-default">
