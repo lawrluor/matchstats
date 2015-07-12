@@ -1,5 +1,7 @@
 flask/*
 *.swp
 *.swo
+*.swn
 *.pyc
 .DS_Store
+config.py

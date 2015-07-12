@@ -68,8 +68,13 @@ def parse_challonge_info(tournament_url):
   # locates an info icon near the bracket type description, because the bracket_type description does not exist inside a tag
   bracket_locator = soup3.find("i", {"class" : "icon-info-sign"})
   if bracket_locator is not None:
-    # next line happens to contain a string with the bracket information and entrant number, i.e. "32 player Double Elimination"
-    bracket_info = bracket_locator.nextSibling
+    # next line happens to contain a string with the bracket information and entrant number, i.e. "32 player Double Elimination", or a two-stage bracket info, i.e. "Groups (16 &rarr; 2) then Double Elimination"
+    type_index = bracket_locator.nextSibling.find("then")
+    print type_index
+    if type_index == -1:
+      bracket_info = bracket_locator.nextSibling
+    else:
+      bracket_info = bracket_locator.nextSibling[(type_index + 5):]
     print bracket_info
 
     # find start index for player, subtract 1 (whitespace) to get just the number of entrants "32" and convert to int

@@ -45,7 +45,7 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, unicode(self.secondaries.all()))
+    return '<User %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Seed: ' + unicode(self.seed) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
