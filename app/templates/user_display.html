@@ -31,7 +31,7 @@
         <a href="{{ url_for("character", character=user_secondaries[3]) }}">{{user_secondaries[3]}}</a>
         ... ]
     {% elif user_secondaries|length < 1 %}
-    <!-- print nothing -->
+        None
     {% else %}
     	| [
 		{% for i in range(user_secondaries|count) %}

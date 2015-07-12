@@ -150,7 +150,7 @@ def import_challonge_matches(matchlist, tournament_name):
 
     # check scores; if either score is a DQ score, break and don't store set 
     if top_player['score']==-1 or bottom_player['score']==-1:
-      print "DQ SCORE DETECTED" + '\n'
+      print "DQ SCORE DETECTED"
       continue
 
     if top_player['score'] > bottom_player['score']:

@@ -6,16 +6,14 @@
 	<div class="panel-heading">
   	<h2><b>Browse All Users</b></h2>
   </div>
-
-  <!-- "Table" Column Titles -->
-  <div class="panel-body text-center">
+  <div class="panel-body">
 	<table class="table bootstrap-datatable table-hover">
 	  <thead>
 	    <tr>
-        <th><h4>User</h4></th>
-	      <th><h4>Region</h4></th>
-	      <th><h4>Main</h4></th>
-	      <th><h4>Secondaries</h4></th>
+        <th><h4><b>User</b></h4></th>
+	      <th><h4><b>Region</b></h4></th>
+	      <th><h4><b>Main</b></h4></th>
+	      <th><h4><b>Secondaries</b></h4></th>
 	    </tr>
 	  </thead>
 	  
@@ -26,10 +24,13 @@
 		  {% endfor %}
 	  </tbody>
 	</table>
-		<!-- Navigating the paginated display -->
-	  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% else %} First Page{% endif %} | 
 
-	  {% if userlist.has_next %}<a href="{{ url_for('browse_users', page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% else %}Last Page {% endif %}
+		<!-- Navigating the paginated display -->
+		<div class="text-center"><b>
+		  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% else %} First Page{% endif %} | 
+
+		  {% if userlist.has_next %}<a href="{{ url_for('browse_users', page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% else %}Last Page {% endif %}
+		</b></div>
 	</div>
 
 	</div>
