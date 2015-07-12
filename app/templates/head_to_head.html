@@ -65,89 +65,112 @@
         </tr>
       </table>
     </div>
-
     <div class="panel-body">
-
     <table class="table bootstrap-datatable">
       <thead>
         <tr>
           <th><b>Total Sets Played: {{ user1_set_win_count + user2_set_win_count }}</b></th>
           <th><b>Total Matches Played: {{ h2h_matches_played|length + user1_score_matches_won +  user2_score_matches_won }}</b></th>
-          <th><b>Stage Record: </b></th>
+          <th><b>Tournament History</b></th>
         </tr>
       </thead>
 
       <tbody>
         <tr>
           <td>{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</td>
+          
           <td>{{ tag1 }} [{{ user1_match_win_count + user1_score_matches_won }}-{{ user2_match_win_count + user2_score_matches_won }}] vs {{ tag2 }}</td>
+
+          <!-- In current version of Smashstats, no Match info available
           <td>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Dream Land: {{ h2h_stages_played["Dreamland"]|length }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Final Destination: {{ h2h_stages_played["Final Destination"]|length }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Fountain of Dreams: {{ h2h_stages_played["Fountain of Dreams"]|length }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Yoshi's Story: {{ h2h_stages_played["Yoshi's Story"]|length }}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td>Pokemon Stadium: {{ h2h_stages_played["Pokemon Stadium"]|length }}</td>
-        </tr>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Dream Land: {{ h2h_stages_played["Dreamland"]|length }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Final Destination: {{ h2h_stages_played["Final Destination"]|length }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Fountain of Dreams: {{ h2h_stages_played["Fountain of Dreams"]|length }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Yoshi's Story: {{ h2h_stages_played["Yoshi's Story"]|length }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>Pokemon Stadium: {{ h2h_stages_played["Pokemon Stadium"]|length }}</td>
+            </tr>
+          </td>
+          -->
       </tbody>
       </table>
-
       </div>
     </div>
 
-      <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2><b> Set History </b></h2>
-      </div>
-      <div class="panel-body">
 
-      <!-- "Table" column names -->
-      <table class="table bootstrap-datatable table-condensed table-hover">
-        <thead>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><b> Tournament History </b></h2>
+    </div>
+    <div class="panel-body">
+    <table class="table bootstrap-datatable table-condensed table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for tournament in mutual_tournaments %}
           <tr>
-            <th>
-            </th>
+            <td class="col-sm-3"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }}</b></td>
 
-            <th>
-            </th>
+            <td class="col-sm-3"><b><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a></b>: {{ mutual_tournaments[tournament][0] }}</td>
 
-            <th>
-            </th>
-
-            <th>
-            </th>
+            <td class="col-sm-3"><b><a href="{{ url_for("user", tag=tag2) }}">{{ tag2 }}</a></b>: {{ mutual_tournaments[tournament][1] }}</td>
           </tr>
-        </thead>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
 
-        <tbody>
-          <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
-          {% for set in h2h_sets_played %}
-      	    {% include 'set.html' %}
-          {% endfor %}
-        </tbody>
-          </table>
-            </div>
-          </div>
-        {% endif %}
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><b> Set History </b></h2>
+    </div>
+    <div class="panel-body">
+    <table class="table bootstrap-datatable table-condensed table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- If variable set is empty, Jinja2 defaults to printing empy string; this is the case when viewing the form without having selected a head to head matchup -->
+        {% for set in h2h_sets_played %}
+      	  {% include 'set.html' %}
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+    {% endif %}
 
   </form>
 </div>

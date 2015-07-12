@@ -144,6 +144,20 @@ def make_same_user(root_tag, joined_tag):
   db.session.commit()
   return root_user
 
+# given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
+def get_tournament_name_and_placing(user_tag):
+  user = User.query.filter(User.tag==user_tag).first()
+  user_placements = {}
+
+  for tournament_placement in user.tournament_assocs:
+    tournament_name = tournament_placement.tournament.name
+    placement  = convert_placement(tournament_placement.placement)
+    user_placements[tournament_name] = placement
+
+  print user_placements
+  return user_placements
+
+
 #association object between Tournament and User
 class Placement(db.Model):
   __tablename__ = 'placement'

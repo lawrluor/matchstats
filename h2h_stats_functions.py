@@ -7,10 +7,35 @@
 
 from app import *
 from app.models import *
+import collections
 
-# Initialize dictionary with no initial values, only Stages as keys
+def h2h_get_mutual_tournaments(tag1, tag2):
+  user1_placements = get_tournament_name_and_placing(tag1)
+  user2_placements = get_tournament_name_and_placing(tag2)
+ 
+  # if identical keys for tournament (both attended same tournament), return dictionary with keys tournament_name and tuple value containing their respective placement 
+  mutual_tournaments = collections.OrderedDict()
+  for tournament in user1_placements:
+    if tournament in user2_placements:
+      mutual_tournaments[tournament] =  user1_placements[tournament], user2_placements[tournament] 
+  print mutual_tournaments
+  return mutual_tournaments
+      
+# given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
+def get_tournament_name_and_placing(user_tag):
+  user = User.query.filter(User.tag==user_tag).first()
+  user_placements = {}
+
+  for tournament_placement in user.tournament_assocs:
+    tournament_name = tournament_placement.tournament.name
+    placement  = convert_placement(tournament_placement.placement)
+    user_placements[tournament_name] = placement
+
+  print user_placements
+  return user_placements
 
 
+# get Sets won by both players, then add them together and sort by id
 def h2h_get_sets_played(tag1, tag2):
 	user1_won_sets = h2h_get_sets_won(tag1, tag2)
 	user2_won_sets = h2h_get_sets_won(tag2, tag1)
@@ -36,7 +61,7 @@ def h2h_get_matches_played(h2h_sets_played):
 
 	return h2h_matches_played
 
-
+# In current version of Smashstats, no Match info available
 #	user1_won_matches = h2h_get_matches_won(tag1, tag2)
 #	user2_won_matches = h2h_get_matches_won(tag2, tag1)
 #	h2h_matches_played = user1_won_matches + user2_won_matches
@@ -116,4 +141,96 @@ def h2h_character_wins(winner_tag, char_matches):
 			char_won.append(match)
 
 	return char_won
+
+# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
+def convert_placement(integer):
+  if integer % 10 == 1:
+    if integer != 11:
+      placement = str(integer) + "st"
+    else:
+      placement = "11th"
+  elif integer % 10 == 2:
+    if integer != 12:
+      placement = str(integer) + "nd" 
+    else:
+      placement = "12th"
+  elif integer % 10 == 3:
+    if integer != 13:
+      placement = str(integer) + "rd"
+    else:
+      placement = "13th"
+  else:
+    placement = str(integer) + "th"
+
+  return placement
+
+
+# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
+def convert_placement(integer):
+  if integer % 10 == 1:
+    if integer != 11:
+      placement = str(integer) + "st"
+    else:
+      placement = "11th"
+  elif integer % 10 == 2:
+    if integer != 12:
+      placement = str(integer) + "nd" 
+    else:
+      placement = "12th"
+  elif integer % 10 == 3:
+    if integer != 13:
+      placement = str(integer) + "rd"
+    else:
+      placement = "13th"
+  else:
+    placement = str(integer) + "th"
+
+  return placement
+
+
+# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
+def convert_placement(integer):
+  if integer % 10 == 1:
+    if integer != 11:
+      placement = str(integer) + "st"
+    else:
+      placement = "11th"
+  elif integer % 10 == 2:
+    if integer != 12:
+      placement = str(integer) + "nd" 
+    else:
+      placement = "12th"
+  elif integer % 10 == 3:
+    if integer != 13:
+      placement = str(integer) + "rd"
+    else:
+      placement = "13th"
+  else:
+    placement = str(integer) + "th"
+
+  return placement
+
+
+# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
+def convert_placement(integer):
+  if integer % 10 == 1:
+    if integer != 11:
+      placement = str(integer) + "st"
+    else:
+      placement = "11th"
+  elif integer % 10 == 2:
+    if integer != 12:
+      placement = str(integer) + "nd" 
+    else:
+      placement = "12th"
+  elif integer % 10 == 3:
+    if integer != 13:
+      placement = str(integer) + "rd"
+    else:
+      placement = "13th"
+  else:
+    placement = str(integer) + "th"
+
+  return placement
+
 

@@ -11,6 +11,7 @@ from config import USERS_PER_PAGE
 import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
+from h2h_stats_functions import convert_placement
 import collections
 
 # Registers a function to run before each request. g.search_form makes form global so the field's data can be accessed from anywhere
@@ -338,6 +339,7 @@ def head_to_head():
   h2h_sets_played = request.args.get('h2h_sets_played')
   h2h_matches_played = request.args.get('h2h_matches_played')
   h2h_stages_played = request.args.get('h2h_stages_played')
+  mutual_tournaments = request.args.get('mutual_tournaments')
 
   # to be displayed when tag1 and tag2 are valid Users, but needs to be initialized here so the pre_submit template doesn't crash 
   all_sets = []
@@ -357,6 +359,8 @@ def head_to_head():
     user2_matches_won = h2h_get_matches_won(tag2, tag1, h2h_matches_played)
     user1_match_win_count = len(user1_matches_won)
     user2_match_win_count = len(user2_matches_won)
+    # calculate stage statistics
+    h2h_stages_played = h2h_get_stages_played(h2h_matches_played)
 
     # for Set with no Match objects available, look into Set scores to determine match wins and losses
     user1_score_matches_won = 0
@@ -369,8 +373,8 @@ def head_to_head():
         user2_score_matches_won += set.winner_score
         user1_score_matches_won += set.loser_score
 
-    # calculate stage information
-    h2h_stages_played = h2h_get_stages_played(h2h_matches_played)
+    # query Tournaments to find Tournaments both users have attended
+    mutual_tournaments = h2h_get_mutual_tournaments(tag1, tag2)
 
     # if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':
@@ -382,8 +386,8 @@ def head_to_head():
     user1 = check_and_sanitize_tag(form.user1.data)
     user2 = check_and_sanitize_tag(form.user2.data)
 
+    # Make sure two Users are found, else redirect to pre-validated form
     valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
-
     if valid_users < 2:
       flash('At least one User not found.')
       return redirect(url_for('head_to_head'))
@@ -403,6 +407,7 @@ def head_to_head():
                         h2h_sets_played=h2h_sets_played,
                         h2h_matches_played=h2h_matches_played,
                         h2h_stages_played=h2h_stages_played,
+                        mutual_tournaments=mutual_tournaments,
                         form=form) 
 
 
@@ -567,40 +572,16 @@ def tournament(tournament_name):
   # generates list of Users in order of their placement
   placement_dict = collections.OrderedDict()
   test_list = Placement.query.filter(Placement.tournament_id==tournament_obj.id).order_by(Placement.placement).all()
-  print test_list
 
   # store into dictionary to pass to template
   for placement_obj in test_list: 
     placing = placement_dict.setdefault(convert_placement(placement_obj.placement), [])
     placing.append(placement_obj.user.tag)
-  print placement_dict
 
   return render_template("tournament.html",
                          tournament=tournament_obj,
                          tournament_setlist=tournament_setlist,
                          placement_dict=placement_dict)
-
-# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
-def convert_placement(integer):
-  if integer % 10 == 1:
-    if integer != 11:
-      placement = str(integer) + "st"
-    else:
-      placement = "11th"
-  elif integer % 10 == 2:
-    if integer != 12:
-      placement = str(integer) + "nd" 
-    else:
-      placement = "12th"
-  elif integer % 10 == 3:
-    if integer != 13:
-      placement = str(integer) + "rd"
-    else:
-      placement = "13th"
-  else:
-    placement = str(integer) + "th"
-
-  return placement
 
 
 @app.route('/search', methods=['POST'])

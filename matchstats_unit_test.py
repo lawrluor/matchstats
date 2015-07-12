@@ -8,6 +8,8 @@ from app import app, db
 from app.models import *
 from h2h_stats_functions import *
 
+# THIS TEST IS OBSOLETE
+
 userlist = User.query.all()
 setlist = Set.query.all()
 matchlist = Match.query.all()
