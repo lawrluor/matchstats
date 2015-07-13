@@ -21,19 +21,11 @@
 
 	<div class="panel panel-default">
 	<div class="panel-heading">
-		<h2><b> Tournaments named "{{ query }}" </b></h2>
+		<h3><b> Tournaments named "{{ query }}" </b></h3>
 	</div>
 
 	<div class="panel-body">
 		<table class="table bootstrap-datatable table-hover">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Tournament</th>
-					<th>Number of Entrants</th>
-				</tr>
-			</thead>
-
 			<tbody>
 				{% for tournament in tournament_results %}
 					{% include 'tournament_display.html' %}

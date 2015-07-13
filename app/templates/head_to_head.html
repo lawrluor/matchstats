@@ -4,6 +4,8 @@
 
 {% block content %}
 <div class="container">
+  <br>
+  <br>
   <header class="jumbotron">
   <!-- <h1>View Head to Head Set History Between Two Players</h1> -->
   <form action="" method="post" name="head_to_head">
@@ -31,17 +33,22 @@
     </div>
 
     <div class="row">
-
       <div class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2">
         <!-- Customized button input -->
         <div class="text-center"><input class="btn-primary form-control" type="submit" value="Look up Head-to-Head"></div>
       </div>
     </div>
 
+    <!-- Text that appears if no player recognized during form entry -->
+    {% if failure %}
+      <div class="row">
+        <div class="col-sm-12 text-center">{{failure}}</div>
+      </div>
+    {% endif %}
+
     {% for error in form.user1.errors or form.user2.errors %}
       <span style="color: red;">[{{error}}]</span>
     {% endfor %}
-
   </header>
 
     {% if tag1 != None and tag2 != None %} 

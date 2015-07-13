@@ -328,6 +328,7 @@ def head_to_head():
   form = HeadToHead()
   
   # if query string arguments exist (form submitted), create these variables using query string
+  failure = request.args.get('failure')
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
   user1_set_win_count = request.args.get('user1_set_win_count')
@@ -389,13 +390,14 @@ def head_to_head():
     # Make sure two Users are found, else redirect to pre-validated form
     valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
     if valid_users < 2:
-      flash('At least one User not found.')
-      return redirect(url_for('head_to_head'))
+      failure = 'At least one player not found.'
+      return redirect(url_for('head_to_head', failure=failure))
     
     return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
 
   return render_template("head_to_head.html",
                         title="Head to Head",
+                        failure=failure,
                         tag1=tag1,
                         tag2=tag2,
                         user1_set_win_count=user1_set_win_count,
