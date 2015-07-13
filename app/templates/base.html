@@ -14,6 +14,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='js/chosen.jquery.js') }}"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- Base template begins -->
 <html>
   <head>
@@ -37,7 +39,7 @@
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <!-- Dropdown Menu in Mobile -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -47,7 +49,7 @@
       </div>
       
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse nav-collapse" id="navbar">
         <ul class="nav navbar-nav">
           <li>
             <a href="{{ url_for('about') }}">About</a>
