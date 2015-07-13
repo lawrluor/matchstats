@@ -20,7 +20,13 @@
     {% endif %}
     </h2>
 
-    <h2> {{ tournament.entrants }} Player {{ tournament.bracket_type }} </h2>
+    <h2> 
+    {% if tournament.entrants != -1 %}
+      {{ tournament.entrants }} Player {{ tournament.bracket_type }} 
+    {% else %}
+      {{ tournament.bracket_type }}
+    {% endif %}
+    </h2>
   </header>
 
   <!-- Table for Placements -->

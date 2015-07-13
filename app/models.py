@@ -45,7 +45,7 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<User %s, Region %s, Main %s, Secondaries %s>' % (self.tag, self.region, self.main, unicode(self.secondaries.all()))
+    return '<User %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Seed: ' + unicode(self.seed) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
@@ -182,7 +182,7 @@ class Tournament(db.Model):
   entrants = db.Column(db.Integer)
   bracket_type = db.Column(db.String(128), index=True)
   game_type = db.Column(db.String(128), index=True)
-  date = db.Column(db.String(128), index=True)
+  date = db.Column(db.DateTime(timezone=False))
   name = db.Column(db.String(128), index=True)
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
