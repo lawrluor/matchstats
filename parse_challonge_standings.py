@@ -63,7 +63,6 @@ def import_challonge_standings(all_placements, tournament):
                                         ))
   db.session.commit()
   print "CHECK"
-  print tournament
   return tournament
 
 # Establishes limit for number of Users who can tie for a placement; limit only relevant for Double Elimination brackets
