@@ -27,9 +27,11 @@ for match in matchlist:
 for i in range(1, len(tournamentlist)):
 	db.session.delete(tournamentlist[i])
 
+"""
 # create default "Non-Tourney" Tournament object at id=1
-# non_tourney = Tournament(id=1, name="Non-Tourney")
-# db.session.add(non_tourney)
+non_tourney = Tournament(id=1, name="Non-Tourney")
+db.session.add(non_tourney)
+"""
 
 db.session.commit()
 

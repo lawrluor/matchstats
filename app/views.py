@@ -456,10 +456,13 @@ def user(tag):
   # user's backref to Placement objects
   user_tournaments = user.tournament_assocs
   for placement_obj in user_tournaments:
+    print "WOW"
+    print placement_obj
     # Placement object backref to Tournament object
     tournament_name = placement_obj.tournament.name
     placement  = convert_placement(placement_obj.placement)
     user_placements[tournament_name] = placement
+
 
   return render_template("user.html",
                         title=tag,

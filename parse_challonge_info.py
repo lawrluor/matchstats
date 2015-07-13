@@ -8,6 +8,7 @@ from sanitize_utils import check_and_sanitize_tag
 import urllib3
 from bs4 import BeautifulSoup
 import re
+import datetime
   
 # function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
@@ -97,8 +98,6 @@ def parse_challonge_info(tournament_url):
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
 def import_challonge_info(tournament_info, tournament_name):
-  print tournament_info
-  
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
   else:
@@ -122,10 +121,10 @@ def import_challonge_info(tournament_info, tournament_name):
   if 'game_type' in tournament_info:
     tournament_game_type = tournament_info['game_type']
   else:
-    tournament_game_type = None
+    tournament_game_type = "Super Smash Bros. Melee"
 
   if 'date' in tournament_info:
-    tournament_date = tournament_info['date']
+    tournament_date = convert_date(tournament_info['date'])
   else:
     tournament_date = None
 
@@ -142,6 +141,31 @@ def import_challonge_info(tournament_info, tournament_name):
 
   db.session.add(new_tournament)
   db.session.commit()
-  print new_tournament
   return new_tournament
 
+# static dictionary to convert calendar date to datetime, used in convert_date
+months = {'January' : 1,
+          'February' : 2,
+          'March' : 3,
+          'April' : 4,
+          'May' : 5,
+          'June' : 6,
+          'July' : 7, 
+          'August' : 8, 
+          'September' : 9,
+          'October' : 10,
+          'November' : 11,
+          'December' : 12}
+
+# Converts a date styled June 28, 2015 into 2015-28-06
+def convert_date(challonge_date):
+  date_parser = re.compile('[/ ,-]+') 
+  tokens = date_parser.split(challonge_date)
+  
+  # integer representing month
+  month = months[tokens[0]]
+  day = int(tokens[1])
+  year = int(tokens[2])
+
+  date = datetime.date(year=year, month=month, day=day)
+  return date
