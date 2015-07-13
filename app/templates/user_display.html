@@ -21,9 +21,9 @@
     </td>
 
     <!-- different ways of representing User based on # of secondaries User has. pay close attention to characters that are printed outside of the variables -->
-    <td class="col-sm-4">
-    <!-- store value of user.get_secondaries() (a list of Character objects) in user_secondaries -->
+
     <!-- In current version (1.0), Secondaries not displayed
+    <td class="col-sm-3">
     {% set user_secondaries = user.get_secondaries() -%}
         {% if user_secondaries|length > 3 %}
         	 | [ 
