@@ -55,7 +55,7 @@ a.navbar-brand span {
 }
 
 .navbar-collapse {
-	float:right;
+	float:left;
 	padding-right: 15px;
 	padding-left: 15px;
 	overflow-x: visible;

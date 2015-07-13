@@ -60,5 +60,4 @@ def import_challonge_standings(all_placements, tournament):
                                         ))
   db.session.commit()
   print "CHECK"
-  print tournament
   return tournament
