@@ -182,7 +182,7 @@ class Tournament(db.Model):
   entrants = db.Column(db.Integer)
   bracket_type = db.Column(db.String(128), index=True)
   game_type = db.Column(db.String(128), index=True)
-  date = db.Column(db.DateTime(timezone=False))
+  date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
