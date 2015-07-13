@@ -21,7 +21,7 @@ def h2h_get_mutual_tournaments(tag1, tag2):
   print mutual_tournaments
   return mutual_tournaments
       
-# given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
+# given user tag, returns a simple dictionary with keys tournament_name and tuple placement along with placement number for a tournament a User has attended
 def get_tournament_name_and_placing(user_tag):
   user = User.query.filter(User.tag==user_tag).first()
   user_placements = {}
@@ -29,9 +29,9 @@ def get_tournament_name_and_placing(user_tag):
   for tournament_placement in user.tournament_assocs:
     tournament_name = tournament_placement.tournament.name
     placement  = convert_placement(tournament_placement.placement)
-    user_placements[tournament_name] = placement
+    user_placements[tournament_name] = placement, tournament_placement.placement
 
-  print user_placements
+  # Each item in dict looks like: [(u'BAM 7', (('2nd', 2), ('1st', 1)))], where first item is tournament name and second and third items are user1 and user2 placement and placement number respectively 
   return user_placements
 
 
@@ -163,74 +163,3 @@ def convert_placement(integer):
     placement = str(integer) + "th"
 
   return placement
-
-
-# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
-def convert_placement(integer):
-  if integer % 10 == 1:
-    if integer != 11:
-      placement = str(integer) + "st"
-    else:
-      placement = "11th"
-  elif integer % 10 == 2:
-    if integer != 12:
-      placement = str(integer) + "nd" 
-    else:
-      placement = "12th"
-  elif integer % 10 == 3:
-    if integer != 13:
-      placement = str(integer) + "rd"
-    else:
-      placement = "13th"
-  else:
-    placement = str(integer) + "th"
-
-  return placement
-
-
-# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
-def convert_placement(integer):
-  if integer % 10 == 1:
-    if integer != 11:
-      placement = str(integer) + "st"
-    else:
-      placement = "11th"
-  elif integer % 10 == 2:
-    if integer != 12:
-      placement = str(integer) + "nd" 
-    else:
-      placement = "12th"
-  elif integer % 10 == 3:
-    if integer != 13:
-      placement = str(integer) + "rd"
-    else:
-      placement = "13th"
-  else:
-    placement = str(integer) + "th"
-
-  return placement
-
-
-# helper function to convert placement integers to actual placement strings (i.e. 1 becomes 1st, 2 becomes 2nd)
-def convert_placement(integer):
-  if integer % 10 == 1:
-    if integer != 11:
-      placement = str(integer) + "st"
-    else:
-      placement = "11th"
-  elif integer % 10 == 2:
-    if integer != 12:
-      placement = str(integer) + "nd" 
-    else:
-      placement = "12th"
-  elif integer % 10 == 3:
-    if integer != 13:
-      placement = str(integer) + "rd"
-    else:
-      placement = "13th"
-  else:
-    placement = str(integer) + "th"
-
-  return placement
-
-

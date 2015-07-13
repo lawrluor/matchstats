@@ -48,23 +48,40 @@
     <!--<h2>Head-to-Head between {{ tag1 }} and {{ tag2 }}</h2>-->
     <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>{{ tag1 }} vs {{ tag2 }}</b></h2>
-      <h2><b>{{ user1_set_win_count }} - {{ user2_set_win_count }}</b></h2>
+      <h2><b>{{tag1}} vs {{tag2}}</b></h2>
+      <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>
     <div class="panel-body">
     <table class="table bootstrap-datatable">
       <thead>
         <tr>
-          <th class="col-sm-3 text-center"><b>Total Sets Played: {{ user1_set_win_count + user2_set_win_count }}</b></th>
-          <th class="col-sm-3 text-center"><b>Total Matches Played: {{ h2h_matches_played|length + user1_score_matches_won +  user2_score_matches_won }}</b></th>
+          <th class="col-sm-3 text-center"><b>Total Sets Played: {{user1_set_win_count + user2_set_win_count}}</b></th>
+          <th class="col-sm-3 text-center"><b>Total Matches Played: {{h2h_matches_played|length + user1_score_matches_won +  user2_score_matches_won}}</b></th>
         </tr>
       </thead>
 
       <tbody>
         <tr>
-          <td class="col-sm-3 text-center">{{ tag1 }} [{{ user1_set_win_count }}-{{ user2_set_win_count }}] vs {{ tag2 }}</td>
+          <!-- Bold text for User with the winning record -->
+          <td class="col-sm-3 text-center">
+            {% if user1_set_win_count >= user2_set_win_count %}
+              <b>{{tag1}} [{{user1_set_win_count}}</b>-{{user2_set_win_count}}] {{tag2}}
+            {% elif user1_set_win_count == user2_set_win_count %}
+              <b>{{tag1}} [{{user1_set_win_count}}</b>-<b>{{user2_set_win_count}}] <b>{{tag2}}</b>
+            {% else %}
+              {{tag1}} [{{user1_set_win_count}}-<b>{{user2_set_win_count}}] {{tag2}}</b>
+            {% endif %}
+          </td>
           
-          <td class="col-sm-3 text-center">{{ tag1 }} [{{ user1_match_win_count + user1_score_matches_won }}-{{ user2_match_win_count + user2_score_matches_won }}] vs {{ tag2 }}</td>
+          <td class="col-sm-3 text-center">
+            {% if user1_match_win_count + user1_score_matches_won >= user2_match_win_count + user2_score_matches_won %}
+              <b>{{tag1}} [{{user1_match_win_count + user1_score_matches_won}}</b>-{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}
+            {% elif user1_match_win_count + user1_score_matches_won == user2_match_win_count + user2_score_matches_won %}
+              <b>{{tag1}} [{{user1_match_win_count + user1_score_matches_won}}</b>-<b>{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}</b>
+            {% else %}
+              {{tag1}} [{{user1_match_win_count + user1_score_matches_won}}-<b>{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}</b>
+            {% endif %}
+          </td>
 
           <!-- In current version of Smashstats, no Match info available
           <td>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</td>
@@ -110,20 +127,29 @@
     <table class="table bootstrap-datatable table-condensed table-hover">
       <thead>
         <tr>
-          <th></th>
-          <th></th>
-          <th></th>
+          <th class="col-sm-4"></th>
+          <th class="col-sm-4"></th>
+          <th class="col-sm-4"></th>
         </tr>
       </thead>
 
       <tbody>
         {% for tournament in mutual_tournaments %}
+          <!-- Bold text for User with the winning record. Each item in dict mutual_tournaments looks like [(u'BAM 7', (('2nd', 2), ('1st', 1)))], where first item is tournament name and  second and third items are placement and placement number for user1 and user2 respectively. -->
           <tr>
-            <td class="col-sm-3"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }}</b></td>
+            {% if mutual_tournaments[tournament][0][1] <= mutual_tournaments[tournament][1][1] %}
+              <td class="col-sm-4 text-right"><b><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a> - {{ mutual_tournaments[tournament][0][0] }}</td></b>
+            {% else %}
+              <td class="col-sm-4 text-right"><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a> - {{ mutual_tournaments[tournament][0][0] }}</td>
+            {% endif %}
 
-            <td class="col-sm-3"><b><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a></b>: {{ mutual_tournaments[tournament][0] }}</td>
+            <td class="col-sm-4 text-center"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }}</b></td>
 
-            <td class="col-sm-3"><b><a href="{{ url_for("user", tag=tag2) }}">{{ tag2 }}</a></b>: {{ mutual_tournaments[tournament][1] }}</td>
+          {% if mutual_tournaments[tournament][0][1] >= mutual_tournaments[tournament][1][1] %}
+            <td class="col-sm-4 text-left"><b><a href="{{ url_for("user", tag=tag2) }}">{{ mutual_tournaments[tournament][1][0] }} - {{ tag2 }}</b></a></td>
+          {% else %}
+            <td class="col-sm-4 text-left"><a href="{{ url_for("user", tag=tag2) }}">{{ mutual_tournaments[tournament][1][0] }} - {{ tag2 }}</a></td>
+          {% endif %}
           </tr>
         {% endfor %}
       </tbody>
