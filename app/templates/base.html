@@ -21,12 +21,15 @@
 <html>
   <head>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes=16x16" href="{{ url_for('static',filename='favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes=16x16 href="{{ url_for('static',filename='favicon.ico') }}">
+
     {% if title %}
       <title>{{ title }} - Matchstats</title>
     {% else %}
       <title>Matchstats</title>
     {% endif %}
+
+    <!-- Google Analytics -->
     <script>
       $(function() {
         $('.chosen-select').chosen();
@@ -43,6 +46,25 @@
   </head>
 
   <body>
+    <!-- Facebook App Stuff -->
+    <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1587149311552603',
+        xfbml      : true,
+        version    : 'v2.4'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+    </script>
+
   <!-- header linking to different web features, across all pages on site -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -111,6 +133,16 @@
   <div class="container">
     <footer>
       <b>© 2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Version 0.98</b>
+      <br>
+
+      <!-- Facebook like/share button -->
+      <div
+        class="fb-like"
+        data-share="true"
+        data-width="450"
+        data-show-faces="true"
+        data-colorscheme="dark">
+      </div>
     </footer>
   </div>
 
