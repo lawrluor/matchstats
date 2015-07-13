@@ -19,6 +19,8 @@
 <!-- Base template begins -->
 <html>
   <head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes=16x16" href="{{ url_for('static',filename='favicon.ico') }}">
     {% if title %}
       <title>{{ title }} - Matchstats</title>
     {% else %}
