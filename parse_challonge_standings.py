@@ -36,10 +36,13 @@ def parse_challonge_standings(tournament_url):
     tag_item = player_rows[i].find("span")
     if tag_item is not None:
       tag = tag_item.getText()
+      if tag == "Advanced":
+        continue
       sanitized_tag = check_and_sanitize_tag(tag)
 
     placing = all_placements.setdefault(standing, [])
-    placing.append(sanitized_tag)
+    if len(all_placements[standing]) < standing_limit(standing):
+      placing.append(sanitized_tag)
      
   print "MARK"
   print all_placements
@@ -62,3 +65,31 @@ def import_challonge_standings(all_placements, tournament):
   print "CHECK"
   print tournament
   return tournament
+
+# Establishes limit for number of Users who can tie for a placement; limit only relevant for Double Elimination brackets
+def standing_limit(standing):
+  base_limit = 2
+  if standing < 5:
+    limit = 1
+  elif standing==5 or standing==7:
+    limit = 2
+  elif standing==9 or standing==13:
+    limit = 4
+  elif standing==17 or standing==25:
+    limit = 8
+  elif standing==33 or standing==49:
+    limit = 16
+  elif standing==65 or standing==97:
+    limit = 32
+  elif standing==129 or standing==193:
+    limit = 64
+  elif standing==257 or standing==385:
+    limit = 128
+  elif standing==513 or standing==769:
+    limit = 256
+  elif standing==1025 or standing==1537:
+    limit = 512
+  elif standing==2049 or standing==3037:
+    limit = 1024
+  return limit
+     

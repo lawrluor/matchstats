@@ -12,6 +12,12 @@
 
 	<td><b><a href="{{ url_for("tournament", tournament_name=tournament.name)}}">{{tournament.name}}</a></b></td>
 	
-	<td><b>{{ tournament.entrants }}</b></td>
+	<td><b>
+	{% if tournament.entrants != -1 %}
+		{{ tournament.entrants }}
+	{% else %}
+		Unknown
+	{% endif %}
+	</b></td>
 </tr>
 {% endif %}

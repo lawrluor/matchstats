@@ -70,7 +70,6 @@ def parse_challonge_info(tournament_url):
   if bracket_locator is not None:
     # next line happens to contain a string with the bracket information and entrant number, i.e. "32 player Double Elimination", or a two-stage bracket info, i.e. "Groups (16 &rarr; 2) then Double Elimination"
     type_index = bracket_locator.nextSibling.find("then")
-    print type_index
     if type_index == -1:
       bracket_info = bracket_locator.nextSibling
     else:
@@ -84,7 +83,7 @@ def parse_challonge_info(tournament_url):
       # use index when "player" starts, player_index, and account for the word and whitespace to get everything after "player "
       bracket_type = bracket_info[(player_index+7):].strip('\n')
     else:
-      entrants = bracket_info.strip('\n')
+      entrants = -1 
       bracket_type = bracket_info.strip('\n')
 
     tournament_info['entrants'] = entrants
