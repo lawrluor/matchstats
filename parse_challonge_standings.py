@@ -91,5 +91,7 @@ def standing_limit(standing):
     limit = 512
   elif standing==2049 or standing==3037:
     limit = 1024
+  else:
+    limit = sys.maxint
   return limit
      
