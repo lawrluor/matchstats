@@ -15,11 +15,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="{{ url_for('static', filename='js/chosen.jquery.js') }}"></script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <!-- Base template begins -->
 <html>
   <head>
+    <!-- Bootstrap meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes=16x16 href="{{ url_for('static',filename='favicon.ico') }}">
 
@@ -144,7 +147,7 @@
         data-colorscheme="dark">
       </div>
       <br>
-      
+
       <!-- Twitter Share Button -->
       <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');

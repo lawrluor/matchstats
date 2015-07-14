@@ -36,6 +36,7 @@ def parse_challonge_standings(tournament_url):
     tag_item = player_rows[i].find("span")
     if tag_item is not None:
       tag = tag_item.getText()
+      # "Advanced" text is unwanted, non-tag information
       if tag == "Advanced":
         continue
       sanitized_tag = check_and_sanitize_tag(tag)
@@ -56,7 +57,7 @@ def import_challonge_standings(all_placements, tournament):
       # check or create new User object, tag=player
       checked_player = check_set_user(player)
       
-      # append relationship to Tournament as a Placement objectPlacement objects are appended into a list in order of their User id, with no relation to their placing or tag.
+      # append relationship to Tournament as a Placement object; Placement objects are appended into a list in order of their User id, with no relation to their placing or tag.
       tournament.users.append(Placement(tournament_id = tournament.id,
                                         user_id=checked_player.id,
                                         placement=placement

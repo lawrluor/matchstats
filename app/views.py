@@ -445,7 +445,7 @@ def user(tag):
   # If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
     flash('User %s not found.' % tag)
-    return redirect(url_for('index'))
+    return redirect(url_for('browse_users'))
 
   # Store all user's sets in variable user_sets 
   user_sets = user.getAllSets() 
@@ -456,10 +456,14 @@ def user(tag):
   # create dictionary with Tournament name and respective placement
   user_placements = {}
   # user's backref to Placement objects
+  # user_tournaments = Placement.query.filter(User.id==user.id).join('tournament').order_by(Tournament.date).all()
   user_tournaments = user.tournament_assocs
+  print user_tournaments
   for placement_obj in user_tournaments:
     # Placement object backref to Tournament object
     tournament_name = placement_obj.tournament.name
+    tournament_date = placement_obj.tournament.date
+    print tournament_date
     placement  = convert_placement(placement_obj.placement)
     user_placements[tournament_name] = placement
 

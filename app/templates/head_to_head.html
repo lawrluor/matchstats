@@ -72,21 +72,21 @@
           <!-- Bold text for User with the winning record -->
           <td class="col-sm-3 text-center">
             {% if user1_set_win_count >= user2_set_win_count %}
-              <b>{{tag1}} [{{user1_set_win_count}}</b>-{{user2_set_win_count}}] {{tag2}}
+              <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] {{tag2}}
             {% elif user1_set_win_count == user2_set_win_count %}
-              <b>{{tag1}} [{{user1_set_win_count}}</b>-<b>{{user2_set_win_count}}] <b>{{tag2}}</b>
+              <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] <b>{{tag2}}</b>
             {% else %}
-              {{tag1}} [{{user1_set_win_count}}-<b>{{user2_set_win_count}}] {{tag2}}</b>
+              {{tag1}} [{{user1_set_win_count}}-{{user2_set_win_count}}] <b>{{tag2}}</b>
             {% endif %}
           </td>
           
           <td class="col-sm-3 text-center">
             {% if user1_match_win_count + user1_score_matches_won >= user2_match_win_count + user2_score_matches_won %}
-              <b>{{tag1}} [{{user1_match_win_count + user1_score_matches_won}}</b>-{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}
+              <b>{{tag1}}</b> [{{user1_match_win_count + user1_score_matches_won}}-{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}
             {% elif user1_match_win_count + user1_score_matches_won == user2_match_win_count + user2_score_matches_won %}
-              <b>{{tag1}} [{{user1_match_win_count + user1_score_matches_won}}</b>-<b>{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}</b>
+              <b>{{tag1}}</b> [{{user1_match_win_count + user1_score_matches_won}}-{{user2_match_win_count + user2_score_matches_won}}] <b>{{tag2}}</b>
             {% else %}
-              {{tag1}} [{{user1_match_win_count + user1_score_matches_won}}-<b>{{user2_match_win_count + user2_score_matches_won}}] {{tag2}}</b>
+              {{tag1}} [{{user1_match_win_count + user1_score_matches_won}}-{{user2_match_win_count + user2_score_matches_won}}] <b>{{tag2}}</b>
             {% endif %}
           </td>
 
@@ -172,6 +172,15 @@
     <table class="table bootstrap-datatable table-condensed table-hover">
       <thead>
         <tr>
+          <h4 class="col-sm-12 text-center"><b>Total Sets Played:</b> {{user1_set_win_count + user2_set_win_count}} |
+            {% if user1_set_win_count >= user2_set_win_count %}
+              <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] {{tag2}}
+            {% elif user1_set_win_count == user2_set_win_count %}
+              <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] <b>{{tag2}}</b>
+            {% else %}
+              {{tag1}} [{{user1_set_win_count}}-{{user2_set_win_count}}] <b>{{tag2}}</b>
+            {% endif %}
+          </h4>
           <th></th>
           <th></th>
           <th></th>
