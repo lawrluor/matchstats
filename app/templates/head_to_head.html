@@ -3,7 +3,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <br>
   <br>
   <header class="jumbotron">
@@ -39,15 +39,8 @@
       </div>
     </div>
 
-    <!-- Text that appears if no player recognized during form entry -->
-    {% if failure %}
-      <div class="row">
-        <div class="col-sm-12 text-center">{{failure}}</div>
-      </div>
-    {% endif %}
-
     {% for error in form.user1.errors or form.user2.errors %}
-      <span style="color: red;">[{{error}}]</span>
+      <span style="color: #920821">[{{error}}]</span>
     {% endfor %}
   </header>
 
@@ -172,7 +165,7 @@
     <table class="table bootstrap-datatable table-condensed table-hover">
       <thead>
         <tr>
-          <h4 class="col-sm-12 text-center"><b>Total Sets Played:</b> {{user1_set_win_count + user2_set_win_count}} |
+          <h4 class="col-sm-12 text-center">Total Sets Played: <b>{{user1_set_win_count + user2_set_win_count}}</b> |
             {% if user1_set_win_count >= user2_set_win_count %}
               <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] {{tag2}}
             {% elif user1_set_win_count == user2_set_win_count %}
@@ -181,6 +174,7 @@
               {{tag1}} [{{user1_set_win_count}}-{{user2_set_win_count}}] <b>{{tag2}}</b>
             {% endif %}
           </h4>
+          <th></th>
           <th></th>
           <th></th>
           <th></th>

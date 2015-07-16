@@ -328,7 +328,6 @@ def head_to_head():
   form = HeadToHead()
   
   # if query string arguments exist (form submitted), create these variables using query string
-  failure = request.args.get('failure')
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
   user1_set_win_count = request.args.get('user1_set_win_count')
@@ -390,14 +389,13 @@ def head_to_head():
     # Make sure two Users are found, else redirect to pre-validated form
     valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
     if valid_users < 2:
-      failure = 'At least one player not found.'
-      return redirect(url_for('head_to_head', failure=failure))
+      flash("At least one player not found.")
+      return redirect(url_for('head_to_head'))
     
     return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
 
   return render_template("head_to_head.html",
                         title="Head to Head",
-                        failure=failure,
                         tag1=tag1,
                         tag2=tag2,
                         user1_set_win_count=user1_set_win_count,
@@ -413,22 +411,22 @@ def head_to_head():
                         form=form) 
 
 
-# Compares one user to two others, and will generate two head to heads side by side
-@app.route('/compare') #eventually route to this from head_to_head
-def compare():
-  # Query methods and validation
-  
-  #sets1 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.loser_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==compare_tag))
-  #sets2 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.lower_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==compare_tag))
-  tag1 = 'hi'
-  tag2 = 'lo'
-  return head_to_head(tag1, tag2)
-
-@app.route('/browse_sets')
-def browse_sets():
-  setlist = Set.query.order_by(Set.id).all()
-  return render_template("browse_sets.html",
-                         setlist=setlist)
+# # Compares one user to two others, and will generate two head to heads side by side
+# @app.route('/compare') #eventually route to this from head_to_head
+# def compare():
+#   # Query methods and validation
+#   
+#   #sets1 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.loser_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag1, Set.loser_tag==compare_tag))
+#   #sets2 = Set.query.filter(and_(Set.winner_tag==compare_tag, Set.lower_tag==tag1)).all() + Set.query.filter(and_(Set.winner_tag==tag2, Set.loser_tag==compare_tag))
+#   tag1 = 'hi'
+#   tag2 = 'lo'
+#   return head_to_head(tag1, tag2)
+# 
+# @app.route('/browse_sets')
+# def browse_sets():
+#   setlist = Set.query.order_by(Set.id).all()
+#   return render_template("browse_sets.html",
+#                          setlist=setlist)
 
 # browse users
 @app.route('/browse_users')
@@ -448,7 +446,7 @@ def user(tag):
     return redirect(url_for('browse_users'))
 
   # Store all user's sets in variable user_sets 
-  user_sets = user.getAllSets() 
+  user_sets = user.getAllSets()
   user_wins = user.getWonSets()
   user_losses = user.getLostSets()
   user_secondaries = user.get_secondaries()
@@ -466,7 +464,6 @@ def user(tag):
     print tournament_date
     placement  = convert_placement(placement_obj.placement)
     user_placements[tournament_name] = placement
-
 
   return render_template("user.html",
                         title=tag,

@@ -70,7 +70,7 @@
 
   <!-- header linking to different web features, across all pages on site -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
+    <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <!-- Dropdown Menu in Mobile -->
@@ -109,14 +109,15 @@
       </div>
       <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container -->
+    <!-- /.container-fluid -->
   </nav>
 
   {% with messages = get_flashed_messages() %}
     {% if messages %}
+      <br>
       <ul>
       {% for message in messages %}
-        <li>{{ message }} </li>
+        <li class="flash">{{ message }} </li>
       {% endfor %}
       </ul>
     {% endif %}
@@ -126,7 +127,7 @@
   {% block content %}{% endblock %}
 
   <hr>
-  <div class="container">
+  <div class="container-fluid">
     <footer>
       <b>©2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Version 0.99</b>
       <br>

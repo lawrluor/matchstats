@@ -455,6 +455,12 @@ textarea#message{
   margin-top: 20px;
 }
 
+.flash { 
+  background: #920421; padding: 0.5em;
+  border: 1px solid #920421;
+  color: #fff;
+  }
+
 /*=========================
   Footer
  ================= */
