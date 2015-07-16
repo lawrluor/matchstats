@@ -18,13 +18,18 @@ body {
   overflow-y:scroll;
   height:400px;
 }
+/* breaks text if it exceeds the specified lengths, for normal and mobile displays respectively */
 .horizontal-overflow{
   word-wrap:break-word;
   max-width:350px;
 }
 .mobile-horizontal-overflow{
   word-wrap:break-word;
-  max-width:50px;
+  max-width:54px;
+}
+/* hides extra space along the x-axis, preventing a scrollbar from appearing */
+.mobile-wrapper{
+  overflow-x:hidden;
 }
 article,
 aside,
