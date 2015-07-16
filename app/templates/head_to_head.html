@@ -127,9 +127,9 @@
     <table class="table bootstrap-datatable table-condensed table-hover">
       <thead>
         <tr>
-          <th class="col-sm-4"></th>
-          <th class="col-sm-4"></th>
-          <th class="col-sm-4"></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
 
@@ -165,7 +165,7 @@
     <table class="table bootstrap-datatable table-condensed table-hover">
       <thead>
         <tr>
-          <h4 class="col-sm-12 text-center">Total Sets Played: <b>{{user1_set_win_count + user2_set_win_count}}</b> |
+          <h4 class="col-sm-12 text-center">Total Sets Played: <b>{{user1_set_win_count + user2_set_win_count}} |
             {% if user1_set_win_count >= user2_set_win_count %}
               <b>{{tag1}}</b> [{{user1_set_win_count}}-{{user2_set_win_count}}] {{tag2}}
             {% elif user1_set_win_count == user2_set_win_count %}
