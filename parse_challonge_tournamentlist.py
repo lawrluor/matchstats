@@ -27,6 +27,7 @@ def read_tournamentlist(challonge_tournamentlist):
       tournament_name = tournament_name.translate(None, '\\')
       tournament_url = tokens[1]
 
+      print tournament_name + ': ' + tournament_url
       parse_challonge_run(tournament_url, tournament_name)
  
   f.close()
