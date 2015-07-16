@@ -1,4 +1,4 @@
-matchstats
+smashstats
 =========
 
 A web application that compiles databases on tournament-level competitive Super Smash Bros. Melee (SSBM). Currently supports manual information input from users.
