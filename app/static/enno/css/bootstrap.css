@@ -22,6 +22,10 @@ body {
   word-wrap:break-word;
   max-width:350px;
 }
+.mobile-horizontal-overflow{
+  word-wrap:break-word;
+  max-width:45px;
+}
 article,
 aside,
 details,

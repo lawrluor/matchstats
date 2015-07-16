@@ -1,7 +1,7 @@
 <!-- prints Set representation in HTML given a Set object -->
 
 <tr><h5><b>
-	<td class="col-sm-2"><b>
+	<td class="col-md-2 horizontal-overflow"><b>
 		{% if set.tournament_name != "Non-Tourney" %}
 			<a href="{{url_for("tournament", tournament_name=set.tournament_name)}}">{{ set.tournament_name }}</a>
 		{% else %}
@@ -9,19 +9,19 @@
 		{% endif %}
 	</b></td>
 
-	<td class="col-sm-3 text-right horizontal-overflow">
+	<td class="col-md-3 text-right horizontal-overflow">
 		<a href="{{url_for("user", tag=set.winner_tag)}}"><b>{{ set.winner_tag }}</b></a>
   </td>
 
-  <td class="col-sm-1 text-center">
+  <td class="col-md-1 text-center horizontal-overflow">
   	 [{{ set.winner_score }} - {{ set.loser_score }}]
   </td>
         
-  <td class="col-sm-3 text-left horizontal-overflow">
+  <td class="col-md-3 text-left horizontal-overflow">
 		<a href="{{url_for("user", tag=set.loser_tag)}}">{{ set.loser_tag }}</a> 
 	</td>
 
-	<td class="col-sm-2 text-right">
+	<td class="col-md-2 text-right horizontal-overflow">
   	<a href="{{url_for("head_to_head", tag1=set.winner_tag, tag2=set.loser_tag)}}">Head to Head</a>
 	</td>
 </b></h5></tr> 
