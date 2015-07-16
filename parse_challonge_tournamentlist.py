@@ -1,7 +1,8 @@
 #!flask/bin/python
 
 import sys
-from parse_challonge.parse_challonge_standings import *
+sys.path.append('./parse_challonge')
+from parse_challonge_standings import *
 from parse_challonge_info import *
 from parse_challonge_matches import *
 from parse_challonge_run import *
