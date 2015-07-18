@@ -66,6 +66,8 @@ class User(db.Model):
   def getAllSets(self, sets_won, sets_lost):
     all_sets = sets_won + sets_lost 
     all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
+    # code for getting all sets explicitly with query, without helper methods getLostSets and getWonSets
+    # sets_test = Set.query.filter(or_(Set.winner_id==user.id, Set.loser_id==user.id)).order_by(Set.id).all()
     return all_sets_sorted
 
 
