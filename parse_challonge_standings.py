@@ -42,6 +42,7 @@ def parse_challonge_standings(tournament_url):
         continue
       sanitized_tag = check_and_sanitize_tag(tag)
 
+    # limit number of Users who can tie for a placement
     placing = all_placements.setdefault(standing, [])
     if len(all_placements[standing]) < standing_limit(standing):
       placing.append(sanitized_tag)
@@ -60,6 +61,7 @@ def import_challonge_standings(all_placements, tournament):
       
       # append relationship to Tournament as a Placement object; Placement objects are appended into a list in order of their User id, with no relation to their placing or tag.
       tournament.users.append(Placement(tournament_id = tournament.id,
+                                        tournament_name = tournament.name,
                                         user_id=checked_player.id,
                                         placement=placement
                                         ))

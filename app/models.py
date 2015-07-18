@@ -62,9 +62,9 @@ class User(db.Model):
     sets_lost = Set.query.filter(Set.loser_tag==self.tag).order_by(Set.id).all()
     return sets_lost
 
-  # getAllSets is a function that takes a user and returns all the sets he has played
-  def getAllSets(self):
-    all_sets = self.getWonSets() + self.getLostSets()
+  # getAllSets is a function that takes two lists, sets_won and sets_lost, and sorts them by set id
+  def getAllSets(self, sets_won, sets_lost):
+    all_sets = sets_won + sets_lost 
     all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
     return all_sets_sorted
 
@@ -170,7 +170,7 @@ class Placement(db.Model):
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
-    return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
+    return '<tournament_id: %s, tournament_name: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.placement, self.user)
 
   def __unicode__(self):
     return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
