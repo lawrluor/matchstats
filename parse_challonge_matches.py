@@ -169,7 +169,7 @@ def import_challonge_matches(matchlist, tournament_name):
     winner_user = check_set_user(set_winner['tag'])
     loser_user = check_set_user(set_loser['tag'])
 
-    # If seed doesn't exist, do nothing; else, assign to User attribute seed
+    # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
     if 'seed' in set_winner:
       winner_user.seed = set_winner['seed']
     if 'seed' in set_loser:

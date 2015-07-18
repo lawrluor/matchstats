@@ -2,7 +2,7 @@
 
 from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
-from models import User, Set, Match, Character, secondaries
+from models import User, Set, Match, Character, Placement, secondaries
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_
 from h2h_stats_functions import *
@@ -555,7 +555,7 @@ def user(tag):
 # Lists all tournaments 
 @app.route('/browse_tournaments')
 def browse_tournaments():
-  tournamentlist = Tournament.query.all()
+  tournamentlist = Tournament.query.order_by(Tournament.date).all()
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist)
     
@@ -567,7 +567,7 @@ def tournament(tournament_name):
   tournament_obj = Tournament.query.filter(Tournament.name==tournament_name).first()
 
   # get Sets
-  tournament_setlist = tournament_obj.sets 
+  tournament_setlist = tournament_obj.sets
   if tournament_setlist == []:
     flash('No sets found for this tournament.')
 

@@ -39,16 +39,17 @@ class User(db.Model):
   main = db.Column(db.String(64), index=True)
   region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a unicode when using it
   seed = db.Column(db.Integer)
+#  true_skill = db.Column(db.Integer)
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<User %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), unicode(self.region), self.main, unicode(self.secondaries.all()))
+    return '<Tag %s, Seed %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.seed, unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
-    return unicode(self.tag) + ' | Seed: ' + unicode(self.seed) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
+    return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -165,13 +166,14 @@ class Placement(db.Model):
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
   tournament_name = db.Column(db.String(128))
+#  seed = db.Column(db.Integer)
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
     return '<tournament_id: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.user_id, self.placement, self.user)
 
   def __unicode__(self):
-    return unicode(self.placement) + ": " + unicode(self.user)
+    return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
 
 # Tournament is the many in a one=to-many relationship with model Set
 class Tournament(db.Model):
@@ -204,6 +206,7 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   round_type = db.Column(db.Integer)
+#  bracket_type = db.Column(db.String(64))
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'))
   tournament_name = db.Column(db.String(128))
   
