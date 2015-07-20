@@ -1,5 +1,5 @@
 from app import db # imports database object from __init__.py
-from sqlalchemy import Table, Column, Integer, ForeignKey, and_
+from sqlalchemy import Table, Column, Integer, ForeignKey, and_, or_
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from forms import main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
@@ -194,6 +194,18 @@ class Tournament(db.Model):
 
   def __repr__(self):
     return '<tournament: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+
+# given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
+def check_tournament(tournament):
+  same_tournament = Tournament.query.filter(Tournament.name==tournament.name).first()
+  # if tournament already exists, only add matches to Tournament, else create tournament as usual
+  if same_tournament is not None:
+    # if tournament.type == "Pool"
+    # add sets and placements only to tournament
+  else:
+    # do nothing
+  return tournament
+
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
