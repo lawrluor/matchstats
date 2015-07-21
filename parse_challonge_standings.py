@@ -60,8 +60,8 @@ def import_challonge_standings(all_placements, tournament):
       checked_player = check_set_user(player)
       
       # append relationship to Tournament as a Placement object; Placement objects are appended into a list in order of their User id, with no relation to their placing or tag.
-      tournament.users.append(Placement(tournament_id = tournament.id,
-                                        tournament_name = tournament.name,
+      tournament.users.append(Placement(tournament_id=tournament.id,
+                                        tournament_name=tournament.name,
                                         user_id=checked_player.id,
                                         placement=placement
                                         ))

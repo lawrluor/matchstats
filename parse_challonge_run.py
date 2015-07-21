@@ -50,6 +50,3 @@ def parse_challonge_run(tournament_url, tournament_name):
   matchlist = parse_challonge_matches(tournament_url)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
   import_challonge_matches(matchlist, tournament_name)
-
-
-

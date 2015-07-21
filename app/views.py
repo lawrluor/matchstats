@@ -6,7 +6,7 @@ from models import User, Set, Match, Character, Placement, secondaries
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
-from config import USERS_PER_PAGE
+from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
 
 import sys
 sys.path.append('./sanitize')
@@ -428,7 +428,7 @@ def head_to_head():
 #   return render_template("browse_sets.html",
 #                          setlist=setlist)
 
-# browse users
+# browse all Users, 25 per page
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
@@ -552,14 +552,14 @@ def user(tag):
 #       tournamentlist[i] = tournamentlist[i][0].encode('ascii', 'ignore')
 #   return tournamentlist
 
-# Lists all tournaments 
+# Lists all tournaments, 15 per page
 @app.route('/browse_tournaments')
-def browse_tournaments():
-  tournamentlist = Tournament.query.order_by(Tournament.date).all()
+@app.route('/browse_tournaments/<int:page>')
+def browse_tournaments(page=1):
+  tournamentlist = Tournament.query.order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist)
     
-
 # Displays all sets in a given tournament
 @app.route('/tournament/<tournament_name>')
 def tournament(tournament_name):

@@ -19,11 +19,23 @@
 			</thead>
 
 			<tbody>
-				{% for tournament in tournamentlist %}
+				{% for tournament in tournamentlist.items %}
 					{% include 'tournament_display.html' %}
 				{% endfor %}
 			</tbody>
 		</table>
+
+		<!-- Navigating the paginated display -->
+		<div class="text-center"><b>
+		  {% if tournamentlist.has_prev %}<a href="{{ url_for('browse_tournaments', page=tournamentlist.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+
+		  {% if tournamentlist.has_prev and tournamentlist.has_next %}
+		  	|
+		  {% endif %}
+
+		  {% if tournamentlist.has_next %}<a href="{{ url_for('browse_tournaments', page=tournamentlist.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+		</b></div>
+
 	</div>
 
 	</div>

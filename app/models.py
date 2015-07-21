@@ -201,10 +201,10 @@ def check_tournament(tournament):
   # if tournament already exists, only add matches to Tournament, else create tournament as usual
   if same_tournament is not None:
     # if tournament.type == "Pool"
-    # add sets and placements only to tournament
+    same_tournament.sets.append(tournament.sets) 
   else:
-    # do nothing
-  return tournament
+    print "Tournament already exists" 
+  return same_tournament
 
 
 # Set is the one in a one-to-many relationship with model Match
