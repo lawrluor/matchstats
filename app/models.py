@@ -38,15 +38,14 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a unicode when using it
-  seed = db.Column(db.Integer)
-#  true_skill = db.Column(db.Integer)
+  true_skill = db.Column(db.Integer)
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag %s, Seed %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.seed, unicode(self.region), self.main, unicode(self.secondaries.all()))
+    return '<Tag %s, True_skill %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.true_skill, unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
@@ -168,11 +167,11 @@ class Placement(db.Model):
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
   tournament_name = db.Column(db.String(128))
-#  seed = db.Column(db.Integer)
+  seed = db.Column(db.Integer)
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
-    return '<tournament_id: %s, tournament_name: %s, user_id: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.placement, self.user)
+    return '<tournament_id: %s, tournament_name: %s, user_id: %s, seed: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.seed, self.placement, self.user)
 
   def __unicode__(self):
     return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
@@ -188,12 +187,13 @@ class Tournament(db.Model):
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
+  tournament_type = db.Column(db.String(64), index=True)
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
   users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+    return '<tournament: %s, tournament_type: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):
@@ -220,7 +220,6 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   round_type = db.Column(db.Integer)
-#  bracket_type = db.Column(db.String(64))
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'))
   tournament_name = db.Column(db.String(128))
   
