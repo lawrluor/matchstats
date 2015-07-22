@@ -11,6 +11,8 @@ import urllib3
 from bs4 import BeautifulSoup
 import re
 
+from trueskill import Rating, quality_1vs1, rate_1vs1
+
 # Given list of top_match_half items, parse lines to get relevant data for round, tag, seed, and score
 def parse_top_match(top_item_list):
   # dictionary which will contain relevant data
@@ -171,9 +173,10 @@ def import_challonge_matches(matchlist, tournament_name):
 
     # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
     if 'seed' in set_winner:
-      winner_user.seed = set_winner['seed']
+    # List of Placement objects ordered by list, in which last element is the latest Tournament to be added
+      winner_user.tournament_assocs[-1].seed = set_winner['seed']
     if 'seed' in set_loser:
-      loser_user.seed = set_loser['seed']
+      loser_user.tournament_assocs[-1].seed = set_loser['seed']
 
     # Get round number; if they match, store the round variable; if they don't (some error occurred), ignore it.
     if int(set_winner['round']) == int(set_loser['round']):
