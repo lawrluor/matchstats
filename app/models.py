@@ -39,7 +39,7 @@ class TrueSkill(db.Model):
   sigma = db.Column(db.Float)
 
   def __repr__(self):
-    return '<user_id: %s, mu: %s, sigma: %s>' % (self.user_id, self.mu, self.sigma)
+    return '<mu: %s, sigma: %s>' % (self.mu, self.sigma)
   
 
 # the Parent to the Child Character in User-Character association
@@ -56,7 +56,7 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag %s, trueskill %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.trueskill, unicode(self.region), self.main, unicode(self.secondaries.all()))
+    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
@@ -235,7 +235,7 @@ class Set(db.Model):
   tournament_name = db.Column(db.String(128))
   
   def __repr__(self):
-    return '<tournament %s: round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
+    return '<tournament: %s, round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
   
   def __unicode__(self): # String representation to be printed in html. Ex: Armada vs Mango: (3-2) Armada
     return self.tournament_name.encode('utf-8', 'ignore') + ', Round: ' + unicode(self.round_type) + ' | ' + self.winner_tag.encode('utf-8', 'ignore') + '_' + unicode(self.winner_id) + ' vs ' + self.loser_tag.encode('utf-8', 'ignore') + '_' + unicode(self.loser_id) + ': (' + unicode(self.winner_score) + '-' + unicode(self.loser_score) + ') ' + self.winner_tag.encode('utf-8', 'ignore')

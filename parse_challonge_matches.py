@@ -199,6 +199,7 @@ def import_challonge_matches(matchlist, tournament_name):
 
     db.session.add(new_set)
 
+    print new_set
     # update User trueskill ratings based on Set winner and loser
     update_rating(winner_user, loser_user)
 
