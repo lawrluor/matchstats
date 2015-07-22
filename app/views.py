@@ -154,8 +154,7 @@ def about():
 #       return redirect(url_for('set_create'))
 # 
 #     # create set row, initializing set object
-#     new_set = Set(
-#                   winner_tag=set_winner_tag,
+#     new_set = Set(winner_tag=set_winner_tag,
 #                   loser_tag=set_loser_tag,
 #                   winner_id=set_winner_id,
 #                   loser_id=set_loser_id,

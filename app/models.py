@@ -30,6 +30,17 @@ secondaries = db.Table('secondaries',
                         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                         db.Column('character_id', db.Integer, db.ForeignKey('character.id'))
                        )
+# one to one relationship with User
+class TrueSkill(db.Model):
+  __tablename__ = 'trueskill'
+  id = db.Column(db.Integer, primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+  mu = db.Column(db.Float)
+  sigma = db.Column(db.Float)
+
+  def __repr__(self):
+    return '<user_id: %s, mu: %s, sigma: %s>' % (self.user_id, self.mu, self.sigma)
+  
 
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
@@ -38,14 +49,14 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a unicode when using it
-  true_skill = db.Column(db.Integer)
+  trueskill = db.relationship("TrueSkill", uselist=False, backref="user")
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag %s, True_skill %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.true_skill, unicode(self.region), self.main, unicode(self.secondaries.all()))
+    return '<Tag %s, trueskill %s, Region %s, Main %s, Secondaries %s>' % (unicode(self.tag), self.trueskill, unicode(self.region), self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
@@ -162,7 +173,7 @@ def get_tournament_name_and_placing(user_tag):
 
 #association object between Tournament and User
 class Placement(db.Model):
-  __tablename__ = 'placement'
+  __tablename__ = 'plactrue'
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)

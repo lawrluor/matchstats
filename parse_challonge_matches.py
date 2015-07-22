@@ -11,7 +11,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import re
 
-from trueskill import Rating, quality_1vs1, rate_1vs1
+from trueskill_functions import *
 
 # Given list of top_match_half items, parse lines to get relevant data for round, tag, seed, and score
 def parse_top_match(top_item_list):
@@ -107,7 +107,6 @@ def parse_challonge_matches(tournament_url):
     top_half = parse_top_match(match_top)
     # append dictionary from parse_top_match into the inner list. This is one dictionary representing the top_half
     current_match.append(top_half)
-    print top_half
 
     # add match half to dictionary by round; if no key exists for round, create one
     if top_half['round'] is not None:    
@@ -119,24 +118,19 @@ def parse_challonge_matches(tournament_url):
     bottom_half = parse_bottom_match(match_bottom)
     # append dictionary from bottom_half into the same inner list as top_half. This is one dictionary representing the bottom_half
     current_match.append(bottom_half)
-    print bottom_half
 
     # add match half to dictionary by round; if no key exists for round, create one
     if bottom_half['round'] is not None:    
       round_num = matches_by_round.setdefault(top_half['round'], [])
       round_num.append(bottom_half)
     
-    print current_match
     # append the inner list representing this match to the outer list, which will eventually contain all matches in the bracket.
     matchlist.append(current_match)
-    print '\n'
 
   print matches_by_round
   print '\n'
   for match in matchlist:
     print match
-  print '\n'
-
   return matchlist
 
 
@@ -204,6 +198,9 @@ def import_challonge_matches(matchlist, tournament_name):
                   total_matches=winner_score+loser_score)
 
     db.session.add(new_set)
+
+    # update User trueskill ratings based on Set winner and loser
+    update_rating(winner_user, loser_user)
 
   db.session.commit()
   return "Import Successful"
