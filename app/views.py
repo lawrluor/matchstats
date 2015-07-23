@@ -484,25 +484,18 @@ def user(tag):
 #   return render_template("region.html",
 #                          matching_users=matching_users,
 #                          region=region)
-# 
-# 
-# # Displays all regions currently populated by players. Each displayed region will route to /region/<region>
-# @app.route('/browse_regions')
-# def browse_regions():
-# 
-#   userlist = User.query.order_by(User.id).all()
-#   regionlist = []
-#   for user in userlist:
-#     if user.region != None and user.region not in regionlist:
-#       regionlist += [user.region]
-# 
-#   regionlist.sort()
-# 
-#   return render_template("browse_regions.html", 
-#                           title='Browse Regions',
-#                           regionlist=regionlist)
-# 
-# 
+ 
+
+# Displays all regions currently populated by players. Each displayed region will route to /region/<region>
+@app.route('/browse_regions')
+def browse_regions():
+  regionlist = Region.query.all()
+
+  return render_template("browse_regions.html", 
+                          title='Browse Regions',
+                          regionlist=regionlist)
+ 
+ 
 # # Displays a list of all SSBM characters, each of which links to /character/<character>
 # @app.route('/browse_characters')
 # def browse_characters():
