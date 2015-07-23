@@ -1,11 +1,34 @@
+<!-- A list of all Region objects in the database -->
 {% extends "base.html" %}
 
 {% block content %}
 <div class="container">
-  <h1>Browse All Regions</h1>
-  <!-- simply prints all regions (simple string) in regionlist -->
-  {% for region in regionlist %}
-    <div><b><a href="{{ url_for("region", region=region) }}">{{ region }}</a></b></div>
-  {% endfor %}
- </div>
+	<div class="panel panel-default">
+	<div class="panel-heading">
+  	<h2><b> Browse All Regions </b></h2>
+  </div>
+
+  <div class="panel-body">
+  	<table class="table bootstrap-datatable table-hover">
+  		<thead>
+  			<tr>
+  				<th class="col-sm-4 text-center"><h4><b>Region</b></h4></th>
+  				<th class="col-sm-4 text-center"><h4><b>Population</b></h4></th>
+  				<th class="col-sm-4 text-center"><h4><b>Tournament Count</b></h4></th>
+  			</tr>
+  		</thead>
+
+  		<tbody>
+			  <!-- regionlist is a list of Region objects -->
+			  {% for region in regionlist %}
+			  	<tr>
+			  		<td class="col-sm-4"> {{region.region}} </td>
+			  	</tr>
+			  {% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	</div>
+</div>
 {% endblock %}
