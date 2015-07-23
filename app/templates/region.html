@@ -1,13 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1> {{ region }}'s Users </h1>
-  {{ current_region.users|length }}
-  {% if matching_users|length < 1 %}
-  	There are no Users currently in this region.
-  {% else %}
-  	{% for user in matching_users %}
-    	{% include 'user_display.html' %}
-  	{% endfor %}
-  {% endif %}
+	<div class="container">
+		<div class="jumbotron">
+			<h1>{{region}}</h1>
+			<h2><b>Population:</b> {{current_region.users|length}}</h2>
+			<h2><b>Tournament Count:</b> {{current_region.tournaments|length}}</h2>
+		</div>
+
+		<!-- Display all Users in Region -->
+		<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2><b>{{current_region.region}}'s Users<b></h2>
+		</div>
+		<div class="panel-body">
+			<table class="table bootstrap-datatable table-hover">
+				<thead>
+			    <tr>
+		        <th class="text-center"><h4><b>User</b></h4></th>
+			      <th class="text-center"><h4><b>Region</b></h4></th>
+			      <th class="text-center"><h4><b>Main</b></h4></th>
+			      <th class="text-center"><h4><b>Rating</b><h4></th>
+			      <!-- <th><h4><b>Secondaries</b></h4></th> -->
+			    </tr>
+			  </thead>
+
+				<tbody>
+				  {% for user in current_region.users %}
+				    {% include 'user_display.html' %}
+				  {% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Display all Tournaments in Region -->
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2><b>{{current_region.region}}'s Tournaments<b></h2>
+	</div>
+	<div class="panel-body">
+		<table class="table bootstrap-datatable table-hover">
+			<thead>
+				<tr>
+					<th class="text-center"><h4><b>Date</h4></b></th>
+					<th class="text-center"><h4><b>Tournament</h4></b></th>
+					<th class="text-center"><h4><b>Entrants</h4></b></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for tournament in current_region.tournaments %}
+					{% include 'tournament_display.html' %}
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
 {% endblock %}

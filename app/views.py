@@ -479,7 +479,6 @@ def user(tag):
 @app.route('/region/<region>')
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
-  flash('No players found in this region') # no user found with matching region
   return render_template("region.html",
                          region=region,
                          current_region=current_region)
