@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+
 {% block content %}
   <h1> {{ region }}'s Users </h1>
+  {{ current_region.users|length }}
   {% if matching_users|length < 1 %}
   	There are no Users currently in this region.
   {% else %}

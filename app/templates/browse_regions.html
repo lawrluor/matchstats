@@ -20,9 +20,11 @@
 
   		<tbody>
 			  <!-- regionlist is a list of Region objects -->
-			  {% for region in regionlist %}
+			  {% for Region in regionlist %}
 			  	<tr>
-			  		<td class="col-sm-4"> {{region.region}} </td>
+			  		<td class="col-sm-4">
+			  			<a href="{{ url_for('region', region=Region.region) }}"><b>{{Region.region}}</b></a>
+			  		</td>
 			  	</tr>
 			  {% endfor %}
 			</tbody>

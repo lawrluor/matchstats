@@ -475,15 +475,14 @@ def user(tag):
                         user_placements=user_placements)
 
 
-# # Displays all users given a region. Routed to from /browse_regions
-# @app.route('/region/<region>')
-# def region(region):
-#   matching_users = User.query.filter(User.region==region).order_by(User.id).all() # checks to see if user.region is identical to region
-#   if matching_users == []:
-#     flash('No players found in this region') # no user found with matching region
-#   return render_template("region.html",
-#                          matching_users=matching_users,
-#                          region=region)
+# Displays all users given a region. Routed to from /browse_regions
+@app.route('/region/<region>')
+def region(region):
+  current_region = Region.query.filter(Region.region==region).first()
+  flash('No players found in this region') # no user found with matching region
+  return render_template("region.html",
+                         region=region,
+                         current_region=current_region)
  
 
 # Displays all regions currently populated by players. Each displayed region will route to /region/<region>
