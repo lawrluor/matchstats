@@ -53,13 +53,16 @@ class Region(db.Model):
   def __repr__(self):
     return '<region: %s, id: %s, users: %s, tournaments: %s>' % (self.region, self.id, self.users, self.tournaments)
 
+  def __str__(self):
+    return self.region
+
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
   __tablename__ = 'user'
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
-  region_name = db.Column(db.String(64), ForeignKey('region.region'))
+  region_name = db.Column(db.String(64), ForeignKey('region.id'))
   trueskill = db.relationship("TrueSkill", uselist=False, backref="user")
   secondaries = db.relationship("Character",
                               secondary=secondaries,
@@ -67,10 +70,10 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region.region, self.main, unicode(self.secondaries.all()))
+    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region, self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
-    return unicode(self.tag) + ' | Region: ' + unicode(self.region_name) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
+    return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -90,7 +93,6 @@ class User(db.Model):
     # code for getting all sets explicitly with query, without helper methods getLostSets and getWonSets
     # sets_test = Set.query.filter(or_(Set.winner_id==user.id, Set.loser_id==user.id)).order_by(Set.id).all()
     return all_sets_sorted
-
 
   # User-Character Relationship functions
   # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
@@ -141,7 +143,7 @@ def check_set_user(set_user_tag):
   set_user  = User.query.filter(User.tag==set_user_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
-    set_user = User(tag=set_user_tag) 
+    set_user = User(tag=set_user_tag)
     db.session.add(set_user) 
     db.session.commit()
   return set_user
@@ -184,7 +186,7 @@ def get_tournament_name_and_placing(user_tag):
 
 #association object between Tournament and User
 class Placement(db.Model):
-  __tablename__ = 'plactrue'
+  __tablename__ = 'placement'
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
@@ -196,7 +198,7 @@ class Placement(db.Model):
     return '<tournament_id: %s, tournament_name: %s, user_id: %s, seed: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.seed, self.placement, self.user)
 
   def __unicode__(self):
-    return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
+   return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
 
 # Tournament is the many in a one=to-many relationship with model Set
 class Tournament(db.Model):
@@ -210,13 +212,13 @@ class Tournament(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
   tournament_type = db.Column(db.String(64), index=True)
-  region_name = db.Column(db.String(64), ForeignKey('region.region'))
+  region_name = db.Column(db.String(64), ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
   users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region_name: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):

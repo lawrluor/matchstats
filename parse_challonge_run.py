@@ -13,13 +13,20 @@ from parse_challonge_info import *
 from parse_challonge_matches import *
 
 def main():
-  tournament_url = sys.argv[1]
-  tournament_name = sys.argv[2]
+  # account for optional Region argument; the function name also counts as an argument
+  if len(sys.argv)==3:
+    tournament_url = sys.argv[1]
+    tournament_name = sys.argv[2]
+    tournament_region = None
+  elif len(sys.argv)==4:
+    tournament_url = sys.argv[1]
+    tournament_name = sys.argv[2]  
+    tournament_region = sys.argv[3]
 
   # Create and return dictionary of values for Tournament attributes
   tournament_info = parse_challonge_info(tournament_url)
   # create new Tournament by assigning the tournament_info dictionary, given the tournament name as well.
-  new_tourney = import_challonge_info(tournament_info, tournament_name)
+  new_tourney = import_challonge_info(tournament_info, tournament_name, region=tournament_region)
  
   # Returns dictionary of placements : tags given tournament url
   all_placements = parse_challonge_standings(tournament_url)

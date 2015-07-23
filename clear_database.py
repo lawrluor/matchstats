@@ -28,6 +28,7 @@ for match in matchlist:
 for i in range(len(tournamentlist)):
 	db.session.delete(tournamentlist[i])
 
+# Keep regions
 """
 for i in range(len(regionlist)):
 	db.session.delete(regionlist[i])
