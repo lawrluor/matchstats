@@ -30,6 +30,7 @@ secondaries = db.Table('secondaries',
                         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                         db.Column('character_id', db.Integer, db.ForeignKey('character.id'))
                        )
+
 # one to one relationship with User
 class TrueSkill(db.Model):
   __tablename__ = 'trueskill'
@@ -41,6 +42,16 @@ class TrueSkill(db.Model):
   def __repr__(self):
     return '<mu: %s, sigma: %s>' % (self.mu, self.sigma)
   
+# Region model associated with Users and Tournaments
+class Region(db.Model):
+  __tablename__ = "region"
+  id = db.Column(db.Integer, primary_key=True)
+  region = db.Column(db.String(64), index=True)
+  users = db.relationship("User", backref="region")
+  tournaments = db.relationship("Tournament", backref="region")
+
+  def __repr__(self):
+    return '<region: %s>' % (self.region)
 
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
@@ -48,7 +59,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
-  region = db.Column(db.String(128), index=True) # because db.String(128), need to cast this as a unicode when using it
+  region = db.Column(db.String(64), ForeignKey('region.region'))
   trueskill = db.relationship("TrueSkill", uselist=False, backref="user")
   secondaries = db.relationship("Character",
                               secondary=secondaries,
@@ -199,12 +210,13 @@ class Tournament(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
   tournament_type = db.Column(db.String(64), index=True)
+  region = db.Column(db.String(64), ForeignKey('region.region'))
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
   users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):

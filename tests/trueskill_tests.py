@@ -25,5 +25,5 @@ update_rating(user1, user2)
 
 # Query Users and generate userlist ordered by Trueskill.mu (lowest to highest)
 userlist =  User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).all()
-for user in userlist:
-	print user
+for i in range(len(userlist)):
+	print (i+1), userlist[i]

@@ -454,7 +454,7 @@ def user(tag):
   user_placements = {}
   # user's backref to Placement objects
   print user
-  user_tournaments = user.tournament_assocs 
+  user_tournaments = user.tournament_assocs
   print user_tournaments
   for placement_obj in user_tournaments:
     # Placement object backref to Tournament object

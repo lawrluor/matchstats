@@ -6,10 +6,17 @@
     <h1><a href="{{ url_for("user", tag=user.tag) }}">{{user.tag}}</a></h1>
 
     <h3>
+      {% if user.trueskill %}
+        <!-- Round float value to 4 decimal places -->
+        <b>Rating:</b> {{user.trueskill.mu|round(4, 'common')}}
+      {% endif %}
+    </h3>
+
+    <h3>
       {% if user.region %}
-        <b><a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a></b>
+        <b>Region: <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a></b>
       {% else %}
-        No Region
+        <b>Region: </b> None
       {% endif %}
     </h3>
 
@@ -25,7 +32,7 @@
       {% if user.secondaries %}
         <b>Secondaries:</b> 
           {% if user_secondaries|length > 0 %}
-            {{ user_secondaries }} 
+            {{user_secondaries}} 
           {% else %}
             None
           {% endif %}
@@ -52,7 +59,7 @@
 
       {% for tournament in user_placements %}
       <tr>
-        <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }} - </a></b></td>
+        <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }}</a> - </b></td>
         <td class="col-xs-6 col-sm-6 text-left"><b> {{ user_placements[tournament] }} </b></td>
       </tr>
       {% endfor %}
