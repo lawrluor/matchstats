@@ -1,9 +1,5 @@
 #!flask/bin/python
 
-import os
-import unittest
-import sqlalchemy
-
 from config import basedir
 from app import app, db
 from app.models import *
@@ -13,7 +9,7 @@ characterlist = Character.query.all()
 print characterlist
 print '\n'
 
-# Add all characters
+# Create all Character objects
 Fox = Character(id=1, name='Fox')
 Falco = Character(id=2, name='Falco')
 Sheik = Character(id=3, name='Sheik')

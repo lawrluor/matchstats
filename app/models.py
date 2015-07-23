@@ -46,12 +46,12 @@ class TrueSkill(db.Model):
 class Region(db.Model):
   __tablename__ = "region"
   id = db.Column(db.Integer, primary_key=True)
-  region = db.Column(db.String(64), index=True)
+  region = db.Column(db.String(64), index=True, unique=True)
   users = db.relationship("User", backref="region")
   tournaments = db.relationship("Tournament", backref="region")
 
   def __repr__(self):
-    return '<region: %s>' % (self.region)
+    return '<region: %s, id: %s, users: %s, tournaments: %s>' % (self.region, self.id, self.users, self.tournaments)
 
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
@@ -59,7 +59,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
-  region = db.Column(db.String(64), ForeignKey('region.region'))
+  region_name = db.Column(db.String(64), ForeignKey('region.region'))
   trueskill = db.relationship("TrueSkill", uselist=False, backref="user")
   secondaries = db.relationship("Character",
                               secondary=secondaries,
@@ -67,10 +67,10 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, unicode(self.region), self.main, unicode(self.secondaries.all()))
+    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region.region, self.main, unicode(self.secondaries.all()))
  
   def __unicode__(self):
-    return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
+    return unicode(self.tag) + ' | Region: ' + unicode(self.region_name) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
   # getWonSets is a function that takes a user and returns the sets he has won.
@@ -210,13 +210,13 @@ class Tournament(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
   tournament_type = db.Column(db.String(64), index=True)
-  region = db.Column(db.String(64), ForeignKey('region.region'))
+  region_name = db.Column(db.String(64), ForeignKey('region.region'))
   sets = db.relationship("Set", backref="tournament") 
   # users is a list of Placement objects
   users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+    return '<tournament: %s, tournament_type: %s, region_name: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):
