@@ -26,7 +26,7 @@ def main():
   # Create and return dictionary of values for Tournament attributes
   tournament_info = parse_challonge_info(tournament_url)
   # create new Tournament by assigning the tournament_info dictionary, given the tournament name as well.
-  new_tourney = import_challonge_info(tournament_info, tournament_name, region=tournament_region)
+  new_tourney = import_challonge_info(tournament_info, tournament_name, tournament_region)
  
   # Returns dictionary of placements : tags given tournament url
   all_placements = parse_challonge_standings(tournament_url)

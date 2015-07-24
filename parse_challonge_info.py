@@ -97,10 +97,13 @@ def parse_challonge_info(tournament_url):
   return tournament_info
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
-def import_challonge_info(tournament_info, tournament_name, *args, **kwargs):
+def import_challonge_info(tournament_info, tournament_name, *args):
 
-  # get optional tournament_region argument if it was provided
-  tournament_region = kwargs.get('region', None)
+  # get optional tournament_region argument if it was provided; args is the list of extra arguments
+  if len(args)==1:
+    tournament_region = args[0]
+  else:
+    tournament_region = None
 
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
@@ -135,8 +138,7 @@ def import_challonge_info(tournament_info, tournament_name, *args, **kwargs):
   if tournament_name is None:
     tournament_name = "Non-Tourney"
  
-  print "ALERT"
-  print tournament_region
+  print "Tournament Region", tournament_region
 
   new_tournament = Tournament(official_title=tournament_title,
                               host=tournament_host,
@@ -149,7 +151,6 @@ def import_challonge_info(tournament_info, tournament_name, *args, **kwargs):
   db.session.add(new_tournament)
   # add tournament_region; if None, then it adds None
   found_region = Region.query.filter(Region.region==tournament_region).first()
-  print found_region
   new_tournament.region = found_region
 
   db.session.commit()

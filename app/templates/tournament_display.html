@@ -21,7 +21,11 @@
 	</b></td>
 
 	<td class="col-sm-3 text-center">
-		<b>{{tournament.region}}</b>
+		{% if tournament.region %}
+			<b><a href="{{ url_for("region", region=tournament.region) }}">{{tournament.region}}</a></b>
+		{% else %}
+			{{tournament.region}}
+		{% endif %}
 	</td>
 </tr>
 {% endif %}
