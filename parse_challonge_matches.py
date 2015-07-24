@@ -168,10 +168,8 @@ def import_challonge_matches(matchlist, tournament_name):
     # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
     if 'seed' in set_winner:
     # List of Placement objects ordered by list, in which last element is the latest Tournament to be added
-      print winner_user.tournament_assocs
       winner_user.tournament_assocs[-1].seed = set_winner['seed']
     if 'seed' in set_loser:
-      print loser_user.tournament_assocs
       loser_user.tournament_assocs[-1].seed = set_loser['seed']
 
     # Get round number; if they match, store the round variable; if they don't (some error occurred), ignore it.
