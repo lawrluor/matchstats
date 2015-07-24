@@ -431,7 +431,8 @@ def head_to_head():
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
-  userlist = User.query.order_by(User.tag).paginate(page, USERS_PER_PAGE, False)
+  # userlist = User.query.order_by(User.tag).paginate(page, USERS_PER_PAGE, False)
+  userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   return render_template("browse_users.html",
                         userlist=userlist)
 

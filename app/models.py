@@ -48,7 +48,7 @@ class Region(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   region = db.Column(db.String(64), index=True, unique=True)
   users = db.relationship("User", backref="region")
-  tournaments = db.relationship("Tournament", backref="region")
+  tournaments = db.relationship("Tournament", order_by="Tournament.date", backref="region")
 
   def __repr__(self):
     return '<region: %s, id: %s, users: %s, tournaments: %s>' % (self.region, self.id, self.users, self.tournaments)
@@ -143,17 +143,16 @@ class User(db.Model):
 def check_set_user(set_user_tag, *args):
   # Get optional region argument, if provided
   if len(args)==1:
-    region = args[0]
+    user_region = args[0]
   else:
-    region = None
+    user_region = None
 
   set_user  = User.query.filter(User.tag==set_user_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
     set_user = User(tag=set_user_tag)
-    found_region = "12345",  Region.query.filter(Region.region==region).first()
-    print "12345", found_region
-    set_user.region = Region.query.filter(Region.region==region).first() 
+    found_region = Region.query.filter(Region.region==user_region).first()
+    set_user.region = found_region 
 
     db.session.add(set_user) 
     db.session.commit()
