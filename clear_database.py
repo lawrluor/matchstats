@@ -34,7 +34,6 @@ for i in range(len(regionlist)):
 	db.session.delete(regionlist[i])
 """
 
-
 """
 # create default "Non-Tourney" Tournament object at id=1
 non_tourney = Tournament(id=1, name="Non-Tourney")

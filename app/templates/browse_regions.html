@@ -22,8 +22,16 @@
 			  <!-- regionlist is a list of Region objects -->
 			  {% for Region in regionlist %}
 			  	<tr>
-			  		<td class="col-sm-4">
+			  		<td class="col-sm-4 text-center">
 			  			<a href="{{ url_for('region', region=Region.region) }}"><b>{{Region.region}}</b></a>
+			  		</td>
+
+			  		<td class="col-sm-4 text-center">
+			  			<b>{{Region.users|length}}</b>
+			  		</td>
+
+			  		<td class="col-sm-4 text-center">
+			  			<b>{{Region.tournaments|length}}</b>
 			  		</td>
 			  	</tr>
 			  {% endfor %}

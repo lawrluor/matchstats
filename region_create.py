@@ -12,11 +12,11 @@ print regionlist
 print '\n'
 
 # Create all additional regions
-Unknown_Region = Region(region="Unknown") # The default Region, rather than None.
+# Unknown_Region = Region(region="Unknown") # The default Region, rather than None.
 New_England = Region(region="New England")
 
 # Add and commit to database
-db.session.add(Unknown_Region)
+# db.session.add(Unknown_Region)
 db.session.add(New_England)
 
 db.session.commit()
