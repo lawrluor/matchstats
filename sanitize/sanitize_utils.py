@@ -159,7 +159,17 @@ top_player_regex_raw_list = [
     ['(stab)', '(matt)', '(victor abdul latif)', '(stabbedbyahippie)', '(stabbedbyanipple)'],
     ['(g\$)'],
     ['(vist)'],
-    ['(pkmvodka)', '(pkm vodka)']
+    ['(pkmvodka)', '(pkm vodka)'],
+    # NE Top Players start here
+    ['(crush)'],
+    ['(mafia)', '(irish mafia)'], 
+    ['(mdz)', '(mattdotzeb'), '(matt dot zeb)'],
+    ['(klap[s$])'],
+    ['(tian)'],
+    ['(squible)'],
+    ['(kyupuff)', '(kyu puff)'],
+    ['(rime)'],
+    ['(mr lemon)', '(mr. lemon)']
     ]
 
 # Sanitized tags representing top players.
@@ -288,7 +298,17 @@ sanitized_tags = [
     'Stab',
     'G\$',
     'Vist',
-    'Pkmvodka'
+    'Pkmvodka',
+    # NE Top Players begin here
+    'Crush',
+    'Mafia',
+    'Mattdotzeb',
+    'Klap$',
+    'Tian',
+    'Squible',
+    'Kyu Puff',
+    'Rime',
+    'Mr. Lemon'
     ]
    
 # Convert top_player_regex_raw_list to a version with regular expression prefixes wildcard and sep added

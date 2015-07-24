@@ -147,7 +147,9 @@ def check_set_user(set_user_tag, *args):
   else:
     user_region = None
 
-  set_user  = User.query.filter(User.tag==set_user_tag).first()
+  # check for bug in which newline character remains
+  set_user_tag = set_user_tag.strip('\n')
+  set_user = User.query.filter(User.tag==set_user_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
     set_user = User(tag=set_user_tag)
