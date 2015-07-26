@@ -14,7 +14,7 @@ import re
 from trueskill_functions import *
 
 # Given list of top_match_half items, parse lines to get relevant data for round, tag, seed, and score
-def parse_top_match(top_item_list):
+def parse_top_match(top_item_list, tournament_region):
   # dictionary which will contain relevant data
   top_half = {}
 
@@ -27,7 +27,7 @@ def parse_top_match(top_item_list):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
-      top_half["tag"] = check_and_sanitize_tag(tag)
+      top_half["tag"] = check_and_sanitize_tag(tag, tournament_region)
 
     seed_item = item.find("div", {"class" : "top_seed"})
     if seed_item is not None:
@@ -49,7 +49,7 @@ def parse_top_match(top_item_list):
     return top_half
 
 # Given list of top_match_half items, parse lines to get relevant data for round, tag, seed, and score
-def parse_bottom_match(bottom_item_list):
+def parse_bottom_match(bottom_item_list, tournament_region):
   # dictionary which will contain relevant data
   bottom_half = {}
 
@@ -62,7 +62,7 @@ def parse_bottom_match(bottom_item_list):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
-      bottom_half["tag"] = check_and_sanitize_tag(tag)
+      bottom_half["tag"] = check_and_sanitize_tag(tag, tournament_region)
 
     seed_item = item.find("div", {"class" : "bottom_seed"})
     if seed_item is not None:
@@ -83,7 +83,7 @@ def parse_bottom_match(bottom_item_list):
 
     return bottom_half
 
-def parse_challonge_matches(tournament_url):
+def parse_challonge_matches(tournament_url, tournament_region):
   conn = urllib3.connection_from_url(tournament_url)
   r1 = conn.request("GET", tournament_url)
   soup = BeautifulSoup(r1.data)
@@ -104,7 +104,7 @@ def parse_challonge_matches(tournament_url):
 
     match_top = div_tag.find_all("div", {"class" : "match_top_half"})
     # pass list containing all match_top_half to parse_top_match, which will parse lines separately for data
-    top_half = parse_top_match(match_top)
+    top_half = parse_top_match(match_top, tournament_region)
     # append dictionary from parse_top_match into the inner list. This is one dictionary representing the top_half
     current_match.append(top_half)
 
@@ -115,7 +115,7 @@ def parse_challonge_matches(tournament_url):
 
     match_bottom = div_tag.find_all("div", {"class" : "match_bottom_half"})
     # pass list containing all match_bottom_half to parse_bottom_match, which will parse lines separately for data
-    bottom_half = parse_bottom_match(match_bottom)
+    bottom_half = parse_bottom_match(match_bottom, tournament_region)
     # append dictionary from bottom_half into the same inner list as top_half. This is one dictionary representing the bottom_half
     current_match.append(bottom_half)
 

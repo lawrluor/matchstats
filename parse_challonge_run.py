@@ -29,12 +29,12 @@ def main():
   new_tourney = import_challonge_info(tournament_info, tournament_name, tournament_region)
  
   # Returns dictionary of placements : tags given tournament url
-  all_placements = parse_challonge_standings(tournament_url)
+  all_placements = parse_challonge_standings(tournament_url, tournament_region)
   # given the dictionary of placements and the Tournament object, link Tournament and User with Placement object. Users checked and sanitized here.
   import_challonge_standings(all_placements, new_tourney)
 
   # given the tournament_url, return a list of dictionaries with values for Set attributes
-  matchlist = parse_challonge_matches(tournament_url)
+  matchlist = parse_challonge_matches(tournament_url, tournament_region)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
   import_challonge_matches(matchlist, tournament_name)
 
@@ -56,11 +56,11 @@ def parse_challonge_run(tournament_url, tournament_name, *args):
   new_tourney = import_challonge_info(tournament_info, tournament_name, tournament_region)
  
   # Returns dictionary of placements : tags given tournament url
-  all_placements = parse_challonge_standings(tournament_url)
+  all_placements = parse_challonge_standings(tournament_url, tournament_region)
   # given the dictionary of placements and the Tournament object, link Tournament and User with Placement object. Users checked and sanitized here.
   import_challonge_standings(all_placements, new_tourney)
 
   # given the tournament_url, return a list of dictionaries with values for Set attributes
-  matchlist = parse_challonge_matches(tournament_url)
+  matchlist = parse_challonge_matches(tournament_url, tournament_region)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
   import_challonge_matches(matchlist, tournament_name)

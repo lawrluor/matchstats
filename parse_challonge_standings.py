@@ -12,7 +12,7 @@ import re
 import collections
 
 # Second soup for parsing Standings (placements)
-def parse_challonge_standings(tournament_url): 
+def parse_challonge_standings(tournament_url, tournament_region): 
   # find /standings page given tournament bracket url
   standings_url = tournament_url + '/standings'
 
@@ -43,7 +43,7 @@ def parse_challonge_standings(tournament_url):
       
       # When Challonge player uses an account icon, a '\n' character is produced. Check for this by stripping it off the end
       tag = tag.strip('\n')
-      sanitized_tag = check_and_sanitize_tag(tag)
+      sanitized_tag = check_and_sanitize_tag(tag, tournament_region)
 
     # limit number of Users who can tie for a placement
     placing = all_placements.setdefault(standing, [])
