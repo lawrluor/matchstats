@@ -557,6 +557,13 @@ def tournament(tournament_name):
   tournament_setlist = tournament_obj.sets
   if tournament_setlist == []:
     flash('No sets found for this tournament.')
+  
+  matches_by_round = {}
+  for set in tournament_setlist:
+    if set.round_type is not None:
+      round_num = matches_by_round.setdefault(set.round_type, [])
+      round_num.append(set)
+  print matches_by_round
 
   # generates list of Users in order of their placement
   placement_dict = collections.OrderedDict()
@@ -570,7 +577,8 @@ def tournament(tournament_name):
   return render_template("tournament.html",
                          tournament=tournament_obj,
                          tournament_setlist=tournament_setlist,
-                         placement_dict=placement_dict)
+                         placement_dict=placement_dict,
+                         matches_by_round=matches_by_round)
 
 
 @app.route('/search', methods=['POST'])

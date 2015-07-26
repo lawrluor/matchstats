@@ -60,13 +60,9 @@
 
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><b> Sets from {{ tournament.name }} </b></h1>
+    <h1><b> Sets from {{tournament.name}} </b></h1>
   </div>
   <div class="panel-body">
-
-  {% if tournament_setlist|length < 1 %}
-  	There were no sets found for this tournament.
-  {% else %}
 
   <!-- "Table" Column Titles -->
   <table class="table bootstrap-datatable table-condensed table-hover">
@@ -82,14 +78,21 @@
     </thead>
 
   	<tbody>
-      <!-- display all Set in tournament -->
-      {% for set in tournament_setlist %}
-        {% include 'set.html' %}
+      {% for round,setlist in matches_by_round.iteritems() %}
+        <tr>
+          <td></td>
+          <td></td>
+          <td><h4><b>Round {{round}}</h4></b></td>
+          <td></td>
+          <td></td>
+        </tr>
+        {% for set in setlist %}
+          {% include 'set.html' %}
+        {% endfor %}
       {% endfor %}
   	</tbody>
   </table>
 
-  {% endif %}
   </div>
   </div>
  </div>
