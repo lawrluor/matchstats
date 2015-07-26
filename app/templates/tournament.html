@@ -45,10 +45,10 @@
     
     <tbody>
       {% for placing in placement_dict %} 
-        {% for tag in placement_dict[placing] %}
+        {% for placement_info in placement_dict[placing] %}
           <tr>
-            <td class="col-sm-6 text-right"><b> {{ placing }}: </b></td>
-            <td class="col-sm-6 text-left"><a href="{{ url_for("user", tag=tag) }}"><b> {{ tag }} </b></a></td>
+            <td class="col-sm-6 text-right"><b>{{placing}}:</b></td>
+            <td class="col-sm-6 text-left"><a href="{{ url_for("user", tag=tag) }}"><b> {{placement_info[0]}} </b></a>(seed: {{placement_info[1]}})</td>
           </tr>
         {% endfor %}
       {% endfor %}

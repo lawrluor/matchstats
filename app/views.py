@@ -2,7 +2,7 @@
 
 from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
-from models import User, Set, Match, Character, Placement, secondaries
+from models import User, Set, Match, Character, Placement, secondaries, Region
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
@@ -18,7 +18,6 @@ import collections
 @app.before_request
 def before_request():
   g.search_form = SearchForm()
-
 
 # Home page
 @app.route('/')
@@ -458,12 +457,10 @@ def user(tag):
   user_tournaments = user.tournament_assocs
   print user_tournaments
   for placement_obj in user_tournaments:
-    # Placement object backref to Tournament object
+    # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
     tournament_name = placement_obj.tournament.name
-    tournament_date = placement_obj.tournament.date
-    print tournament_date
     placement  = convert_placement(placement_obj.placement)
-    user_placements[tournament_name] = placement
+    user_placements[tournament_name] = [placement, placement_obj.seed]
 
   return render_template("user.html",
                         title=tag,
@@ -489,7 +486,6 @@ def region(region):
 @app.route('/browse_regions')
 def browse_regions():
   regionlist = Region.query.all()
-
   return render_template("browse_regions.html", 
                           title='Browse Regions',
                           regionlist=regionlist)
@@ -564,12 +560,12 @@ def tournament(tournament_name):
 
   # generates list of Users in order of their placement
   placement_dict = collections.OrderedDict()
-  test_list = Placement.query.filter(Placement.tournament_id==tournament_obj.id).order_by(Placement.placement).all()
+  placement_list = Placement.query.filter(Placement.tournament_id==tournament_obj.id).order_by(Placement.placement).all()
 
-  # store into dictionary to pass to template
-  for placement_obj in test_list: 
+  # store into dictionary to pass to template; stores dictionary of lists with list[0]=placement, list[1]=seed
+  for placement_obj in placement_list: 
     placing = placement_dict.setdefault(convert_placement(placement_obj.placement), [])
-    placing.append(placement_obj.user.tag)
+    placing.append([placement_obj.user.tag, placement_obj.seed])
 
   return render_template("tournament.html",
                          tournament=tournament_obj,

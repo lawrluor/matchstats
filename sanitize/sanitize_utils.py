@@ -343,14 +343,14 @@ for region in player_raw_regex_dict:
   prefixed_player_regex_list += map(add_prefixes, player_raw_regex_dict[region])
   player_regex_list = map(compile_case_i_re, prefixed_player_regex_list)
   sanitized_tags_list += sanitized_tags_dict[region]
-print "PREFIXED_PLAYER", prefixed_player_regex_list
-print "PLAYER_REGEX", player_regex_list
+# print "PREFIXED_PLAYER", prefixed_player_regex_list
+# print "PLAYER_REGEX", player_regex_list
 
 # Wrapper for sanitize_tag.
 def check_and_sanitize_tag(tag, *args): #region is optional parameter
   # if region is included in parameter
-  if len(args)==1:
+  if len(args)==1 and args[0] is not None:
     if args[0] in player_raw_regex_dict and args[0] in sanitized_tags_dict:
       return sanitize_tag(tag, player_regex_list, sanitized_tags_list) 
-  elif len(args)==0:
+  elif len(args)==0 or args[0] is None:
     return sanitize_tag(tag, player_regex_list, sanitized_tags_list)

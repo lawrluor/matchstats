@@ -22,7 +22,6 @@ def parse_challonge_standings(tournament_url, tournament_region):
   soup2.prettify()
 
   player_rows = soup2.find_all("tr")
-
   # OrderedDict so that keys are remembered in the order they come in, from least to greatest.
   all_placements = collections.OrderedDict()
   current_placement = 0
