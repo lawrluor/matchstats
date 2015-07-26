@@ -2,7 +2,7 @@
 
 <tr>
     <td class="col-sm-3 text-center horizontal-overflow">
-        <b><span title="{{user.trueskill.mu|round(4, 'common')}}"><a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a></span></b>
+        <b><a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a></b>
     </td>
     <td class="col-sm-3 text-center">
         {% if user.region %}

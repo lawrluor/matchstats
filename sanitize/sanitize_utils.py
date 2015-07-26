@@ -33,7 +33,7 @@ def add_prefixes(regex_list):
   prefix_list.append(joined_regex)
   return joined_regex
     
-# Regular expressions representing top players.
+# Raw Regular expression list representing top players, to be processed by add_prefixes
 top_player_regex_raw_list = [
     ['(mang[o0])', '(c9mang[o0])'],
     ['(armada)', '(\[a\]rmada)'],
@@ -159,8 +159,15 @@ top_player_regex_raw_list = [
     ['(stab)', '(victor abdul latif)', '(stabbedbyahippie)', '(stabbedbyanipple)'],
     ['(g\$)'],
     ['(vist)'],
-    ['(pkmvodka)', '(pkm vodka)'],
-    # NE Top Players start here
+    ['(pkmvodka)', '(pkm vodka)']
+    ]
+
+# NE Top Players start here
+NE_player_regex_list = [
+    ['(koreandj)', '(korean dj)', '(kdj)'],
+    ['(swiftbass)', '(swift)', '(gibson zero)', '(gibsonzero)'],
+    ['(z[o0]s[o0])'],
+    ['(th[o0]rn)'],
     ['(crush)'],
     ['(mafia)', '(irish mafia)', '(slimjim)', '(slim jim)'], 
     ['(mdz)', '(mattdotzeb)', '(matt dot zeb)'],
@@ -172,7 +179,7 @@ top_player_regex_raw_list = [
     ['(mr lemon)', '(mr. lemon)']
     ]
 
-# Sanitized tags representing top players.
+# Sanitized tags representing global top players.
 sanitized_tags = [
     'Mango',
     'Armada',
@@ -298,8 +305,15 @@ sanitized_tags = [
     'Stab',
     'G\$',
     'Vist',
-    'Pkmvodka',
+    'Pkmvodka'
+    ]
+
     # NE Top Players begin here
+NE_sanitized_tags = [
+    'KoreanDJ',
+    'Swift',
+    'Zoso',
+    'Thorn',
     'Crush',
     'Mafia',
     'Mattdotzeb',
@@ -310,13 +324,22 @@ sanitized_tags = [
     'Rime',
     'Mr. Lemon'
     ]
-   
+
+# if region==None or region==Global:
+  # prefixed_player_regex_list = map(add_prefixes, top_player_regex_raw_list)
+  # player_regex_list = 
+# else:
+  # if region in Regex_list_dict:
+    # prefixed_player_regex_list = map(add_prefixes, top_player_regex_raw_list)
+    # player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
+
 # Convert top_player_regex_raw_list to a version with regular expression prefixes wildcard and sep added
-top_player_regex_raw_list = map(add_prefixes, top_player_regex_raw_list)
+prefixed_player_regex_list = map(add_prefixes, top_player_regex_raw_list)
 
 # Convert the list with prefixes added to all lowercase tags
-top_player_regex_list = map(compile_case_i_re, top_player_regex_raw_list)
+player_regex_list = map(compile_case_i_re, prefixed_player_regex_list)
 
 # Wrapper for sanitize_tag.
-def check_and_sanitize_tag(tag):
-  return sanitize_tag(tag, top_player_regex_list, sanitized_tags)
+def check_and_sanitize_tag(tag): #region is other parameter
+  return sanitize_tag(tag, player_regex_list, sanitized_tags)
+  #return sanitize_tag(tag, NE_player_regex_list, NE_sanitized_tags)

@@ -47,7 +47,7 @@ class Region(db.Model):
   __tablename__ = "region"
   id = db.Column(db.Integer, primary_key=True)
   region = db.Column(db.String(64), index=True, unique=True)
-  users = db.relationship("User", backref="region")
+  users = db.relationship("User", order_by="User.id", backref="region")
   tournaments = db.relationship("Tournament", order_by="Tournament.date", backref="region")
 
   def __repr__(self):

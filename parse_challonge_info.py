@@ -2,8 +2,6 @@
 
 from app.models import *
 import sys
-sys.path.append('./sanitize')
-from sanitize_utils import check_and_sanitize_tag
 
 import urllib3
 from bs4 import BeautifulSoup
