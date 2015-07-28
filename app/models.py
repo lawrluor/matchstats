@@ -199,12 +199,13 @@ def get_tournament_name_and_placing(user_tag):
 #association object between Tournament and User
 class Placement(db.Model):
   __tablename__ = 'placement'
-  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'), primary_key=True)
+  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'),  primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
   tournament_name = db.Column(db.String(128))
   seed = db.Column(db.Integer)
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
+  tournament = db.relationship("Tournament", backref=backref("users", order_by="Tournament.date", cascade='all, delete-orphan'))
 
   def __repr__(self):
     return '<tournament_id: %s, tournament_name: %s, user_id: %s, seed: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.seed, self.placement, self.user)
@@ -226,11 +227,9 @@ class Tournament(db.Model):
   tournament_type = db.Column(db.String(64), index=True)
   region_name = db.Column(db.String(64), ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament") 
-  # users is a list of Placement objects
-  users = db.relationship("Placement", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s, users: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets, self.users)
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sets)
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):

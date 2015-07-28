@@ -22,7 +22,6 @@ def add_prefixes(regex_list):
   wildcard = '.*'
   sep = '[|.`\' ]'
   prefix = wildcard + sep
-  suffix = '$'
   prefix_list = []
    
   inner_list = []

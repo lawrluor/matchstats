@@ -109,7 +109,7 @@ def parse_challonge_matches(tournament_url, tournament_region):
     current_match.append(top_half)
 
     # add match half to dictionary by round; if no key exists for round, create one
-    if top_half['round'] is not None:    
+    if top_half['round'] is not None:
       round_num = matches_by_round.setdefault(top_half['round'], [])
       round_num.append(top_half)
 
