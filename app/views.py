@@ -445,9 +445,9 @@ def user(tag):
     return redirect(url_for('browse_users'))
 
   # Store all user's sets in variable user_sets 
-  user_wins = user.getWonSets()
-  user_losses = user.getLostSets()
-  user_sets = user.getAllSets(user_wins, user_losses)
+  user_wins = user.get_won_sets()
+  user_losses = user.get_lost_sets()
+  user_sets = user.get_all_sets(user_wins, user_losses)
   user_secondaries = user.get_secondaries()
   
   # create dictionary with Tournament name and respective placement

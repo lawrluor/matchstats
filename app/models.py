@@ -185,11 +185,12 @@ def check_set_user(set_user_tag, *args):
 # currently doesn't change Matches
 def merge_user(root_tag, joined_tag):
   root_user = User.query.filter(User.tag==root_tag).first()
-  print root_user
   joined_user = User.query.filter(User.tag==joined_tag).first()
-  print joined_user
+  if joined_user is None or root_user is None:
+    return "At least one User does not exist"
+
   # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
-  joined_sets = joined_user.getAllSets()
+  joined_sets = joined_user.get_all_sets()
   for set in joined_sets:
     if set.winner_tag==joined_user.tag:
       set.winner_tag = root_user.tag
@@ -197,6 +198,13 @@ def merge_user(root_tag, joined_tag):
     else:
       set.loser_tag = root_user.tag
       set.loser_id = root_user.id
+
+  # merge Placement in joined_user by setting Placement.user = root_user
+  # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
+  while len(joined_user.tournament_assocs) > 0:
+    joined_user.tournament_assocs[0].user = root_user
+
+  # check if joined_user deleted under mains, secondaries, region
 
   db.session.delete(joined_user) 
   db.session.commit()
