@@ -218,7 +218,7 @@ class Placement(db.Model):
   tournament_name = db.Column(db.String(128))
   seed = db.Column(db.Integer)
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
-  tournament = db.relationship("Tournament", backref=backref("users", order_by="Tournament.date", cascade='all, delete-orphan'))
+  tournament = db.relationship("Tournament", backref=backref("placements", cascade='all, delete-orphan'))
 
   def __repr__(self):
     return '<tournament_id: %s, tournament_name: %s, user_id: %s, seed: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.seed, self.placement, self.user)
