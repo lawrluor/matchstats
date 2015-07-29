@@ -99,30 +99,36 @@ class User(db.Model):
   # self.secondaries.all() returns list of Character objects, in __repr__() form
   def get_secondaries(self):
     all_secondaries = self.secondaries.all()
-    
-    # all_secondaries is list.. yet not iterable?
-    # secondaries.name yields 'list' object has no attribute 'name'
 
     processed_secondaries = []
     for i in range(len(all_secondaries)):
       char_name = unicode(all_secondaries[i])
       processed_secondaries.append(char_name)
-
     return processed_secondaries # This is a list of strings that represent Character objects
-
+  
+  # Takes string representing character object and determines if it is a secondary Character of a User
   def is_secondary(self, character):
-    return self.secondaries.filter(and_(secondaries.c.user_id==self.id, secondaries.c.character_id==character.id)).count() > 0
+    char_obj = Character.query.filter(Character.name==character).first()
+    if char_obj is None:
+      return "Character does not exist"
+    else:
+      return self.secondaries.filter(and_(secondaries.c.user_id==self.id, secondaries.c.character_id==char_obj.id)).count() > 0
 
-  def add_secondaries(self, character):
+  def add_secondary(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
     if not self.is_secondary(character):
       self.secondaries.append(char_obj)
-      return self
+    else:
+      return "This Character is already a secondary of User"
+    return self
   
-  def remove_secondaries(self, character):
+  def remove_secondary(self, character):
+    char_obj = Character.query.filter(Character.name==character).first()
     if self.is_secondary(character):
-      self.secondaries.remove(character)
-      return self
+      self.secondaries.remove(char_obj)
+    else:
+      return "This Character is not a secondary of User"
+    return self 
 
   def add_secondaries_list(self, characterlist):
     for i in range(len(characterlist)):
