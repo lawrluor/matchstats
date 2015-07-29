@@ -1,10 +1,27 @@
 {% extends "base.html" %}
+
 {% block content %}
 	<div class="container">
-	  <h1>Browse All Characters</h1>
-	  <!-- simply prints all characters (strings) in characterlist -->
-	  {% for character in characterlist %}
-	    <div><b><a href="{{ url_for("character", character=character) }}">{{ character }}</a></b></div>
-	  {% endfor %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+	  		<h2><b>Browse All Characters</b></h2>
+			</div>
+
+		<div class="panel-body">
+			<table class="table bootstrap-datatable table-hover">
+				<thead>
+					<tr>
+						<th></th>
+					</tr>
+				</thead>
+
+		  	<!-- simply prints all characters (strings) in characterlist -->
+			  {% for character in characterlist %}
+			    <tr>
+			    	<td><a href="{{ url_for("character", character=character) }}"><b>{{character}}</b></a></td>
+			    </tr>
+			  {% endfor %}
+			</table>
+		</div>
 	</div>
 {% endblock %}

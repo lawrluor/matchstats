@@ -25,12 +25,12 @@
         <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
       {% else %}
         Unchosen
-        {% endif %}
+      {% endif %}
     </h3>
 
     <h3>
       <b>Secondaries:</b>
-      {% if user.secondaries %}
+      {% if user.econdaries %}
         {% for i in range(user.secondaries.all()|length) %}
           <!-- If last secondary (last secondary in list), print without comma -->
           {% if i==(user.secondaries.all()|length - 1) %}

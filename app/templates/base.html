@@ -2,18 +2,18 @@
 
 <!--Bootstrap imports -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{ url_for('static', filename='enno/css/bootstrap.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='enno/css/bootstrap.css')}}">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='enno/css/style.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='enno/css/style.css')}}">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="{{ url_for('static', filename='enno/css/google_fonts.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='enno/css/bootstrap-theme.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='enno/css/google_fonts.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='enno/css/bootstrap-theme.css')}}">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="{{ url_for('static', filename='js/chosen.jquery.js') }}"></script>
+<script src="{{url_for('static', filename='js/chosen.jquery.js')}}"></script>
 
 <!-- Base template begins -->
 <html>
@@ -31,10 +31,10 @@
     <meta property="fb:app_id" content="1587149311552603">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes=16x16 href="{{ url_for('static',filename='favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes=16x16 href="{{url_for('static',filename='favicon.ico')}}">
 
     {% if title %}
-      <title>{{ title }} - SmashStats</title>
+      <title>{{title}} - SmashStats</title>
     {% else %}
       <title>SmashStats</title>
     {% endif %}
@@ -78,7 +78,7 @@
 
   <!-- header linking to different web features, across all pages on site -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <!-- Dropdown Menu in Mobile -->
@@ -88,20 +88,21 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ url_for('home') }}">SmashStats</a>
+        <a class="navbar-brand" href="{{url_for('home')}}">SmashStats</a>
       </div>
       
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse nav-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <li><a href="{{ url_for('about') }}">About</a></li>
-          <li><a href="{{ url_for('browse_regions') }}">Browse Regions</a></li>
-          <li><a href="{{ url_for('browse_tournaments') }}">Browse Tournaments</a></li>
-          <li><a href="{{ url_for('browse_users') }}">Browse Users</a></li>
-          <li><a href="{{ url_for('head_to_head') }}">Head to Head</a></li>
+          <li><a href="{{url_for('about')}}">About</a></li>
+          <li><a href="{{url_for('browse_regions')}}">Regions</a></li>
+          <li><a href="{{url_for('browse_tournaments')}}">Tournaments</a></li>
+          <li><a href="{{url_for('browse_users')}}">Users</a></li>
+          <li><a href="{{url_for('browse_characters')}}">Characters</a></li>
+          <li><a href="{{url_for('head_to_head')}}">Head to Head</a></li>
           <li>
-            <form class="navbar-form" action="{{ url_for('search') }}" method="post" name="search">
-              {{ g.search_form.hidden_tag() }}{{ g.search_form.search(size=12, class="form-control") }}
+            <form class="navbar-form" action="{{url_for('search')}}" method="post" name="search">
+              {{g.search_form.hidden_tag()}}{{g.search_form.search(size=12, class="form-control")}}
               <input type="submit" class="btn-primary form-control" value="Search">
             </form>
           </li>
@@ -117,7 +118,7 @@
       <br>
       <ul>
       {% for message in messages %}
-        <li class="flash">{{ message }} </li>
+        <li class="flash">{{message}} </li>
       {% endfor %}
       </ul>
     {% endif %}
@@ -127,7 +128,7 @@
   {% block content %}{% endblock %}
 
   <hr>
-  <div class="container-fluid">
+  <div class="container">
     <footer>
       <b>©2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Version 1.6</b>
       <br>

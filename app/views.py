@@ -491,14 +491,13 @@ def browse_regions():
                           regionlist=regionlist)
  
  
-# # Displays a list of all SSBM characters, each of which links to /character/<character>
-# @app.route('/browse_characters')
-# def browse_characters():
-#   characterlist = main_char_list
-# 
-#   return render_template("browse_characters.html",
-#                          characterlist=characterlist)
-# 
+# Displays a list of all SSBM characters, each of which links to /character/<character>
+@app.route('/browse_characters')
+def browse_characters():
+  characterlist = main_char_list
+  return render_template("browse_characters.html",
+                         characterlist=characterlist)
+
  
 # Displays all users who play a certain character. Routed to from /browse_characters
 @app.route('/character/<character>')
