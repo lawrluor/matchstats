@@ -502,6 +502,10 @@ def browse_characters():
 # Displays all users who play a certain character. Routed to from /browse_characters
 @app.route('/character/<character>')
 def character(character):
+  # eventually add support for seeing all Users from a certain region only using User.query.filter(and_(User.main==character, User.region==region)).all()
+  region = request.args.get('region')  
+  print region
+
   main_matching_users = User.query.filter(User.main==character).order_by(User.id).all()
   if main_matching_users == []:
     flash('No players found that main this character')

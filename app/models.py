@@ -75,22 +75,29 @@ class User(db.Model):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
-  # getWonSets is a function that takes a user and returns the sets he has won.
-  def getWonSets(self):
+  # get_won_sets is a function that takes a user and returns the sets he has won.
+  def get_won_sets(self):
     sets_won = Set.query.filter(Set.winner_tag==self.tag).order_by(Set.id).all()
     return sets_won
 
-  # getLostSets is a function that takes a user and returns the sets he has lost
-  def getLostSets(self):
+  # get_lost_sets is a function that takes a user and returns the sets he has lost
+  def get_lost_sets(self):
     sets_lost = Set.query.filter(Set.loser_tag==self.tag).order_by(Set.id).all()
     return sets_lost
 
   # getAllSets is a function that takes two lists, sets_won and sets_lost, and sorts them by set id
-  def getAllSets(self, sets_won, sets_lost):
-    all_sets = sets_won + sets_lost 
-    all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
-    # code for getting all sets explicitly with query, without helper methods getLostSets and getWonSets
-    # sets_test = Set.query.filter(or_(Set.winner_id==user.id, Set.loser_id==user.id)).order_by(Set.id).all()
+  def get_all_sets(self, *args):
+    if len(args)==0:
+     # code for getting all sets explicitly with query, without helper methods getLostSets and getWonSets, if no parameters specified
+      all_sets_sorted = Set.query.filter(or_(Set.winner_id==self.id, Set.loser_id==self.id)).order_by(Set.id).all()     
+    elif len(args)==2:
+      # Use the pre-queried setlists sets_won and sets_lost to optimize
+      sets_won = args[0]
+      sets_lost = args[1]
+      all_sets = sets_won + sets_lost 
+      all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
+    else:
+      return "Error: incorrect number of parameters"
     return all_sets_sorted
 
   # User-Character Relationship functions
@@ -176,7 +183,7 @@ def check_set_user(set_user_tag, *args):
 # transfers the data the User represented by joined_tag has to User root_tag, while deleting the User represented by joined_tag
 # currently doesn't actually link the Users or tag in any way before deletion
 # currently doesn't change Matches
-def make_same_user(root_tag, joined_tag):
+def merge_user(root_tag, joined_tag):
   root_user = User.query.filter(User.tag==root_tag).first()
   print root_user
   joined_user = User.query.filter(User.tag==joined_tag).first()

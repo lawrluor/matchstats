@@ -4,12 +4,14 @@
 <div class="container">
   <div class="jumbotron">
     <h1>{{character}}</h1>
+    <h2><b>Mains: </b>{{main_matching_users|length}}</h2>
+    <h2><b>Secondaries: </b>{{secondaries_matching_users|length}}</h2>
   </div>
 
   <!-- Table for Users who main character -->
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>Users who main {{character}}</b></h3>
+      <h2><b>Users who main {{character}}</b></h2>
     </div>
 
     <div class="panel-body">
