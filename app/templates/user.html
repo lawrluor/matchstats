@@ -14,9 +14,9 @@
 
     <h3>
       {% if user.region %}
-        <b>Region: <a href="{{url_for("region", region=user.region)}}">{{user.region}}</a></b>
+        <b>Region:</b> <a href="{{url_for("region", region=user.region)}}">{{user.region}}</a>
       {% else %}
-        <b>Region: </b> None
+        <b>Region:</b> None
       {% endif %}
     </h3>
 
@@ -29,13 +29,18 @@
     </h3>
 
     <h3>
+      <b>Secondaries:</b>
       {% if user.secondaries %}
-        <b>Secondaries:</b> 
-          {% if user_secondaries|length > 0 %}
-            {{user_secondaries}} 
+        {% for i in range(user.secondaries.all()|length) %}
+          <!-- If last secondary (last secondary in list), print without comma -->
+          {% if i==(user.secondaries.all()|length - 1) %}
+            <a href="{{url_for("character", character=secondary)}}">{{user.secondaries.all()[i]}}</a>
           {% else %}
-            None
+            <a href="{{url_for("character", character=secondary)}}">{{user.secondaries.all()[i]}},</a>
           {% endif %}
+        {% endfor %}
+      {% else %}
+        None
       {% endif %}
     </h3>
 

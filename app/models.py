@@ -12,9 +12,8 @@ class Character(db.Model):
 
   def __repr__(self):
     return '<id: %s, name: %s>' % (self.id, self.name)
-  
-  # for incorporation into other features, simply displays Character name
-  def __unicode__(self):
+
+  def __str__(self):
     return self.name
   
   # Uses users backref to query for Users
@@ -70,7 +69,7 @@ class User(db.Model):
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region, self.main, unicode(self.secondaries.all()))
+    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region, self.main, self.secondaries.all())
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
@@ -132,16 +131,23 @@ class User(db.Model):
 
   def add_secondaries_list(self, characterlist):
     for i in range(len(characterlist)):
-      if characterlist[i] in secondaries_char_list and characterlist[i] != self.main:
-        character = Character.query.filter(Character.name == characterlist[i]).first()
-        self.add_secondaries(character)
+      character = Character.query.filter(Character.name == characterlist[i]).first()
+      if characterlist[i] in secondaries_char_list and character.name != self.main:
+        print character.name, self.main
+        if not self.is_secondary(character.name):
+          self.add_secondary(character.name)
+        else:
+          print "Character %s is already a secondary of User" % character.name
     return self
 
   def remove_secondaries_list(self, characterlist):
     for i in range(len(characterlist)):
-      if characterlist[i] in secondaries_char_list and characterlist[i] != self.main:
-        character = Character.query.filter(Character.name == characterlist[i]).first()
-        self.remove_secondaries(character)
+      character = Character.query.filter(Character.name == characterlist[i]).first()
+      if characterlist[i] in secondaries_char_list and character.name != self.main:
+        if self.is_secondary(character.name):
+          self.remove_secondary(character.name)
+        else:
+          print "Character %s is not a secondary of User" % character.name
     return self
    
 
