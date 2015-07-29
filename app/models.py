@@ -111,11 +111,12 @@ class User(db.Model):
     return processed_secondaries # This is a list of strings that represent Character objects
 
   def is_secondary(self, character):
-    return self.secondaries.filter(and_(secondaries.c.user_id == self.id, secondaries.c.character_id == character.id)).count() > 0
+    return self.secondaries.filter(and_(secondaries.c.user_id==self.id, secondaries.c.character_id==character.id)).count() > 0
 
   def add_secondaries(self, character):
+    char_obj = Character.query.filter(Character.name==character).first()
     if not self.is_secondary(character):
-      self.secondaries.append(character)
+      self.secondaries.append(char_obj)
       return self
   
   def remove_secondaries(self, character):

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
   <header class="jumbotron">
-    <h1><a href="{{ url_for("user", tag=user.tag) }}">{{user.tag}}</a></h1>
+    <h1><a href="{{url_for("user", tag=user.tag)}}">{{user.tag}}</a></h1>
 
     <h3>
       {% if user.trueskill %}
@@ -14,7 +14,7 @@
 
     <h3>
       {% if user.region %}
-        <b>Region: <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a></b>
+        <b>Region: <a href="{{url_for("region", region=user.region)}}">{{user.region}}</a></b>
       {% else %}
         <b>Region: </b> None
       {% endif %}
@@ -22,7 +22,7 @@
 
     <h3><b>Main:</b>
       {% if user.main %}
-        <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+        <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
       {% else %}
         Unchosen
         {% endif %}
@@ -60,7 +60,7 @@
       <!-- user_placements is dictionary of lists with keys tournament_name and list[0]=placement and list[1]=seed -->
       {% for tournament in user_placements %}
       <tr>
-        <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament}}</a> - </b></td>
+        <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{url_for("tournament", tournament_name=tournament)}}">{{tournament}}</a> - </b></td>
         <td class="col-xs-6 col-sm-6 text-left"><b>{{user_placements[tournament][0]}}</b> (seed: {{user_placements[tournament][1]}})</td>
       </tr>
       {% endfor %}
@@ -75,7 +75,7 @@
   </div>
   <div class="panel-body">
     <table class="table bootstrap-datatable table-hover">
-      <b><h4 class="text-center">Total Sets: {{ user_sets|length }} | Overall Record: [{{user_wins|length}}-{{user_losses|length}}]</b></h4>
+      <b><h4 class="text-center">Total Sets: {{user_sets|length}} | Overall Record: [{{user_wins|length}}-{{user_losses|length}}]</b></h4>
       <thead>
         <tr>
           <th></th>

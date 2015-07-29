@@ -1,24 +1,71 @@
 {% extends "base.html" %}
+
 {% block content %}
-  <h1> {{ character }} </h1>
+<div class="container">
+  <div class="jumbotron">
+    <h1>{{character}}</h1>
+  </div>
 
-  <h3>  Users who main {{ character }} </h3>
-  {% if main_matching_users|length < 1 %}
-    There are no Users who currently main this character.
-  {% else %}
-    {% for user in main_matching_users %}
-      {% include 'user_display.html' %}
-    {% endfor %}
-  {% endif %}
+  <!-- Table for Users who main character -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><b>Users who main {{character}}</b></h3>
+    </div>
 
-<BR>&nbsp;<BR> <!-- Line break -->
+    <div class="panel-body">
+      <table class="table bootstrap-datatable table-hover">
+        <thead>
+          <tr>
+            <th class="text-center"><h4><b>User</b></h4></th>
+            <th class="text-center"><h4><b>Region</b></h4></th>
+            <th class="text-center"><h4><b>Main</b></h4></th>
+            <th class="text-center"><h4><b>Rating</b><h4></th>
+            <!-- <th><h4><b>Secondaries</b></h4></th> -->
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if main_matching_users|length < 1 %}
+            There are no Users who currently main this character.
+          {% else %}
+            {% for user in main_matching_users %}
+              {% include 'user_display.html' %}
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 	
-  <h3> Users who secondary {{ character }} </h3>
-  {% if secondaries_matching_users|length < 1 %}
-    There are no Users who currently secondary this character.
-  {% else %}
-    {% for user in secondaries_matching_users %}
-      {% include 'user_display.html' %}
-    {% endfor %}
-  {% endif %}
+  <!-- Table for Users who secondary character -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><b>Users who secondary {{character}}</b></h3>
+    </div>
+
+    <div class="panel-body">
+      <table class="table bootstrap-datatable table-hover">
+        <thead>
+          <tr>
+            <th class="text-center"><h4><b>User</b></h4></th>
+            <th class="text-center"><h4><b>Region</b></h4></th>
+            <th class="text-center"><h4><b>Main</b></h4></th>
+            <th class="text-center"><h4><b>Rating</b><h4></th>
+            <!-- <th><h4><b>Secondaries</b></h4></th> -->
+          </tr>
+        </thead>
+
+        <tbody>
+          {% if secondaries_matching_users|length < 1 %}
+            There are no Users who currently secondary this character.
+          {% else %}
+            {% for user in secondaries_matching_users %}
+              {% include 'user_display.html' %}
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

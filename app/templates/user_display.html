@@ -2,11 +2,11 @@
 
 <tr>
     <td class="col-sm-3 text-center horizontal-overflow">
-        <b><a href="{{ url_for("user", tag=user.tag) }}">{{ user.tag }}</a></b>
+        <a href="{{url_for("user", tag=user.tag)}}"><b>{{user.tag}}</b></a>
     </td>
     <td class="col-sm-3 text-center">
         {% if user.region %}
-    	   <a href="{{ url_for("region", region=user.region) }}">{{user.region}}</a> 
+    	   <a href="{{url_for("region", region=user.region)}}"><b>{{user.region}}</b></a>
     	{% else %}
 	       No Region
 	    {% endif %}
@@ -14,7 +14,7 @@
 
     <td class="col-sm-3 text-center">
     	{% if user.main %}
-            <a href="{{ url_for("character", character=user.main) }}">{{user.main}}</a>
+            <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
         {% else %}
             Unchosen
         {% endif %}
@@ -33,9 +33,9 @@
     {% set user_secondaries = user.get_secondaries() -%}
         {% if user_secondaries|length > 3 %}
         	 | [ 
-            <a href="{{ url_for("character", character=user_secondaries[1]) }}">{{user_secondaries[1]}}</a>, 
-            <a href="{{ url_for("character", character=user_secondaries[2]) }}">{{user_secondaries[2]}}</a>,  
-            <a href="{{ url_for("character", character=user_secondaries[3]) }}">{{user_secondaries[3]}}</a>
+            <a href="{{url_for("character", character=user_secondaries[1])}}">{{user_secondaries[1]}}</a>, 
+            <a href="{{url_for("character", character=user_secondaries[2])}}">{{user_secondaries[2]}}</a>,  
+            <a href="{{url_for("character", character=user_secondaries[3])}}">{{user_secondaries[3]}}</a>
             ... ]
         {% elif user_secondaries|length < 1 %}
             None
@@ -43,9 +43,9 @@
         	| [
     		{% for i in range(user_secondaries|count) %}
         		{% if i == (user_secondaries|count - 1) %}
-    				<a href="{{ url_for("character", character=user_secondaries[i]) }}">{{user_secondaries[i]}}</a>
+    				<a href="{{url_for("character", character=user_secondaries[i])}}">{{user_secondaries[i]}}</a>
         		{% else %}
-    				<a href="{{ url_for("character", character=user_secondaries[i]) }}">{{user_secondaries[i]}}</a>, 
+    				<a href="{{url_for("character", character=user_secondaries[i])}}">{{user_secondaries[i]}}</a>, 
         		{% endif %}
         	{% endfor %}
     		]
