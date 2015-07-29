@@ -122,10 +122,10 @@ class User(db.Model):
 
   def add_secondary(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
-    if not self.is_secondary(character):
+    if (not self.is_secondary(character)) and self.main != character:
       self.secondaries.append(char_obj)
     else:
-      return "This Character is already a secondary of User"
+      return "This Character is already a secondary of User, or is this User's main"
     return self
   
   def remove_secondary(self, character):
@@ -203,8 +203,6 @@ def merge_user(root_tag, joined_tag):
   # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
   while len(joined_user.tournament_assocs) > 0:
     joined_user.tournament_assocs[0].user = root_user
-
-  # check if joined_user deleted under mains, secondaries, region
 
   db.session.delete(joined_user) 
   db.session.commit()
