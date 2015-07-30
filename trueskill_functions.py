@@ -5,14 +5,17 @@ from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 # Trueskill constants
 MU = 25.0
 SIGMA = 8.333333333333334
+BETA = 4.166666666666667
+TAU = 0.08333333333333334
+DRAW_PROBABILITY = 0.0
 
 # setup rating env
 def rating_env_setup():
 	setup(mu=MU, 
 			sigma=SIGMA, 
-			beta=4.166666666666667, 
-			tau=0.08333333333333334, 
-			draw_probability=0.0,
+			beta=BETA, 
+			tau=TAU, 
+			draw_probability=DRAW_PROBABILITY,
 			backend=None,
 			)
 	return "Rating environment created"
@@ -20,10 +23,10 @@ def rating_env_setup():
 # Given user object, if trueskill attribute is None, sets attribute to a created Trueskill object
 def check_trueskill(user):
 	if user.trueskill is None:
-		set_default(user)
+		reset_trueskill(user)
 	return user.trueskill
 
-def set_default(user):
+def reset_trueskill(user):
 	user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
 	db.session.commit()
 	return user.trueskill

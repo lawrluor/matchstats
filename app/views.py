@@ -447,7 +447,9 @@ def user(tag):
   # Store all user's sets in variable user_sets 
   user_wins = user.get_won_sets()
   user_losses = user.get_lost_sets()
-  user_sets = user.get_all_sets(user_wins, user_losses)
+  all_sets = user_wins + user_losses 
+  user_sets = sorted(all_sets, key=lambda x: x.id)
+
   user_secondaries = user.get_secondaries()
   
   # create dictionary with Tournament name and respective placement

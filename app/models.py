@@ -75,29 +75,19 @@ class User(db.Model):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
   # User-Set Relationship functions
-  # get_won_sets is a function that takes a user and returns the sets he has won.
+  # get_won_sets is a function that takes a User object and returns the sets he has won.
   def get_won_sets(self):
     sets_won = Set.query.filter(Set.winner_tag==self.tag).order_by(Set.id).all()
     return sets_won
 
-  # get_lost_sets is a function that takes a user and returns the sets he has lost
+  # get_lost_sets is a function that takes a User object and returns the sets he has lost
   def get_lost_sets(self):
     sets_lost = Set.query.filter(Set.loser_tag==self.tag).order_by(Set.id).all()
     return sets_lost
 
-  # getAllSets is a function that takes two lists, sets_won and sets_lost, and sorts them by set id
-  def get_all_sets(self, *args):
-    if len(args)==0:
-     # code for getting all sets explicitly with query, without helper methods getLostSets and getWonSets, if no parameters specified
-      all_sets_sorted = Set.query.filter(or_(Set.winner_id==self.id, Set.loser_id==self.id)).order_by(Set.id).all()     
-    elif len(args)==2:
-      # Use the pre-queried setlists sets_won and sets_lost to optimize
-      sets_won = args[0]
-      sets_lost = args[1]
-      all_sets = sets_won + sets_lost 
-      all_sets_sorted = sorted(all_sets, key=lambda x: x.id)
-    else:
-      return "Error: incorrect number of parameters"
+  # getAllSets is a function that takes a User object and queries for all Sets he has participated in
+  def get_all_sets(self):
+    all_sets_sorted = Set.query.filter(or_(Set.winner_id==self.id, Set.loser_id==self.id)).order_by(Set.id).all()     
     return all_sets_sorted
 
   # User-Character Relationship functions
@@ -122,10 +112,12 @@ class User(db.Model):
 
   def add_secondary(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
-    if (not self.is_secondary(character)) and self.main != character:
-      self.secondaries.append(char_obj)
+    if self.is_secondary(character):
+      return "This Character is already a secondary of User"
+    elif self.main==character:
+      return "This Character is already User's Main"
     else:
-      return "This Character is already a secondary of User, or is this User's main"
+      self.secondaries.append(char_obj)
     return self
   
   def remove_secondary(self, character):
