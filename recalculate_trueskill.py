@@ -7,7 +7,7 @@ from trueskill_functions import *
 # Reset all User Trueskill to defaults
 userlist = User.query.all()
 for user in userlist:
-  check_trueskill(user)
+  set_default(user)
 
 # Iterate through all Set in order and recalculate Trueskill; currently in order of set.id
 setlist = Set.query.all()

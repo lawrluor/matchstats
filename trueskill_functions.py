@@ -20,9 +20,12 @@ def rating_env_setup():
 # Given user object, if trueskill attribute is None, sets attribute to a created Trueskill object
 def check_trueskill(user):
 	if user.trueskill is None:
-		user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
-		db.session.commit()
-	# print user.trueskill
+		set_default(user)
+	return user.trueskill
+
+def set_default(user):
+	user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
+	db.session.commit()
 	return user.trueskill
 
 # Given two user objects representing the winner and loser of a set, update their respective ratings
