@@ -30,7 +30,7 @@
 
     <h3>
       <b>Secondaries:</b>
-      {% if user.secondaries %}
+      {% if user.secondaries.all() %}
         {% for i in range(user.secondaries.all()|length) %}
           <!-- If last secondary (last secondary in list), print without comma -->
           {% if i==(user.secondaries.all()|length - 1) %}

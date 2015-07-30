@@ -2,10 +2,14 @@ from app import app, db
 from app.models import *
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 
+# Trueskill constants
+MU = 25.0
+SIGMA = 8.333333333333334
+
 # setup rating env
 def rating_env_setup():
-	setup(mu=25.0, 
-			sigma=8.333333333333334, 
+	setup(mu=MU, 
+			sigma=SIGMA, 
 			beta=4.166666666666667, 
 			tau=0.08333333333333334, 
 			draw_probability=0.0,
@@ -16,7 +20,7 @@ def rating_env_setup():
 # Given user object, if trueskill attribute is None, sets attribute to a created Trueskill object
 def check_trueskill(user):
 	if user.trueskill is None:
-		user.trueskill = TrueSkill(mu=25.0, sigma=8.333333333333334)
+		user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
 		db.session.commit()
 	# print user.trueskill
 	return user.trueskill

@@ -14,7 +14,7 @@
 
     <td class="col-sm-3 text-center">
     	{% if user.main %}
-            <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
+            <a href="{{url_for("character", character=user.main)}}"><b>{{user.main}}</b></a>
         {% else %}
             Unchosen
         {% endif %}
