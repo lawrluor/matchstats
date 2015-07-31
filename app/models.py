@@ -16,10 +16,6 @@ class Character(db.Model):
   def __str__(self):
     return self.name
   
-  # Uses users backref to query for Users
-  def get_users(self):
-    return self.users.all()
-
   def uses_secondary(self, user):
     return self.users.filter(and_(secondaries.c.user_id==user.id, secondaries.c.character_id==self.id)).count() > 0
     

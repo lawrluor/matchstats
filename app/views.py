@@ -512,19 +512,18 @@ def character(character):
   region = request.args.get('region')  
   print region
 
-  main_matching_users = User.query.filter(User.main==character).order_by(User.id).all()
+  main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).all()
   if main_matching_users == []:
     flash('No players found that main this character')
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object:
-    secondaries_matching_users = character_object.get_users()
+    secondaries_matching_users_unsorted = character_object.users.all()
+    secondaries_matching_users = sorted(secondaries_matching_users_unsorted, key=attrgetter('trueskill.mu'), reverse=True)
   else:
     secondaries_matching_users = []
-
-    if secondaries_matching_users == []:
-      flash('No players found that secondary this character')
+    flash('No players found that secondary this character')
 
   return render_template("character.html",
                          main_matching_users=main_matching_users,
