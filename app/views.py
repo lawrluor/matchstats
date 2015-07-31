@@ -482,6 +482,7 @@ def user(tag):
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
   region_userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.region==current_region).all()
+  # Alternate method of creating userlist by sorting region backref (.users). user sorting util
   # region_backref_userlist = sorted(current_region.users, key=attrgetter('trueskill.mu'), reverse=True)
   return render_template("region.html",
                          region=region,
@@ -521,8 +522,11 @@ def character(character):
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object:
-    secondaries_matching_users_unsorted = character_object.users.all()
-    secondaries_matching_users = sorted(secondaries_matching_users_unsorted, key=attrgetter('trueskill.mu'), reverse=True)
+    secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).all()
+
+    # Alternate method of creating userlist by sorting backref (.users) of Character. user sorting util
+    # secondaries_matching_users_unsorted = character_object.users.all()
+    # secondaries_matching_users = sorted(secondaries_matching_users_unsorted, key=attrgetter('trueskill.mu'), reverse=True)
   else:
     secondaries_matching_users = []
     flash('No players found that secondary this character')
