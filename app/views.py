@@ -449,17 +449,18 @@ def user(tag):
   user_wins = user.get_won_sets()
   user_losses = user.get_lost_sets()
   all_sets = user_wins + user_losses 
-  user_sets = sorted(all_sets, key=lambda x: x.id)
+  user_sets = sorted(all_sets, key=lambda set: set.id)
 
+  # get User secondaries
   user_secondaries = user.get_secondaries()
   
-  # create dictionary with Tournament name and respective placement
-  user_placements = {}
-  # user's backref to Placement objects
-  print user
+  # create ordered dictionary with Tournament name and respective placement; important to keep order so placements can be displayed in order of tournament.date 
+  user_placements = collections.OrderedDict()
+
   user_tournaments = user.tournament_assocs
-  print user_tournaments
-  for placement_obj in user_tournaments:
+  # sort by Placement.tournament.date, in reverse order (most recent first). Sort by tournament.name as secondary sort
+  user_tournaments_sorted = sorted(user_tournaments, key=attrgetter('tournament.date', 'tournament.name'), reverse=True)
+  for placement_obj in user_tournaments_sorted:
     # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
     tournament_name = placement_obj.tournament.name
     placement  = convert_placement(placement_obj.placement)

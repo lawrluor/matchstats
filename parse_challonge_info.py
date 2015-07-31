@@ -7,6 +7,7 @@ import urllib3
 from bs4 import BeautifulSoup
 import re
 import datetime
+from datetime import date
   
 # function for parsing tournament general info given a Challonge bracket
 def parse_challonge_info(tournament_url):
@@ -131,7 +132,8 @@ def import_challonge_info(tournament_info, tournament_name, *args):
   if 'date' in tournament_info:
     tournament_date = convert_date(tournament_info['date'])
   else:
-    tournament_date = None
+    # if no date provided, set to today's date (date of parse)
+    tournament_date = date.today() 
 
   if tournament_name is None:
     tournament_name = "Non-Tourney"
