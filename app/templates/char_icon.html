@@ -1,5 +1,5 @@
 <!-- Display character icon (.png image) -->
-<!-- routed to from User pages, user.main = string representing Character -->
-{% set char_image_url_raw = ["/static/char_icons/", user.main, ".png"] %}
+<!-- needs variable character_name = string representing Character -->
+{% set char_image_url_raw = ["/static/char_icons/", character_name, ".png"] %}
 {% set char_image_url = char_image_url_raw|join %}
-<img src="{{char_image_url}}", alt={{user.main}}>
+<img src="{{char_image_url}}", alt={{character_name}}>

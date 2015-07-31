@@ -20,11 +20,8 @@
 			    <tr>
 			    	<td>
 			    		<a href="{{ url_for("character", character=character) }}"><b>{{character}}</b></a>
-			    		
-			    		<!-- routed to from Character pages, character = string representing Character -->
-							{% set char_image_url_raw = ["/static/char_icons/", character, ".png"] %}
-							{% set char_image_url = char_image_url_raw|join %}
-							<img src="{{char_image_url}}", alt={{character}}>
+							{% set character_name = character %}
+							{% include 'char_icon.html' %}
 						</td>
 			    </tr>
 			  {% endfor %}

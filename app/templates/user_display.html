@@ -15,6 +15,7 @@
     <td class="col-sm-3 text-center">
     	{% if user.main %}
             <a href="{{url_for("character", character=user.main)}}"><b>{{user.main}}</b></a>
+            {% set character_name = user.main %}
             {% include "char_icon.html" %}
         {% else %}
             Unchosen
