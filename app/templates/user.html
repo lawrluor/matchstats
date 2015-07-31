@@ -32,13 +32,13 @@
     <h3>
       <b>Secondaries:</b>
       {% if user.secondaries.all() %}
-        {% for i in range(user.secondaries.all()|length) %}
-          <!-- If last secondary (last secondary in list), print without comma -->
-          {% if i==(user.secondaries.all()|length - 1) %}
-            <a href="{{url_for("character", character=secondary)}}">{{user.secondaries.all()[i]}}</a>
-          {% else %}
-            <a href="{{url_for("character", character=secondary)}}">{{user.secondaries.all()[i]}},</a>
-          {% endif %}
+        {% for character in user.secondaries.all() %}
+          <a href="{{url_for("character", character=character)}}">{{character}}</a>
+          
+          <!-- routed to from Character pages, character = string representing Character -->
+          {% set char_image_url_raw = ["/static/char_icons/", character, ".png"] %}
+          {% set char_image_url = char_image_url_raw|join %}
+          <img src="{{char_image_url}}", alt={{character}}>
         {% endfor %}
       {% else %}
         None
