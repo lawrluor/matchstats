@@ -7,11 +7,11 @@ from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToH
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
-from operator import attrgetter
 
 import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
+from sort_utils import sort_setlist 
 from h2h_stats_functions import convert_placement
 import collections
 
@@ -449,7 +449,7 @@ def user(tag):
   user_wins = user.get_won_sets()
   user_losses = user.get_lost_sets()
   all_sets = user_wins + user_losses 
-  user_sets = sorted(all_sets, key=lambda set: set.id)
+  user_sets = sort_setlist(all_sets) 
 
   # get User secondaries
   user_secondaries = user.get_secondaries()

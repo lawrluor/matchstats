@@ -9,6 +9,7 @@ from app import *
 from app.models import *
 import collections
 from operator import attrgetter
+from sort_utils import sort_placementlist
 
 def h2h_get_mutual_tournaments(tag1, tag2):
   user1_placements = get_tournament_name_and_placing(tag1)
@@ -27,7 +28,7 @@ def get_tournament_name_and_placing(user_tag):
   user = User.query.filter(User.tag==user_tag).first()
   user_placements = collections.OrderedDict()
 
-  user_placements_sorted = sorted(user.tournament_assocs, key=attrgetter('tournament.date', 'tournament.name'), reverse=True)
+  user_placements_sorted = sort_placementlist(user.tournament_assocs)
   for tournament_placement in user_placements_sorted:
     tournament_name = tournament_placement.tournament.name
     placement  = convert_placement(tournament_placement.placement)

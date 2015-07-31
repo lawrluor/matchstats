@@ -23,5 +23,4 @@ def recalculate_trueskill():
     loser_user = User.query.filter(User.tag==set.loser_tag).first()
     update_rating(winner_user, loser_user)
 
-
   print "All trueskills recalculated"
