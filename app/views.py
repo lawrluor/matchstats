@@ -7,7 +7,7 @@ from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToH
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
-from operator import itemgetter, attrgetter, methodcaller
+from operator import attrgetter
 
 import sys
 sys.path.append('./sanitize')
@@ -473,7 +473,7 @@ def user(tag):
                         user_wins=user_wins,
                         user_losses=user_losses,
                         user_secondaries=user_secondaries,
-                        user_tournaments=user_tournaments,
+                        user_tournaments_sorted=user_tournaments_sorted,
                         user_placements=user_placements)
 
 

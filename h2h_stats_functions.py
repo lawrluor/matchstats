@@ -8,6 +8,7 @@
 from app import *
 from app.models import *
 import collections
+from operator import attrgetter
 
 def h2h_get_mutual_tournaments(tag1, tag2):
   user1_placements = get_tournament_name_and_placing(tag1)
@@ -24,9 +25,10 @@ def h2h_get_mutual_tournaments(tag1, tag2):
 # given user tag, returns a simple dictionary with keys tournament_name and tuple placement along with placement number for a tournament a User has attended
 def get_tournament_name_and_placing(user_tag):
   user = User.query.filter(User.tag==user_tag).first()
-  user_placements = {}
+  user_placements = collections.OrderedDict()
 
-  for tournament_placement in user.tournament_assocs:
+  user_placements_sorted = sorted(user.tournament_assocs, key=attrgetter('tournament.date', 'tournament.name'), reverse=True)
+  for tournament_placement in user_placements_sorted:
     tournament_name = tournament_placement.tournament.name
     placement  = convert_placement(tournament_placement.placement)
     user_placements[tournament_name] = placement, tournament_placement.placement
