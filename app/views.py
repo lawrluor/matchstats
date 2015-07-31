@@ -346,16 +346,21 @@ def head_to_head():
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
+    # check_and_sanitize_tag to match with a User in database; checks after the submit in case someone manually inputted query string
     tag1 = check_and_sanitize_tag(tag1)
     tag2 = check_and_sanitize_tag(tag2)
-    h2h_sets_played = h2h_get_sets_played(tag1, tag2)
-    user1_set_win_count = len(h2h_get_sets_won(tag1, tag2))
-    user2_set_win_count = len(h2h_get_sets_won(tag2, tag1))
+    # given sanitized tags, query for User objects
+    user1 = User.query.filter(User.tag==tag1).first()
+    user2 = User.query.filter(User.tag==tag2).first()
+
+    h2h_sets_played = h2h_get_sets_played(user1, user2)
+    user1_set_win_count = len(h2h_get_sets_won(user1, user2))
+    user2_set_win_count = len(h2h_get_sets_won(user2, user1))
 
     # before moving forward, calculate matches by iterating through sets 
     h2h_matches_played = h2h_get_matches_played(h2h_sets_played) 
-    user1_matches_won = h2h_get_matches_won(tag1, tag2, h2h_matches_played)
-    user2_matches_won = h2h_get_matches_won(tag2, tag1, h2h_matches_played)
+    user1_matches_won = h2h_get_matches_won(user1, user2, h2h_matches_played)
+    user2_matches_won = h2h_get_matches_won(user2, user1, h2h_matches_played)
     user1_match_win_count = len(user1_matches_won)
     user2_match_win_count = len(user2_matches_won)
     # calculate stage statistics
@@ -373,7 +378,7 @@ def head_to_head():
         user1_score_matches_won += set.loser_score
 
     # query Tournaments to find Tournaments both users have attended
-    mutual_tournaments = h2h_get_mutual_tournaments(tag1, tag2)
+    mutual_tournaments = h2h_get_mutual_tournaments(user1, user2)
 
     # if requesting data, i.e. form may be filled after already viewing a current head to head
     if request.method == 'GET':

@@ -9,11 +9,11 @@ from app import *
 from app.models import *
 import collections
 from operator import attrgetter
-from sort_utils import sort_placementlist
+from sort_utils import sort_placementlist, sort_setlist
 
-def h2h_get_mutual_tournaments(tag1, tag2):
-  user1_placements = get_tournament_name_and_placing(tag1)
-  user2_placements = get_tournament_name_and_placing(tag2)
+def h2h_get_mutual_tournaments(user1, user2):
+  user1_placements = get_tournament_name_and_placing(user1)
+  user2_placements = get_tournament_name_and_placing(user2)
  
   # if identical keys for tournament (both attended same tournament), return dictionary with keys tournament_name and tuple value containing their respective placement 
   mutual_tournaments = collections.OrderedDict()
@@ -24,8 +24,8 @@ def h2h_get_mutual_tournaments(tag1, tag2):
   return mutual_tournaments
       
 # given user tag, returns a simple dictionary with keys tournament_name and tuple placement along with placement number for a tournament a User has attended
-def get_tournament_name_and_placing(user_tag):
-  user = User.query.filter(User.tag==user_tag).first()
+def get_tournament_name_and_placing(user):
+  user = User.query.filter(User.tag==user.tag).first()
   user_placements = collections.OrderedDict()
 
   user_placements_sorted = sort_placementlist(user.tournament_assocs)
@@ -39,20 +39,20 @@ def get_tournament_name_and_placing(user_tag):
 
 
 # get Sets won by both players, then add them together and sort by id
-def h2h_get_sets_played(tag1, tag2):
-	user1_won_sets = h2h_get_sets_won(tag1, tag2)
-	user2_won_sets = h2h_get_sets_won(tag2, tag1)
+def h2h_get_sets_played(user1, user2):
+	user1_won_sets = h2h_get_sets_won(user1, user2)
+	user2_won_sets = h2h_get_sets_won(user2, user1)
   # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
 
 	h2h_sets_played = user1_won_sets + user2_won_sets
-	h2h_sets_played = sorted(h2h_sets_played, key=lambda x: x.id)
+	h2h_sets_played = sort_setlist(h2h_sets_played)
 	return h2h_sets_played
 
 
-# given two User tags, returns a list of Set objects representing Sets between the two Users in which the first User has won.
+# given two User objects, returns a list of Set objects representing Sets between the two Users in which the first User has won.
 # call len() on the result of this method to get number of sets winner has won vs the loser
-def h2h_get_sets_won(winner_tag, loser_tag):
-	sets_won = Set.query.filter(and_(Set.winner_tag==winner_tag, Set.loser_tag==loser_tag)).all()
+def h2h_get_sets_won(winner, loser):
+	sets_won = Set.query.filter(and_(Set.winner_tag==winner.tag, Set.loser_tag==loser.tag)).all()
 	return sets_won
 
 
@@ -72,10 +72,10 @@ def h2h_get_matches_played(h2h_sets_played):
 
 
 # given two User tags, returns a list of Match objects representing Matches between the two Users in which the first User has won.
-def h2h_get_matches_won(winner_tag, loser_tag, h2h_matches_played):
+def h2h_get_matches_won(winner, loser, h2h_matches_played):
 	won_matches = []
 	for match in h2h_matches_played:
-		if match.winner == winner_tag:
+		if match.winner == winner.tag:
 			won_matches.append(match)
 
 	return won_matches
@@ -105,7 +105,7 @@ def h2h_get_stages_played(h2h_matches_played):
 # given the Stages dictionary and a User tag, get the win count for that User on each Stage.
 # Store this dictionary in a variable for later use, like winnertag_stages_won
 # Access that information by calling winnertag_stages_won[key] to find total number of matches won on that stage
-def h2h_get_stages_won(winner_tag, Stages):
+def h2h_get_stages_won(winner, Stages):
 	stage_win_count = {'Battlefield' : 0, 
 						'Dream Land' : 0, 
 						'Final Destination' : 0, 
@@ -115,7 +115,7 @@ def h2h_get_stages_won(winner_tag, Stages):
 						'Other' : 0}
 	for key in Stages:
 		for i in range(len(Stages[key])):
-			if Stages[key][i].winner == winner_tag:
+			if Stages[key][i].winner == winner.tag:
 				stage_win_count[key] += 1
 
 	return stage_win_count
@@ -123,13 +123,13 @@ def h2h_get_stages_won(winner_tag, Stages):
 # Returns all matches a User played with each Character
 # Store this list of Match objects in a variable for later use, like char_matches
 # to get number of matches played with specific Character, call len() on this function
-def h2h_get_character_played(tag, h2h_matches_played):
+def h2h_get_character_played(user, h2h_matches_played):
 	char_matches = {}
 	for match in h2h_matches_played:
-		if match.winner_char != None and match.winner==tag:
+		if match.winner_char != None and match.winner==user.tag:
 			character = char_matches.setdefault(match.winner_char, [])
 			character.append(match)
-		if match.loser_char != None and match.loser==tag:
+		if match.loser_char != None and match.loser==user.tag:
 			character = char_matches.setdefault(match.loser_char, [])
 			character.append(match)
 
@@ -137,10 +137,10 @@ def h2h_get_character_played(tag, h2h_matches_played):
 
 # Iterates through char_matches, list of all Matches a User played with a Character, and returns only the matches in which that User won
 # To get number of matches won with specific Character, call len() on this function
-def h2h_character_wins(winner_tag, char_matches):
+def h2h_character_wins(winner, char_matches):
 	char_won = []
 	for match in char_matches:
-		if match.winner==winner_tag:
+		if match.winner==winner.tag:
 			char_won.append(match)
 
 	return char_won
