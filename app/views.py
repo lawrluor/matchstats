@@ -452,35 +452,45 @@ def user(tag):
     flash('User %s not found.' % tag)
     return redirect(url_for('browse_users'))
 
-  # Store all user's sets in variable user_sets 
-  user_wins = user.get_won_sets()
-  user_losses = user.get_lost_sets()
-  all_sets = user_wins + user_losses 
-  user_sets = sort_setlist(all_sets) 
-
   # get User secondaries
   user_secondaries = user.get_secondaries()
   
   # create ordered dictionary with Tournament name and respective placement; important to keep order so placements can be displayed in order of tournament.date 
   user_placements = collections.OrderedDict()
+  user_sets_by_tournament = collections.OrderedDict()
 
   # sort by Placement.tournament.date, in reverse order (most recent first). Sort by tournament.name as secondary sort
   user_tournaments_sorted = sort_placementlist(user.tournament_assocs) 
   for placement_obj in user_tournaments_sorted:
     # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
     tournament_name = placement_obj.tournament.name
+
     placement  = convert_placement(placement_obj.placement)
     user_placements[tournament_name] = [placement, placement_obj.seed]
+
+    print tournament_name
+    user_tournament_sets = Set.query.filter(and_(Set.tournament_name==tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
+    for set in user_tournament_sets:
+      print set
+      key = user_sets_by_tournament.setdefault(tournament_name, [])
+      key.append(set)
+    print '\n'   
+  for key in user_sets_by_tournament:
+    print user_sets_by_tournament[key]
+
+  # get number of Sets won and lost as integers to pass to template
+  user_set_wins = len(user.get_won_sets())
+  user_set_losses = len(user.get_lost_sets())
 
   return render_template("user.html",
                         title=tag,
                         user=user,
-                        user_sets=user_sets,
-                        user_wins=user_wins,
-                        user_losses=user_losses,
+                        user_set_wins=user_set_wins,
+                        user_set_losses=user_set_losses,
                         user_secondaries=user_secondaries,
                         user_tournaments_sorted=user_tournaments_sorted,
-                        user_placements=user_placements)
+                        user_placements=user_placements,
+                        user_sets_by_tournament=user_sets_by_tournament)
 
 
 # Displays all users given a region. Routed to from /browse_regions

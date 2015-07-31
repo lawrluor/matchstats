@@ -88,7 +88,7 @@
   </div>
   <div class="panel-body">
     <table class="table bootstrap-datatable table-hover">
-      <b><h4 class="text-center">Total Sets: {{user_sets|length}} | Overall Record: [{{user_wins|length}}-{{user_losses|length}}]</b></h4>
+      <b><h4 class="text-center">Total Sets: {{user_set_wins + user_set_losses}} | Overall Record: [{{user_set_wins}}-{{user_set_losses}}]</b></h4>
       <thead>
         <tr>
           <th></th>
@@ -100,8 +100,17 @@
       </thead>
 
       <tbody>
-        {% for set in user_sets %}
-          {% include 'set.html' %}
+        {% for tournament,setlist in user_sets_by_tournament.iteritems() %}
+          <tr>
+            <td><h4><a href="{{url_for("tournament", tournament_name=tournament)}}"><b>{{tournament}}</b></a></h4></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          {% for set in setlist %}
+            {% include 'set.html' %}
+          {% endfor %}
         {% endfor %}
       </tbody>
     </table>
