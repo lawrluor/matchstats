@@ -346,9 +346,6 @@ def head_to_head():
   
   # if tag1 and tag2 are in query string, or basically if user has already submitted data
   if 'tag1' in request.args and 'tag2' in request.args:
-    # check_and_sanitize_tag to match with a User in database; checks after the submit in case someone manually inputted query string
-    tag1 = check_and_sanitize_tag(tag1)
-    tag2 = check_and_sanitize_tag(tag2)
     # given sanitized tags, query for User objects
     user1 = User.query.filter(User.tag==tag1).first()
     user2 = User.query.filter(User.tag==tag2).first()
@@ -387,21 +384,24 @@ def head_to_head():
 
   if form.validate_on_submit():
     # user1 and user2 is a string that represents the first user's tag
-    user1 = check_and_sanitize_tag(form.user1.data)
-    user2 = check_and_sanitize_tag(form.user2.data)
+    user1_tag = check_and_sanitize_tag(form.user1.data)
+    user2_tag = check_and_sanitize_tag(form.user2.data)
 
     # Make sure two Users are found, else redirect to pre-validated form
-    valid_users = User.query.filter(User.tag==user1).count() + User.query.filter(User.tag==user2).count()
-    if valid_users < 2:
+    user1 = User.query.filter(User.tag==user1_tag).first()
+    user2 = User.query.filter(User.tag==user2_tag).first()
+    if user1 is None or user2 is None:
       flash("At least one player not found.")
       return redirect(url_for('head_to_head'))
-    
-    return redirect(url_for('head_to_head', tag1=user1, tag2=user2))
+    else:
+      return redirect(url_for('head_to_head', tag1=user1.tag, tag2=user2.tag))
 
   return render_template("head_to_head.html",
                         title="Head to Head",
                         tag1=tag1,
                         tag2=tag2,
+                        user1=user1,
+                        user2=user2,
                         user1_set_win_count=user1_set_win_count,
                         user2_set_win_count=user2_set_win_count,
                         user1_match_win_count=user1_match_win_count,

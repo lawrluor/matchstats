@@ -48,7 +48,11 @@
     <!--<h2>Head-to-Head between {{ tag1 }} and {{ tag2 }}</h2>-->
     <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>{{tag1}} vs {{tag2}}</b></h2>
+      <h2><b>
+        ({{user1.trueskill.mu|round(4, 'common')}}) {{user1.tag}} 
+        vs 
+        {{user2.tag}} ({{user2.trueskill.mu|round(4, 'common')}})
+      </b></h2>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>
     <div class="panel-body">
