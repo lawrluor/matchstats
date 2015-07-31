@@ -23,6 +23,7 @@
     <h3><b>Main:</b>
       {% if user.main %}
         <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
+        {% include "char_icon.html" %}
       {% else %}
         Unchosen
       {% endif %}

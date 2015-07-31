@@ -481,7 +481,8 @@ def region(region):
   current_region = Region.query.filter(Region.region==region).first()
   return render_template("region.html",
                          region=region,
-                         current_region=current_region)
+                         current_region=current_region,
+                         )
  
 
 # Displays all regions currently populated by players. Each displayed region will route to /region/<region>

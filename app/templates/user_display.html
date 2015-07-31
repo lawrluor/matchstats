@@ -15,12 +15,7 @@
     <td class="col-sm-3 text-center">
     	{% if user.main %}
             <a href="{{url_for("character", character=user.main)}}"><b>{{user.main}}</b></a>
-
-            {% set char_image_url_raw = ["/static/char_icons/", user.main, ".png"] %}
-            {% set char_image_url = char_image_url_raw|join %}
-            {{char_image_url}} <!-- Need to change .png filenames to match -->
-            <img src={{char_image_url}}, alt={{user.main}}>
-
+            {% include "char_icon.html" %}
         {% else %}
             Unchosen
         {% endif %}
