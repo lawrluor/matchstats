@@ -7,9 +7,7 @@
       {{character}}
       
       <!-- routed to from Character pages, character = string representing Character -->
-      {% set char_image_url_raw = ["/static/char_icons/", character, ".png"] %}
-      {% set char_image_url = char_image_url_raw|join %}
-      <img src="{{char_image_url}}", alt={{character}}>
+      <img src="{{url_for('static', filename='/static/char_icons/{{character}}.png')}}", alt={{character}}>
     </h1>
     <h2><b>Mains: </b>{{main_matching_users|length}}</h2>
     <h2><b>Secondaries: </b>{{secondaries_matching_users|length}}</h2>

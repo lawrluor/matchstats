@@ -26,6 +26,7 @@ def check_trueskill(user):
 		reset_trueskill(user)
 	return user.trueskill
 
+# For a list of Users, resets their trueskill MU and SIGMA values to default values
 def reset_trueskill(user):
 	user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
 	db.session.commit()

@@ -174,8 +174,10 @@ def check_set_user(set_user_tag, *args):
 def merge_user(root_tag, joined_tag):
   root_user = User.query.filter(User.tag==root_tag).first()
   joined_user = User.query.filter(User.tag==joined_tag).first()
-  if joined_user is None or root_user is None:
-    return "At least one User does not exist"
+  if root_user is None: 
+    return "root_user not found"
+  elif joined_user is None: 
+    return "joined_user not found"
 
   # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
   joined_sets = joined_user.get_all_sets()

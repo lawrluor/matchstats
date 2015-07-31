@@ -481,7 +481,8 @@ def user(tag):
 @app.route('/region/<region>')
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
-  region_userlist = sorted(current_region.users, key=attrgetter('trueskill.mu'), reverse=True)
+  region_userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.region==current_region).all()
+  # region_backref_userlist = sorted(current_region.users, key=attrgetter('trueskill.mu'), reverse=True)
   return render_template("region.html",
                          region=region,
                          current_region=current_region,
@@ -512,6 +513,7 @@ def character(character):
   region = request.args.get('region')  
   print region
 
+  # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
   main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).all()
   if main_matching_users == []:
     flash('No players found that main this character')

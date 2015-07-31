@@ -5,6 +5,12 @@ from app.models import *
 from trueskill_functions import *
 
 def main():
+  recalculate_trueskill()
+  
+if __name__ == "__main__":
+  main()
+
+def recalculate_trueskill():
   # Reset all User Trueskill to defaults
   userlist = User.query.all()
   for user in userlist:
@@ -17,7 +23,5 @@ def main():
     loser_user = User.query.filter(User.tag==set.loser_tag).first()
     update_rating(winner_user, loser_user)
 
+
   print "All trueskills recalculated"
-  
-if __name__ == "__main__":
-  main()
