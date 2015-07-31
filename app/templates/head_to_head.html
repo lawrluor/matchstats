@@ -44,14 +44,18 @@
     {% endfor %}
   </header>
 
+    <!--Displays head to head between two players if successfully submitted data in form, and Users queried successfully by tag-->
     {% if tag1 != None and tag2 != None %} 
-    <!--<h2>Head-to-Head between {{ tag1 }} and {{ tag2 }}</h2>-->
     <div class="panel panel-default">
     <div class="panel-heading">
       <h2><b>
-        ({{user1.trueskill.mu|round(4, 'common')}}) {{user1.tag}} 
+        ({{user1.trueskill.mu|round(4, 'common')}})
+        {% set character_name = user1.main %} {% include 'char_icon.html' %}
+        {{user1.tag}} 
         vs 
-        {{user2.tag}} ({{user2.trueskill.mu|round(4, 'common')}})
+        {{user2.tag}} 
+        {% set character_name = user2.main %} {% include 'char_icon.html' %}
+        ({{user2.trueskill.mu|round(4, 'common')}})
       </b></h2>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>

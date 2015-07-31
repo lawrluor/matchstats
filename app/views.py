@@ -329,6 +329,8 @@ def head_to_head():
   # if query string arguments exist (form submitted), create these variables using query string
   tag1 = request.args.get('tag1')
   tag2 = request.args.get('tag2')
+  user1 = request.args.get('user1')
+  user2 = request.args.get('user2')
   user1_set_win_count = request.args.get('user1_set_win_count')
   user2_set_win_count = request.args.get('user2_set_win_count')
   user1_match_win_count = request.args.get('user1_match_win_count')
