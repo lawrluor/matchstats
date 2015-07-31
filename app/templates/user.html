@@ -34,7 +34,7 @@
       {% if user.secondaries.all() %}
         {% for character in user.secondaries.all() %}
           <a href="{{url_for("character", character=character)}}">{{character}}</a>
-          
+
           <!-- routed to from Character pages, character = string representing Character -->
           {% set char_image_url_raw = ["/static/char_icons/", character, ".png"] %}
           {% set char_image_url = char_image_url_raw|join %}
@@ -67,7 +67,13 @@
       {% for tournament in user_placements %}
       <tr>
         <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{url_for("tournament", tournament_name=tournament)}}">{{tournament}}</a> - </b></td>
-        <td class="col-xs-6 col-sm-6 text-left"><b>{{user_placements[tournament][0]}}</b> (seed: {{user_placements[tournament][1]}})</td>
+        <td class="col-xs-6 col-sm-6 text-left">
+          <b>{{user_placements[tournament][0]}}</b>
+          <!-- Only display seed number if not None -->
+          {% if user_placements[tournament][1] %}
+            (seed: {{user_placements[tournament][1]}})
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </table>

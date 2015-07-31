@@ -49,7 +49,13 @@
         {% for placement_info in placement_dict[placing] %}
           <tr>
             <td class="col-sm-6 text-right"><b>{{placing}}:</b></td>
-            <td class="col-sm-6 text-left"><a href="{{url_for("user", tag=placement_info[0])}}"><b> {{placement_info[0]}} </b></a>(seed: {{placement_info[1]}})</td>
+            <td class="col-sm-6 text-left">
+              <a href="{{url_for("user", tag=placement_info[0])}}"><b>{{placement_info[0]}}</b></a>
+              <!-- only display seed number if not None -->
+              {% if placement_info[1] %}
+                (seed: {{placement_info[1]}})
+              {% endif %}
+            </td>
           </tr>
         {% endfor %}
       {% endfor %}
