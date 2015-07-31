@@ -11,7 +11,7 @@ from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
 import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
-from sort_utils import sort_setlist 
+from sort_utils import sort_setlist, sort_placementlist, sort_userlist
 from h2h_stats_functions import convert_placement
 import collections
 
@@ -457,9 +457,8 @@ def user(tag):
   # create ordered dictionary with Tournament name and respective placement; important to keep order so placements can be displayed in order of tournament.date 
   user_placements = collections.OrderedDict()
 
-  user_tournaments = user.tournament_assocs
   # sort by Placement.tournament.date, in reverse order (most recent first). Sort by tournament.name as secondary sort
-  user_tournaments_sorted = sorted(user_tournaments, key=attrgetter('tournament.date', 'tournament.name'), reverse=True)
+  user_tournaments_sorted = sort_placementlist(user.tournament_assocs) 
   for placement_obj in user_tournaments_sorted:
     # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
     tournament_name = placement_obj.tournament.name
@@ -482,8 +481,8 @@ def user(tag):
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
   region_userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.region==current_region).all()
-  # Alternate method of creating userlist by sorting region backref (.users). user sorting util
-  # region_backref_userlist = sorted(current_region.users, key=attrgetter('trueskill.mu'), reverse=True)
+  # Alternate method of creating userlist by sorting region backref (.users) 
+  # region_backref_userlist = sort_userlist(current_region.users) 
   return render_template("region.html",
                          region=region,
                          current_region=current_region,
@@ -524,9 +523,8 @@ def character(character):
   if character_object:
     secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).all()
 
-    # Alternate method of creating userlist by sorting backref (.users) of Character. user sorting util
-    # secondaries_matching_users_unsorted = character_object.users.all()
-    # secondaries_matching_users = sorted(secondaries_matching_users_unsorted, key=attrgetter('trueskill.mu'), reverse=True)
+    # Alternate method of creating userlist by sorting backref (.users) of Character 
+    # secondaries_matching_users = sort_userlist(character_object.users.all()) 
   else:
     secondaries_matching_users = []
     flash('No players found that secondary this character')
