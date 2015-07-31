@@ -7,6 +7,7 @@ from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToH
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
+from operator import itemgetter, attrgetter, methodcaller
 
 import sys
 sys.path.append('./sanitize')
@@ -479,10 +480,11 @@ def user(tag):
 @app.route('/region/<region>')
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
+  region_userlist = sorted(current_region.users, key=attrgetter('trueskill.mu'), reverse=True)
   return render_template("region.html",
                          region=region,
                          current_region=current_region,
-                         )
+                         region_userlist=region_userlist)
  
 
 # Displays all regions currently populated by players. Each displayed region will route to /region/<region>
