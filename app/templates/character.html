@@ -8,8 +8,22 @@
       {% set character_name = character %}
       {% include 'char_icon.html' %}
     </h1>
-    <h2><b>Mains: </b>{{main_matching_users.total}}</h2>
-    <h2><b>Secondaries: </b>{{secondaries_matching_users.total}}</h2>
+
+    <h2><b>Mains: 
+      {% if main_matching_users.total %} 
+        <b>{{main_matching_users.total}}</b>
+      {% else %}
+        <b>0</b>
+      {% endif %}
+    </h2>
+
+    <h2><b>Secondaries: 
+      {% if secondaries_matching_users.total %}
+        <b>{{secondaries_matching_users.total}}</b>
+      {% else %}
+        <b>0</b>
+      {% endif %}
+    </h2>
   </div>
 
   <!-- Table for Users who main character -->
@@ -25,13 +39,9 @@
         </thead>
 
         <tbody>
-          {% if main_matching_users.total < 1 %}
-            There are no Users who currently main this character.
-          {% else %}
-            {% for user in main_matching_users.items %}
-              {% include 'user_display.html' %}
-            {% endfor %}
-          {% endif %}
+          {% for user in main_matching_users.items %}
+            {% include 'user_display.html' %}
+          {% endfor %}
         </tbody>
       </table>
     
@@ -60,13 +70,9 @@
         </thead>
 
         <tbody>
-          {% if secondaries_matching_users.total < 1 %}
-            There are no Users who currently secondary this character.
-          {% else %}
-            {% for user in secondaries_matching_users.items %}
-              {% include 'user_display.html' %}
-            {% endfor %}
-          {% endif %}
+          {% for user in secondaries_matching_users.items %}
+            {% include 'user_display.html' %}
+          {% endfor %}
         </tbody>
       </table>
 

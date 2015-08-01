@@ -37,6 +37,8 @@ Bowser = Character(id=24, name='Bowser')
 Pichu = Character(id=25, name='Pichu')
 Kirby = Character(id=26, name='Kirby')
 Random = Character(id=27, name='Random')
+Unchosen = Character(id=28, name='Unchosen')
+Multiple = Character(id=29, name='Multiple')
 
 db.session.add(Fox)
 db.session.add(Falco)
@@ -65,6 +67,8 @@ db.session.add(Bowser)
 db.session.add(Pichu)
 db.session.add(Kirby)
 db.session.add(Random)
+db.session.add(Unchosen)
+db.session.add(Multiple)
 
 db.session.commit()
 

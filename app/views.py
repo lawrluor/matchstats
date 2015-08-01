@@ -528,19 +528,16 @@ def character(character, page=1):
 
   # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
   main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
-  if main_matching_users == []:
+  if main_matching_users==[]:
     flash('No players found that main this character')
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
-  if character_object:
+  if character_object is not None:
     secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-
-    # Alternate method of creating userlist by sorting backref (.users) of Character 
-    # secondaries_matching_users = sort_userlist(character_object.users.all()) 
-  else:
-    secondaries_matching_users = []
-    flash('No players found that secondary this character')
+    if secondaries_matching_users==[]:
+      secondaries_matching_users = []
+      flash('No players found that secondary this character')
 
   return render_template("character.html",
                          main_matching_users=main_matching_users,
