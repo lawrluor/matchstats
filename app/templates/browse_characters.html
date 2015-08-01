@@ -18,7 +18,7 @@
 		  	<!-- simply prints all characters (strings) in characterlist -->
 			  {% for character in characterlist %}
 			    <tr>
-			    	<td>
+			    	<td class="text-center">
 			    		<a href="{{ url_for("character", character=character) }}"><b>{{character}}</b></a>
 							{% set character_name = character %}
 							{% include 'char_icon.html' %}

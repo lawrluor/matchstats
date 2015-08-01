@@ -11,13 +11,7 @@
 		<div class="panel-body">
 			<table class="table bootstrap-datatable table-hover">
 				<thead>
-			    <tr>
-		        <th class="text-center"><h4><b>User</b></h4></th>
-			      <th class="text-center"><h4><b>Region</b></h4></th>
-			      <th class="text-center"><h4><b>Main</b></h4></th>
-			      <th class="text-center"><h4><b>Rating</b><h4></th>
-			      <!-- <th><h4><b>Secondaries</b></h4></th> -->
-			    </tr>
+					{% include 'user_display_head.html' %}
 			  </thead>
 
 				<body>
@@ -32,17 +26,12 @@
 	<!-- Search results for Tournaments -->
 	<div class="panel panel-default">
 	<div class="panel-heading">
-		<h3><b> Tournaments named "{{ query }}" </b></h3>
+		<h3><b> Tournaments named "{{query}}" </b></h3>
 	</div>
 	<div class="panel-body">
 		<table class="table bootstrap-datatable table-hover">
 			<thead>
-				<tr>
-					<th class="text-center"><h4><b>Date</h4></b></th>
-					<th class="text-center"><h4><b>Tournament</b></h4></th>
-					<th class="text-center"><h4><b>Entrants</b></h4></th>
-					<th class="text-center"><h4><b>Region</b></h4></th>
-				</tr>
+				{% include 'tournament_display_head.html' %}
 			</thead>
 
 			<tbody>
