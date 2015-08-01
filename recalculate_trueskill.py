@@ -17,8 +17,10 @@ def recalculate_trueskill():
     reset_trueskill(user)
 
   # Iterate through all Sets in order and recalculate Trueskill; currently in order of set.id
+  # order Sets by tournament date, then by set id, oldest being at index 0
   setlist = Set.query.all()
-  for set in setlist:
+  sorted_setlist = sort_setlist(setlist)
+  for set in sorted_setlist:
     winner_user = User.query.filter(User.tag==set.winner_tag).first()
     loser_user = User.query.filter(User.tag==set.loser_tag).first()
     update_rating(winner_user, loser_user)

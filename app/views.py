@@ -11,7 +11,7 @@ from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
 import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
-from sort_utils import sort_setlist, sort_placementlist, sort_userlist
+from sort_utils import sort_placementlist, sort_userlist
 from h2h_stats_functions import convert_placement
 import collections
 
