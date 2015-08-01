@@ -12,16 +12,20 @@
 				<thead>
 					<tr>
 						<th></th>
+						<th></th>
 					</tr>
 				</thead>
 
 		  	<!-- simply prints all characters (strings) in characterlist -->
 			  {% for character in characterlist %}
 			    <tr>
-			    	<td class="text-center">
-			    		<a href="{{ url_for("character", character=character) }}"><b>{{character}}</b></a>
+			    	<td class="col-sm-6 text-right">
 							{% set character_name = character %}
 							{% include 'char_icon.html' %}
+						</td>
+
+						<td class="col-sm-6 text-left">
+							<a href="{{ url_for("character", character=character) }}"><b>{{character}}</b></a>
 						</td>
 			    </tr>
 			  {% endfor %}

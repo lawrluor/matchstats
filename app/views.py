@@ -468,15 +468,10 @@ def user(tag):
     placement  = convert_placement(placement_obj.placement)
     user_placements[tournament_name] = [placement, placement_obj.seed]
 
-    print tournament_name
     user_tournament_sets = Set.query.filter(and_(Set.tournament_name==tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
     for set in user_tournament_sets:
-      print set
       key = user_sets_by_tournament.setdefault(tournament_name, [])
       key.append(set)
-    print '\n'   
-  for key in user_sets_by_tournament:
-    print user_sets_by_tournament[key]
 
   # get number of Sets won and lost as integers to pass to template
   user_set_wins = len(user.get_won_sets())
@@ -551,22 +546,6 @@ def character(character):
                          secondaries_matching_users=secondaries_matching_users,
                          character=character)
  
-# # helper function that returns an ascii list of tournament names by querying database
-# def get_tournament_list():
-#   # with_entities returns a list of tuple values: (Set.tournament, None)
-#   all_tournaments = Set.query.with_entities(Set.tournament).all()
-# 
-#   tournamentlist = []
-#   # add tuple objects to tournamentlist if they are unique
-#   for tournament in all_tournaments:
-#     if tournament not in tournamentlist and (tournament[0] != "" and tournament[0] != "Non-Tourney"):
-#       tournamentlist.append(tournament)
-#   
-#   # iterate through indices and replace each tuple object with the first value in its tuple, Set.tournament (list[i][0])
-#   for i in range(len(tournamentlist)):
-#     if tournamentlist[i][0] not in tournamentlist:
-#       tournamentlist[i] = tournamentlist[i][0].encode('ascii', 'ignore')
-#   return tournamentlist
 
 # Lists all tournaments, 15 per page
 @app.route('/browse_tournaments')

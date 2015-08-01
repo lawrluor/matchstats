@@ -5,9 +5,8 @@
   <div class="jumbotron">
     <h1>
       {{character}}
-      
-      <!-- routed to from Character pages, character = string representing Character -->
-      <img src="{{url_for('static', filename='/static/char_icons/{{character}}.png')}}", alt={{character}}>
+      {% set character_name = character %}
+      {% include 'char_icon.html' %}
     </h1>
     <h2><b>Mains: </b>{{main_matching_users|length}}</h2>
     <h2><b>Secondaries: </b>{{secondaries_matching_users|length}}</h2>
