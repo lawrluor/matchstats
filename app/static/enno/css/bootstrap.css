@@ -23,9 +23,14 @@ body {
   word-wrap:break-word;
   max-width:350px;
 }
-.mobile-horizontal-overflow{
+/* breaks text if it exceeds specified length; for mobile displays. Used in set.html, when displaying a Set */
+.mobile-horizontal-overflow-set{
   word-wrap:break-word;
   max-width:54px;
+}
+.mobile-horizontal-overflow-td-col-3{
+  word-wrap:break-word;
+  max-width:80px;
 }
 /* hides extra space along the x-axis, preventing a scrollbar from appearing */
 .mobile-wrapper{

@@ -67,8 +67,8 @@
       <!-- user_placements is dictionary of lists with keys tournament_name and list[0]=placement and list[1]=seed -->
       {% for tournament in user_placements %}
       <tr>
-        <td class="col-xs-6 col-sm-6 text-right"><b><a href="{{url_for("tournament", tournament_name=tournament)}}">{{tournament}}</a> - </b></td>
-        <td class="col-xs-6 col-sm-6 text-left">
+        <td class="col-sm-6 text-right"><b><a href="{{url_for("tournament", tournament_name=tournament)}}">{{tournament}}</a> - </b></td>
+        <td class="col-sm-6 text-left">
           <b>{{user_placements[tournament][0]}}</b>
           <!-- Only display seed number if not None -->
           {% if user_placements[tournament][1] %}
