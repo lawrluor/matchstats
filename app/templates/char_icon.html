@@ -1,5 +1,7 @@
 <!-- Display character icon (.png image) -->
 <!-- needs variable character_name = string representing Character -->
-{% set char_image_url_raw = ["/static/char_icons/", character_name, ".png"] %}
-{% set char_image_url = char_image_url_raw|join %}
-<img src="{{char_image_url}}", alt={{character_name}}>
+{% if character_name %}
+	{% set char_image_url_raw = ["/static/char_icons/", character_name, ".png"] %}
+	{% set char_image_url = char_image_url_raw|join %}
+	<img src="{{char_image_url}}", alt={{character_name}}>
+{% endif %}

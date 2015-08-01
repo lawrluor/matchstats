@@ -28,9 +28,8 @@
   <!-- store set.total_matches into variable for use in other templates -->
   {% set total_matches = set.total_matches -%}	
   
-  <!-- currently not working with matches -->
-  {% set matchlist = [] %}<!--set.matches.all() -%}-->
-  <!-- print Match representation in HTML for all Matches in Set -->
+  <!-- v2.0 does not have support for matches
   {% for i in range(matchlist|length) %}
     {% include 'match.html' %}
   {% endfor %}
+  -->
