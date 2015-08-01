@@ -6,7 +6,7 @@ from models import User, Set, Match, Character, Placement, secondaries, Region
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
-from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE
+from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE, CHAR_USERS_PER_PAGE 
 
 import sys
 sys.path.append('./sanitize')
@@ -520,20 +520,21 @@ def browse_characters():
  
 # Displays all users who play a certain character. Routed to from /browse_characters
 @app.route('/character/<character>')
-def character(character):
+@app.route('/character/<character>/<int:page>')
+def character(character, page=1):
   # eventually add support for seeing all Users from a certain region only using User.query.filter(and_(User.main==character, User.region==region)).all()
   region = request.args.get('region')  
   print region
 
   # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
-  main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).all()
+  main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
   if main_matching_users == []:
     flash('No players found that main this character')
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object:
-    secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).all()
+    secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
 
     # Alternate method of creating userlist by sorting backref (.users) of Character 
     # secondaries_matching_users = sort_userlist(character_object.users.all()) 

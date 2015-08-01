@@ -10,6 +10,5 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app2.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db2_repository') #folder where SQLAlchemy-migrate data files will be stored
 
 USERS_PER_PAGE = 25
-MAINS_PER_PAGE = 15
-SECONDARIES_PER_PAGE = 10
 TOURNAMENTS_PER_PAGE = 15 
+CHAR_USERS_PER_PAGE = 15

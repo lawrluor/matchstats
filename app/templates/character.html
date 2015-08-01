@@ -8,8 +8,8 @@
       {% set character_name = character %}
       {% include 'char_icon.html' %}
     </h1>
-    <h2><b>Mains: </b>{{main_matching_users|length}}</h2>
-    <h2><b>Secondaries: </b>{{secondaries_matching_users|length}}</h2>
+    <h2><b>Mains: </b>{{main_matching_users.total}}</h2>
+    <h2><b>Secondaries: </b>{{secondaries_matching_users.total}}</h2>
   </div>
 
   <!-- Table for Users who main character -->
@@ -25,15 +25,25 @@
         </thead>
 
         <tbody>
-          {% if main_matching_users|length < 1 %}
+          {% if main_matching_users.total < 1 %}
             There are no Users who currently main this character.
           {% else %}
-            {% for user in main_matching_users %}
+            {% for user in main_matching_users.items %}
               {% include 'user_display.html' %}
             {% endfor %}
           {% endif %}
         </tbody>
       </table>
+    
+    <div class="text-center"><b>
+      <!-- Pagination Navigation for User Mains -->
+      {% if main_matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=main_matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+
+      {% if main_matching_users.has_prev and main_matching_users.has_next %} | {% endif %}
+
+      {% if main_matching_users.has_next %}<a href="{{ url_for('character', character=character, page=main_matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+    </b></div>
+
     </div>
   </div>
 	
@@ -50,15 +60,25 @@
         </thead>
 
         <tbody>
-          {% if secondaries_matching_users|length < 1 %}
+          {% if secondaries_matching_users.total < 1 %}
             There are no Users who currently secondary this character.
           {% else %}
-            {% for user in secondaries_matching_users %}
+            {% for user in secondaries_matching_users.items %}
               {% include 'user_display.html' %}
             {% endfor %}
           {% endif %}
         </tbody>
       </table>
+
+    <div class="text-center"><b>
+      <!-- Pagination Navigation for User Mains -->
+      {% if secondaries_matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=secondaries_matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+
+       {% if secondaries_matching_users.has_prev and secondaries_matching_users.has_next %} | {% endif %}
+
+      {% if secondaries_matching_users.has_next %}<a href="{{ url_for('character', character=character, page=secondaries_matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+    </b></div>
+
     </div>
   </div>
 </div>
