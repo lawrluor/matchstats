@@ -19,11 +19,14 @@ import collections
 @app.before_request
 def before_request():
   g.search_form = SearchForm()
-  g.region_form = RegionSelect()
+  
+  # get region_name
   if 'region_name' in session:
     g.region = session['region_name']
   else:
     g.region = "Global"
+
+  g.region_form = RegionSelect(region_name=g.region)
 
 # Region select route, to process RegionSelect form data
 @app.route('/select_region', methods=['POST'])
@@ -37,6 +40,7 @@ def select_region():
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+  print g.region
   return render_template('home.html')
 
 # About page (more info)
