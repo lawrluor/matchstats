@@ -1,6 +1,6 @@
 # Version 1.0 routes commented out, consisting primarily of model attribute category pages and user creating/editing model objects
 
-from flask import render_template, flash, redirect, request, url_for, g
+from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db
 from models import User, Set, Match, Character, Placement, secondaries, Region
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
@@ -20,22 +20,29 @@ import collections
 def before_request():
   g.search_form = SearchForm()
   g.region_form = RegionSelect()
+  if 'region_name' in session:
+    g.region = session['region_name']
+  else:
+    g.region = "Global"
 
-  # regionlist is a list of region name tuples that must first be processed into a list of strings, then doubled to make a choiceslist for Form
-  regionlist = Region.query.with_entities(Region.region).all()
-  processed_regionlist = [region_name for (region_name, ) in regionlist]
-  g.region_form.region_name.choices = zip(processed_regionlist, processed_regionlist)
-  print g.region_form.region_name.choices
+# Region select route, to process RegionSelect form data
+@app.route('/select_region', methods=['POST'])
+def select_region():
+  form = RegionSelect() 
+  session['region_name'] = form.region_name.data
+  print session['region_name']
+  return redirect(url_for('home'))
 
 # Home page
 @app.route('/')
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
   return render_template('home.html')
 
 # About page (more info)
 @app.route('/about')
 def about():
+  print g.region
   return render_template('about.html')
 
 

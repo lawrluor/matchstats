@@ -1,10 +1,13 @@
 from flask.ext.wtf import Form, validators
-from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField 
+from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField
 from wtforms.validators import DataRequired, InputRequired, Required, ValidationError, StopValidation
 
 from app import app, db
 from app.models import *
 import re
+
+# list of all Regions
+regionlist = [('Global', 'Global'), ('New England', 'New England')]
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
 main_char_choices = [('Fox', 'Fox'),
@@ -198,4 +201,4 @@ class SearchForm(Form):
 
 # select region form
 class RegionSelect(Form):
-  region_name = SelectField('region_name', coerce=str)
+  region_name = SelectField('region_name', choices=regionlist, coerce=str)
