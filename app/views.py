@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, request, url_for, g
 from app import app, db
 from models import User, Set, Match, Character, Placement, secondaries, Region
-from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
+from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE, CHAR_USERS_PER_PAGE 
@@ -19,6 +19,13 @@ import collections
 @app.before_request
 def before_request():
   g.search_form = SearchForm()
+  g.region_form = RegionSelect()
+
+  # regionlist is a list of region name tuples that must first be processed into a list of strings, then doubled to make a choiceslist for Form
+  regionlist = Region.query.with_entities(Region.region).all()
+  processed_regionlist = [region_name for (region_name, ) in regionlist]
+  g.region_form.region_name.choices = zip(processed_regionlist, processed_regionlist)
+  print g.region_form.region_name.choices
 
 # Home page
 @app.route('/')
@@ -528,15 +535,14 @@ def character(character, page=1):
 
   # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
   main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
-  if main_matching_users==[]:
+  if main_matching_users.total <= 0:
     flash('No players found that main this character')
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object is not None:
     secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-    if secondaries_matching_users==[]:
-      secondaries_matching_users = []
+    if secondaries_matching_users.total <= 0:
       flash('No players found that secondary this character')
 
   return render_template("character.html",

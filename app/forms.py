@@ -1,6 +1,9 @@
 from flask.ext.wtf import Form, validators
 from wtforms import StringField, BooleanField, TextAreaField, SelectField, IntegerField, SelectMultipleField 
 from wtforms.validators import DataRequired, InputRequired, Required, ValidationError, StopValidation
+
+from app import app, db
+from app.models import *
 import re
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
@@ -31,7 +34,7 @@ main_char_choices = [('Fox', 'Fox'),
                      ('Pichu', 'Pichu'), 
                      ('Kirby', 'Kirby'), 
                      ('Random', 'Random'), 
-                     ('Unchosen', 'Unchosen'), 
+                     ('Unknown', 'Unchosen'), 
                      ('Multiple', 'Multiple')]
 
 # secondaries character choice list for SelectField; a constant list taken by SelectField containing only the 26 SSBM Characters
@@ -90,7 +93,7 @@ main_char_list = ['Fox',
                   'Pichu', 
                   'Kirby', 
                   'Random', 
-                  'Unchosen', 
+                  'Unknown', 
                   'Multiple']
 
 # simple list of character strings for all possible secondary characters
@@ -192,3 +195,7 @@ class HeadToHead(Form):
 # search form in navigation bar
 class SearchForm(Form):
   search = StringField('search', validators=[DataRequired()])
+
+# select region form
+class RegionSelect(Form):
+  region_name = SelectField('region_name', coerce=str)

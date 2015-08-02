@@ -106,6 +106,12 @@
               <input type="submit" class="btn-primary form-control" value="Search">
             </form>
           </li>
+          <li>
+            <form action="" method="get" name="RegionSelect">
+              {{g.region_form.hidden_tag()}}
+              {{g.region_form.region_name(class="form-control")}}
+            </form>
+          </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->

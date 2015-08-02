@@ -13,39 +13,78 @@
 
     <p>Features planned for future releases
     <ul>
-    	<li> Support for more regions </li>
-    	<li> Tournament data from Liquipedia, SmashGG, as well as match data </li>
+        <li> Support for more regions </li>
+        <li> Tournament data from Liquipedia, SmashGG, as well as match data </li>
     </ul>
     </p>
 
     <p class="text-center"> Support us! Donations help keep our server running.</p>
     <!-- PayPal Donate Button -->
     <form class="text-center" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="7SZNGHVFNVF7W">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="7SZNGHVFNVF7W">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+      <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>
 
   </header>
 
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h2><b>Frequently Asked Questions</b></h2>
+      <h2><b>Frequently Asked Questions</b></h2>
     </div>
 
     <div class="panel-body">
-        <h4>How are rankings calculated?</h4>
-        <h4>How can I get my region here?</h4>
-        <h4>How do you handle players who enter multiple tournaments with different tags?</h4>
-        <h4>Why can't a player have multiple mains?</h4>
-        <h4>How can I help? (user reporting)</h4>
-        <h4>What do the characters Multiple, Unchosen, and Random mean?</h4>
-        <h4>Why is [set I played] from [tournament] not on this list?</h4>
-        <h4>Why don't you display sponsor or team tags?</h4>
-        <h4>Who are the creators of SmashStats?</h4>
+      <ul>
+        <li>
+          <h4>How are rankings calculated?</h4>
+          Trueskill mothafucka. do you know it
+        </li>
+
+        <li>
+          <h4>How can I get my region here?</h4>
+          If you are a prominent TO in your area, get in contact with us. If you aren't get someone to do so. Tweet if you want tourney. jk dont tweet us
+        </li>
+
+        <li>
+          <h4>Why don't you display sponsor or team tags?</h4>
+          It helps for the program to consistently recognize and identify players whose tags in bracket may differ from tournament to tournament. It also reduces the need for maintenance whenever a player changes team or sponsor.
+        </li>
+
+        <li>
+          <h4>How do you handle players who enter multiple tournaments with different tags?</h4>
+          The application automatically can detect different spellings and different team/sponsor information for players. If a player uses completely different tags between tournaments, the application can remember alternate names, but that number will be limited to prevent abuse of the system. Players can also be merged after a tournament is processed.
+        </li>
+
+        <li>
+          <h4>How do you deal with people from different regions having the same tag?</h4>
+          In these instances, their tag will be prefaced by their region's name, as if it were a sponsor. For example, Norcal | PewPewU
+        </li>
+
+        <li>
+          <h4>What do the characters Unknown, Random, and Multiple mean?</h4>
+          Unknown is a placeholder if we don't have any character information about a Player. Random means that a player randomly selects characters when he/she plays. Multiple means that a player mains multiple characters.
+        </li>
+
+        <li>
+          <h4>Why is [set I played] from [tournament] not on this list?</h4>
+          Your region may not be supported, or we probably don't have tournament data associated with that particular tournament. Alternatively, there may have been a processing goof. Please report any errors you find via email or social media.
+        </li>
+
+        <li>
+          <h4>Why am I ranked so low</h4>
+          git gud kid
+        </li>
+
+        <li>
+          <h4>Who are the creators of SmashStats?</h4>
+          Tonic, a Marth main studying in New England, and Wyne, a Falco player from SoCal.
+        </li>
+
+        <li><h4>Why can't a player have multiple mains?</h4></li>
+        <li><h4>How can I help? (user reporting)</h4></li>
+      </ul>
     </div>
   </div>
-
 </div>
 {% endblock %}

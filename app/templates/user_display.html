@@ -16,9 +16,9 @@
     <td class="col-sm-3 text-center mobile-horizontal-overflow-td-col-3">
     	{% if user.main %}
             {% set character_name = user.main %}
-            {% include "char_icon.html" %}
+            {% include 'char_icon.html'%}
         {% else %}
-            Unchosen
+            Unknown
         {% endif %}
     </td>
 
