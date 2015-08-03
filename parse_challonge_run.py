@@ -17,7 +17,7 @@ def main():
   if len(sys.argv)==3:
     tournament_url = sys.argv[1]
     tournament_name = sys.argv[2]
-    tournament_region = "Global"
+    tournament_region = None
   elif len(sys.argv)==4:
     tournament_url = sys.argv[1]
     tournament_name = sys.argv[2]  

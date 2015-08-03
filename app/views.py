@@ -24,7 +24,10 @@ def before_request():
   if 'region_name' in session:
     g.region = session['region_name']
   else:
-    g.region = "Global"
+    g.region = "Global" 
+
+  # populate RegionSelect form with name of current Region
+  print g.region
   g.region_form = RegionSelect(region_name=g.region)
 
 # Region select route, to process RegionSelect form data
@@ -32,21 +35,24 @@ def before_request():
 def select_region():
   form = RegionSelect() 
   session['region_name'] = form.region_name.data
-  print session['region_name']
-  flash("Now viewing Region: " + session['region_name'])
-  return redirect(url_for('region', region=session['region_name']))
+
+  if session['region_name']=="Global":
+    # Global is not an actual Region name, but acts as a string identifier for when no Region is selected
+    flash("Viewing Global Information")
+    return redirect(url_for('home'))
+  else:
+    flash("Now viewing Region: " + str(session['region_name']))
+    return redirect(url_for('region', region=session['region_name']))
 
 # Home page
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-  print g.region
   return render_template('home.html')
 
 # About page (more info)
 @app.route('/about')
 def about():
-  print g.region
   return render_template('about.html')
 
 # Head to Head page to begin querying User head to head. tag1 and tag2 refer to users submitted after the redirect.
@@ -149,9 +155,13 @@ def head_to_head():
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
-  # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-  userlist = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(Region.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-  current_region = g.region
+  # if viewing global information, don't filter query by g.region
+  if g.region=="Global":
+    userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+  else:
+    # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
+    userlist = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(Region.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+
   return render_template("browse_users.html",
                          userlist=userlist,
                          current_region=g.region)
@@ -222,16 +232,22 @@ def browse_characters():
 @app.route('/character/<character>')
 @app.route('/character/<character>/<int:page>')
 def character(character, page=1):
-  # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
-  # filter for Users by g.region, by joining Region and User.region
-  main_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).order_by(TrueSkill.mu.desc()).filter(and_(User.main==character, Region.region==g.region)).paginate(page, CHAR_USERS_PER_PAGE, False)
+  # if viewing Global information, don't filter query by g.region
+  if g.region=="Global":
+    main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
+  else:
+    main_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).order_by(TrueSkill.mu.desc()).filter(and_(User.main==character, Region.region==g.region)).paginate(page, CHAR_USERS_PER_PAGE, False)
   if main_matching_users.total <= 0:
     flash('No players found that main this character')
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
   if character_object is not None:
-    secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+    # if viewing Global information, don't filter query by g.region
+    if g.region=="Global":
+      secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+    else:
+      secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(and_(User.secondaries.contains(character_object), Region.region==g.region )).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
     if secondaries_matching_users.total <= 0:
       flash('No players found that secondary this character')
 
@@ -246,8 +262,12 @@ def character(character, page=1):
 @app.route('/browse_tournaments')
 @app.route('/browse_tournaments/<int:page>')
 def browse_tournaments(page=1):
-  # filter for Tournaments by g.region, by joining Region and Tournament.region
-  tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  # if viewing Global information, don't filter query by g.region
+  if g.region=="Global":
+    tournamentlist = Tournament.query.order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  else:
+    # filter for Tournaments by g.region, by joining Region and Tournament.region
+    tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist,
                          current_region=g.region)
