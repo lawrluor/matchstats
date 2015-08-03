@@ -1,43 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="container">
-		<!-- AJAX Test
-		<head>
-			<script>
-				function loadXMLDoc()
-				{
-				var xmlhttp;
-				if (window.XMLHttpRequest)
-				  {// code for IE7+, Firefox, Chrome, Opera, Safari
-				  xmlhttp=new XMLHttpRequest();
-				  }
-				else
-				  {// code for IE6, IE5
-				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-				  }
+<div class="container">
+	<div class="jumbotron">
+		<h1>{{region}}</h1>
+		<h2><b>Population:</b> {{current_region.users|length}}</h2><a href="{{url_for('browse_users')}}"><b>(view region's users)</b></a>
+		<h2><b>Tournament Count:</b> {{current_region.tournaments|length}}</h2><a href="{{url_for('browse_tournaments')}}"><b>(view region's tournaments)</b></a>
+	</div>
 
-				xmlhttp.onreadystatechange=function()
-				  {
-				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-				    {
-				    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-				    }
-				  }
-				xmlhttp.open("GET","url.txt",true);
-				xmlhttp.send();
-				}
-			</script>
-		</head>
-		-->
-
-		<div class="jumbotron">
-			<h1>{{region}}</h1>
-			<h2><b>Population:</b> {{current_region.users|length}}</h2>
-			<h2><b>Tournament Count:</b> {{current_region.tournaments|length}}</h2>
-		</div>
-
-		<!-- Display all Users in Region -->
+<!-- Obsolete regional userlist display
 		<div class="panel panel-default">
 		<div class="panel-heading">
 			<h2><b>{{current_region.region}}'s Users<b></h2>
@@ -49,11 +20,6 @@
 			  </thead>
 
 				<tbody>
-					<!--
-					<div id="myDiv"><h2>Let AJAX change this text</h2></div>
-					<button type="button" onclick="loadXMLDoc()">Change Content</button>
-					-->
-
 				  {% for user in region_userlist %}
 				    {% include 'user_display.html' %}
 				  {% endfor %}
@@ -61,8 +27,9 @@
 			</table>
 		</div>
 	</div>
+-->
 
-	<!-- Display all Tournaments in Region -->
+<!-- Obsolete regional tournamentlist display
 	<div class="panel panel-default">
 	<div class="panel-heading">
 		<h2><b>{{current_region.region}}'s Tournaments<b></h2>
@@ -80,6 +47,7 @@
 			</tbody>
 		</table>
 	</div>
+-->
 
 </div>
 

@@ -34,7 +34,7 @@ def select_region():
   session['region_name'] = form.region_name.data
   print session['region_name']
   flash("Now viewing Region: " + session['region_name'])
-  return redirect(url_for('home'))
+  return redirect(url_for('region', region=session['region_name']))
 
 # Home page
 @app.route('/')
@@ -145,7 +145,6 @@ def head_to_head():
                         form=form) 
 
 
-
 # browse all Users, 25 per page
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
@@ -205,24 +204,11 @@ def user(tag):
 @app.route('/region/<region>')
 def region(region):
   current_region = Region.query.filter(Region.region==region).first()
-  region_userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.region==current_region).all()
-  # Alternate method of creating userlist by sorting region backref (.users) 
-  # region_backref_userlist = sort_userlist(current_region.users) 
   return render_template("region.html",
                          region=region,
-                         current_region=current_region,
-                         region_userlist=region_userlist)
+                         current_region=current_region)
  
 
-# Displays all regions currently populated by players. Each displayed region will route to /region/<region>
-@app.route('/browse_regions')
-def browse_regions():
-  regionlist = Region.query.all()
-  return render_template("browse_regions.html", 
-                          title='Browse Regions',
-                          regionlist=regionlist)
- 
- 
 # Displays a list of all SSBM characters, each of which links to /character/<character>
 @app.route('/browse_characters')
 def browse_characters():
@@ -329,6 +315,16 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
+
+#  Somewhat OBSOLETE because of the RegionSelect form
+# # Displays all regions currently populated by players. Each displayed region will route to /region/<region>
+# @app.route('/browse_regions')
+# def browse_regions():
+#   regionlist = Region.query.all()
+#   return render_template("browse_regions.html", 
+#                           title='Browse Regions',
+#                           regionlist=regionlist)
+
 
 # # helper function for set_edit, set_create; similar to Set.invalidScores(), returns True if invalid, impossible score counts. must be used instead of Set.invalidScores() because this checks before creating a Set and no Set exists yet.
 # def invalidScores(winner_score, loser_score, max_match_count):
