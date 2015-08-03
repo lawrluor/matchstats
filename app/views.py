@@ -36,9 +36,9 @@ def select_region():
   form = RegionSelect() 
   session['region_name'] = form.region_name.data
 
-  if session['region_name']=="Global":
-    # Global is not an actual Region name, but acts as a string identifier for when no Region is selected
-    flash("Viewing Global Information")
+  if session['region_name']=="Global" or session['region_name']=="National":
+    # Global and National are not actual Region name, but acts as a string identifier for when no Region is selected
+    flash("Viewing %s Information" % session['region_name'])
     return redirect(url_for('home'))
   else:
     flash("Now viewing Region: " + str(session['region_name']))
@@ -158,6 +158,9 @@ def browse_users(page=1):
   # if viewing global information, don't filter query by g.region
   if g.region=="Global":
     userlist = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+  # if viewing national information, filter query to take Users with User.region==None
+  elif g.region=="National":
+    userlist = User.query.join(TrueSkill, User.trueskill).filter(User.region==None).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
     userlist = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(Region.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
@@ -235,6 +238,7 @@ def character(character, page=1):
   # if viewing Global information, don't filter query by g.region
   if g.region=="Global":
     main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
+# if viewing national information, filter query to take Users with User.region==None
   else:
     main_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).order_by(TrueSkill.mu.desc()).filter(and_(User.main==character, Region.region==g.region)).paginate(page, CHAR_USERS_PER_PAGE, False)
   if main_matching_users.total <= 0:
@@ -265,6 +269,9 @@ def browse_tournaments(page=1):
   # if viewing Global information, don't filter query by g.region
   if g.region=="Global":
     tournamentlist = Tournament.query.order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  # if viewing national information, filter query to take Tournaments with region==None
+  elif g.region=="National":
+    tournamentlist = Tournament.query.filter(Tournament.region==None).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
   else:
     # filter for Tournaments by g.region, by joining Region and Tournament.region
     tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
