@@ -94,8 +94,13 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse nav-collapse" id="navbar">
         <ul class="nav navbar-nav">
+          <li>
+            <form class="navbar-form" action="{{url_for('select_region')}}" method="post" name="RegionSelect">
+              {{g.region_form.hidden_tag()}}
+              {{g.region_form.region_name(class="form-control", onchange="this.form.submit()")}}
+            </form>
+          </li>
           <li><a href="{{url_for('about')}}">About</a></li>
-          <li><a href="{{url_for('browse_regions')}}">Regions</a></li>
           <li><a href="{{url_for('browse_tournaments')}}">Tournaments</a></li>
           <li><a href="{{url_for('browse_users')}}">Users</a></li>
           <li><a href="{{url_for('browse_characters')}}">Characters</a></li>
@@ -104,12 +109,6 @@
             <form class="navbar-form" action="{{url_for('search')}}" method="post" name="search">
               {{g.search_form.hidden_tag()}}{{g.search_form.search(size=12, class="form-control")}}
               <input type="submit" class="btn-primary form-control" value="Search">
-            </form>
-          </li>
-          <li>
-            <form action="{{url_for('select_region')}}" method="post" name="RegionSelect">
-              {{g.region_form.hidden_tag()}}
-              {{g.region_form.region_name(class="form-control", onchange="this.form.submit()")}}
             </form>
           </li>
         </ul>
