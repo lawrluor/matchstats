@@ -6,6 +6,12 @@
     <h1> {{tournament.name}} </h1>
 
     <h2>
+      {% if tournament.region %}
+        {{tournament.region}}
+      {% endif %}
+    </h2>
+
+    <h2>
     {% if tournament.game_type %}
       {{tournament.game_type}}
     {% else %}

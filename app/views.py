@@ -150,10 +150,12 @@ def head_to_head():
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
-  # userlist = User.query.order_by(User.tag).paginate(page, USERS_PER_PAGE, False)
+  # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
   userlist = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(Region.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+  current_region = g.region
   return render_template("browse_users.html",
-                        userlist=userlist)
+                         userlist=userlist,
+                         current_region=g.region)
 
 # User profile page
 @app.route('/user/<tag>')
@@ -226,19 +228,17 @@ def browse_regions():
 def browse_characters():
   characterlist = main_char_list
   return render_template("browse_characters.html",
-                         characterlist=characterlist)
+                         characterlist=characterlist,
+                         current_region=g.region)
 
  
 # Displays all users who play a certain character. Routed to from /browse_characters
 @app.route('/character/<character>')
 @app.route('/character/<character>/<int:page>')
 def character(character, page=1):
-  # eventually add support for seeing all Users from a certain region only using User.query.filter(and_(User.main==character, User.region==region)).all()
-  region = request.args.get('region')  
-  print region
-
   # Query Users that main this Character, and order by Trueskill.mu by joining Trueskill and User.trueskill
-  main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
+  # filter for Users by g.region, by joining Region and User.region
+  main_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).order_by(TrueSkill.mu.desc()).filter(and_(User.main==character, Region.region==g.region)).paginate(page, CHAR_USERS_PER_PAGE, False)
   if main_matching_users.total <= 0:
     flash('No players found that main this character')
   
@@ -252,16 +252,19 @@ def character(character, page=1):
   return render_template("character.html",
                          main_matching_users=main_matching_users,
                          secondaries_matching_users=secondaries_matching_users,
-                         character=character)
+                         character=character,
+                         current_region=g.region)
  
 
 # Lists all tournaments, 15 per page
 @app.route('/browse_tournaments')
 @app.route('/browse_tournaments/<int:page>')
 def browse_tournaments(page=1):
-  tournamentlist = Tournament.query.order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  # filter for Tournaments by g.region, by joining Region and Tournament.region
+  tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
   return render_template("browse_tournaments.html",
-                         tournamentlist=tournamentlist)
+                         tournamentlist=tournamentlist,
+                         current_region=g.region)
     
 # Displays all sets in a given tournament
 @app.route('/tournament/<tournament_name>')
