@@ -286,6 +286,9 @@ th {
   .table-bordered td {
     border: 1px solid #ddd !important;
   }
+  .borderless td, .borderless th {
+    border: none;
+  }
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -2089,6 +2092,15 @@ caption {
 th {
   text-align: left;
 }
+
+/* Custom table class for creating table without borders, used in tournament.html jumbotron */
+.table-borderless {
+    border-bottom:0px !important;
+}
+.table-borderless th, .table td {
+    border: 0px !important;
+}
+
 .table {
   width: 100%;
   max-width: 100%;
