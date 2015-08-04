@@ -4,12 +4,17 @@
 <div class="container">
   <header class="jumbotron">
     <h1> {{tournament.name}} </h1>
-
+    
     <h2>
       {% if tournament.region %}
         {{tournament.region}}
       {% endif %}
     </h2>
+
+    <h2>
+    {% if tournament.url %}
+      <a href="{{tournament.url}}">Bracket Link</a>
+    {% endif %}
 
     <h2>
     {% if tournament.game_type %}

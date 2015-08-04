@@ -96,7 +96,7 @@ def parse_challonge_info(tournament_url):
   return tournament_info
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
-def import_challonge_info(tournament_info, tournament_name, *args):
+def import_challonge_info(tournament_info, tournament_name, tournament_url, *args):
 
   # get optional tournament_region argument if it was provided; args is the list of extra arguments
   if len(args)==1:
@@ -142,6 +142,7 @@ def import_challonge_info(tournament_info, tournament_name, *args):
 
   new_tournament = Tournament(official_title=tournament_title,
                               host=tournament_host,
+                              url=tournament_url,
                               entrants=tournament_entrants,
                               bracket_type=tournament_bracket_type,
                               game_type=tournament_game_type,

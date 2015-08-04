@@ -236,6 +236,7 @@ class Tournament(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   official_title =  db.Column(db.String(128), index=True)
   host = db.Column(db.String(128), index=True)
+  url = db.Column(db.String(128), index=True)
   entrants = db.Column(db.Integer)
   bracket_type = db.Column(db.String(128), index=True)
   game_type = db.Column(db.String(128), index=True)
@@ -246,7 +247,7 @@ class Tournament(db.Model):
   sets = db.relationship("Set", backref="tournament") 
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
 
 # given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
 def check_tournament(tournament):
