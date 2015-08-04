@@ -1,37 +1,5 @@
 import re
-
-# Wrapper for regular expression compilation for mapping.
-def compile_case_i_re(string):
-  return re.compile(string, re.IGNORECASE)
-
-# Make sure sanitized_list and regex_list are the same size or
-# you might get an index out of bounds error.
-# Params:
-# tag - String containing tag to check.
-# regex_list - Compiled regular expressions to check against the tag, a list of lists
-# sanitized_list - Sanitized versions of the tag.
-def sanitize_tag(tag, regex_list, sanitized_list):
-  for i in range(len(regex_list)):
-    if regex_list[i].match(tag):
-      print regex_list[i]
-      return sanitized_list[i]
-  return tag
-
-# Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global'].
-def add_prefixes(regex_list):
-  wildcard = '.*'
-  sep = '[|.`\' ]'
-  prefix = wildcard + sep
-  prefix_list = []
-   
-  inner_list = []
-  for regex in regex_list:
-    inner_list.append(prefix + regex)
-    inner_list.append(regex)
-
-  joined_regex = '|'.join(inner_list)
-  prefix_list.append(joined_regex)
-  return joined_regex
+from collections import defaultdict
     
 # Raw Regular expression list representing top players, to be processed by add_prefixes
 player_raw_regex_dict = {
@@ -327,6 +295,39 @@ sanitized_tags_dict = {
     ]
     }
 
+# Wrapper for regular expression compilation for mapping.
+def compile_case_i_re(string):
+  return re.compile(string, re.IGNORECASE)
+
+# Make sure sanitized_list and regex_list are the same size or
+# you might get an index out of bounds error.
+# Params:
+# tag - String containing tag to check.
+# regex_list - Compiled regular expressions to check against the tag, a list of lists
+# sanitized_list - Sanitized versions of the tag.
+def sanitize_tag(tag, regex_list, sanitized_list):
+  for i in range(len(regex_list)):
+    if regex_list[i].match(tag):
+      print regex_list[i]
+      return sanitized_list[i]
+  return tag
+
+# Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global'].
+def add_prefixes(regex_list):
+  wildcard = '.*'
+  sep = '[|.`\' ]'
+  prefix = wildcard + sep
+  prefix_list = []
+   
+  inner_list = []
+  for regex in regex_list:
+    inner_list.append(prefix + regex)
+    inner_list.append(regex)
+
+  joined_regex = '|'.join(inner_list)
+  prefix_list.append(joined_regex)
+  return joined_regex
+
 # if region==None or region==Global:
   # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global'])
   # player_regex_list = 
@@ -336,20 +337,23 @@ sanitized_tags_dict = {
     # player_regex_list = map(compile_case_i_re, player_raw_regex_dict['Global'])
 
 # Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added, then convert the list with prefixes added to all lowercase tags
-prefixed_player_regex_list = []
-sanitized_tags_list = []
-for region in player_raw_regex_dict:
-  prefixed_player_regex_list += map(add_prefixes, player_raw_regex_dict[region])
-  player_regex_list = map(compile_case_i_re, prefixed_player_regex_list)
-  sanitized_tags_list += sanitized_tags_dict[region]
-# print "PREFIXED_PLAYER", prefixed_player_regex_list
-# print "PLAYER_REGEX", player_regex_list
+player_regex_dict = defaultdict(str)
+for region_name in player_raw_regex_dict:
+  print "REGION_NAME", region_name 
+  player_regex_dict[region_name] = map(add_prefixes, player_raw_regex_dict[region_name])
+  print "PREFIXED_REGEX_DICT", player_regex_dict[region_name]
+  player_regex_dict[region_name] = map(compile_case_i_re, player_regex_dict[region_name])
+  print "LOWERCASE", player_regex_dict
+  print '\n'
+print player_regex_dict
 
 # Wrapper for sanitize_tag.
 def check_and_sanitize_tag(tag, *args): #region is optional parameter
   # if region is included in parameter
   if len(args)==1 and args[0] is not None:
-    if args[0] in player_raw_regex_dict and args[0] in sanitized_tags_dict:
-      return sanitize_tag(tag, player_regex_list, sanitized_tags_list) 
+    region_name = args[0]
+    if region_name in player_raw_regex_dict and region_name in sanitized_tags_dict:
+      return sanitize_tag(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name]) 
   elif len(args)==0 or args[0] is None:
-    return sanitize_tag(tag, player_regex_list, sanitized_tags_list)
+    region_name = "Global"
+    return sanitize_tag(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name])

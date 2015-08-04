@@ -27,7 +27,6 @@ def before_request():
     g.region = "Global" 
 
   # populate RegionSelect form with name of current Region
-  print g.region
   g.region_form = RegionSelect(region_name=g.region)
 
 # Region select route, to process RegionSelect form data
@@ -41,7 +40,7 @@ def select_region():
     flash("Viewing %s Information" % session['region_name'])
     return redirect(url_for('home'))
   else:
-    flash("Now viewing Region: " + str(session['region_name']))
+    flash("Viewing Region: " + str(session['region_name']))
     return redirect(url_for('region', region=session['region_name']))
 
 # Home page
