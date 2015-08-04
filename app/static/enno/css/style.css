@@ -318,7 +318,7 @@ a.navbar-brand span {
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #eee;
-   border-bottom-color:#eee;
+  border-bottom-color:#eee;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #eee;

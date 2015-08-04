@@ -325,7 +325,7 @@ def search():
 # processes query from /search and returns search results for Users and tournaments (Set.tournament) on this page
 @app.route('/search_results/<query>')
 def search_results(query):
-  sanitized_query = check_and_sanitize_tag(query)
+  sanitized_query = check_and_sanitize_tag(query, g.region)
   tournament_results = Tournament.query.filter(Tournament.name==query).all() 
   user_results = User.query.filter(User.tag==sanitized_query).all()
 

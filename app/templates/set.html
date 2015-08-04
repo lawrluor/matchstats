@@ -1,6 +1,25 @@
 <!-- prints Set representation in HTML given a Set object -->
 
-<tr><h5><b>
+<!-- Logic for determining where set.html is included from, for setting up colored rows in table -->
+<!-- Sets up colored rows if set.html is included from user.html -->
+{% if user %}
+	{% if user.tag == set.winner_tag %}
+		<tr class="success">
+	{% else %}
+		<tr class="danger">
+	{% endif %}
+<!-- Sets up colored rows if set.html is included from head_to_head.html -->
+{% elif user1 %}
+	{% if user1.tag == set.winner_tag %}
+		<tr class="success">
+	{% else %}
+		<tr class="danger">
+	{% endif %}
+{% else %}
+	<tr>
+{% endif %}
+
+<h5><b>
 	<td class="col-md-2 mobile-horizontal-overflow-set horizontal-overflow"><b>
 		{% if set.tournament_name != "Non-Tourney" %}
 			<a href="{{url_for("tournament", tournament_name=set.tournament_name)}}">{{ set.tournament_name }}</a>
