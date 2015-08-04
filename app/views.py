@@ -35,9 +35,12 @@ def select_region():
   form = RegionSelect() 
   session['region_name'] = form.region_name.data
 
-  if session['region_name']=="Global" or session['region_name']=="National":
-    # Global and National are not actual Region name, but acts as a string identifier for when no Region is selected
-    flash("Viewing %s Information" % session['region_name'])
+  # Global and National are not actual Region name, but acts as a string identifier for when no Region is selected
+  if session['region_name']=="Global":
+    flash("Viewing Global Information - this view mode displays all information from every region") 
+    return redirect(url_for('home'))
+  elif session['region_name']=="National":
+    flash("Viewing National Information - this view mode only displays non-regional information") 
     return redirect(url_for('home'))
   else:
     flash("Viewing Region: " + str(session['region_name']))

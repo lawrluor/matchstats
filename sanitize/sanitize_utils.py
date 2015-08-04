@@ -144,7 +144,30 @@ player_raw_regex_dict = {
     ['(squible$)'],
     ['(kyupuff$)', '(kyu puff$)', '(plop$)', '(buffglutes92$)'],
     ['(rime$)'],
-    ['(mr lemon$)', '(mr. lemon$)']
+    ['(mr lemon$)', '(mr\. lemon$)'],
+    ['(kaiju$)'],
+    ['(dudutsai$)', '(tsai$)'],
+    ['(sora$)'],
+    ['(hart$)'],
+    ['(mr tuesday$)', '(mr\. tuesday$)'],
+    ['(bigvegetabluntz$)', '(bvb$)'],
+    ['(me[tl][tl]wing$)'], 
+    ['(bown$)'],
+    ['(cheezpuff$)'],
+    ['(r2dliu$)'],
+    ['(kaza[am]m$)', '(kaza[am]mtheman$)'],
+    ['(trademark$)'],
+    ['(yedi$)'],
+    ['(bugatti$)', '(mr bugatti$)', '(mr\. bugatti$)'],
+    ['(ryucloud$)', '(ryu cloud$)'],
+    ['(mizu$)'],
+    ['(batsox$)'],
+    ['(bonfire10$)', '(bonfire$)'],
+    ['(trilok$)'],
+    ['(kunai$)', '(wx$)', '(wxia$)'],
+    ['(arc$)', '(arcnatural$)', '(arc natural$)'],
+    ['(flexed$)'],
+    ['(spiff$)']
     ]
     }
 
@@ -291,7 +314,30 @@ sanitized_tags_dict = {
     'Squible',
     'Kyu Puff',
     'Rime',
-    'Mr. Lemon'
+    'Mr. Lemon',
+    'Kaiju',
+    'Dudutsai',
+    'Sora',
+    'Hart',
+    'Mr. Tuesday',
+    'BigVegetaBluntz',
+    'Metlwing',
+    'Bown',
+    'Cheezpuff',
+    'R2DLiu',
+    'Kazamm',
+    'Trademark',
+    'Yedi',
+    'Bugatti',
+    'RyuCloud',
+    'MIZU',
+    'BatSox',
+    'Bonfire10',
+    'Trilok',
+    'Kunai',
+    'Arc',
+    'Flexed',
+    'Spiff'
     ]
     }
 
