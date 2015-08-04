@@ -9,43 +9,42 @@
     {% endif %}
 
     <table class="table borderless">
-    <tr>
-      <td class="col-sm-6 text-center">
-      {% if tournament.region %}
-        <h2>{{tournament.region}}</h2>
-      {% else %}
-        <h2>Global</h2>
-      {% endif %}
-      </td>
-
-      <td class="col-sm-6 text-center">
-        {% if tournament.date %}
-          <h2>{{tournament.date}}</h2>
+      <tr>
+        <td class="col-sm-6 text-center">
+        {% if tournament.region %}
+          <h2>{{tournament.region}}</h2>
         {% else %}
-          <h2>Date Unknown</h2>
+          <h2>Global</h2>
         {% endif %}
-      </td>
-    <tr>
+        </td>
 
-    <tr>
-      <td class="col-sm-6 text-center">
-        {% if tournament.game_type %}
-          <h2>{{tournament.game_type}}</h2>
-        {% else %}
-          <h2>Game Unknown</h2>
-        {% endif %}
-      </td>
+        <td class="col-sm-6 text-center">
+          {% if tournament.date %}
+            <h2>{{tournament.date}}</h2>
+          {% else %}
+            <h2>Date Unknown</h2>
+          {% endif %}
+        </td>
+      <tr>
 
-      <td class="col-sm-6 text-center">
-        {% if tournament.entrants != -1 %}
-          <h2>{{tournament.entrants}} Player {{tournament.bracket_type}}</h2>
-        {% else %}
-          <h2>{{tournament.bracket_type}}</h2>
-        {% endif %}
-      </td>
+      <tr>
+        <td class="col-sm-6 text-center">
+          {% if tournament.game_type %}
+            <h2>{{tournament.game_type}}</h2>
+          {% else %}
+            <h2>Game Unknown</h2>
+          {% endif %}
+        </td>
 
-
-  </table>
+        <td class="col-sm-6 text-center">
+          {% if tournament.entrants != -1 %}
+            <h2>{{tournament.entrants}} Player {{tournament.bracket_type}}</h2>
+          {% else %}
+            <h2>{{tournament.bracket_type}}</h2>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
   </header>
 
   <!-- Table for Placements -->
