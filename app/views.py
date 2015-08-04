@@ -314,7 +314,8 @@ def tournament(tournament_name):
 @app.route('/search', methods=['POST'])
 def search():
   if not g.search_form.validate_on_submit():
-    return redirect(url_for('index'))
+    flash('Search failed.')
+    return redirect(url_for('home'))
   return redirect(url_for('search_results', query=g.search_form.search.data))
 
 

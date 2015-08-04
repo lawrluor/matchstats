@@ -197,7 +197,7 @@ class HeadToHead(Form):
 
 # search form in navigation bar
 class SearchForm(Form):
-  search = StringField('search', validators=[DataRequired()])
+  search = StringField('search', validators=[InputRequired()])
 
 # select region form
 class RegionSelect(Form):

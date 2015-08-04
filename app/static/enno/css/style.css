@@ -455,9 +455,10 @@ textarea#message{
   margin-top: 20px;
 }
 
+/* Flash for all messages */
 .flash { 
-  background: #920421; padding: 0.5em;
-  border: 1px solid #920421;
+  background: #A68400; padding: 0.5em;
+  border: 1px solid #A68400;
   color: #fff;
   }
 

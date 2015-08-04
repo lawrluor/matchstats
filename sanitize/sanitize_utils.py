@@ -273,7 +273,7 @@ sanitized_tags_dict = {
     'Bob\$',
     'Kounotori',
     'Stab',
-    'G\$',
+    'G$',
     'Vist',
     'Pkmvodka'
     ],

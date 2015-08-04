@@ -40,8 +40,6 @@ def parse_challonge_standings(tournament_url, tournament_region):
       if tag == "Advanced":
         continue
       
-      # When Challonge player uses an account icon, a '\n' character is produced. Check for this by stripping it off the end
-      tag = tag.strip('\n')
       sanitized_tag = check_and_sanitize_tag(tag, tournament_region)
 
     # limit number of Users who can tie for a placement
