@@ -122,8 +122,8 @@ def head_to_head():
 
   if form.validate_on_submit():
     # user1 and user2 is a string that represents the first user's tag
-    user1_tag = check_and_sanitize_tag(form.user1.data)
-    user2_tag = check_and_sanitize_tag(form.user2.data)
+    user1_tag = check_and_sanitize_tag(form.user1.data, g.region)
+    user2_tag = check_and_sanitize_tag(form.user2.data, g.region)
 
     # Make sure two Users are found, else redirect to pre-validated form
     user1 = User.query.filter(User.tag==user1_tag).first()

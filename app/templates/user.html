@@ -23,7 +23,8 @@
               {% set character_name = user.main %}
               {% include "char_icon.html" %}
             {% else %}
-              Unchosen
+              {% set character_name = "Unknown" %}
+              {% include "char_icon.html" %}
             {% endif %}
           </h3>
         </td>
