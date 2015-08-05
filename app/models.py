@@ -42,8 +42,8 @@ class UserSkills(db.Model):
   trueskill_id = db.Column(db.Integer, db.ForeignKey('trueskill.id'), primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
   region = db.Column(db.String(128))
-  user = db.relationship("User", backref="skill_assocs")
-  trueskill = db.relationship("TrueSkill", backref="user_assocs")
+  user = db.relationship("User", backref=backref("skill_assocs", cascade='all, delete-orphan'))
+  trueskill = db.relationship("TrueSkill", backref=backref("user_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
     return '<user %s:, region %s, trueskill: %s>' % (self.user.tag, self.region, self.trueskill)

@@ -62,6 +62,7 @@ def update_rating(winner_user, loser_user):
 	# After TrueSkills have been recalculated, commit changes and print users
 	db.session.commit()
 	print winner_user, loser_user
+	print '\n'
 	return winner_user, loser_user
 
 # given winner_user, loser_user, and integer index (0 for Region and 1 for Global), create Rating objects using currently stored Region Trueskill attribute

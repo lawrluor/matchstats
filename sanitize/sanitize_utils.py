@@ -369,7 +369,7 @@ def add_prefixes(regex_list):
   inner_list = []
   for regex in regex_list:
     # 4 combinations
-    inner_list.append(prefix + regex) # + suffix
+    inner_list.append(prefix + regex)
     inner_list.append(regex + suffix)
     inner_list.append(regex)
 
