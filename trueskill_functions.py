@@ -20,25 +20,38 @@ def rating_env_setup():
 			)
 	return "Rating environment created"
 
-# Given user object, if trueskill attribute is None, sets attribute to a created Trueskill object
-def check_trueskill(user):
-	if user.trueskill is None:
-		reset_trueskill(user)
-	return user.trueskill
-
-# For a list of Users, resets their trueskill MU and SIGMA values to default values
+# Given User, sets any UserSkill/TrueSkill object's trueskill to default TrueSkill object
 def reset_trueskill(user):
-	user.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
-	db.session.commit()
-	return user.trueskill
+	for skill_assoc in user.skill_assocs:
+		skill_assoc.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
+		db.session.commit()
+	return user.skill_assocs
+
+# If returns True, Global TrueSkill already populated, and Region TrueSkill to the extent of known information
+def populate_trueskills(user):
+	# case for when User has no TrueSkills - if User has region, populate both Global and region Trueskill
+	if len(user.skill_assocs)<=0:
+		user.skill_assocs.append(UserSkills(region="Global", trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+		if user.region is not None:
+			user.skill_assocs.append(UserSkills(region=user.region.region, trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+	# case for when User is initialized with no region (Tournament has no region attribute during)
+	# if the one regional TrueSkill is Global, and user.region is not None, populate regional TrueSkill
+	elif len(user.skill_assocs)==1: 
+		if user.skill_assocs[0].region=="Global" and user.region is not None:
+			user.skill_assocs.append(UserSkills(region=user.region.region, trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+		else:
+			return True
+	# If user has 2 Trueskills (Global and Region), no need to populate
+	else:
+		return True
 
 # Given two user objects representing the winner and loser of a set, update their respective ratings
 def update_rating(winner_user, loser_user):
 	rating_env_setup()
 
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
-	check_trueskill(winner_user)
-	check_trueskill(loser_user)
+	populate_trueskills(winner_user)
+	populate_trueskills(loser_user)
 
 	# create Rating objects using currently stored trueskill attribute
 	winner_user_rating = Rating(winner_user.trueskill.mu, winner_user.trueskill.sigma)

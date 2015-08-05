@@ -26,7 +26,7 @@ secondaries = db.Table('secondaries',
                         db.Column('character_id', db.Integer, db.ForeignKey('character.id'))
                        )
 
-# one to one relationship with User
+# Child in one-to-many relationship with User
 class TrueSkill(db.Model):
   __tablename__ = 'trueskill'
   id = db.Column(db.Integer, primary_key=True)
@@ -36,6 +36,18 @@ class TrueSkill(db.Model):
 
   def __repr__(self):
     return '<mu: %s, sigma: %s>' % (self.mu, self.sigma)
+
+class UserSkills(db.Model):
+  __tablename__ = "userskills"
+  trueskill_id = db.Column(db.Integer, db.ForeignKey('trueskill.id'), primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+  region = db.Column(db.String(128))
+  user = db.relationship("User", backref="skill_assocs")
+  trueskill = db.relationship("TrueSkill", backref="user_assocs")
+
+  def __repr__(self):
+    return '<user %s:, region %s, trueskill: %s>' % (self.user.tag, self.region, self.trueskill)
+
   
 # Region model associated with Users and Tournaments
 class Region(db.Model):
@@ -58,14 +70,13 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region_name = db.Column(db.String(64), ForeignKey('region.id'))
-  trueskill = db.relationship("TrueSkill", uselist=False, backref="user")
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, trueskill: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.trueskill, self.region, self.main, self.secondaries.all())
+    return '<Tag: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.secondaries.all())
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
