@@ -293,7 +293,7 @@ sanitized_tags_dict = {
     'Vish',
     'Sion',
     'Phil',
-    'Bob\$',
+    'Bob$',
     'Kounotori',
     'Stab',
     'G$',
@@ -362,12 +362,15 @@ def sanitize_tag(tag, regex_list, sanitized_list):
 def add_prefixes(regex_list):
   wildcard = '.*'
   sep = '[|.`\' ]'
+  suffix = '[)]'
   prefix = wildcard + sep
   prefix_list = []
    
   inner_list = []
   for regex in regex_list:
-    inner_list.append(prefix + regex)
+    # 4 combinations
+    inner_list.append(prefix + regex) # + suffix
+    inner_list.append(regex + suffix)
     inner_list.append(regex)
 
   joined_regex = '|'.join(inner_list)
@@ -382,7 +385,7 @@ def add_prefixes(regex_list):
     # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global'])
     # player_regex_list = map(compile_case_i_re, player_raw_regex_dict['Global'])
 
-# Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added, then convert the list with prefixes added to all lowercase tags
+# Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added and suffix, then compile both list to all lowercase tags
 player_regex_dict = defaultdict(str)
 for region_name in player_raw_regex_dict:
   print "REGION_NAME", region_name 

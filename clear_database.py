@@ -42,8 +42,8 @@ db.session.add(non_tourney)
 
 db.session.commit()
 
-print userlist
-print setlist
-print matchlist
-print tournamentlist
-print regionlist
+print "USERS:", User.query.all()
+print "SETS:", Set.query.all()
+print "MATCHES:", Match.query.all()
+print "TOURNAMENTS:", Tournament.query.all()
+print "REGIONS:", Region.query.all()

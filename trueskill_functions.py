@@ -43,13 +43,11 @@ def update_rating(winner_user, loser_user):
 	# create Rating objects using currently stored trueskill attribute
 	winner_user_rating = Rating(winner_user.trueskill.mu, winner_user.trueskill.sigma)
 	loser_user_rating = Rating(loser_user.trueskill.mu, loser_user.trueskill.sigma)
-	print winner_user.tag, winner_user_rating
-	print loser_user.tag, loser_user_rating
+	print winner_user.tag, winner_user_rating, " | ", loser_user.tag, loser_user_rating
 
 	# Simulate a victory for winner_user
 	new_winner_rating, new_loser_rating = rate_1vs1(winner_user_rating, loser_user_rating)
-	print "updated trueskill", winner_user.tag, new_winner_rating
-	print "updated trueskill", loser_user.tag, new_loser_rating
+	print "updated trueskill", winner_user.tag, new_winner_rating, " | ", "updated trueskill", loser_user.tag, new_loser_rating
 
 	# Store and overwrite existing trueskill object with new Rating values
 	winner_user.trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)

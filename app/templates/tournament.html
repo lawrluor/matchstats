@@ -3,44 +3,44 @@
 {% block content %}
 <div class="container">
   <header class="jumbotron">
-    <h1 class="text-center">{{tournament.name}}</h1>
+    <h1>{{tournament.name}}</h1>
     {% if tournament.url %}
-      <h3 class="text-center"><a href="{{tournament.url}}"><b>(Bracket Link)</b></a></h3>
+      <h4 class="text-left"><a href="{{tournament.url}}"><b>(View Bracket)</b></a></h4>
     {% endif %}
 
     <table class="table borderless">
       <tr>
-        <td class="col-sm-6 text-center">
+        <td class="col-sm-6">
         {% if tournament.region %}
-          <h2>{{tournament.region}}</h2>
+          <h3><b>Region</b>: {{tournament.region}}</h3>
         {% else %}
-          <h2>Global</h2>
+          <h3><b>Region</b>: Global</h3>
         {% endif %}
         </td>
 
-        <td class="col-sm-6 text-center">
+        <td class="col-sm-6">
           {% if tournament.date %}
-            <h2>{{tournament.date}}</h2>
+            <h3><b>Date</b>: {{tournament.date}}</h3>
           {% else %}
-            <h2>Date Unknown</h2>
+            <h3><b>Date</b>: Unknown</h3>
           {% endif %}
         </td>
       <tr>
 
       <tr>
-        <td class="col-sm-6 text-center">
+        <td class="col-sm-6">
           {% if tournament.game_type %}
-            <h2>{{tournament.game_type}}</h2>
+            <h3><b>Game</b>: {{tournament.game_type}}</h3>
           {% else %}
-            <h2>Game Unknown</h2>
+            <h3><b>Game</b>: Unknown</h3>
           {% endif %}
         </td>
 
-        <td class="col-sm-6 text-center">
+        <td class="col-sm-6">
           {% if tournament.entrants != -1 %}
-            <h2>{{tournament.entrants}} Player {{tournament.bracket_type}}</h2>
+            <h3><b>Info</b>: {{tournament.entrants}} Player {{tournament.bracket_type}}</h3>
           {% else %}
-            <h2>{{tournament.bracket_type}}</h2>
+            <h3><b>Info</b>: {{tournament.bracket_type}}</h3>
           {% endif %}
         </td>
       </tr>
