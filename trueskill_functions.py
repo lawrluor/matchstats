@@ -53,21 +53,30 @@ def update_rating(winner_user, loser_user):
 	populate_trueskills(winner_user)
 	populate_trueskills(loser_user)
 
-	# create Rating objects using currently stored trueskill attribute
-	winner_user_rating = Rating(winner_user.trueskill.mu, winner_user.trueskill.sigma)
-	loser_user_rating = Rating(loser_user.trueskill.mu, loser_user.trueskill.sigma)
-	print winner_user.tag, winner_user_rating, " | ", loser_user.tag, loser_user_rating
+	# Check if Users are from same region; if so, load and update Region TrueSkill, else load and update Global TrueSkill
+	if winner_user.region==loser_user.region:
+		calc_region_trueskill(winner_user, loser_user, 1)
+	else:
+		calc_region_trueskill(winner_user, loser_user, 0)
 
-	# Simulate a victory for winner_user
+	# After TrueSkills have been recalculated, commit changes and print users
+	db.session.commit()
+	print winner_user, loser_user
+	return winner_user, loser_user
+
+# given winner_user, loser_user, and integer index (0 for Region and 1 for Global), create Rating objects using currently stored Region Trueskill attribute
+def calc_region_trueskill(winner_user, loser_user, region_num):
+	winner_user_rating = Rating(winner_user.skill_assocs[region_num].trueskill.mu, winner_user.skill_assocs[region_num].trueskill.sigma)
+	loser_user_rating = Rating(loser_user.skill_assocs[region_num].trueskill.mu, loser_user.skill_assocs[region_num].trueskill.sigma)
+	region_name = winner_user.skill_assocs[region_num].region
+
+	# Print current TrueSkill values for both players
+	print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
+	
+	# Record set result, victory for winner_user and loss for loser_user
 	new_winner_rating, new_loser_rating = rate_1vs1(winner_user_rating, loser_user_rating)
-	print "updated trueskill", winner_user.tag, new_winner_rating, " | ", "updated trueskill", loser_user.tag, new_loser_rating
+	print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
 
 	# Store and overwrite existing trueskill object with new Rating values
-	winner_user.trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
-	loser_user.trueskill = TrueSkill(mu=new_loser_rating.mu, sigma=new_loser_rating.sigma)
-	print winner_user, loser_user
-	print '\n'
-
-	db.session.commit()
-
-	return winner_user, loser_user
+	winner_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
+	loser_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
