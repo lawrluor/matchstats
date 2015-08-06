@@ -203,3 +203,6 @@ class SearchForm(Form):
 class RegionSelect(Form):
   region_name = SelectField('region_name', choices=regionlist, coerce=str)
 
+# Character filter form in /browse_users
+class CharacterFilter(Form):
+  character_name = SelectField('character_name', choices=[('Main', 'Main')] + main_char_choices, coerce=str)

@@ -3,7 +3,7 @@
 from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db
 from models import User, Set, Match, Character, Placement, secondaries, Region
-from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
+from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, CharacterFilter, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
 from sqlalchemy import and_, or_
 from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE, CHAR_USERS_PER_PAGE 
@@ -157,16 +157,27 @@ def head_to_head():
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
-  # if viewing global information, don't filter query by g.region
+  character = request.args.get('character_name')
+  print character
+  form = CharacterFilter(character_name=character) 
+  
+ # if viewing global information, don't filter query by g.region
+ # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
-    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    if character=="Main":
+      userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    else:
+      userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-
+    if character=="Main":
+      userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    else:
+      userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region==g.region, User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   return render_template("browse_users.html",
                          userlist=userlist,
-                         current_region=g.region)
+                         current_region=g.region,
+                         form=form)
 
 # User profile page
 @app.route('/user/<tag>')
