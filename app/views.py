@@ -122,8 +122,8 @@ def head_to_head():
 
   if form.validate_on_submit():
     # user1 and user2 is a string that represents the first user's tag
-    user1_tag = check_and_sanitize_tag(form.user1.data, g.region)
-    user2_tag = check_and_sanitize_tag(form.user2.data, g.region)
+    user1_tag = check_and_sanitize_tag(form.user1.data)
+    user2_tag = check_and_sanitize_tag(form.user2.data)
 
     # Make sure two Users are found, else redirect to pre-validated form
     user1 = User.query.filter(User.tag==user1_tag).first()
@@ -322,7 +322,7 @@ def search():
 # processes query from /search and returns search results for Users and tournaments (Set.tournament) on this page
 @app.route('/search_results/<query>')
 def search_results(query):
-  sanitized_query = check_and_sanitize_tag(query, g.region)
+  sanitized_query = check_and_sanitize_tag(query)
   tournament_results = Tournament.query.filter(Tournament.name==query).all() 
   user_results = User.query.filter(User.tag==sanitized_query).all()
 

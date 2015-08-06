@@ -49,13 +49,11 @@
     <div class="panel panel-default">
     <div class="panel-heading">
       <h2><b>
-        ({{user1.trueskill.mu|round(4, 'common')}})
         {% set character_name = user1.main %} {% include 'char_icon.html' %}
         {{user1.tag}} 
         vs 
         {{user2.tag}} 
         {% set character_name = user2.main %} {% include 'char_icon.html' %}
-        ({{user2.trueskill.mu|round(4, 'common')}})
       </b></h2>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>

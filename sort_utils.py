@@ -12,6 +12,7 @@ def sort_placementlist(placementlist):
   sorted_placementlist = sorted(placementlist, key=attrgetter('tournament.date', 'tournament.name'), reverse=True)
   return sorted_placementlist
 
+# CURRENTLY BROKEN
 # Given list of User objects, order by trueskill.mu. Useful for sorting model backrefs to userlist (like region.users)
 def sort_userlist(userlist):
   sorted_userlist = sorted(userlist, key=attrgetter('trueskill.mu'), reverse=True)

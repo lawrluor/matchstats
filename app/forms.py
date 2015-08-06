@@ -202,3 +202,4 @@ class SearchForm(Form):
 # select region form
 class RegionSelect(Form):
   region_name = SelectField('region_name', choices=regionlist, coerce=str)
+

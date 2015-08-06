@@ -362,7 +362,7 @@ def sanitize_tag(tag, regex_list, sanitized_list):
 def add_prefixes(regex_list):
   wildcard = '.*'
   sep = '[|.`\' ]'
-  suffix = '[)]'
+  suffix = '\)'
   prefix = wildcard + sep
   prefix_list = []
    
@@ -388,13 +388,23 @@ def add_prefixes(regex_list):
 # Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added and suffix, then compile both list to all lowercase tags
 player_regex_dict = defaultdict(str)
 for region_name in player_raw_regex_dict:
-  print "REGION_NAME", region_name 
+  print "-----REGION_NAME", region_name 
   player_regex_dict[region_name] = map(add_prefixes, player_raw_regex_dict[region_name])
-  print "PREFIXED_REGEX_DICT", player_regex_dict[region_name]
+  print "-----PREFIXED_REGEX_DICT", player_regex_dict[region_name]
   player_regex_dict[region_name] = map(compile_case_i_re, player_regex_dict[region_name])
-  print "LOWERCASE", player_regex_dict
+  print "-----LOWERCASE", player_regex_dict
   print '\n'
-print player_regex_dict
+print "----- PLAYER_REGEX_DICT", player_regex_dict
+
+# Combine region-separated values of player_regex_dict for a truly global list
+# Combine region-separated values of sanitized_tags_dict for a truly comprehensive list
+full_regex_list = []
+full_sanitized_list = []
+for region in player_regex_dict:
+  full_regex_list += player_regex_dict[region]
+  full_sanitized_list += sanitized_tags_dict[region]
+print "-----FULL_REGEX_LIST", full_regex_list
+print "-----FULL_SANITIZED_LIST", full_sanitized_list
 
 # Wrapper for sanitize_tag.
 def check_and_sanitize_tag(tag, *args): #region is optional parameter
@@ -405,4 +415,4 @@ def check_and_sanitize_tag(tag, *args): #region is optional parameter
       return sanitize_tag(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name]) 
   elif len(args)==0 or args[0] is None:
     region_name = "Global"
-    return sanitize_tag(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name])
+    return sanitize_tag(tag, full_regex_list, full_sanitized_list)
