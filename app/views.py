@@ -1,4 +1,4 @@
-# Version 1.0 routes commented out, consisting primarily of model attribute category pages and user creating/editing model objects
+# Version 2.0 routes commented out, consisting primarily of user creating/editing model objects
 
 from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db

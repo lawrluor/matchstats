@@ -142,7 +142,7 @@ player_raw_regex_dict = {
     ['(klap[s$]$)'],
     ['(tian$)'],
     ['(squible$)'],
-    ['(kyupuff$)', '(kyu puff$)', '(plop$)', '(buffglutes92$)'],
+    ['(kyupuff$)', '(kyu puff$)', '(plop$)', '(buffglutes92$)', '(dylandude829)'],
     ['(rime$)'],
     ['(mr lemon$)', '(mr\. lemon$)'],
     ['(kaiju$)'],
@@ -370,7 +370,7 @@ def add_prefixes(regex_list):
   for regex in regex_list:
     # 4 combinations
     inner_list.append(prefix + regex)
-    inner_list.append(regex + suffix)
+    # inner_list.append(regex + suffix)
     inner_list.append(regex)
 
   joined_regex = '|'.join(inner_list)

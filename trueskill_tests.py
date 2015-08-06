@@ -53,7 +53,7 @@ print "test0 vs testA, Global ranking should update"
 update_rating(test0, testA)
 print '\n'
 
-print "testA vs testB, Region ranking should update"
+print "testA vs testB, Both rankings should update"
 update_rating(testA, testB)
 print '\n'
 
@@ -61,11 +61,11 @@ print "test1 vs testB, Global ranking should update"
 update_rating(test1, testB)
 print '\n'
 
-print "test2 vs testB, Region ranking should update"
+print "test2 vs testB, Both rankings should update"
 update_rating(test2, testB)
 print '\n'
 
-print "test2 vs testA, Region ranking should update"
+print "test2 vs testA, Both rankings should update"
 update_rating(test2, testA)
 print '\n'
 
