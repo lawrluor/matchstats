@@ -72,6 +72,7 @@ class User(db.Model):
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
+
   # User-Set Relationship functions
   # get_won_sets is a function that takes a User object and returns the sets he has won.
   def get_won_sets(self):

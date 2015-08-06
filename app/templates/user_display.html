@@ -24,8 +24,12 @@
     </td>
 
     <td class="col-sm-3 text-center mobile-horizontal-overflow-td-col-3">
-        {% if user.trueskill.mu %}
-            {{user.trueskill.mu|round(4, 'common')}}
+        {% if user.trueskills %}
+            {% if current_region=="Global" or current_region=="National" %}
+                {{user.trueskills[0].mu|round(4, 'common')}}
+            {% else %}
+                {{user.trueskills[1].mu|round(4, 'common')}}
+            {% endif %}
         {% endif %}
     </td>
 

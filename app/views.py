@@ -158,13 +158,11 @@ def head_to_head():
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
   # if viewing global information, don't filter query by g.region
-  userlist = User.query.order_by(User.skill_assocs[0].trueskill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-  # if viewing national information, filter query to take Users with User.region==None
-  # elif g.region=="National":
-  #   userlist = User.query.join(TrueSkill, User.trueskill).filter(User.region==None).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-  # else:
-  #   # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-  #   userlist = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(Region.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+  if g.region=="Global" or g.region=="National":
+    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+  else:
+    # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
+    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
 
   return render_template("browse_users.html",
                          userlist=userlist,
