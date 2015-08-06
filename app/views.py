@@ -164,13 +164,13 @@ def browse_users(page=1):
  # if viewing global information, don't filter query by g.region
  # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
-    if character=="Main":
+    if character=="Main" or character is None:
       userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
     else:
       userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-    if character=="Main":
+    if character=="Main" or character is None:
       userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
     else:
       userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region==g.region, User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)

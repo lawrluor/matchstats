@@ -28,7 +28,9 @@
             {% if current_region=="Global" or current_region=="National" %}
                 {{user.trueskills[0].mu|round(4, 'common')}}
             {% else %}
-                {{user.trueskills[1].mu|round(4, 'common')}}
+                {% if user.trueskills[1] %}
+                    {{user.trueskills[1].mu|round(4, 'common')}}
+                {% endif %}
             {% endif %}
         {% endif %}
     </td>
