@@ -33,25 +33,12 @@ class TrueSkill(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
   mu = db.Column(db.Float)
   sigma = db.Column(db.Float)
-
-  def __repr__(self):
-    return '<mu: %s, sigma: %s>' % (self.mu, self.sigma)
-
-class UserSkills(db.Model):
-  __tablename__ = "userskills"
-  trueskill_id = db.Column(db.Integer, db.ForeignKey('trueskill.id'), primary_key=True)
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
   region = db.Column(db.String(128))
-  user = db.relationship("User", backref=db.backref("skill_assocs", cascade='all, delete-orphan'))
-  trueskill = db.relationship("TrueSkill", backref=db.backref("user_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
-    return '<region %s, trueskill: %s>' % (self.region, self.trueskill)
+    return '<region: %s, mu: %s, sigma: %s>' % (self.region, self.mu, self.sigma)
 
-  def __str__(self):
-    return self.region, self.trueskill
 
-  
 # Region model associated with Users and Tournaments
 class Region(db.Model):
   __tablename__ = "region"
@@ -73,14 +60,14 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region_name = db.Column(db.String(64), ForeignKey('region.id'))
-  trueskills = db.relationship("UserSkills", backref=db.backref('user_from_skills'))
+  trueskills = db.relationship("TrueSkill", order_by='TrueSkill.id', backref='user')
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, Region: %s, Main: %s, TrueSkills: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.skill_assocs, self.secondaries.all())
+    return '<Tag: %s, Region: %s, Main: %s, TrueSkills: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.trueskills, self.secondaries.all())
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())

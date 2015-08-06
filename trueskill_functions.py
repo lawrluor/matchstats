@@ -23,28 +23,32 @@ def rating_env_setup():
 
 # Given User, sets any UserSkill/TrueSkill object's trueskill to default TrueSkill object
 def reset_trueskill(user):
-	# when resetting, if user has a TrueSkill association with a region he is not associated with, remove it
-	if user.region is None and len(user.skill_assocs)>1:
-		user.skill_assocs.remove(user.skill_assocs[1])
-		db.session.commit()
+	# if User has a TrueSkill association with a region he is not associated with, remove it
+	if len(user.trueskills)>=2:
+		if user.region is None or user.region.region!=user.trueskills[1].region:
+			user.trueskills.remove(user.trueskills[1])
+			db.session.commit()
 
-	for skill_assoc in user.skill_assocs:
-		skill_assoc.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
+	for trueskill in user.trueskills:
+		trueskill.mu = MU
+		trueskill.sigma = SIGMA
 		db.session.commit()
-	return user.skill_assocs
+	return user.trueskills
 
 # If returns True, Global TrueSkill already populated, and Region TrueSkill to the extent of known information
 def populate_trueskills(user):
 	# case for when User has no TrueSkills - if User has region, populate both Global and region Trueskill
-	if len(user.skill_assocs)<=0:
-		user.skill_assocs.append(UserSkills(region="Global", trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+	if len(user.trueskills)<=0:
+		user.trueskills.append(TrueSkill(region="Global", mu=MU, sigma=SIGMA))
 		if user.region is not None:
-			user.skill_assocs.append(UserSkills(region=user.region.region, trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA))
+			print "appended regional trueskill"
 	# case for when User is initialized with no region (Tournament has no region attribute during)
 	# if the one regional TrueSkill is Global, and user.region is not None, populate regional TrueSkill
-	elif len(user.skill_assocs)==1: 
-		if user.skill_assocs[0].region=="Global" and user.region is not None:
-			user.skill_assocs.append(UserSkills(region=user.region.region, trueskill=TrueSkill(mu=MU, sigma=SIGMA)))
+	elif len(user.trueskills)==1: 
+		if user.trueskills[0].region=="Global" and user.region is not None:
+			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA))
+			print "appended regional trueskill"
 		else:
 			return True
 	# If user has 2 Trueskills (Global and Region), no need to populate
@@ -55,6 +59,8 @@ def populate_trueskills(user):
 def update_rating(winner_user, loser_user):
 	rating_env_setup()
 
+	print "PRE POPULATE", winner_user
+	print "PRE POPULATE", loser_user
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
 	populate_trueskills(winner_user)
 	populate_trueskills(loser_user)
@@ -67,15 +73,16 @@ def update_rating(winner_user, loser_user):
 
 	# After TrueSkills have been recalculated, commit changes and print users
 	db.session.commit()
-	print winner_user, loser_user
+	print winner_user
+	print loser_user
 	print '\n'
 	return winner_user, loser_user
 
 # given winner_user, loser_user, and integer index (0 for Region and 1 for Global), create Rating objects using currently stored Region Trueskill attribute
 def calc_region_trueskill(winner_user, loser_user, region_num):
-	winner_user_rating = Rating(winner_user.skill_assocs[region_num].trueskill.mu, winner_user.skill_assocs[region_num].trueskill.sigma)
-	loser_user_rating = Rating(loser_user.skill_assocs[region_num].trueskill.mu, loser_user.skill_assocs[region_num].trueskill.sigma)
-	region_name = winner_user.skill_assocs[region_num].region
+	winner_user_rating = Rating(winner_user.trueskills[region_num].mu, winner_user.trueskills[region_num].sigma)
+	loser_user_rating = Rating(loser_user.trueskills[region_num].mu, loser_user.trueskills[region_num].sigma)
+	region_name = winner_user.trueskills[region_num].region
 
 	# Print current TrueSkill values for both players
 	print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
@@ -85,8 +92,13 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
 
 	# Store and overwrite existing trueskill object with new Rating values
-	winner_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
-	loser_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_loser_rating.mu, sigma=new_loser_rating.sigma)
+	winner_user.trueskills[region_num].region=region_name
+	winner_user.trueskills[region_num].mu=new_winner_rating.mu
+	winner_user.trueskills[region_num].sigma=new_winner_rating.sigma
+
+	loser_user.trueskills[region_num].region=region_name
+	loser_user.trueskills[region_num].mu=new_loser_rating.mu
+	loser_user.trueskills[region_num].sigma=new_loser_rating.sigma
 
 # Reset, then recalculate all Trueskills for all Users.
 def recalculate_trueskill():
