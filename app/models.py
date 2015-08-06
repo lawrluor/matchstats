@@ -42,11 +42,14 @@ class UserSkills(db.Model):
   trueskill_id = db.Column(db.Integer, db.ForeignKey('trueskill.id'), primary_key=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
   region = db.Column(db.String(128))
-  user = db.relationship("User", backref=backref("skill_assocs", cascade='all, delete-orphan'))
-  trueskill = db.relationship("TrueSkill", backref=backref("user_assocs", cascade='all, delete-orphan'))
+  user = db.relationship("User", backref=db.backref("skill_assocs", cascade='all, delete-orphan'))
+  trueskill = db.relationship("TrueSkill", backref=db.backref("user_assocs", cascade='all, delete-orphan'))
 
   def __repr__(self):
-    return '<user %s:, region %s, trueskill: %s>' % (self.user.tag, self.region, self.trueskill)
+    return '<region %s, trueskill: %s>' % (self.region, self.trueskill)
+
+  def __str__(self):
+    return self.region, self.trueskill
 
   
 # Region model associated with Users and Tournaments
@@ -70,13 +73,14 @@ class User(db.Model):
   tag = db.Column(db.String(64), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region_name = db.Column(db.String(64), ForeignKey('region.id'))
+  trueskills = db.relationship("UserSkills", backref=db.backref('user_from_skills'))
   secondaries = db.relationship("Character",
                               secondary=secondaries,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, Region: %s, Main: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.secondaries.all())
+    return '<Tag: %s, Region: %s, Main: %s, TrueSkills: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.skill_assocs, self.secondaries.all())
  
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())

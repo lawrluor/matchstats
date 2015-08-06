@@ -1,5 +1,6 @@
 from app import app, db
 from app.models import *
+from sort_utils import sort_setlist
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 
 # Trueskill constants
@@ -22,6 +23,11 @@ def rating_env_setup():
 
 # Given User, sets any UserSkill/TrueSkill object's trueskill to default TrueSkill object
 def reset_trueskill(user):
+	# when resetting, if user has a TrueSkill association with a region he is not associated with, remove it
+	if user.region is None and len(user.skill_assocs)>1:
+		user.skill_assocs.remove(user.skill_assocs[1])
+		db.session.commit()
+
 	for skill_assoc in user.skill_assocs:
 		skill_assoc.trueskill = TrueSkill(mu=MU, sigma=SIGMA)
 		db.session.commit()
@@ -54,7 +60,7 @@ def update_rating(winner_user, loser_user):
 	populate_trueskills(loser_user)
 
 	# Check if Users are from same region; if so, load and update Region TrueSkill, else load and update Global TrueSkill
-	if winner_user.region==loser_user.region:
+	if winner_user.region==loser_user.region and winner_user.region is not None and loser_user.region is not None:
 		calc_region_trueskill(winner_user, loser_user, 1)
 	else:
 		calc_region_trueskill(winner_user, loser_user, 0)
@@ -80,4 +86,22 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 
 	# Store and overwrite existing trueskill object with new Rating values
 	winner_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
-	loser_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_winner_rating.mu, sigma=new_winner_rating.sigma)
+	loser_user.skill_assocs[region_num].trueskill = TrueSkill(mu=new_loser_rating.mu, sigma=new_loser_rating.sigma)
+
+# Reset, then recalculate all Trueskills for all Users.
+def recalculate_trueskill():
+  # Reset all User Trueskill to defaults
+  userlist = User.query.all()
+  for user in userlist:
+    reset_trueskill(user)
+
+  # Iterate through all Sets in order and recalculate Trueskill; currently in order of set.id
+  # order Sets by tournament date, then by set id, oldest being at index 0
+  setlist = Set.query.all()
+  sorted_setlist = sort_setlist(setlist)
+  for set in sorted_setlist:
+    winner_user = User.query.filter(User.tag==set.winner_tag).first()
+    loser_user = User.query.filter(User.tag==set.loser_tag).first()
+    update_rating(winner_user, loser_user)
+
+  print "All trueskills recalculated"
