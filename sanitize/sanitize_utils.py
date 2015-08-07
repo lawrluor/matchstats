@@ -33,7 +33,7 @@ player_raw_regex_dict = {
     ['(javi$)'],
     ['(kels$)'],
     ['(wizzrobe$)', '(wizzy$)'],
-    ['(the moon$)', '(la luna$)'],
+    ['(the moon$)', '(la luna$)', '(moon$)'],
     ['(eddy mexico$)'],
     ['(chu dat$)', '(chudat$)'],
     ['(bladewise$)'],

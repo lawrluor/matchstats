@@ -3,9 +3,9 @@
 {% block content %}
 <div class="container">
   <header class="jumbotron">
-    <h1>{{tournament.name}}</h1>
+    <h1 class="col-sm-10">{{tournament.name}}</h1>
     {% if tournament.url %}
-      <h4 class="text-left"><a href="{{tournament.url}}"><b>(View Bracket)</b></a></h4>
+      <h3 class="col-sm-1"><a href="{{tournament.url}}"><b>[View Bracket]</b></a></h3>
     {% endif %}
 
     <table class="table borderless">
@@ -45,6 +45,7 @@
         </td>
       </tr>
     </table>
+
   </header>
 
   <!-- Table for Placements -->

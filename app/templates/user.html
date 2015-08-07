@@ -5,17 +5,19 @@
   <header class="jumbotron">
     <h1><a href="{{url_for("user", tag=user.tag)}}">{{user.tag}}</a></h1>
     <table class="table borderless">
-      <tr>
-        <td class="col-sm-6">
-          <h3>
-            {% if user.region %}
-              <b>Region: </b><a href="{{url_for("region", region=user.region)}}">{{user.region}}</a>
-            {% else %}
-              <b>Region: </b> None
-            {% endif %}
-          </h3>
-        </td>
+    <tr>
+      <td>
+        <h3>
+        {% if user.region %}
+          <b>Region: </b><a href="{{url_for("region", region=user.region)}}">{{user.region}}</a>
+        {% else %}
+          <b>Region: </b> None
+        {% endif %}
+        </h3>
+      </td>
+    </tr>
 
+      <tr>
         <td class="col-sm-6">
           <h3><b>Main:</b>
             {% if user.main %}
@@ -28,16 +30,6 @@
             {% endif %}
           </h3>
         </td>
-      <tr>
-
-      <tr>
-        <td class="col-sm-6">
-          {% if user.trueskills %}
-            {% for skill in user.trueskills %}
-              <!-- Round float value to 4 decimal places -->
-              <h3><b>{{skill.region}} Rating:</b> μ: {{skill.mu|round(4, 'common')}}, σ: {{skill.sigma|round(4, 'common')}}</h3>
-            {% endfor %}
-          {% endif %}
 
         <td class="col-sm-6">
           <h3>
@@ -54,7 +46,19 @@
           </h3>
         </td>
       </tr>
+
+      <tr>
+        <td>
+          <h3><b>{{user.trueskills[0].region}} Rating:</b> μ: {{user.trueskills[0].mu|round(4, 'common')}}, σ: {{user.trueskills[0].sigma|round(4, 'common')}}</h3>
+        </td>
+
+        {% if user.trueskills[1] %}
+          <td>
+            <h3><b>{{user.trueskills[1].region}} Rating:</b> μ: {{user.trueskills[1].mu|round(4, 'common')}}, σ: {{user.trueskills[1].sigma|round(4, 'common')}}</h3>
+          </td>
+        {% endif %}
     </table>
+
     <!-- Route to edit User; Not available in version 2.0 -->
   </header>
 
