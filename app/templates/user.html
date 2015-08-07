@@ -33,9 +33,9 @@
       <tr>
         <td class="col-sm-6">
           {% if user.trueskills %}
-            {% for trueskill in user.trueskills %}
+            {% for skill in user.trueskills %}
               <!-- Round float value to 4 decimal places -->
-              <h3><b>{{trueskill.region}} Rating:</b> {{trueskill.mu|round(4, 'common')}}</h3>
+              <h3><b>{{skill.region}} Rating:</b> μ: {{skill.mu|round(4, 'common')}}, σ: {{skill.sigma|round(4, 'common')}}</h3>
             {% endfor %}
           {% endif %}
 

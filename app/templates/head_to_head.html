@@ -48,13 +48,13 @@
     {% if tag1 != None and tag2 != None %} 
     <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>
+      <h1><b>
         {% set character_name = user1.main %} {% include 'char_icon.html' %}
         {{user1.tag}} 
         vs 
         {{user2.tag}} 
         {% set character_name = user2.main %} {% include 'char_icon.html' %}
-      </b></h2>
+      </b></h1>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>
     <div class="panel-body">
@@ -93,6 +93,7 @@
               {{tag1}} [{{user1_match_win_count + user1_score_matches_won}}-{{user2_match_win_count + user2_score_matches_won}}] <b>{{tag2}}</b>
             {% endif %}
           </td>
+        </tr>
 
           <!-- In current version of Smashstats, no Match info available
           <td>Battlefield: {{ h2h_stages_played["Battlefield"]|length }}</td>
@@ -128,6 +129,47 @@
       </table>
       </div>
     </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><b>TrueSkill By Region</b></h2>
+    </div>
+    <div class="panel-body">
+      <table class="table bootstrap-datatable table-striped table-hover">
+        <thead>
+          <th class="col-sm-4 text-center">{{user1.tag}}</th>
+          <th class="col-sm-4 text-center">Region</th>
+          <th class="col-sm-4 text-center">{{user2.tag}}</th>
+        </thead>
+
+        <tbody>
+        {% if user1.region == user2.region %}
+          {% for i in range(user1.trueskills|length) %}
+            <!-- Establish row colors based on trueskill comparisons -->
+            {% if user1.trueskills[i].mu>user2.trueskills[i].mu %}
+              <tr class="success">
+            {% elif user1.trueskills[i].mu==user2.trueskills[i].mu %}
+              <tr class="warning">
+            {% else %}
+              <tr class="danger">
+            {% endif %}
+
+            <th class="col-sm-4 text-center"><b>μ: {{user1.trueskills[i].mu|round(4, 'common')}}, σ: {{user1.trueskills[i].sigma|round(4, 'common')}}</b></th>
+            <th class="col-sm-4 text-center"><b>{{user1.trueskills[i].region}}</b></th>
+            <th class="col-sm-4 text-center"><b>μ: {{user2.trueskills[i].mu|round(4, 'common')}}, σ {{user2.trueskills[i].sigma|round(4, 'common')}}</b></th>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <th class="col-sm-4 text-center"><b>MU: {{user1.trueskills[0].mu|round(4, 'common')}} | SIGMA: {{user1.trueskills[i].sigma|round(4, 'common')}}</b></th>
+            <th class="col-sm-4 text-center"><b>Global</b></th>
+            <th class="col-sm-4 text-center"><b>MU: {{user2.trueskills[0].mu|round(4, 'common')}} | SIGMA: {{user2.trueskills[i].sigma|round(4, 'common')}}</b></th>
+          </tr>
+        {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 
     <div class="panel panel-default">
