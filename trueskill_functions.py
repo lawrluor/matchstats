@@ -59,8 +59,6 @@ def populate_trueskills(user):
 def update_rating(winner_user, loser_user):
 	rating_env_setup()
 
-	print "PRE POPULATE", winner_user
-	print "PRE POPULATE", loser_user
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
 	populate_trueskills(winner_user)
 	populate_trueskills(loser_user)
@@ -74,8 +72,13 @@ def update_rating(winner_user, loser_user):
 
 	# After TrueSkills have been recalculated, commit changes and print users
 	db.session.commit()
-	print winner_user
-	print loser_user
+
+	# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
+	try:
+		print winner_user, loser_user
+	except UnicodeError:
+		pass
+
 	print '\n'
 	return winner_user, loser_user
 

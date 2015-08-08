@@ -7,6 +7,7 @@ import urllib3
 from bs4 import BeautifulSoup
 
 import sys
+import unicodedata
 
 from parse_challonge_standings import *
 from parse_challonge_info import *

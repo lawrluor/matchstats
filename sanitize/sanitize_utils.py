@@ -142,7 +142,7 @@ player_raw_regex_dict = {
     ['(klap[s$]$)'],
     ['(tian$)'],
     ['(squible$)'],
-    ['(kyupuff$)', '(kyu puff$)', '(plop$)', '(buffglutes92$)', '(dylandude829)'],
+    ['(kyupuff$)', '(kyu puff$)', '(plop$)', '(buffglutes92$)', '(dylandude829$)', '(the pleaup$)'],
     ['(rime$)'],
     ['(mr lemon$)', '(mr\. lemon$)'],
     ['(kaiju$)'],
@@ -167,7 +167,14 @@ player_raw_regex_dict = {
     ['(kunai$)', '(wx$)', '(wxia$)'],
     ['(arc$)', '(arcnatural$)', '(arc natural$)'],
     ['(flexed$)'],
-    ['(spiff$)']
+    ['(spiff$)'],
+    ['(me[tl][tl]wing$)'],
+    ['(vudoo$)'],
+    ['(tichinde$)', '(tichinde925$)', '(master of setups$)'],
+    ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
+    ['(makari$)'],
+    ['(young bone[sz] villain$)', '(yung bone[sz] villain$)'],
+    ['(thechocolatelava$)', '(middleeastballz$)']
     ]
     }
 
@@ -337,7 +344,14 @@ sanitized_tags_dict = {
     'Kunai',
     'Arc',
     'Flexed',
-    'Spiff'
+    'Spiff',
+    'Metlwing',
+    'Vudoo',
+    'Tichinde',
+    'Bugatti',
+    'Makari',
+    'Yung Bones Villain',
+    'TheChocolateLava'
     ]
     }
 

@@ -133,7 +133,7 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, *arg
     tournament_date = convert_date(tournament_info['date'])
   else:
     # if no date provided, set to today's date (date of parse)
-    tournament_date = date.today() 
+    tournament_date = datetime.date(2099, 1, 1) 
 
   if tournament_name is None:
     tournament_name = "Non-Tourney"

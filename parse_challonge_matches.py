@@ -198,8 +198,13 @@ def import_challonge_matches(matchlist, tournament_name):
                   total_matches=winner_score+loser_score)
 
     db.session.add(new_set)
+    
+    # Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
+    try:
+      print new_set
+    except UnicodeError:
+      pass
 
-    print new_set
     # update User trueskill ratings based on Set winner and loser
     update_rating(winner_user, loser_user)
 
