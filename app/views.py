@@ -12,6 +12,7 @@ import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
 from sort_utils import sort_placementlist, sort_userlist
+from pagination_utils import *
 from h2h_stats_functions import convert_placement
 import collections
 
@@ -181,7 +182,8 @@ def browse_users(page=1):
 
 # User profile page
 @app.route('/user/<tag>')
-def user(tag):
+@app.route('/user/<tag>/<int:page>')
+def user(tag, page=1):
   user = User.query.filter(User.tag==tag).first()
   # If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
@@ -213,14 +215,14 @@ def user(tag):
   user_set_losses = len(user.get_lost_sets())
 
   return render_template("user.html",
-                        title=tag,
                         user=user,
                         user_set_wins=user_set_wins,
                         user_set_losses=user_set_losses,
                         user_secondaries=user_secondaries,
                         user_tournaments_sorted=user_tournaments_sorted,
                         user_placements=user_placements,
-                        user_sets_by_tournament=user_sets_by_tournament)
+                        user_sets_by_tournament=user_sets_by_tournament,
+                        page=page)
 
 
 # Displays all users given a region. Routed to from /browse_regions
@@ -278,13 +280,13 @@ def character(character, page=1):
 def browse_tournaments(page=1):
   # if viewing Global information, don't filter query by g.region
   if g.region=="Global":
-    tournamentlist = Tournament.query.order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+    tournamentlist = Tournament.query.order_by(Tournament.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
   # if viewing national information, filter query to take Tournaments with region==None
   elif g.region=="National":
-    tournamentlist = Tournament.query.filter(Tournament.region==None).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+    tournamentlist = Tournament.query.filter(Tournament.region==None).order_by(Tournament.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
   else:
     # filter for Tournaments by g.region, by joining Region and Tournament.region
-    tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date).paginate(page, TOURNAMENTS_PER_PAGE, False)
+    tournamentlist = Tournament.query.join(Region, Tournament.region).filter(Region.region==g.region).order_by(Tournament.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist,
                          current_region=g.region)

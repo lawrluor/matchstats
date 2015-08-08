@@ -320,7 +320,7 @@ sanitized_tags_dict = {
     'Sora',
     'Hart',
     'Mr. Tuesday',
-    'BigVegetaBluntz',
+    'BVB',
     'Metlwing',
     'Bown',
     'Cheezpuff',

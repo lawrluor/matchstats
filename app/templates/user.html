@@ -127,6 +127,19 @@
         {% endfor %}
       </tbody>
     </table>
+
+    <!-- Navigating the paginated display -->
+    {% set next_page = page + 1 %}
+    {% set prev_page = page - 1 %}
+    <div class="text-center"><b>
+      {% if prev_page >= 1 %}
+        <a href="{{ url_for('user', tag=user.tag, page=prev_page) }}">&lt;&lt; Less Sets</a>
+
+        |
+      {% endif %}
+
+      <a href="{{ url_for('user', tag=user.tag, page=next_page) }}">More Sets&gt;&gt;</a>
+    </b></div>
   </div>
 
   </div>
