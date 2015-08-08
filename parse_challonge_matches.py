@@ -127,10 +127,9 @@ def parse_challonge_matches(tournament_url, tournament_region):
     # append the inner list representing this match to the outer list, which will eventually contain all matches in the bracket.
     matchlist.append(current_match)
 
-  print matches_by_round
-  print '\n'
   for match in matchlist:
     print match
+  print '\n'
   return matchlist
 
 

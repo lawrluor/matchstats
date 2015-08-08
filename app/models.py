@@ -72,7 +72,6 @@ class User(db.Model):
   def __unicode__(self):
     return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
 
-
   # User-Set Relationship functions
   # get_won_sets is a function that takes a User object and returns the sets he has won.
   def get_won_sets(self):
@@ -88,6 +87,25 @@ class User(db.Model):
   def get_all_sets(self):
     all_sets_sorted = Set.query.filter(or_(Set.winner_id==self.id, Set.loser_id==self.id)).order_by(Set.id).all()     
     return all_sets_sorted
+
+  # Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
+  def change_tag(self, new_tag):
+    print "ORIGINAL USER: ", self 
+  
+    won_sets = self.get_won_sets()
+    for set in won_sets:
+      set.winner_tag = new_tag
+      print set
+  
+    lost_sets = self.get_lost_sets()
+    for set in lost_sets:
+      set.loser_tag = new_tag
+      print set
+    
+    self.tag = new_tag
+    db.session.commit()
+    print "UPDATED USER: ", self
+    print self.get_all_sets()
 
   # User-Character Relationship functions
   # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
@@ -147,7 +165,6 @@ class User(db.Model):
         else:
           print "Character %s is not a secondary of User" % character.name
     return self
-   
 
 # Based on tag parameter, queries User database to locate the respective User; if not found, creates new one, and adds to the database; in either case User is returned. If region parameter is provided, adds region after User creation.
 # If first time the User is encountered (i.e. created during this function, it will create a User with the respective region field. Region is primarily provided by parse_challonge_standings
@@ -199,6 +216,8 @@ def merge_user(root_tag, joined_tag):
   db.session.delete(joined_user) 
   db.session.commit()
   return root_user
+
+
 
 # given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
 def get_tournament_name_and_placing(user_tag):

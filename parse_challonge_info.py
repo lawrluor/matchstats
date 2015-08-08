@@ -23,8 +23,7 @@ def parse_challonge_info(tournament_url):
     title = title_item.getText()
     title = title.strip('\n')
     tournament_info['title'] = title
-    print title
-  print '\n'
+    print "TITLE:", title
 
   host_item = soup3.find("div", {"class" : "text"})
   if host_item is not None:
@@ -39,16 +38,14 @@ def parse_challonge_info(tournament_url):
     
     host = host.strip('\n')
     tournament_info['host'] = host
-    print host
-  print '\n'
+    print "HOST:", host
 
   game_type_item = soup3.find("a", {"href" : re.compile('http://challonge.com/games/.*')})
   if game_type_item is not None:
     game_type = game_type_item.getText()
     game_type = game_type.strip('\n')
     tournament_info['game_type'] = game_type
-    print game_type
-  print '\n'
+    print "GAME_TYPE:", game_type
 
   date_item = soup3.find("span", id='start-time') 
   if date_item is not None:
@@ -62,8 +59,7 @@ def parse_challonge_info(tournament_url):
 
     date = date.strip('\n')
     tournament_info['date'] = date
-    print date
-  print '\n'
+    print "DATE:", date
   
   # locates an info icon near the bracket type description, because the bracket_type description does not exist inside a tag
   bracket_locator = soup3.find("i", {"class" : "icon-info-sign"})
@@ -74,7 +70,7 @@ def parse_challonge_info(tournament_url):
       bracket_info = bracket_locator.nextSibling
     else:
       bracket_info = bracket_locator.nextSibling[(type_index + 5):]
-    print bracket_info
+    print "BRACKET INFO:", bracket_info
 
     # find start index for player, subtract 1 (whitespace) to get just the number of entrants "32" and convert to int
     player_index = bracket_info.find("player") 
@@ -88,11 +84,9 @@ def parse_challonge_info(tournament_url):
 
     tournament_info['entrants'] = entrants
     tournament_info['bracket_type'] = bracket_type
-    print entrants
-    print bracket_type
-  print '\n'
-
-  print tournament_info
+    print "ENTRANTS:", entrants
+    print "BRACKET TYPE:", bracket_type
+  print "OVERALL TOURNAMENT INFO:", tournament_info
   return tournament_info
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
@@ -138,7 +132,7 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, *arg
   if tournament_name is None:
     tournament_name = "Non-Tourney"
  
-  print "Tournament Region", tournament_region
+  print "REGION", tournament_region
 
   new_tournament = Tournament(official_title=tournament_title,
                               host=tournament_host,

@@ -48,8 +48,8 @@ def parse_challonge_standings(tournament_url, tournament_region):
     if len(all_placements[standing]) < standing_limit(standing):
       placing.append(sanitized_tag)
      
-  print "MARK"
-  print all_placements
+  print "PLACEMENTS:", all_placements.items()
+  print '\n'
   return all_placements
 
 
@@ -70,7 +70,6 @@ def import_challonge_standings(all_placements, tournament):
                                         placement=placement
                                         ))
   db.session.commit()
-  print "CHECK"
   return tournament
 
 # Establishes limit for number of Users who can tie for a placement; limit only relevant for Double Elimination brackets
