@@ -38,7 +38,7 @@ def main():
   # given the tournament_url, return a list of dictionaries with values for Set attributes
   matchlist = parse_challonge_matches(tournament_url, tournament_region)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
-  import_challonge_matches(matchlist, tournament_name)
+  import_challonge_matches(matchlist, tournament_name, tournament_region)
 
 if __name__ == "__main__":
 	main()
@@ -65,4 +65,4 @@ def parse_challonge_run(tournament_url, tournament_name, *args):
   # given the tournament_url, return a list of dictionaries with values for Set attributes
   matchlist = parse_challonge_matches(tournament_url, tournament_region)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
-  import_challonge_matches(matchlist, tournament_name)
+  import_challonge_matches(matchlist, tournament_name, tournament_region)

@@ -135,7 +135,7 @@ def parse_challonge_matches(tournament_url, tournament_region):
 
 
 # Get: score, tag, seed, round given a matchlist from parse_challonge, and a string tournamnent name (to fill out Set.attribute)
-def import_challonge_matches(matchlist, tournament_name):
+def import_challonge_matches(matchlist, tournament_name, tournament_region):
   for set in matchlist:
     top_player = set[0]
     bottom_player = set[1]
@@ -163,11 +163,11 @@ def import_challonge_matches(matchlist, tournament_name):
     # After calling this function, Users by 'tag' will exist in database in any case.
     # stores User object in respective variables
     set_winner_tag = set_winner['tag'].strip()
-    set_winner_tag = check_and_sanitize_tag(set_winner_tag)
+    set_winner_tag = check_and_sanitize_tag(set_winner_tag, tournament_region)
     winner_user = check_set_user(set_winner_tag)
 
     set_loser_tag = set_loser['tag'].strip()
-    set_loser_tag = check_and_sanitize_tag(set_loser_tag)
+    set_loser_tag = check_and_sanitize_tag(set_loser_tag, tournament_region)
     loser_user = check_set_user(set_loser_tag)
 
     # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed

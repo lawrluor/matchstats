@@ -37,70 +37,77 @@
     <div class="panel-body">
       <ul>
         <li>
-          <h4>Where are you getting all this information?</h4>
+          <h4><b>Where are you getting this information?</b></h4>
           The app scrapes Challonge brackets and stores information in a database, a completely automated process.
           <ul>
-            <li><h4>What types of tournament bracket programs do you support?</h4>
+            <li><h4><b>What types of tournament bracket programs do you support?</b></h4>
               Currently, just Challonge, but progress is being made on parsing Liquipedia for detailed match info.
             </li>
           </ul>
         </li>
 
         <li>
-          <h4>How are ratings calculated?</h4>
-          Trueskill.
+          <h4><b>How are ratings calculated?</b></h4>
+          Trueskill, which estimates your skill based on who you've won and lost to. Read more about it <a href="http://www.moserware.com/2010/03/computing-your-skill.html"><b>here</b></a>
+
 
           <ul>
-            <li><h4>How many sets per player are taken into rating?</h4>
-            At the moment, all of them. This is subject to change in the future, to the last (most recent) x sets.
+            <li><h4><b>Can you put the numbers into perspective?</b></h4></li>
+            Sure. Players start at a base skill level <b>μ=25.0</b> with an uncertainty of <b>σ=8.3334</b>, which begins to deviate once set results are recorded.
+
+            <li><h4><b>What are the difference between Global and Regional Rankings?</b></h4></li>
+            If you play someone from a different region than you, only your Global trueskill updates. However, if you play someone from a different region, both your Global and Regional trueskill update.
+
+            <li><h4><b>How many sets per player are taken into rating?</b></h4>
+            Currently, all sets a player has ever played. This is subject to change in the future, to the last (most recent) x number of sets.
             </li>
           </ul>
         </li>
 
         <li>
-          <h4>How do you account for players who may use alternate tags in different tournaments?</h4>
+          <h4><b>How do you account for players who may use alternate tags in different tournaments?</b></h4>
           The application automatically can detect different spellings and different team/sponsor information for players. If a player uses completely different tags between tournaments, the application can remember alternate names, but that number will be limited to prevent abuse of the system. Players can also be merged after a tournament is processed.
           <ul>
             <li>
-              <h4>Why don't you display sponsor or team tags?</h4>
+              <h4><b>Why don't you display sponsor or team tags?</b></h4>
               It helps for the program to consistently recognize and identify players whose tags in bracket may differ from tournament to tournament. It also reduces the need for maintenance whenever a player changes team or sponsor.
             </li>
 
             <li>
-              <h4>How do you deal with people from different regions having the same tag?</h4>
+              <h4><b>How do you deal with people from different regions having the same tag?</b></h4>
               In these instances, their tag will be prefaced by their region's name, as if it were a sponsor. For example, Norcal | PewPewU. As for players in the same region having the same tag, that is probably an issue that should be addressed outside of this app.
             </li>
           </ul>
         </li>
 
         <li>
-          <h4>What do the characters Unknown, Random, and Multiple mean?</h4>
+          <h4><b>What do the characters Unknown, Random, and Multiple mean?</b></h4>
           Unknown is a placeholder if we don't have any character information about a Player. Random means that a player randomly selects characters when he/she plays. Multiple means that a player mains multiple characters.
           <ul>
-            <li><h4>Why can't a player have multiple mains?</h4></li>
+            <li><h4><b>Why can't a player have multiple mains?</b></h4></li>
             This is a result of a design decision that maps one main for each player. For true multiple-main players, they can elect to choose a main character "Multiple", and list their main characters under secondaries.
           </ul>
         </li>
 
         <li>
-          <h4>Why is [set I played] from [tournament] not on this list?</h4>
+          <h4><b>Why is [set I played] from [tournament] not on this list?</b></h4>
           Your region may not be supported, or we probably don't have tournament data associated with that particular tournament. Alternatively, there may have been a processing goof. Please report any errors you find via email or social media.
         </li>
 
         <li>
-          <h4>Why am I ranked so low?</h4>
+          <h4><b>Why am I ranked so low?</b></h4>
           git gud kid
         </li>
 
         <li>
-          <h4>Who are the creators of SmashStats?</h4>
+          <h4><b>Who are the creators of SmashStats?</b></h4>
           Tonic, a Marth main studying in New England, and Wyne, a Falco player from SoCal.
         </li>
 
-        <li><h4>How can I help? (user reporting)</h4></li>
+        <li><h4><b>How can I help? (user reporting)</b></h4></li>
 
         <li>
-          <h4>How can I get my region here?</h4>
+          <h4><b>How can I get my region here?</b></h4>
           If you are a prominent TO in your area, get in contact with us. If you aren't get someone to do so. Tweet if you want tourney. jk dont tweet us
         </li>
 

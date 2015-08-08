@@ -174,7 +174,9 @@ player_raw_regex_dict = {
     ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
     ['(makari$)'],
     ['(young bone[sz] villain$)', '(yung bone[sz] villain$)'],
-    ['(thechocolatelava$)', '(middleeastballz$)']
+    ['(thechocolatelava$)', '(middleeastballz$)'],
+    ['(tonic$)'],
+    ['(broth chiler$)', '(broth chiller$)']
     ]
     }
 
@@ -351,7 +353,9 @@ sanitized_tags_dict = {
     'Bugatti',
     'Makari',
     'Yung Bones Villain',
-    'TheChocolateLava'
+    'TheChocolateLava',
+    'Tonic',
+    'Broth Chiler'
     ]
     }
 
