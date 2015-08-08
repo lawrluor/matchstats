@@ -39,6 +39,7 @@ def parse_challonge_standings(tournament_url, tournament_region):
       # "Advanced" text is unwanted, non-tag information
       if tag == "Advanced":
         continue
+      tag = tag.strip('\n')
       
       sanitized_tag = check_and_sanitize_tag(tag, tournament_region)
 

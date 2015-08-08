@@ -170,7 +170,7 @@ player_raw_regex_dict = {
     ['(spiff$)'],
     ['(me[tl][tl]wing$)'],
     ['(vudoo$)'],
-    ['(tichinde$)', '(tichinde925$)', '(master of setups$)'],
+    ['(tichinde925$)', '(tichinde)', '(master of setups$)'],
     ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
     ['(makari$)'],
     ['(young bone[sz] villain$)', '(yung bone[sz] villain$)'],
@@ -368,7 +368,7 @@ def compile_case_i_re(string):
 def sanitize_tag(tag, regex_list, sanitized_list):
   for i in range(len(regex_list)):
     if regex_list[i].match(tag):
-      print regex_list[i]
+      # print regex_list[i]
       return sanitized_list[i]
   return tag
 

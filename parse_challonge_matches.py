@@ -162,8 +162,13 @@ def import_challonge_matches(matchlist, tournament_name):
 
     # After calling this function, Users by 'tag' will exist in database in any case.
     # stores User object in respective variables
-    winner_user = check_set_user(set_winner['tag'])
-    loser_user = check_set_user(set_loser['tag'])
+    set_winner_tag = set_winner['tag'].strip()
+    set_winner_tag = check_and_sanitize_tag(set_winner_tag)
+    winner_user = check_set_user(set_winner_tag)
+
+    set_loser_tag = set_loser['tag'].strip()
+    set_loser_tag = check_and_sanitize_tag(set_loser_tag)
+    loser_user = check_set_user(set_loser_tag)
 
     # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
     if 'seed' in set_winner:
