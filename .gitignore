@@ -8,3 +8,4 @@ flask/*
 config.py
 NE_database_maintenance.py
 global_database_maintenance.py
+reloading_database.txt

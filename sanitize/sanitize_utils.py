@@ -65,7 +65,7 @@ player_raw_regex_dict = {
     ['(vanz$)'],
     ['(excel zer[o0]$)', '(excelzero$)'],
     ['(darrell$)', '(darell$)', '(darrel$)'],
-    ['(sl[o0]x$)'],
+    ['(sl[o0]x$)', '(sl[o0]x\)$)'],
     ['(beer man$)', '(beer master$)', '(lambchops$)'],
     ['(s[o0]ft$)'],
     ['(fuzzyness$)'],
@@ -132,6 +132,7 @@ player_raw_regex_dict = {
     ],
 
     'New England' : [
+    ['(sl[o0]x$)'],
     ['(koreandj$)', '(korean dj$)', '(kdj$)'],
     ['(swiftbass$)', '(swift$)', '(gibson zero$)', '(gibsonzero$)'],
     ['(z[o0]s[o0]$)'],
@@ -311,6 +312,7 @@ sanitized_tags_dict = {
     ],
 
     'New England' : [
+    'Slox',
     'KoreanDJ',
     'Swift',
     'Zoso',
@@ -361,7 +363,6 @@ sanitized_tags_dict = {
 
 # Wrapper for regular expression compilation for mapping.
 def compile_case_i_re(string):
-  print string
   return re.compile(string, re.IGNORECASE)
 
 # Make sure sanitized_list and regex_list are the same size or
@@ -408,13 +409,13 @@ def add_prefixes(regex_list):
 # Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added and suffix, then compile both list to all lowercase tags
 player_regex_dict = defaultdict(str)
 for region_name in player_raw_regex_dict:
-  print "-----REGION_NAME", region_name 
+  # print "-----REGION_NAME", region_name 
   player_regex_dict[region_name] = map(add_prefixes, player_raw_regex_dict[region_name])
-  print "-----PREFIXED_REGEX_DICT", player_regex_dict[region_name]
+  # print "-----PREFIXED_REGEX_DICT", player_regex_dict[region_name]
   player_regex_dict[region_name] = map(compile_case_i_re, player_regex_dict[region_name])
-  print "-----LOWERCASE", player_regex_dict
-  print '\n'
-print "----- PLAYER_REGEX_DICT", player_regex_dict
+  # print "-----LOWERCASE", player_regex_dict
+  # print '\n'
+# print "----- PLAYER_REGEX_DICT", player_regex_dict
 
 # Combine region-separated values of player_regex_dict for a truly global list
 # Combine region-separated values of sanitized_tags_dict for a truly comprehensive list
@@ -423,8 +424,8 @@ full_sanitized_list = []
 for region in player_regex_dict:
   full_regex_list += player_regex_dict[region]
   full_sanitized_list += sanitized_tags_dict[region]
-print "-----FULL_REGEX_LIST", full_regex_list
-print "-----FULL_SANITIZED_LIST", full_sanitized_list
+# print "-----FULL_REGEX_LIST", full_regex_list
+# print "-----FULL_SANITIZED_LIST", full_sanitized_list
 
 # Wrapper for sanitize_tag.
 def check_and_sanitize_tag(tag, *args): #region is optional parameter

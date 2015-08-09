@@ -12,7 +12,6 @@ import sys
 sys.path.append('./sanitize')
 from sanitize_utils import check_and_sanitize_tag
 from sort_utils import sort_placementlist, sort_userlist
-from pagination_utils import *
 from h2h_stats_functions import convert_placement
 import collections
 

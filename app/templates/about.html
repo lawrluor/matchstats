@@ -43,6 +43,9 @@
             <li><h4><b>What types of tournament bracket programs do you support?</b></h4>
               Currently, just Challonge, but progress is being made on parsing Liquipedia for detailed match info.
             </li>
+
+            <li><h4><b>Is tournament bracket data accurate?</b></h4></li>
+              We work with whatever is provided on Challonge. If a tournament only has a final bracket, we'd rather process what data we have than exclude it because it lacks completion.
           </ul>
         </li>
 
@@ -51,8 +54,11 @@
           Trueskill, which estimates your skill based on who you've won and lost to. Read more about it <a href="http://www.moserware.com/2010/03/computing-your-skill.html"><b>here</b></a>
 
           <ul>
-            <li><h4><b>So, tournament placements don't matter?</b></h4></li>
-            No, they do not. They are recorded to provide more information about players, however.
+            <li><h4><b>Do tournament placements don't matter?</b></h4></li>
+            No, they do not. Rating is solely based on who you've won and lost to, and your relative ratings at the time of the set.
+
+            <li><h4><b>Are DQ (disqualification) sets taken into account? How about the margin of victory?</b></h4><li>
+            DQ scores, if reported properly in Challonge (commonly a score of -1 or 0-0), are not taken into account. We do record the set match score, but only the outcome of a set, win or loss, is factored into rankings.
 
             <li><h4><b>Can you put the numbers into perspective?</b></h4></li>
             Players start at a base skill level <b>μ=25.0</b> with an uncertainty of <b>σ=8.3334</b>, which begins to deviate once set results are recorded.
@@ -93,14 +99,11 @@
           <h4><b>Why is my rating so low?</b></h4>
           git gud kid. Also, consider that players who have only attended a few tournaments have skill ratings that tend to fluctuate more.
           <ul>
-            <li><h4><b>Why is [set I played] from [tournament] not on this list?</b></h4></li>
-              Your region may not be supported, or we probably don't have tournament data associated with that particular tournament. Rarely but possibly, there may have been a processing goof. Please report any errors you find via email or social media.
-
-            <li><h4><b>I play in different regions depending on the season. Which region should I be listed under?</li></h4></b>
-            You should consider yourself as part of the region you currently enter the most tournaments in.
-
             <li><h4><b>I think some of my results are not being represented.</b></h4></li>
-            Check the profile page for your tag. If there are tournaments that you've entered that are listed in the database but not on your page, chances are your tag wasn't recognized; let us know if you think it would assigned to a different tag.
+             Your region may not be supported, or we lack data for that particular tournament. If not, check the profile page for your tag. If there are tournaments that you've entered that are listed in the database but not on your page, chances are your tag wasn't recognized. You can also try searching for your alternate tags or tournaments you've entered. Let us know if you think there's an issue.
+
+            <li><h4><b>I play in different regions frequently. Which region should I be listed under?</li></h4></b>
+            You should consider yourself as part of the region you currently enter the most tournaments in.
           </ul>
         </li>
 
