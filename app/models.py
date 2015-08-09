@@ -48,7 +48,7 @@ class Region(db.Model):
   tournaments = db.relationship("Tournament", order_by="Tournament.date", backref="region")
 
   def __repr__(self):
-    return '<region: %s, id: %s, users: %s, tournaments: %s>' % (self.region, self.id, self.users, self.tournaments)
+    return '<region: %s, id: %s, users: %s, tournaments: %s>' % (self.region, self.id, len(self.users), len(self.tournaments))
 
   def __str__(self):
     return self.region
