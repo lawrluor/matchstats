@@ -2,6 +2,9 @@ flask/*
 *.swp
 *.swo
 *.swn
+*.swm
 *.pyc
 .DS_Store
 config.py
+NE_database_maintenance.py
+global_database_maintenance.py

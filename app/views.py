@@ -174,6 +174,11 @@ def browse_users(page=1):
 @app.route('/user/<tag>')
 @app.route('/user/<tag>/<int:page>')
 def user(tag, page=1):
+  # Pagination variables
+  tournaments_per_page = 10 
+  start_index = (page - 1) * tournaments_per_page
+  end_index = start_index + tournaments_per_page
+
   user = User.query.filter(User.tag==tag).first()
   # If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
@@ -189,7 +194,7 @@ def user(tag, page=1):
 
   # sort by Placement.tournament.date, in reverse order (most recent first). Sort by tournament.name as secondary sort
   user_tournaments_sorted = sort_placementlist(user.tournament_assocs) 
-  for placement_obj in user_tournaments_sorted:
+  for placement_obj in user_tournaments_sorted[start_index:end_index]:
     # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
     tournament_name = placement_obj.tournament.name
     placement  = convert_placement(placement_obj.placement)
@@ -212,7 +217,8 @@ def user(tag, page=1):
                         user_tournaments_sorted=user_tournaments_sorted,
                         user_placements=user_placements,
                         user_sets_by_tournament=user_sets_by_tournament,
-                        page=page)
+                        page=page,
+                        tournaments_per_page=tournaments_per_page)
 
 
 # Displays all users given a region. Routed to from /browse_regions

@@ -91,6 +91,24 @@
       </tr>
       {% endfor %}
     </table>
+    <!-- Navigating pages -->
+    {% set next_page = page + 1 %}
+    {% set prev_page = page - 1 %}
+    {% set has_prev_page = prev_page >= 1 %}
+    {% set has_next_page = user_tournaments_sorted|length / tournaments_per_page > page %}
+    <div class="text-center"><b>
+      {% if has_prev_page %}
+        <a href="{{ url_for('user', tag=user.tag, page=prev_page) }}">&lt;&lt; Less Tournaments</a>
+      {% endif %}
+
+      {% if has_prev_page and has_next_page %}
+      |
+      {% endif %}
+
+      {% if has_next_page %}
+        <a href="{{ url_for('user', tag=user.tag, page=next_page) }}">More Tournaments &gt;&gt;</a>
+      {% endif %}
+    </b></div>
   </div>
   </div>
 
@@ -128,19 +146,20 @@
       </tbody>
     </table>
 
-    <!-- Navigating the paginated display (DISABLED)
-    {% set next_page = page + 1 %}
-    {% set prev_page = page - 1 %}
+    <!-- Navigating pages -->
     <div class="text-center"><b>
-      {% if prev_page >= 1 %}
+      {% if has_prev_page %}
         <a href="{{ url_for('user', tag=user.tag, page=prev_page) }}">&lt;&lt; Less Sets</a>
-
-        |
       {% endif %}
 
-      <a href="{{ url_for('user', tag=user.tag, page=next_page) }}">More Sets&gt;&gt;</a>
+      {% if has_prev_page and has_next_page %}
+      |
+      {% endif %}
+
+      {% if has_next_page %}
+        <a href="{{ url_for('user', tag=user.tag, page=next_page) }}">More Sets &gt;&gt;</a>
+      {% endif %}
     </b></div>
-    -->
   </div>
 
   </div>
