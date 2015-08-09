@@ -170,7 +170,7 @@ player_raw_regex_dict = {
     ['(spiff$)'],
     ['(me[tl][tl]wing$)'],
     ['(vudoo$)'],
-    ['(tichinde925$)', '(tichinde)', '(master of setups$)'],
+    ['(tichinde925$)', '(tichinde$)', '(master of setups$)'],
     ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
     ['(makari$)'],
     ['(young bone[sz] villain$)', '(yung bone[sz] villain$)'],
@@ -361,6 +361,7 @@ sanitized_tags_dict = {
 
 # Wrapper for regular expression compilation for mapping.
 def compile_case_i_re(string):
+  print string
   return re.compile(string, re.IGNORECASE)
 
 # Make sure sanitized_list and regex_list are the same size or
@@ -376,32 +377,33 @@ def sanitize_tag(tag, regex_list, sanitized_list):
       return sanitized_list[i]
   return tag
 
-# Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global'].
+# Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global$)'].
 def add_prefixes(regex_list):
   wildcard = '.*'
-  sep = '[|.`\' ]'
-  suffix = '\)'
+  sep = '[|_.`\' ]'
+  # suffix = '$)'
   prefix = wildcard + sep
   prefix_list = []
    
   inner_list = []
   for regex in regex_list:
     # 4 combinations
+    inner_list.append(regex) 
+    # inner_list.append(regex + '\)' + suffix) 
     inner_list.append(prefix + regex)
-    # inner_list.append(regex + suffix)
-    inner_list.append(regex)
+    # inner_list.append(prefix + regex + ')' + suffix) 
 
   joined_regex = '|'.join(inner_list)
   prefix_list.append(joined_regex)
   return joined_regex
 
 # if region==None or region==Global:
-  # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global'])
+  # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global$)'])
   # player_regex_list = 
 # else:
   # if region in Regex_list_dict:
-    # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global'])
-    # player_regex_list = map(compile_case_i_re, player_raw_regex_dict['Global'])
+    # prefixed_player_regex_list = map(add_prefixes, player_raw_regex_dict['Global$)'])
+    # player_regex_list = map(compile_case_i_re, player_raw_regex_dict['Global$)'])
 
 # Convert all lists in player_raw_regex_dict to a version with regular expression prefixes wildcard and sep added and suffix, then compile both list to all lowercase tags
 player_regex_dict = defaultdict(str)
