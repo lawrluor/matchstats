@@ -12,7 +12,7 @@
       <tr>
         <td class="col-sm-6">
         {% if tournament.region %}
-          <h3><b>Region</b>: {{tournament.region}}</h3>
+          <h3><b>Region</b>: <a href="{{url_for("region", region=tournament.region)}}">{{tournament.region}}</a></h3>
         {% else %}
           <h3><b>Region</b>: Global</h3>
         {% endif %}
@@ -51,7 +51,7 @@
   <!-- Table for Placements -->
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><b> Placements </b></h1>
+    <h1><b>Placements</b></h1>
   </div>
   <div class="panel-body">
   <table class="table bootstrap-datatable table-striped table-condensed table-hover">
@@ -85,7 +85,7 @@
 
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><b> Sets from {{tournament.name}} </b></h1>
+    <h1><b> Sets from <a href="{{url_for("tournament", tournament_name=tournament.name)}}">{{tournament.name}}</a></b></h1>
   </div>
   <div class="panel-body">
 

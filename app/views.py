@@ -158,8 +158,6 @@ def head_to_head():
 @app.route('/browse_users')
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
-  character = request.args.get('character_name')
-  
   # if viewing global information, don't filter query by g.region
   # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
@@ -295,7 +293,7 @@ def tournament(tournament_name):
     flash('No sets found for this tournament.')
   
   # create dictionary object with key = set.round_type, values = setlists
-  matches_by_round = {}
+  matches_by_round = collections.OrderedDict()
   for set in tournament_setlist:
     if set.round_type is not None:
       round_num = matches_by_round.setdefault(set.round_type, [])
