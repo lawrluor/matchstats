@@ -51,8 +51,11 @@
           Trueskill, which estimates your skill based on who you've won and lost to. Read more about it <a href="http://www.moserware.com/2010/03/computing-your-skill.html"><b>here</b></a>
 
           <ul>
+            <li><h4><b>So, tournament placements don't matter?</b></h4></li>
+            No, they do not. They are recorded to provide more information about players, however.
+
             <li><h4><b>Can you put the numbers into perspective?</b></h4></li>
-            Sure. Players start at a base skill level <b>μ=25.0</b> with an uncertainty of <b>σ=8.3334</b>, which begins to deviate once set results are recorded.
+            Players start at a base skill level <b>μ=25.0</b> with an uncertainty of <b>σ=8.3334</b>, which begins to deviate once set results are recorded.
 
             <li><h4><b>What are the difference between Global and Regional Rankings?</b></h4></li>
             If you play someone from a different region than you, only your Global trueskill updates. However, if you play someone from a different region, both your Global and Regional trueskill update.
@@ -79,6 +82,28 @@
           </ul>
         </li>
 
+        <li><h4><b>There seems to be some missing information on the page. Can I help?</b></h4></li>
+          Yes! Only so much can be done through automation, so info like player's alternate tags, characters, and sometimes tournament's dates, and more need to be provided by the community. We can only automatically offer what we scrape from tournament brackets. Please tweet at us or contact us using our media links at the bottom of the page if you can offer any info!
+          <ul>
+            <li><h4><b>Why do some tournaments have bizzarre dates set years into the future?</b></h4></li>
+            Because 20XX. Actually though, those dates are automatically entered if the program can't locate a date for a bracket automatically, so that the community can easily spot them and fix them with the correct info.
+          </ul>
+
+         <li>
+          <h4><b>Why is my rating so low?</b></h4>
+          git gud kid. Also, consider that players who have played less than a handful of tournaments have skill ratings that tend to fluctuate more.
+          <ul>
+            <li><h4><b>Why is [set I played] from [tournament] not on this list?</b></h4></li>
+              Your region may not be supported, or we probably don't have tournament data associated with that particular tournament. Rarely but possibly, there may have been a processing goof. Please report any errors you find via email or social media.
+
+            <li><h4><b>I play in different regions depending on the season. Which region should I be listed under?</li></h4></b>
+            You should consider yourself as part of the region you currently enter the most tournaments in.
+
+            <li><h4><b>I think some of my results are not being represented.</b></h4></li>
+            Check the profile page for your tag. If there are tournaments that you've entered that are listed in the database but not on your page, chances are your tag wasn't recognized; let us know if you think it would assigned to a different tag.
+          </ul>
+        </li>
+
         <li>
           <h4><b>What do the characters Unknown, Random, and Multiple mean?</b></h4>
           Unknown is a placeholder if we don't have any character information about a Player. Random means that a player randomly selects characters when he/she plays. Multiple means that a player mains multiple characters.
@@ -89,25 +114,13 @@
         </li>
 
         <li>
-          <h4><b>Why is [set I played] from [tournament] not on this list?</b></h4>
-          Your region may not be supported, or we probably don't have tournament data associated with that particular tournament. Alternatively, there may have been a processing goof. Please report any errors you find via email or social media.
-        </li>
-
-        <li>
-          <h4><b>Why am I ranked so low?</b></h4>
-          git gud kid
+          <h4><b>How can I get my region on here?</b></h4>
+          If you are a prominent TO in your area, get in contact with us through our email or social media at the bottom of the page
         </li>
 
         <li>
           <h4><b>Who are the creators of SmashStats?</b></h4>
-          Tonic, a Marth main studying in New England, and Wyne, a Falco player from SoCal.
-        </li>
-
-        <li><h4><b>How can I help? (user reporting)</b></h4></li>
-
-        <li>
-          <h4><b>How can I get my region here?</b></h4>
-          If you are a prominent TO in your area, get in contact with us. If you aren't get someone to do so. Tweet if you want tourney. jk dont tweet us
+          <a href="{{url_for('user', tag='Tonic')}}"><b>Tonic</b></a>, a Marth main based in New England, and Wyne, a Falco player studying in SoCal.
         </li>
 
       </ul>

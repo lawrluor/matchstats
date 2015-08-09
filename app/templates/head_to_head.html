@@ -49,11 +49,19 @@
     <div class="panel panel-default">
     <div class="panel-heading">
       <h1><b>
-        {% set character_name = user1.main %} {% include 'char_icon.html' %}
+        {% if user1.main %} {% set character_name = user1.main %}
+        {% else %}{% set character_name = "Unknown" %}
+        {% endif %}
+        {% include 'char_icon.html' %}
         {{user1.tag}} 
+
         vs 
+
+        {% if user2.main %} {% set character_name = user2.main %}
+        {% else %} {% set character_name = "Unknown" %}
+        {% endif %}
         {{user2.tag}} 
-        {% set character_name = user2.main %} {% include 'char_icon.html' %}
+        {% include 'char_icon.html' %}
       </b></h1>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>
