@@ -40,7 +40,7 @@ def select_region():
     flash("Viewing Global Information - this view mode displays all information from every region") 
     return redirect(url_for('home'))
   elif session['region_name']=="National":
-    flash("Viewing National Information - this view mode only displays non-regional information") 
+    flash("Viewing National Information - this view mode only displays non-regional tournament information") 
     return redirect(url_for('home'))
   else:
     flash("Viewing Region: " + str(session['region_name']))
@@ -50,6 +50,7 @@ def select_region():
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+  flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
   return render_template('home.html')
 
 # About page (more info)
@@ -223,6 +224,7 @@ def user(tag, page=1):
 # Displays all users given a region. Routed to from /browse_regions
 @app.route('/region/<region>')
 def region(region):
+  flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
   current_region = Region.query.filter(Region.region==region).first()
   return render_template("region.html",
                          region=region,
