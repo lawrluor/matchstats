@@ -159,26 +159,18 @@ def head_to_head():
 @app.route('/browse_users/<int:page>')
 def browse_users(page=1):
   character = request.args.get('character_name')
-  print character
-  form = CharacterFilter(character_name=character) 
   
- # if viewing global information, don't filter query by g.region
- # if character=="Main", or the default SelectField "title", don't filter for any character
+  # if viewing global information, don't filter query by g.region
+  # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
-    if character=="Main" or character is None:
-      userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-    else:
-      userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-    if character=="Main" or character is None:
-      userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
-    else:
-      userlist = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region==g.region, User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.mu.desc()).paginate(page, USERS_PER_PAGE, False)
   return render_template("browse_users.html",
                          userlist=userlist,
-                         current_region=g.region,
-                         form=form)
+                         current_region=g.region
+                         )
 
 # User profile page
 @app.route('/user/<tag>')
@@ -248,11 +240,11 @@ def browse_characters():
 @app.route('/character/<character>/<int:page>')
 def character(character, page=1):
   # if viewing Global information, don't filter query by g.region
-  if g.region=="Global":
-    main_matching_users = User.query.join(TrueSkill, User.trueskill).order_by(TrueSkill.mu.desc()).filter(User.main==character).paginate(page, CHAR_USERS_PER_PAGE, False)
+  if g.region=="Global" or g.region=="National":
+    main_matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.main==character)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
 # if viewing national information, filter query to take Users with User.region==None
   else:
-    main_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).order_by(TrueSkill.mu.desc()).filter(and_(User.main==character, Region.region==g.region)).paginate(page, CHAR_USERS_PER_PAGE, False)
+    main_matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.main==character, Region.region==g.region)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
   if main_matching_users.total <= 0:
     flash('No players found that main this character')
   
@@ -260,10 +252,10 @@ def character(character, page=1):
   character_object = Character.query.filter(Character.name==character).first()
   if character_object is not None:
     # if viewing Global information, don't filter query by g.region
-    if g.region=="Global":
-      secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).filter(User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+    if g.region=="Global" or g.region=="National":
+      secondaries_matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global"), User.secondaries.contains(character_object)).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
     else:
-      secondaries_matching_users = User.query.join(TrueSkill, User.trueskill).join(Region, User.region).filter(and_(User.secondaries.contains(character_object), Region.region==g.region )).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+      secondaries_matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.secondaries.contains(character_object), Region.region==g.region )).order_by(TrueSkill.mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
     if secondaries_matching_users.total <= 0:
       flash('No players found that secondary this character')
 
