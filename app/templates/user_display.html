@@ -26,10 +26,12 @@
     <td class="col-sm-3 text-center mobile-horizontal-overflow-td-col-3">
         {% if user.trueskills %}
             {% if current_region=="Global" or current_region=="National" %}
-                {{user.trueskills[0].mu|round(4, 'common')}}
+                {% set global_skill = user.trueskills[0].mu - 3(user.trueskills[0].sigma) %}
+                {{global_skill|round(4, 'common')}}
             {% else %}
                 {% if user.trueskills[1] %}
-                    {{user.trueskills[1].mu|round(4, 'common')}}
+                    {% set region_skill = user.trueskills[1].mu - 3(user.trueskills[1].sigma) %}
+                    {{region_skill|round(4, 'common')}}
                 {% endif %}
             {% endif %}
         {% endif %}

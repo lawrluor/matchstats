@@ -36,7 +36,6 @@
             <b>Secondaries:</b>
             {% if user.secondaries.all() %}
               {% for character in user.secondaries.all() %}
-                <a href="{{url_for("character", character=character.name)}}">{{character.name}}</a>
                 {% set character_name = character.name %}
                 {% include "char_icon.html" %}
               {% endfor %}
@@ -49,12 +48,14 @@
 
       <tr>
         <td>
-          <h3><b>{{user.trueskills[0].region}} Rating:</b> {{user.trueskills[0].mu|round(4, 'common')}} <!-- , σ: {{user.trueskills[0].sigma|round(4, 'common')}}--> </h3>
+          {% set global_skill = user.trueskills[0].mu - 3(user.trueskills[0].sigma) %}
+          <h3><b>{{user.trueskills[0].region}} Rating:</b> {{global_skill|round(4, 'common')}} <!-- , σ: {{user.trueskills[0].sigma|round(4, 'common')}}--> </h3>
         </td>
 
         {% if user.trueskills[1] %}
+          {% set region_skill = user.trueskills[1].mu - 3(user.trueskills[1].sigma) %}
           <td>
-            <h3><b>{{user.trueskills[1].region}} Rating:</b> {{user.trueskills[1].mu|round(4, 'common')}} <!-- , σ: {{user.trueskills[1].sigma|round(4, 'common')}}--> </h3>
+            <h3><b>{{user.trueskills[1].region}} Rating:</b> {{region_skill|round(4, 'common')}} <!-- , σ: {{user.trueskills[1].sigma|round(4, 'common')}}--> </h3>
           </td>
         {% endif %}
     </table>

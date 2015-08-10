@@ -7,48 +7,6 @@
 		<h2><b>Population:</b> {{current_region.users|length}}</h2><a href="{{url_for('browse_users')}}"><b>(view region's players)</b></a>
 		<h2><b>Tournament Count:</b> {{current_region.tournaments|length}}</h2><a href="{{url_for('browse_tournaments')}}"><b>(view region's tournaments)</b></a>
 	</div>
-
-<!-- Obsolete regional userlist display
-		<div class="panel panel-default">
-		<div class="panel-heading">
-			<h2><b>{{current_region.region}}'s Users<b></h2>
-		</div>
-		<div class="panel-body">
-			<table class="table bootstrap-datatable table-hover">
-				<thead>
-					{% include 'user_display_head.html' %}
-			  </thead>
-
-				<tbody>
-				  {% for user in region_userlist %}
-				    {% include 'user_display.html' %}
-				  {% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
--->
-
-<!-- Obsolete regional tournamentlist display
-	<div class="panel panel-default">
-	<div class="panel-heading">
-		<h2><b>{{current_region.region}}'s Tournaments<b></h2>
-	</div>
-	<div class="panel-body">
-		<table class="table bootstrap-datatable table-hover">
-			<thead>
-				{% include 'tournament_display_head.html' %}
-			</thead>
-
-			<tbody>
-				{% for tournament in current_region.tournaments %}
-					{% include 'tournament_display.html' %}
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
--->
-
 </div>
 
 {% endblock %}
