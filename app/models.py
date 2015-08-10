@@ -61,7 +61,7 @@ class Region(db.Model):
 class User(db.Model):
   __tablename__ = 'user'
   id = db.Column(db.Integer, primary_key=True)
-  tag = db.Column(db.String(64), index=True, unique=True)
+  tag = db.Column(db.String(128), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
   region_id = db.Column(db.Integer, ForeignKey('region.id'))
   trueskills = db.relationship("TrueSkill", order_by='TrueSkill.id', backref='user')
@@ -267,7 +267,7 @@ class Tournament(db.Model):
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
-  tournament_type = db.Column(db.String(64), index=True)
+  tournament_type = db.Column(db.String(128), index=True)
   region_id = db.Column(db.Integer, ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament") 
 
