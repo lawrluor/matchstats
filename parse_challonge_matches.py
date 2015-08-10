@@ -163,7 +163,7 @@ def import_challonge_matches(matchlist, tournament_name, tournament_region):
     # After calling this function, Users by 'tag' will exist in database in any case.
     # stores User object in respective variables
     set_winner_tag = set_winner['tag'].strip()
-    winner_user = check_set_user(set_winner_tag)
+    winner_user = check_set_user(set_winner_tag, tourmament_region)
 
     set_loser_tag = set_loser['tag'].strip()
     loser_user = check_set_user(set_loser_tag, tournament_region)
