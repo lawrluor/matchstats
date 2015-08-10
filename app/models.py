@@ -267,7 +267,7 @@ class Tournament(db.Model):
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
-  tournament_type = db.Column(db.String(128), index=True)
+  tournament_type = db.Column(db.String(64), index=True)
   region_id = db.Column(db.Integer, ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament") 
 
