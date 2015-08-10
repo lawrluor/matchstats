@@ -4,6 +4,10 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from forms import main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
 
+import sys
+sys.path.append('./sanitize')
+from sanitize_utils import check_and_sanitize_tag
+
 # the Child to the Parent User in User-Character association
 class Character(db.Model):
   __tablename__ = 'character'
@@ -176,6 +180,7 @@ def check_set_user(set_user_tag, *args):
     user_region = None
 
   # When Challonge player uses an account icon, a '\n' character is produced. Check for this by stripping it off the end
+  set_user_tag = check_and_sanitize_tag(set_user_tag, user_region)
   set_user = User.query.filter(User.tag==set_user_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
