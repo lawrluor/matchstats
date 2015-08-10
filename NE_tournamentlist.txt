@@ -17,7 +17,7 @@ MCG\ May\|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England
 MCG\ June\|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England
 MCG\ July\|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England
 HOG\ Biweekly\ 9|http://ctmelee.challonge.com/hogbiweekly9|New\ England
-HOG\ Biweekly\ 12|ttp://ctmelee.challonge.com/o04j13rj|New\ England
+HOG\ Biweekly\ 12|http://ctmelee.challonge.com/o04j13rj|New\ England
 HOG\ Biweekly\ 13|http://ctmelee.challonge.com/hog13thbiweekly|New\ England
 HOG\ Biweekly\ 14|http://ctmelee.challonge.com/hog14thbiweekly|New\ England
 HOG\ Biweekly\ 15|http://ctmelee.challonge.com/hog15thbiweekly|New\ England
