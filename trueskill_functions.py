@@ -89,11 +89,11 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	region_name = winner_user.trueskills[region_num].region
 
 	# Print current TrueSkill values for both players
-	# print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
+	print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
 	
 	# Record set result, victory for winner_user and loss for loser_user
 	new_winner_rating, new_loser_rating = rate_1vs1(winner_user_rating, loser_user_rating)
-	# print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
+	print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
 
 	# Store and overwrite existing trueskill object with new Rating values
 	winner_user.trueskills[region_num].region=region_name

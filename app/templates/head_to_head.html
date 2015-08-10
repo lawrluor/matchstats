@@ -76,29 +76,29 @@
       <tbody>
         {% if user1.region == user2.region %}
           {% for i in range(user1.trueskills|length) %}
-            {% set skill1 = user1.trueskills[i].mu - 3(user1.trueskills[i].sigma) %}
-            {% set skill2 = user2.trueskills[i].mu - 3(user2.trueskills[i].sigma) %}
+            {% set skill1 = user1.trueskills[i].mu - 3*user1.trueskills[i].sigma %}
+            {% set skill2 = user2.trueskills[i].mu - 3*user2.trueskills[i].sigma %}
             <!-- Establish row colors based on trueskill comparisons -->
-            {% if skill1>skill2 %}
+            {% if user1.trueskills[i].mu>user2.trueskills[i].mu %}
               <tr class="success">
-            {% elif skill1==skill2 %}
+            {% elif user1.trueskills[i].mu==user2.trueskills[i].mu %}
               <tr class="warning">
             {% else %}
               <tr class="danger">
             {% endif %}
 
-            <th class="col-sm-4 text-center"><b>Rating: {{skill1|round(4, 'common')}} <!--, σ: {{user1.trueskills[i].sigma|round(4, 'common')}}--> </b></th>
+            <th class="col-sm-4 text-center"><b>Rating: {{user1.trueskills[i].mu|round(4, 'common')}} <!--, σ: {{user1.trueskills[i].sigma|round(4, 'common')}}--> </b></th>
             <th class="col-sm-4 text-center"><b>{{user1.trueskills[i].region}}</b></th>
-            <th class="col-sm-4 text-center"><b>Rating: {{skill2|round(4, 'common')}} <!--, σ {{user2.trueskills[i].sigma|round(4, 'common')}}--> </b></th>
+            <th class="col-sm-4 text-center"><b>Rating: {{user2.trueskills[i].mu|round(4, 'common')}} <!--, σ {{user2.trueskills[i].sigma|round(4, 'common')}}--> </b></th>
           </tr>
           {% endfor %}
         {% else %}
-            {% set global_skill1 = user1.trueskills[0].mu - 3(user1.trueskills[0].sigma) %}
-            {% set global_skill2 = user2.trueskills[0].mu - 3(user2.trueskills[0].sigma) %}
+            {% set global_skill1 = user1.trueskills[0].mu - 3*user1.trueskills[0].sigma %}
+            {% set global_skill2 = user2.trueskills[0].mu - 3*user2.trueskills[0].sigma %}
           <tr>
-            <th class="col-sm-4 text-center"><b>Rating: {{global_skill1|round(4, 'common')}} <!--, σ: {{user1.trueskills[0].sigma|round(4, 'common')}}--> </b></th>
+            <th class="col-sm-4 text-center"><b>Rating: {{user1.trueskills[0].mu|round(4, 'common')}} <!--, σ: {{user1.trueskills[0].sigma|round(4, 'common')}}--> </b></th>
             <th class="col-sm-4 text-center"><b>Global</b></th>
-            <th class="col-sm-4 text-center"><b>Rating: {{global_skill2|round(4, 'common')}} <!--, σ: {{user2.trueskills[0].sigma|round(4, 'common')}}--></b></th>
+            <th class="col-sm-4 text-center"><b>Rating: {{user2.trueskills[0].mu|round(4, 'common')}} <!--, σ: {{user2.trueskills[0].sigma|round(4, 'common')}}--></b></th>
           </tr>
         {% endif %}
 

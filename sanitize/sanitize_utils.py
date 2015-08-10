@@ -187,7 +187,7 @@ player_raw_regex_dict = {
     ['(wind$)'],
     ['(swissmiss$)', '(swiss miss$)'],
     ['(hackey$)'],
-    ['(heropon$)', '(2dank$')],
+    ['(heropon$)', '(2dank$)'],
     ['(dis$)'],
     ['(edwin dexter$)', '(edwindexter$)'],
     ['(mizuki$)'],
@@ -197,7 +197,8 @@ player_raw_regex_dict = {
     ['(maso$)'],
     ['(jlo$)'],
     ['(coldo$)'],
-    ['(nfreak$)']
+    ['(nfreak$)'],
+    ['(hazard$)']
     ]
     }
 
@@ -397,7 +398,8 @@ sanitized_tags_dict = {
     'Maso',
     'JLo',
     'Coldo',
-    'NFreak'
+    'NFreak',
+    'Hazard'
     ]
     }
 
