@@ -379,7 +379,7 @@ sanitized_tags_dict = {
     'TheChocolateLava',
     'Tonic',
     'Broth Chiler',
-    'Hea7'
+    'Hea7',
     'Torsional Strain',
     'Bonk',
     'Shk Shk',
@@ -415,8 +415,9 @@ def compile_case_i_re(string):
 # sanitized_list - Sanitized versions of the tag.
 def sanitize_tag(tag, regex_list, sanitized_list):
   for i in range(len(regex_list)):
+    print tag
+    print i
     if regex_list[i].match(tag):
-      # print regex_list[i]
       return sanitized_list[i]
   return tag
 
