@@ -1,4 +1,4 @@
-from app import db # imports database object from __init__.py
+from app import db
 from sqlalchemy import Table, Column, Integer, ForeignKey, and_, or_
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base

@@ -26,7 +26,6 @@ def reset_trueskill(user):
 	# if User has a TrueSkill association with a region he is not associated with, remove it
 	populate_trueskills(user)
 
-
 	for trueskill in user.trueskills:
 		trueskill.mu = MU
 		trueskill.sigma = SIGMA
@@ -45,6 +44,7 @@ def populate_trueskills(user):
 	elif len(user.trueskills)==1: 
 		if user.trueskills[0].region=="Global" and user.region is not None:
 			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA))
+			db.session.commit()
 		else:
 			return True
 	# If User has 2 Trueskills (Global and Region), check to make sure he should have a regional TrueSkill (if he belongs to a region)

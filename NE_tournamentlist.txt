@@ -40,7 +40,10 @@ HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England
 HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England
 Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England
 Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England
-Mass\ Madness\ 2\ Pro)|http://bigbluees.challonge.com/MMM2P|New\ England
+Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England
 Mass\ Madness\ 2\ (Ama)|http://bigbluees.challonge.com/MMM2Amateur|New\ England
 Mass\ Madness\ 1\ (Pro)|http://bigbluees.challonge.com/MMM1Pro|New\ England
 Mass\ Madness\ 1\ (Ama)|http://bigbluees.challonge.com/MMM1Amateur|New\ England
+3SA\ 7|http://challonge.com/3SA7SM|New\ England
+3SA\ 10|http://challonge.com/3SA10SM|New\ England
+3SA\ 11|http://challonge.com/3SA11M|New\ England
