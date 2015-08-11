@@ -124,6 +124,7 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, *arg
     tournament_game_type = "Super Smash Bros. Melee"
 
   if 'date' in tournament_info:
+    print tournament_info['date']
     tournament_date = convert_date(tournament_info['date'])
   else:
     # if no date provided, set to today's date (date of parse)
@@ -169,11 +170,14 @@ months = {'January' : 1,
 def convert_date(challonge_date):
   date_parser = re.compile('[/ ,-]+') 
   tokens = date_parser.split(challonge_date)
+  print tokens
   
   # integer representing month
   month = months[tokens[0]]
   day = int(tokens[1])
   year = int(tokens[2])
+  print month, day, year
 
   date = datetime.date(year=year, month=month, day=day)
+  print date
   return date

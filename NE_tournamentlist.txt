@@ -47,3 +47,7 @@ Mass\ Madness\ 1\ (Ama)|http://bigbluees.challonge.com/MMM1Amateur|New\ England
 3SA\ 7|http://challonge.com/3SA7SM|New\ England
 3SA\ 10|http://challonge.com/3SA10SM|New\ England
 3SA\ 11|http://challonge.com/3SA11M|New\ England
+Smashing\ Grounds\ Melee\ 7/16|http://challonge.com/sgmelee7_16_15|New\ England
+Smashing\ Grounds\ Melee\ 7/23|http://challonge.com/sgmelee7_23_15|New\ England
+Smashing\ Grounds\ Melee\ 7/30|http://challonge.com/sgmelee7_30_15|New\ England
+Smashing\ Grounds\ Melee\ 8/6|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England

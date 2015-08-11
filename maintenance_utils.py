@@ -1,5 +1,6 @@
 from app import app, db
 from app.models import *
+import datetime
 
 import sys
 sys.path.append('./sanitize')
@@ -64,4 +65,16 @@ def add_characters(tag, main, secondaries):
   db.session.commit()
   return user
 
+# Given parameter tournament name and a list of integers representing year, month, and day, queries for Tournament object and assigns a date for it.
+def change_date(tournament_name, date_numbers):
+  tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
+  if tournament is None:
+    return "Tournament not found"
 
+  # Create date object, index 0 = year, index 1 = month, index 2 = day
+  date = datetime.date(date_numbers[0], date_numbers[1], date_numbers[2])
+  tournament.date = date
+  
+  db.session.commit()
+  return tournament
+  
