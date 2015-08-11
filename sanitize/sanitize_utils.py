@@ -198,7 +198,17 @@ player_raw_regex_dict = {
     ['(jlo$)'],
     ['(coldo$)'],
     ['(nfreak$)'],
-    ['(hazard$)']
+    ['(hazard$)'],
+    ['(solar$)'],
+    ['(pyro$)'],
+    ['(bluntmaster$)', '(blunt master$)'],
+    ['(para$)'],
+    ['(bolt$)'],
+    ['(racer$)', '(cashbags fatstackington$)', '(racer\$$)', '(racer.money$)', '(mr\. melon$)', '(mr melon$)'],
+    ['(seaghost$)', '(sea ghost$)'],
+    ['(fang$)'],
+    ['(null$)'],
+    ['(b[o0]lt$)', '(bown$)']
     ]
     }
 
@@ -399,7 +409,17 @@ sanitized_tags_dict = {
     'JLo',
     'Coldo',
     'NFreak',
-    'Hazard'
+    'Hazard',
+    'Solar',
+    'Pyro',
+    'Bluntmaster',
+    'Para',
+    'Bolt',
+    'Racer',
+    'Seaghost',
+    'Fang',
+    'Null',
+    'Bolt'
     ]
     }
 
