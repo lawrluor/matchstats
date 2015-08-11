@@ -6,6 +6,7 @@ from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 # Trueskill constants
 MU = 25.0
 SIGMA = 8.333333333333334
+CONS_MU = 0.0
 BETA = 4.166666666666667
 TAU = 0.08333333333333334
 DRAW_PROBABILITY = 0.0
@@ -29,6 +30,7 @@ def reset_trueskill(user):
 	for trueskill in user.trueskills:
 		trueskill.mu = MU
 		trueskill.sigma = SIGMA
+		trueskill.cons_mu = CONS_MU
 		db.session.commit()
 	return user.trueskills
 
@@ -36,14 +38,14 @@ def reset_trueskill(user):
 def populate_trueskills(user):
 	# case for when User has no TrueSkills - if User has region, populate both Global and region Trueskill
 	if len(user.trueskills)<=0:
-		user.trueskills.append(TrueSkill(region="Global", mu=MU, sigma=SIGMA))
+		user.trueskills.append(TrueSkill(region="Global", mu=MU, sigma=SIGMA, cons_mu=CONS_MU))
 		if user.region is not None:
-			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA))
+			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA, cons_mu=CONS_MU))
 	# case for when User is initialized with no region (Tournament has no region attribute during)
 	# if the one regional TrueSkill is Global, and user.region is not None, populate regional TrueSkill
 	elif len(user.trueskills)==1: 
 		if user.trueskills[0].region=="Global" and user.region is not None:
-			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA))
+			user.trueskills.append(TrueSkill(region=user.region.region, mu=MU, sigma=SIGMA, cons_mu=CONS_MU))
 			db.session.commit()
 		else:
 			return True
@@ -74,12 +76,12 @@ def update_rating(winner_user, loser_user):
 	db.session.commit()
 
 	# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
-	#try:
-		# print winner_user, loser_user
-	#except UnicodeError:
-	#	pass
+	try:
+		print winner_user, loser_user
+	except UnicodeError:
+		pass
 
-	#print '\n'
+	print '\n'
 	return winner_user, loser_user
 
 # given winner_user, loser_user, and integer index (0 for Region and 1 for Global), create Rating objects using currently stored Region Trueskill attribute
@@ -89,20 +91,22 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	region_name = winner_user.trueskills[region_num].region
 
 	# Print current TrueSkill values for both players
-	# print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
+	print "CURRENT TrueSkill ({0}):".format(region_name), winner_user.tag, winner_user_rating, "VS.", loser_user.tag, loser_user_rating
 	
 	# Record set result, victory for winner_user and loss for loser_user
 	new_winner_rating, new_loser_rating = rate_1vs1(winner_user_rating, loser_user_rating)
-	# print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
+	print "UPDATED TrueSkill ({0}):".format(region_name),  winner_user.tag, new_winner_rating, "VS.", loser_user.tag, new_loser_rating
 
 	# Store and overwrite existing trueskill object with new Rating values
 	winner_user.trueskills[region_num].region=region_name
 	winner_user.trueskills[region_num].mu=new_winner_rating.mu
 	winner_user.trueskills[region_num].sigma=new_winner_rating.sigma
+	winner_user.trueskills[region_num].cons_mu=new_winner_rating.mu - 3*new_winner_rating.sigma
 
 	loser_user.trueskills[region_num].region=region_name
 	loser_user.trueskills[region_num].mu=new_loser_rating.mu
 	loser_user.trueskills[region_num].sigma=new_loser_rating.sigma
+	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 3*new_loser_rating.sigma
 
 # Reset, then recalculate all Trueskills for all Users.
 def recalculate_trueskill():
