@@ -193,37 +193,6 @@ def check_set_user(set_user_tag, *args):
     db.session.commit()
   return set_user
 
-# transfers the data the User represented by joined_tag has to User root_tag, while deleting the User represented by joined_tag
-# currently doesn't actually link the Users or tag in any way before deletion
-# currently doesn't change Matches
-def merge_user(root_tag, joined_tag):
-  root_user = User.query.filter(User.tag==root_tag).first()
-  joined_user = User.query.filter(User.tag==joined_tag).first()
-  if root_user is None: 
-    return "root_user not found"
-  elif joined_user is None: 
-    return "joined_user not found"
-
-  # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
-  joined_sets = joined_user.get_all_sets()
-  for set in joined_sets:
-    if set.winner_tag==joined_user.tag:
-      set.winner_tag = root_user.tag
-      set.winner_id = root_user.id
-    else:
-      set.loser_tag = root_user.tag
-      set.loser_id = root_user.id
-
-  # merge Placement in joined_user by setting Placement.user = root_user
-  # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
-  while len(joined_user.tournament_assocs) > 0:
-    joined_user.tournament_assocs[0].user = root_user
-
-  db.session.delete(joined_user) 
-  db.session.commit()
-  return root_user
-
-
 
 # given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
 def get_tournament_name_and_placing(user_tag):

@@ -9,7 +9,7 @@ from sanitize_utils import check_and_sanitize_tag
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 from trueskill_functions import MU, SIGMA, CONS_MU, BETA, TAU, DRAW_PROBABILITY, populate_trueskills
 
-  # Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
+# Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
 def change_tag(tag, new_tag):
   user = User.query.filter(User.tag==tag).first()
   print "ORIGINAL USER: ", user 
@@ -27,7 +27,62 @@ def change_tag(tag, new_tag):
   user.tag = new_tag
   db.session.commit()
   print "UPDATED USER: ", user
-  print user.get_all_sets()
+  return user
+
+# transfers the data the User represented by joined_tag has to User root_tag, while deleting the User represented by joined_tag
+# currently doesn't actually link the Users or tag in any way before deletion
+# currently doesn't change Matches
+def merge_user(root_tag, joined_tag):
+  root_user = User.query.filter(User.tag==root_tag).first()
+  joined_user = User.query.filter(User.tag==joined_tag).first()
+  if root_user is None: 
+    print "root_user not found"
+    return
+  elif joined_user is None: 
+    print "joined_user not found"
+    return
+
+  # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
+  joined_sets = joined_user.get_all_sets()
+  for set in joined_sets:
+    if set.winner_tag==joined_user.tag:
+      set.winner_tag = root_user.tag
+      set.winner_id = root_user.id
+    else:
+      set.loser_tag = root_user.tag
+      set.loser_id = root_user.id
+
+  # merge Placement in joined_user by setting Placement.user = root_user
+  # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
+  while len(joined_user.tournament_assocs) > 0:
+    joined_user.tournament_assocs[0].user = root_user
+
+  db.session.delete(joined_user) 
+  db.session.commit()
+  return root_user
+
+def search_and_replace_user(tag_string):
+  userlist = User.query.filter(User.tag.contains(tag_string)).all()
+  for user in userlist:
+    print "USER TAG", user.tag
+    new_tag = user.tag.replace(tag_string, '')
+    print "NEW_TAG", new_tag
+    sanitized_tag = check_and_sanitize_tag(new_tag, user.region)
+    print "SANITIZED TAG", sanitized_tag
+
+    # Find User if tag not registered
+    if sanitized_tag is None:
+      root_user = User.query.filter(User.tag==new_tag).first()
+      if root_user is not None:
+        print "ROOT USER", root_user
+        merge_user(root_user.tag, user.tag)
+      else:
+        # if still can't find root tag to merge with, then root tag doesn't exist. Change the tag
+        change_tag(user.tag, new_tag)
+    else:
+      # if found sanitized User, merge them
+      merge_user(sanitized_tag, user.tag)  
+    print '\n'
 
 # Given a User tag and region name, changes user.region and changes regional trueskill if region is valid, otherwise deletes it
 def change_region(tag, region_name):
@@ -48,8 +103,6 @@ def change_region(tag, region_name):
 
 def add_characters(tag, main, secondaries):
   found_tag = check_and_sanitize_tag(tag)
-  if found_tag is None:
-    found_tag = tag
   print found_tag
 
   user = User.query.filter(User.tag==found_tag).first()
