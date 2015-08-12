@@ -255,14 +255,19 @@ def character(character, page=1):
   
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
-  if character_object is not None:
+
+  if character_object is not None and character=="Unknown":
     # if viewing Global information, don't filter query by g.region
     if g.region=="Global" or g.region=="National":
       secondaries_matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global"), User.secondaries.contains(character_object)).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
     else:
       secondaries_matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.secondaries.contains(character_object), Region.region==g.region )).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-    if secondaries_matching_users.total <= 0:
-      flash('No players found that secondary this character')
+  else:
+    secondaries_matching_users=None
+  
+  # Flash notice if no players found that secondary the character
+  if secondaries_matching_users is None or secondaries_matching_users.total <= 0:
+    flash('No players found that secondary this character')
 
   return render_template("character.html",
                          main_matching_users=main_matching_users,

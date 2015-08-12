@@ -212,7 +212,12 @@ player_raw_regex_dict = {
     ['(gtowntom$)', '(gtown tom)'],
     ['(barbie$)'],
     ['(red rice$)', '(redrice$)'],
-    ['(doom$)']
+    ['(doom$)'],
+    ['(darc$)'],
+    ['(rarik$)'],
+    ['(guti$)'],
+    ['(poobanans$)'],
+    ['(zila$)']
     ]
     }
 
@@ -427,7 +432,12 @@ sanitized_tags_dict = {
     'Gtown_Tom',
     'Barbie',
     'Red Rice',
-    'Doom'
+    'Doom',
+    'Darc',
+    'Rarik',
+    'Guti',
+    'Poobanans',
+    'Zila'
     ]
     }
 

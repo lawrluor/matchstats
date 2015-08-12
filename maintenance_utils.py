@@ -70,11 +70,15 @@ def search_and_replace_user(tag_string):
     print "USER TAG", user.tag
     new_tag = user.tag.replace(tag_string, '')
     print "NEW_TAG", new_tag
-    sanitized_tag = check_and_sanitize_tag(new_tag, user.region)
+    if user.region is None:
+      sanitized_tag = check_and_sanitize_tag(new_tag)
+    else:
+      sanitized_tag = check_and_sanitize_tag(new_tag, user.region.region)
     print "SANITIZED TAG", sanitized_tag
 
     # Find User if tag not registered
-    if sanitized_tag is None:
+    if sanitized_tag==new_tag:
+      # this means user was not matched to sanitized tag, so query for user with tag==new_tag
       root_user = User.query.filter(User.tag==new_tag).first()
       if root_user is not None:
         print "ROOT USER", root_user
@@ -118,7 +122,6 @@ def add_characters(tag, main, secondaries):
     for secondary in secondaries:
       user.add_secondary(secondary)
       db.session.commit()
-
   db.session.commit()
   return user
 

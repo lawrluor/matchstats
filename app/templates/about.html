@@ -51,20 +51,17 @@
 
         <li>
           <h4><b>How are ratings calculated?</b></h4>
-          Trueskill, which estimates your skill based on who you've won and lost to. Read more about it <a href="http://www.moserware.com/2010/03/computing-your-skill.html"><b>here</b></a>
+          Trueskill, which estimates your skill based on who you've won and lost to. Tournament attendance is a slight factor, though a much bigger one for players with very low set counts. Read more about it <a href="http://www.moserware.com/2010/03/computing-your-skill.html"><b>here</b></a>
 
           <ul>
-            <li><h4><b>Do tournament placements don't matter?</b></h4></li>
+            <li><h4><b>Do tournament placements matter?</b></h4></li>
             No, they do not. Rating is solely based on who you've won and lost to, and your relative ratings at the time of the set.
 
             <li><h4><b>Are DQ (disqualification) sets taken into account? How about the margin of victory?</b></h4><li>
             DQ scores, if reported properly in Challonge (commonly a score of -1 or 0-0), are not taken into account. We do record the set match score, but only the outcome of a set, win or loss, is factored into rankings.
 
-            <li><h4><b>Can you put the numbers into perspective?</b></h4></li>
-            Players start at a base skill level <b>μ=25.0</b> with an uncertainty of <b>σ=8.3334</b>, which begins to deviate once set results are recorded.
-
             <li><h4><b>What are the difference between Global and Regional Rankings?</b></h4></li>
-            If you play someone from a different region than you, only your Global trueskill updates. However, if you play someone from the same region, both your Global and Regional trueskill update.
+            <b>AS OF 8/12:</b> If you play someone from a different region than you, only your Global trueskill updates, but if you play someone from the same region, only your Region trueskill updates. This holds true regardless of the type or size of the tournament. 
 
             <li><h4><b>How many sets per player are taken into rating?</b></h4>
             Currently, all sets a player has ever played. This is subject to change in the future, to the last (most recent) x number of sets.
@@ -77,6 +74,11 @@
           The application automatically can detect different spellings and different team/sponsor information for players. If a player uses completely different tags between tournaments, the application can remember alternate names, but that number will be limited to prevent abuse of the system. Players can also be merged after a tournament is processed.
           <ul>
             <li>
+              <h4><b>Seems that I'm listed under multiple tags - I thought the program would automatically do this?</h4></b>
+              If you haven't explicitly registered a tag with the program, it won't automatically match tags to it; it also won't be found intelligently through the search bar and head to head. If you've already told me your main/alternate tags, let me know and I'll fix it and merge the player instances.
+            </li>
+
+            </li>
               <h4><b>Why don't you display sponsor or team tags?</b></h4>
               It helps for the program to consistently recognize and identify players whose tags in bracket may differ from tournament to tournament. It also reduces the need for maintenance whenever a player changes team or sponsor.
             </li>
@@ -97,7 +99,7 @@
 
          <li>
           <h4><b>Why is my rating so low?</b></h4>
-          git gud kid. Also, consider that players who have only attended a few tournaments have skill ratings that tend to fluctuate more.
+          git gud kid. (But players with a very low amount of played sets tend to ranked very low, and have skill ratings that tend to fluctuate more.)
           <ul>
             <li><h4><b>I think some of my results are not being represented.</b></h4></li>
              Your region may not be supported, or we lack data for that particular tournament. If not, check the profile page for your tag. If there are tournaments that you've entered that are listed in the database but not on your page, chances are your tag wasn't recognized. You can also try searching for your alternate tags or tournaments you've entered. Let us know if you think there's an issue.
