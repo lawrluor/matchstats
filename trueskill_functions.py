@@ -68,7 +68,6 @@ def update_rating(winner_user, loser_user):
 	# Check if Users are from same region; if so, load and update Region and Global TrueSkill, else load and update Global TrueSkill
 	if winner_user.region==loser_user.region and winner_user.region is not None and loser_user.region is not None:
 		calc_region_trueskill(winner_user, loser_user, 1)
-		calc_region_trueskill(winner_user, loser_user, 0)
 	else:
 		calc_region_trueskill(winner_user, loser_user, 0)
 

@@ -174,7 +174,7 @@ player_raw_regex_dict = {
     ['(tichinde925$)', '(tichinde$)', '(master of setups$)'],
     ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
     ['(makari$)'],
-    ['(young bone[sz] villain$)', '(yung bone[sz] villain$)'],
+    ['(young bone[sz] villain$)', '(yung bone[sz] villain$)', '(yungbone[sz]villain)', '(youngbone[sz]villain)'],
     ['(thechocolatelava$)', '(middleeastballz$)'],
     ['(tonic$)'],
     ['(broth chiler$)', '(broth chiller$)'],

@@ -12,6 +12,9 @@ from trueskill_functions import MU, SIGMA, CONS_MU, BETA, TAU, DRAW_PROBABILITY,
 # Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
 def change_tag(tag, new_tag):
   user = User.query.filter(User.tag==tag).first()
+  if user is None:
+    print "User %s not found." % tag
+    return
   print "ORIGINAL USER: ", user 
   
   won_sets = user.get_won_sets()
@@ -114,6 +117,7 @@ def add_characters(tag, main, secondaries):
   if secondaries is not None and secondaries!=[]:
     for secondary in secondaries:
       user.add_secondary(secondary)
+      db.session.commit()
 
   db.session.commit()
   return user
