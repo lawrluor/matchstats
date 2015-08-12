@@ -208,7 +208,11 @@ player_raw_regex_dict = {
     ['(seaghost$)', '(sea ghost$)'],
     ['(fang$)'],
     ['(null$)'],
-    ['(b[o0]lt$)', '(bown$)']
+    ['(b[o0]lt$)', '(bown$)'],
+    ['(gtowntom$)', '(gtown tom)'],
+    ['(barbie$)'],
+    ['(red rice$)', '(redrice$)'],
+    ['(doom$)']
     ]
     }
 
@@ -419,7 +423,11 @@ sanitized_tags_dict = {
     'Seaghost',
     'Fang',
     'Null',
-    'Bolt'
+    'Bolt',
+    'Gtown_Tom',
+    'Barbie',
+    'Red Rice',
+    'Doom'
     ]
     }
 
@@ -490,7 +498,7 @@ for region in player_regex_dict:
 
 # Wrapper for sanitize_tag.
 def check_and_sanitize_tag(tag, *args): #region is optional parameter
-  # if region is included in parameter
+  # if region is included in parameter, use region list
   if len(args)==1 and args[0] is not None:
     region_name = args[0]
     if region_name in player_raw_regex_dict and region_name in sanitized_tags_dict:
@@ -498,3 +506,20 @@ def check_and_sanitize_tag(tag, *args): #region is optional parameter
   elif len(args)==0 or args[0] is None:
     region_name = "Global"
     return sanitize_tag(tag, full_regex_list, full_sanitized_list)
+
+# Function that checks the lengths of the raw regex dict and sanitized tags dict, and prints each index together for comparison
+def debug_regex_lists(*args):
+# if region is included in parameter, use region list
+  if len(args)==1 and args[0] is not None:
+    region_name = args[0]
+    print "Regex length: ", len(player_raw_regex_dict[region_name])
+    print "Sanitized length: ", len(sanitized_tags_dict[region_name])
+    for i in range(len(player_regex_dict[region_name])):
+      print player_raw_regex_dict[region_name][i], sanitized_tags_dict[region_name][i]
+  elif len(args)==0 or args[0] is None:
+    region_name = "Global"
+    print "Regex length: ", len(player_raw_regex_dict['Global'])
+    print "Sanitized length: ", len(sanitized_tags_dict['Global'])
+    for i in range(len(player_regex_dict['Global'])):
+      print player_raw_regex_dict['Global'][i], sanitized_tags_dict['Global'][i]
+
