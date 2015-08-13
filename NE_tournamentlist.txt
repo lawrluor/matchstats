@@ -13,6 +13,7 @@ New\ Game\ Plus\ 12|http://bigbluees.challonge.com/NGP12|New\ England
 New\ Game\ Plus\ 13|http://bigbluees.challonge.com/NGP13|New\ England
 New\ Game\ Plus\ 14|http://bigbluees.challonge.com/NGP14|New\ England
 New\ Game\ Plus\ 15|http://bigbluees.challonge.com/NGP15|New\ England
+New\ Game\ Plus\ 16|http://bigbluees.challonge.com/NGP16|New\ England
 MCG\ May\|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England
 MCG\ June\|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England
 MCG\ July\|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England
@@ -50,3 +51,4 @@ SG\ Melee\ August\ 8|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England
 UNH\ Beatdown|http://unhsmash.challonge.com/Beatdown|New\ England
 Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England
 Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England
+

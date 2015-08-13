@@ -51,7 +51,13 @@ def select_region():
 @app.route('/home', methods=['GET', 'POST'])
 def home():
   flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
-  return render_template('home.html')
+
+  # Display recently added tournaments
+  tournamentlist = Tournament.query.order_by(Tournament.id.desc()).limit(10).all()
+  for tournament in tournamentlist:
+    print tournament
+  return render_template('home.html',
+                         tournamentlist=tournamentlist)
 
 # About page (more info)
 @app.route('/about')

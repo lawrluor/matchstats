@@ -8,5 +8,33 @@
       Smashstats tracks the stats of tournament-level players in the Super Smash Bros. Melee scene. It parses data from tournament brackets and neatly presents selected statistics of tournament attendance, set records, and head to head histories between players. <a href="{{ url_for('about') }}"><b>Learn More</b></a>
     </p>
   </header>
+
+  <hr>
+
+  <div class="col-sm-6 hero-feature">
+  <div class="thumbnail">
+  	<div class="caption scroll400">
+	  	<h4><b>Recent Updates</b></h4>
+	  	<ul>
+	  		<b>August 11, 2015</b>
+	  		<li>Sets between players of the same region no longer updates global TrueSkill rating.</li>
+	  		<li>Number of sets played is a bigger factor in determining TrueSkill rating.</li>
+	  	</ul>
+  	</div>
+  </div>
+  </div> 
+
+  <div class="col-sm-6 hero-feature">
+  <div class="thumbnail">
+  	<div class="caption scroll400">
+	  	<h4><b>Recently Added Tournaments</b></h4>
+	  	<ul>
+	  		{% for tournament in tournamentlist %}
+	  			<li><a href="{{url_for('tournament', tournament_name=tournament.name)}}"><b>{{tournament.name}}</b></a></li>
+	  		{% endfor %}
+	  	</ul>
+  	</div>
+  </div>
+  </div> 
 </div>
 {% endblock %}
