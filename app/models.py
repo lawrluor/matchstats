@@ -88,7 +88,7 @@ class User(db.Model):
     sets_lost = Set.query.filter(Set.loser_tag==self.tag).order_by(Set.id).all()
     return sets_lost
 
-  # getAllSets is a function that takes a User object and queries for all Sets he has participated in
+  # get_all_sets is a function that takes a User object and queries for all Sets he has participated in
   def get_all_sets(self):
     all_sets_sorted = Set.query.filter(or_(Set.winner_id==self.id, Set.loser_id==self.id)).order_by(Set.id).all()     
     return all_sets_sorted
@@ -194,20 +194,6 @@ def check_set_user(set_user_tag, *args):
   return set_user
 
 
-# given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
-def get_tournament_name_and_placing(user_tag):
-  user = User.query.filter(User.tag==user_tag).first()
-  user_placements = {}
-
-  for tournament_placement in user.tournament_assocs:
-    tournament_name = tournament_placement.tournament.name
-    placement  = convert_placement(tournament_placement.placement)
-    user_placements[tournament_name] = placement
-
-  print user_placements
-  return user_placements
-
-
 #association object between Tournament and User
 class Placement(db.Model):
   __tablename__ = 'placement'
@@ -243,17 +229,6 @@ class Tournament(db.Model):
 
   def __repr__(self):
     return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
-
-# given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
-def check_tournament(tournament):
-  same_tournament = Tournament.query.filter(Tournament.name==tournament.name).first()
-  # if tournament already exists, only add matches to Tournament, else create tournament as usual
-  if same_tournament is not None:
-    # if tournament.type == "Pool"
-    same_tournament.sets.append(tournament.sets) 
-  else:
-    print "Tournament already exists" 
-  return same_tournament
 
 
 # Set is the one in a one-to-many relationship with model Match

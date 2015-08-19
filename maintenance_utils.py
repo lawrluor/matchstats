@@ -137,4 +137,49 @@ def change_date(tournament_name, date_numbers):
   
   db.session.commit()
   return tournament
-  
+
+# given Tournament object, if tournament name already exists, if tournament is a pool of a larger one, add placements and sets to Tournament object and return it, else simply return original Tournament object
+def check_tournament(tournament):
+  same_tournament = Tournament.query.filter(Tournament.name==tournament.name).first()
+  # if tournament already exists, only add matches to Tournament, else create tournament as usual
+  if same_tournament is not None:
+    # if tournament.type == "Pool"
+    same_tournament.sets.append(tournament.sets) 
+  else:
+    print "Tournament already exists" 
+  return same_tournament
+
+# given user tag, returns a simple dictionary with keys tournament_name and value placement for a tournament a User has attended
+def get_tournament_name_and_placing(user_tag):
+  user = User.query.filter(User.tag==user_tag).first()
+  user_placements = {}
+
+  for tournament_placement in user.tournament_assocs:
+    tournament_name = tournament_placement.tournament.name
+    placement  = convert_placement(tournament_placement.placement)
+    user_placements[tournament_name] = placement
+
+  print user_placements
+  return user_placements
+
+# deletes a Set given tournament name, set winner, and set loser 
+def delete_set(tournament_name, winner_tag, loser_tag):
+  winner_user = User.query.filter(User.tag==winner_tag).first()
+  loser_user = User.query.filter(User.tag==loser_tag).first()
+  if winner_user is None: 
+    print "winner_user not found"
+    return
+  elif loser_user is None: 
+    print "loser_user not found"
+    return
+
+  found_set = Set.query.filter(and_(Set.loser_tag==loser_tag, Set.winner_tag==winner_tag, Set.tournament_name==tournament_name)).all()
+  if len(found_set)==1:
+    db.session.delete(found_set[0])
+    db.session.commit()
+    print "Set deleted"
+    return
+  elif len(found_set) < 1:
+    return "No set found"
+  elif len(found_set) > 1:
+    return "Multiple Sets found"

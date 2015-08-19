@@ -14,6 +14,7 @@ New\ Game\ Plus\ 13|http://bigbluees.challonge.com/NGP13|New\ England
 New\ Game\ Plus\ 14|http://bigbluees.challonge.com/NGP14|New\ England
 New\ Game\ Plus\ 15|http://bigbluees.challonge.com/NGP15|New\ England
 New\ Game\ Plus\ 16|http://bigbluees.challonge.com/NGP16|New\ England
+New\ Game\ Plus\ 17|http://bigbluees.challonge.com/NGP17|New\ England
 MCG\ May\|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England
 MCG\ June\|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England
 MCG\ July\|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England
@@ -35,6 +36,7 @@ HOG\ Monthly\ 2|http://ctmelee.challonge.com/hogmonthlysingles2|New\ England
 HOG\ Biweekly\ 27|http://ctmelee.challonge.com/hog27thbiweekly|New\ England
 HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England
 HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England
+HOG\ Biweekly\ 29|http://ctmelee.challonge.com/hogbiweekly29/|New\ England
 Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England
 Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England
 Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England
@@ -51,4 +53,5 @@ SG\ Melee\ August\ 8|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England
 UNH\ Beatdown|http://unhsmash.challonge.com/Beatdown|New\ England
 Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England
 Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England
+
 

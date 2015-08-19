@@ -153,7 +153,7 @@ player_raw_regex_dict = {
     ['(mr tuesday$)', '(mr\. tuesday$)'],
     ['(bigvegetabluntz$)', '(bvb$)', '(dylandude829$)'],
     ['(me[tl][tl]wing$)'], 
-    ['(bown$)'],
+    ['(b[o0]lt$)', '(b[o0]wn$)'],
     ['(cheezpuff$)'],
     ['(r2dliu$)'],
     ['(kaza[am]m$)', '(kaza[am]mtheman$)'],
@@ -203,12 +203,10 @@ player_raw_regex_dict = {
     ['(pyro$)'],
     ['(bluntmaster$)', '(blunt master$)'],
     ['(para$)'],
-    ['(bolt$)'],
     ['(racer$)', '(cashbags fatstackington$)', '(racer\$$)', '(racer.money$)', '(mr\. melon$)', '(mr melon$)'],
     ['(seaghost$)', '(sea ghost$)'],
     ['(fang$)'],
     ['(null$)'],
-    ['(b[o0]lt$)', '(bown$)'],
     ['(gtowntom$)', '(gtown tom)'],
     ['(barbie$)'],
     ['(red rice$)', '(redrice$)'],
@@ -217,7 +215,9 @@ player_raw_regex_dict = {
     ['(rarik$)'],
     ['(guti$)'],
     ['(poobanans$)'],
-    ['(zila$)']
+    ['(zila$)'],
+    ['(corona$)'],
+    ['(uboa$)', '(greyface$)']
     ]
     }
 
@@ -373,7 +373,7 @@ sanitized_tags_dict = {
     'Mr. Tuesday',
     'BVB',
     'Metlwing',
-    'Bown',
+    'Bolt',
     'Cheezpuff',
     'R2DLiu',
     'Kazamm',
@@ -423,12 +423,10 @@ sanitized_tags_dict = {
     'Pyro',
     'Bluntmaster',
     'Para',
-    'Bolt',
     'Racer',
     'Seaghost',
     'Fang',
     'Null',
-    'Bolt',
     'Gtown_Tom',
     'Barbie',
     'Red Rice',
@@ -437,7 +435,9 @@ sanitized_tags_dict = {
     'Rarik',
     'Guti',
     'Poobanans',
-    'Zila'
+    'Zila',
+    'Corona',
+    'Uboa'
     ]
     }
 
