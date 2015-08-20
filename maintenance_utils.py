@@ -125,6 +125,11 @@ def add_characters(tag, main, secondaries):
   db.session.commit()
   return user
 
+def delete_secondary(tag, character):
+  user = User.query.filter(User.tag==tag).first()
+  user.remove_secondary(character)
+  db.session.commit()
+
 # Given parameter tournament name and a list of integers representing year, month, and day, queries for Tournament object and assigns a date for it.
 def change_date(tournament_name, date_numbers):
   tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
