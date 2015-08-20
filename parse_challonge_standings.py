@@ -52,7 +52,8 @@ def parse_challonge_standings(tournament_url, tournament_region):
   print '\n'
   return all_placements
 
-def parse_pool_standings(tournament_url, tournament_region): 
+# Advance number indicates how many players advance from the pool, so their placements are not included as they will already have placings in the final bracket
+def parse_pool_standings(tournament_url, tournament_region, advance_number):
   # find /standings page given tournament bracket url
   standings_url = tournament_url + '/standings'
 
@@ -60,19 +61,19 @@ def parse_pool_standings(tournament_url, tournament_region):
   r2 = conn2.request("GET", standings_url)
   soup2 = BeautifulSoup(r2.data)
   soup2.prettify()
-
   player_rows = soup2.find_all("tr")
-  # OrderedDict so that keys are remembered in the order they come in, from least to greatest.
+
   all_placements = collections.OrderedDict()
   current_placement = 0
-  for i in range(1, len(player_rows)):
+  # range 1+advance_number starts AFTER the placements for players who advanced would be recorded
+  for i in range(1+advance_number, len(player_rows)):
     standing_item = player_rows[i].find("td", {"class" : "rank"})
     # differentiate between pool placings by adding 100
     if standing_item is not None:
       current_placement = int(standing_item.getText())
-      standing = current_placement + 100
+      standing = current_placement + 1000 
     else:
-      standing = current_placement + 100
+      standing = current_placement + 1000
 
     tag_item = player_rows[i].find("span")
     if tag_item is not None:
@@ -123,18 +124,17 @@ def import_pool_standings(pool_placements, parent_tournament):
         checked_player = check_set_user(player, parent_tournament.region.region)
       else:
         checked_player = check_set_user(player)
-
       print checked_player
-      for parent_placement in parent_tournament.placements:
-        if checked_player==parent_placement.user:
-          break 
-      else:
-        pool_placement = Placement(tournament_id=parent_tournament.id,
+      # for parent_placement in parent_tournament.placements:
+      #   if checked_player==parent_placement.user:
+      #     break 
+      # else:
+      pool_placement = Placement(tournament_id=parent_tournament.id,
                             tournament_name=parent_tournament.name,
                             user_id=checked_player.id,
                             placement=placement
                             )   
-        parent_tournament.placements.append(pool_placement)
+      parent_tournament.placements.append(pool_placement)
 
   db.session.commit()
   return parent_tournament

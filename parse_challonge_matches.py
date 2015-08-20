@@ -39,7 +39,7 @@ def parse_top_match(top_item_list, tournament_region):
     score = score_item.string
     if score:
       score = score.strip()
-      if score == u"\u2713":
+      if score == u"\u2713" or score==u"\u2714":
         top_half["score"] = 1 
       elif score == "":
         top_half["score"] = 0
@@ -76,7 +76,7 @@ def parse_bottom_match(bottom_item_list, tournament_region):
     score = score_item.string
     if score:
       score = score.strip()
-      if score == u"\u2713":
+      if score == u"\u2713" or score==u"\u2714":
         bottom_half["score"] = 1 
       elif score == "":
         bottom_half["score"] = 0

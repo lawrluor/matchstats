@@ -4,7 +4,7 @@ import datetime
 
 import sys
 sys.path.append('./sanitize')
-from sanitize_utils import check_and_sanitize_tag
+from sanitize_utils import *
 
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 from trueskill_functions import MU, SIGMA, CONS_MU, BETA, TAU, DRAW_PROBABILITY, populate_trueskills

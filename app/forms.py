@@ -7,7 +7,7 @@ from app.models import *
 import re
 
 # list of all Regions
-regionlist = [('Global', 'Global'), ('National', 'National'), ('New England', 'New England')]
+regionlist = [('Global', 'Global'), ('National', 'National'), ('New England', 'New England'), ('SoCal', 'SoCal')]
 
 # main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
 main_char_choices = [('Fox', 'Fox'),

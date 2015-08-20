@@ -238,6 +238,7 @@ player_raw_regex_dict = {
     ],
 
     'SoCal' : [
+    ['(mang[o0]$)', '(c9mang[o0]$)'],
     ['(lucky$)'],
     ['(westballz$)'],
     ['(fly amanita$)'],
@@ -248,7 +249,7 @@ player_raw_regex_dict = {
     ['(larry lurr$)', '(larrylurr$)', '(DEHF$)'],
     ['(hugs$)', '(hugs86$)'],
     ['(okamibw$)', '(okami bw$)', '(okami$)'],
-    ['(ken$)', '(sephiroth ken$)', '(sephirothken$)'],
+    ['(ken$)', '(sephiroth ken$)', '(sephirothken$)', '(liquidken$)'],
     ['(taf[o0]kints$)', '(taf[o0]$)'],
     ['(lil fumi$)', '(santi$)', '(santiago$)'],
     ['(ren[o0]$)'],
@@ -257,7 +258,7 @@ player_raw_regex_dict = {
     ['([bj]izzarro flame$)', '([bj]izzarroflame$)', '([bj]izaro flame$)', '([bj]izzaro flame$)', '([bj]izarro flame$)'],
     ['(hyprid$)'],
     ['(lovage$)'],
-    ['(sung666$)', '(sung 666$)', '(sung$)'],
+    ['(sung666$)', '(sung 666$)', '(sung$)', '(sung475$)', '(sung 475$)'],
     ['(stab$)', '(victor abdul latif$)', '(stabbedbyahippie$)', '(stabbedbyanipple$)'],
     ['(mikehaze$)', '(mike haze$)'],
     ['(kira$)'],
@@ -266,7 +267,20 @@ player_raw_regex_dict = {
     ['(reason$)'],
     ['(a rookie$)', '(arookie$)'],
     ['(squid$)'],
-    ['(jace$)']
+    ['(jace$)'],
+    ['(koopatroopa$)', '(koopatroopa895$)', '(koopa troopa$)', '(koopa troopa 895$)'],
+    ['(captain faceroll$)', '(captainfaceroll$)', '(faceroll$)'],
+    ['(psychomidget$)', '(psycho midget$)'],
+    ['(jpegimage$)', '(jpeg image$)'],
+    ['(sherigami$)', '(sherigam$)'],
+    ['(mevan$)'],
+    ['(coolhat$)', '(cool hat$)'],
+    ['(peligro$)'],
+    ['(dunk$)'],
+    ['(dendypretendy$)', '(dendy$)', '(dendy pretendy)'],
+    ['(khepri$)'],
+    ['(mixx$)'],
+    ['(sacasumoto$)']
     ]
     }
 
@@ -507,6 +521,7 @@ sanitized_tags_dict = {
     ],
 
     'SoCal' : [
+    'Mango',
     'Lucky',
     'Westballz',
     'Fly Amanita',
@@ -535,7 +550,20 @@ sanitized_tags_dict = {
     'Reason',
     'A Rookie',
     'Squid',
-    'Jace'
+    'Jace',
+    'KoopaTroopa',
+    'Captain Faceroll',
+    'PsychoMidget',
+    'JPeGImage',
+    'Sherigami',
+    'Mevan',
+    'Coolhat',
+    'Peligro',
+    'Dunk',
+    'DendyPretendy',
+    'Khepri',
+    'Mixx',
+    'SacaSuMoto'
     ]
     }
 
