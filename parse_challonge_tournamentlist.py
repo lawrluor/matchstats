@@ -34,7 +34,7 @@ def read_tournamentlist(challonge_tournamentlist):
         print tournament_name + ': ' + tournament_url
         parse_challonge_run(tournament_url, tournament_name, tournament_region)
       else:
-        parse_challonge_run(tournament_url, tournament_name)
+        parse_challonge_run(tournament_url, tournament_name, None)
  
   f.close()
 
