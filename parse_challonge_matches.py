@@ -32,11 +32,13 @@ def parse_top_match(top_item_list, tournament_region):
     seed_item = item.find("div", {"class" : "top_seed"})
     if seed_item is not None:
       seed_number = seed_item.getText()
-      top_half["seed"] = int(seed_number)
+      if seed_number!='':
+        top_half["seed"] = int(seed_number)
       
     score_item = item.find("div", {"class" : "top_score"})
     score = score_item.string
     if score:
+      score = score.strip()
       if score == u"\u2713":
         top_half["score"] = 1 
       elif score == "":
@@ -67,11 +69,13 @@ def parse_bottom_match(bottom_item_list, tournament_region):
     seed_item = item.find("div", {"class" : "bottom_seed"})
     if seed_item is not None:
       seed_number = seed_item.getText()
-      bottom_half["seed"] = int(seed_number)
+      if seed_number!='':
+        bottom_half["seed"] = int(seed_number)
       
     score_item = item.find("div", {"class" : "bottom_score"})
     score = score_item.string
     if score:
+      score = score.strip()
       if score == u"\u2713":
         bottom_half["score"] = 1 
       elif score == "":
@@ -134,7 +138,7 @@ def parse_challonge_matches(tournament_url, tournament_region):
 
 
 # Get: score, tag, seed, round given a matchlist from parse_challonge, and a string tournamnent name (to fill out Set.attribute)
-def import_challonge_matches(matchlist, tournament_name, tournament_region):
+def import_challonge_matches(matchlist, tournament_name, tournament_region, pool):
   for set in matchlist:
     top_player = set[0]
     bottom_player = set[1]
@@ -146,6 +150,9 @@ def import_challonge_matches(matchlist, tournament_name, tournament_region):
     # check scores; if either score is a DQ score, break and don't store set 
     if top_player['score']==-1 or bottom_player['score']==-1:
       print "DQ SCORE DETECTED"
+      continue
+    elif top_player['score']==0 and bottom_player['score']==0:
+      print "DQ SCORE OR UNFINISHED SET DETECTED"
       continue
 
     if top_player['score'] > bottom_player['score']:
@@ -168,19 +175,25 @@ def import_challonge_matches(matchlist, tournament_name, tournament_region):
     set_loser_tag = set_loser['tag'].strip()
     loser_user = check_set_user(set_loser_tag, tournament_region)
 
-    # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
-    if 'seed' in set_winner:
-    # List of Placement objects ordered by list, in which last element is the latest Tournament to be added
-      winner_user.tournament_assocs[-1].seed = set_winner['seed']
-    if 'seed' in set_loser:
-      loser_user.tournament_assocs[-1].seed = set_loser['seed']
+    if pool==True:
+      print "Seed not recorded for pools match"
+    else:
+      # If seed doesn't exist, do nothing; else, assign to User's Placement relationship attribute seed
+      if 'seed' in set_winner:
+      # List of Placement objects ordered by list, in which last element is the latest Tournament to be added
+        winner_user.tournament_assocs[-1].seed = set_winner['seed']
+      if 'seed' in set_loser:
+        loser_user.tournament_assocs[-1].seed = set_loser['seed']
 
     # Get round number; if they match, store the round variable; if they don't (some error occurred), ignore it.
-    if int(set_winner['round']) == int(set_loser['round']):
-      round_number = int(set_winner['round'])
-    else:
-      # prevent crashing when creating the Set without existing variable round_number
+    if pool==True:
       round_number = 0
+    else:
+      if int(set_winner['round']) == int(set_loser['round']):
+        round_number = int(set_winner['round'])
+      else:
+        # prevent crashing when creating the Set without existing variable round_number
+        round_number = 0
 
     # get associated Tournament
     if tournament_name is not None:

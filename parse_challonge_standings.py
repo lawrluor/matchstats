@@ -118,7 +118,6 @@ def import_pool_standings(pool_placements, parent_tournament):
   print parent_tournament.placements
   for placement in pool_placements:
     for player in pool_placements[placement]:
-      print player
       # check or create new User object, tag=player
       if parent_tournament.region is not None:
         checked_player = check_set_user(player, parent_tournament.region.region)
@@ -127,10 +126,7 @@ def import_pool_standings(pool_placements, parent_tournament):
 
       print checked_player
       for parent_placement in parent_tournament.placements:
-        print checked_player==parent_placement.user
         if checked_player==parent_placement.user:
-          print checked_player, parent_placement.user
-          print "Tournament placing exists in Final Bracket"
           break 
       else:
         pool_placement = Placement(tournament_id=parent_tournament.id,
@@ -138,10 +134,7 @@ def import_pool_standings(pool_placements, parent_tournament):
                             user_id=checked_player.id,
                             placement=placement
                             )   
-        print "hi"
-        print pool_placement
         parent_tournament.placements.append(pool_placement)
-        db.session.commit()
 
   db.session.commit()
   return parent_tournament

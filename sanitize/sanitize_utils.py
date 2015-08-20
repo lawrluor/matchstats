@@ -221,11 +221,52 @@ player_raw_regex_dict = {
     ],
 
     'NorCal' : [
-    ['(shroomed$)']
+    ['(shroomed$)'],
+    ['(pewpewu$)', '(ppu$)', '(pewpewyou$)'],
+    ['(sfat$)'],
+    ['(silentspect[er][re]$)', '(silent spect[er][re]$)'],
+    ['(darrell$)', '(darell$)', '(darrel$)'],
+    ['(homemadewaffles$)', '(hmw$)', '(yung waff$)'],
+    ['(lucien$)'],
+    ['(scar$)'],
+    ['(laudandus$)'],
+    ['(t[o0]ph$)'],
+    ['([bj]izzarro flame$)', '([bj]izzarroflame$)', '([bj]izaro flame$)', '([bj]izzaro flame$)', '([bj]izarro flame$)'],
+    ['(hyprid$)'],
+    ['(a[zs]u[sz]a$)'],
+    ['(phil$)']
     ],
 
     'SoCal' : [
-    ['(lucky$)']
+    ['(lucky$)'],
+    ['(westballz$)'],
+    ['(fly amanita$)'],
+    ['(fiction$)'],
+    ['(s2j$)', '(smoke2jointz$)'],
+    ['(macd$)'],
+    ['(eddy mexico$)'],
+    ['(larry lurr$)', '(larrylurr$)', '(DEHF$)'],
+    ['(hugs$)', '(hugs86$)'],
+    ['(okamibw$)', '(okami bw$)', '(okami$)'],
+    ['(ken$)', '(sephiroth ken$)', '(sephirothken$)'],
+    ['(taf[o0]kints$)', '(taf[o0]$)'],
+    ['(lil fumi$)', '(santi$)', '(santiago$)'],
+    ['(ren[o0]$)'],
+    ['(alex19$)'],
+    ['(c[o0]nn[o0]rthekid$)', '(c[o0]nn[o0]r$)', '(c[o0]nn[o0]r the kid$)'],
+    ['([bj]izzarro flame$)', '([bj]izzarroflame$)', '([bj]izaro flame$)', '([bj]izzaro flame$)', '([bj]izarro flame$)'],
+    ['(hyprid$)'],
+    ['(lovage$)'],
+    ['(sung666$)', '(sung 666$)', '(sung$)'],
+    ['(stab$)', '(victor abdul latif$)', '(stabbedbyahippie$)', '(stabbedbyanipple$)'],
+    ['(mikehaze$)', '(mike haze$)'],
+    ['(kira$)'],
+    ['(rofl$)'],
+    ['(j666$)', '(j devil$)', '(jdevil$)'],
+    ['(reason$)'],
+    ['(a rookie$)', '(arookie$)'],
+    ['(squid$)'],
+    ['(jace$)']
     ]
     }
 
@@ -449,11 +490,53 @@ sanitized_tags_dict = {
     ],
 
     'NorCal' : [
-    'Shroomed'
+    'Shroomed',
+    'PewPewU',
+    'SFAT',
+    'SilentSpectre',
+    'Darrell',
+    'HomeMadeWaffles',
+    'Lucien',
+    'Scar',
+    'Laudandus',
+    'Toph',
+    'Bizzarro Flame',
+    'Hyprid',
+    'Azusa',
+    'Phil'
     ],
 
     'SoCal' : [
-    'Lucky']
+    'Lucky',
+    'Westballz',
+    'Fly Amanita',
+    'Fiction',
+    'S2J',
+    'MacD',
+    'Eddy Mexico',
+    'Larry Lurr',
+    'HugS',
+    'OkamiBW',
+    'Ken',
+    'Tafokints',
+    'Santiago',
+    'Reno',
+    'Alex19',
+    'Connor',
+    'Bizzarro Flame',
+    'Hyprid',
+    'Lovage',
+    'Sung',
+    'Stab',
+    'Mike Haze',
+    'Kira',
+    'Rofl',
+    'J666',
+    'Reason',
+    'A Rookie',
+    'Squid',
+    'Jace'
+    ]
     }
 
 # Wrapper for regular expression compilation for mapping.
