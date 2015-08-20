@@ -52,6 +52,46 @@ def parse_challonge_standings(tournament_url, tournament_region):
   print '\n'
   return all_placements
 
+def parse_pool_standings(tournament_url, tournament_region): 
+  # find /standings page given tournament bracket url
+  standings_url = tournament_url + '/standings'
+
+  conn2 = urllib3.connection_from_url(standings_url)
+  r2 = conn2.request("GET", standings_url)
+  soup2 = BeautifulSoup(r2.data)
+  soup2.prettify()
+
+  player_rows = soup2.find_all("tr")
+  # OrderedDict so that keys are remembered in the order they come in, from least to greatest.
+  all_placements = collections.OrderedDict()
+  current_placement = 0
+  for i in range(1, len(player_rows)):
+    standing_item = player_rows[i].find("td", {"class" : "rank"})
+    # differentiate between pool placings by adding 100
+    if standing_item is not None:
+      current_placement = int(standing_item.getText())
+      standing = current_placement + 100
+    else:
+      standing = current_placement + 100
+
+    tag_item = player_rows[i].find("span")
+    if tag_item is not None:
+      tag = tag_item.getText()
+      # "Advanced" text is unwanted, non-tag information
+      if tag == "Advanced":
+        continue
+      tag = tag.strip('\n')
+      
+      sanitized_tag = check_and_sanitize_tag(tag, tournament_region)
+
+    # limit number of Users who can tie for a placement
+    placing = all_placements.setdefault(standing, [])
+    if len(all_placements[standing]) < standing_limit(standing):
+      placing.append(sanitized_tag)
+     
+  print "PLACEMENTS:", all_placements.items()
+  print '\n'
+  return all_placements
 
 # given all_placements dictionary from parse_challonge_standings, and a Tournament object created in import_challonge_info, add placements data to Tournament object.
 def import_challonge_standings(all_placements, tournament):
@@ -71,6 +111,40 @@ def import_challonge_standings(all_placements, tournament):
                                         ))
   db.session.commit()
   return tournament
+
+# given all_placements dictionary from parse_challonge_standings, and a Tournament object created in import_challonge_info, add placements data to Tournament object.
+def import_pool_standings(pool_placements, parent_tournament):
+  print pool_placements
+  print parent_tournament.placements
+  for placement in pool_placements:
+    for player in pool_placements[placement]:
+      print player
+      # check or create new User object, tag=player
+      if parent_tournament.region is not None:
+        checked_player = check_set_user(player, parent_tournament.region.region)
+      else:
+        checked_player = check_set_user(player)
+
+      print checked_player
+      for parent_placement in parent_tournament.placements:
+        print checked_player==parent_placement.user
+        if checked_player==parent_placement.user:
+          print checked_player, parent_placement.user
+          print "Tournament placing exists in Final Bracket"
+          break 
+      else:
+        pool_placement = Placement(tournament_id=parent_tournament.id,
+                            tournament_name=parent_tournament.name,
+                            user_id=checked_player.id,
+                            placement=placement
+                            )   
+        print "hi"
+        print pool_placement
+        parent_tournament.placements.append(pool_placement)
+        db.session.commit()
+
+  db.session.commit()
+  return parent_tournament
 
 # Establishes limit for number of Users who can tie for a placement; limit only relevant for Double Elimination brackets
 def standing_limit(standing):

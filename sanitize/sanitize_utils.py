@@ -218,6 +218,14 @@ player_raw_regex_dict = {
     ['(zila$)'],
     ['(corona$)'],
     ['(uboa$)', '(greyface$)']
+    ],
+
+    'NorCal' : [
+    ['(shroomed$)']
+    ],
+
+    'SoCal' : [
+    ['(lucky$)']
     ]
     }
 
@@ -438,7 +446,14 @@ sanitized_tags_dict = {
     'Zila',
     'Corona',
     'Uboa'
-    ]
+    ],
+
+    'NorCal' : [
+    'Shroomed'
+    ],
+
+    'SoCal' : [
+    'Lucky']
     }
 
 # Wrapper for regular expression compilation for mapping.

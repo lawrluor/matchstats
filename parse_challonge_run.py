@@ -66,3 +66,9 @@ def parse_challonge_run(tournament_url, tournament_name, *args):
   matchlist = parse_challonge_matches(tournament_url, tournament_region)
   # Create Set objects with matchlist, and append them to the relationship between Tournament and Sets
   import_challonge_matches(matchlist, tournament_name, tournament_region)
+
+def parse_challonge_pool(pool_url, parent_tournament_name, tournament_region):
+  # Query to find parent tournament (Final Bracket Tournament) by name
+  parent_tournament = Tournament.query.filter(Tournament.name==parent_tournament_name).first()
+  pool_placements = parse_pool_standings(pool_url, tournament_region)
+  import_pool_standings(pool_placements, parent_tournament)
