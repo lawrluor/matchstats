@@ -43,7 +43,6 @@ def select_region():
     flash("Viewing National Information - this view mode only displays non-regional tournament information") 
     return redirect(url_for('home'))
   else:
-    flash("Viewing Region: " + str(session['region_name']))
     return redirect(url_for('region', region=session['region_name']))
 
 # Home page
@@ -232,6 +231,8 @@ def user(tag, page=1):
 def region(region):
   flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
   current_region = Region.query.filter(Region.region==region).first()
+  session['region_name']=current_region.region
+  flash("Now Viewing Region: " + str(session['region_name']))
   return render_template("region.html",
                          region=region,
                          current_region=current_region)
