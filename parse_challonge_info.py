@@ -122,7 +122,10 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, tour
     print tournament_info['date']
     tournament_date = convert_date(tournament_info['date'])
   else:
-    tournament_date = tournament_date
+    if tournament_date is not None:
+      tournament_date = tournament_date
+    else:
+      tournament_date = datetime.date(2099, 01, 01)
   print "DATE", tournament_date
 
   if tournament_name is None:
