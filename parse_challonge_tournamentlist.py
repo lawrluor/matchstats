@@ -28,16 +28,13 @@ def read_tournamentlist(challonge_tournamentlist):
 
       tournament_url = tokens[1]
       tournament_region = tokens[2]
+      tournament_date = tokens[3]
       
       # If region passed as string "None", "Global", "National", convert to None object
       if tournament_region=="None" or tournament_region=="Global" or tournament_region=="National":
         tournament_region = None
       else:
         tournament_region = tournament_region.translate(None, '\\')
-
-      # process 4th parameter, tournament_date, and convert  to datetime object
-      tournament_date = tokens[3]
-      tournament_date = convert_int_date(tournament_date)
 
       print tournament_name + ': ' + tournament_url
       print tournament_region, tournament_date

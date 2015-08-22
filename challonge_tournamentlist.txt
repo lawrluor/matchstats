@@ -1,31 +1,31 @@
 BEAST\ 5|http://beastsmash.challonge.com/B5MSB|None|01/11/2015
-Paragon\ Orlando\ 2015|http://paragon.challonge.com/orlando_2015_melee_singles
-Apex\ 2015|http://apex2015melee.challonge.com/singles
-I\'m\ Not\ Yelling!|http://challonge.com/2015INYMelee
-MVG\ Sandstorm|http://challonge.com/SandstormMeleeTop64
-DrommeLAN\ 4\.5|http://dl4-5.challonge.com/DL45meleeProBracket
-Press\ Start|http://challonge.com/PSLmeleeTop32
-BAM\ 7|http://melbournemelee.challonge.com/BAM7Pools
-GOML\ 2015|http://challonge.com/GOMLMelee16
-CEO\ 2015|http://ceogaming.challonge.com/2015_melee_final
-FC\ Smash\ 15XR:\ Return|http://challonge.com/redditfcsmash
-WTFox|http://challonge.com/WTFoxMeleeTop32
-EVO\ 2015|http://challonge.com/fi2f9gcu
-Smash\ N\ Splash|http://smashnsplash.challonge.com/snsmeleetop16
-ROM\ 7 |http://controlgaming.challonge.com/ROM7Singles
-GOML\ 2014|http://challonge.com/gongles
-Republic\ of\ Fighters\ 3|http://rof3.challonge.com/SSBMtop32
-Pat\'s\ House\ 2|http://challonge.com/PH2_Singles
-SKTAR\ 3|http://challonge.com/SKTARm1
-Super\ SWEET|http://supersweet.challonge.com/supersweetmeleesingles
-CEO\ 2014|http://ceogaming.challonge.com/ceo2014ssbmtop32
-Kings\ of\ Cali\ 4|http://oxy.challonge.com/KoC4Singles
-Zenith\ 2014|http://zenith.challonge.com/ZenithMeleeSingles
-Tipped\ Off\ 10|http://challonge.com/tippedoff10
-TBH4|http://tbh4.challonge.com/meleesingles
-Do\ You\ Fox\ Wit\ It|http://dyfwi.challonge.com/dyftop32
-Forte\ 2|http://challonge.com/forte2meleesingles
-Super\ Smash\ Con|http://supersmashcon.challonge.com/meleesingles
+Paragon\ Orlando\ 2015|http://paragon.challonge.com/orlando_2015_melee_singles|None|01/18/2015
+Apex\ 2015|http://apex2015melee.challonge.com/singles|None|02/01/2015
+I\'m\ Not\ Yelling!|http://challonge.com/2015INYMelee|None|04/11/2015
+MVG\ Sandstorm|http://challonge.com/SandstormMeleeTop64|None|04/19/2015
+DrommeLAN\ 4\.5|http://dl4-5.challonge.com/DL45meleeProBracket|None|04/26/2015
+Press\ Start|http://challonge.com/PSLmeleeTop32|None|05/10/2015
+BAM\ 7|http://melbournemelee.challonge.com/BAM7Pools|None|05/24/2015
+GOML\ 2015|http://challonge.com/GOMLMelee16|None|05/31/2015
+CEO\ 2015|http://ceogaming.challonge.com/2015_melee_final|None|06/29/2015
+FC\ Smash\ 15XR:\ Return|http://challonge.com/redditfcsmash|None|07/05/2015
+WTFox|http://challonge.com/WTFoxMeleeTop32|None|07/11/2015
+EVO\ 2015|http://challonge.com/fi2f9gcu|None|07/19/2015
+Smash\ N\ Splash|http://smashnsplash.challonge.com/snsmeleetop16|None|06/14/2015
+ROM\ 7 |http://controlgaming.challonge.com/ROM7Singles|None|03/09/2014
+GOML\ 2014|http://challonge.com/gongles|None|05/11/2014
+Republic\ of\ Fighters\ 3|http://rof3.challonge.com/SSBMtop32|None|05/18/2014
+Pat\'s\ House\ 2|http://challonge.com/PH2_Singles|None|05/25/2014
+SKTAR\ 3|http://challonge.com/SKTARm1|None|06/01/2014
+Super\ SWEET|http://supersweet.challonge.com/supersweetmeleesingles|None|06/08/2014
+CEO\ 2014|http://ceogaming.challonge.com/ceo2014ssbmtop32|None|06/29/2014
+Kings\ of\ Cali\ 4|http://oxy.challonge.com/KoC4Singles|None|07/06/2014
+Zenith\ 2014|http://zenith.challonge.com/ZenithMeleeSingles|None|08/03/2014
+Tipped\ Off\ 10|http://challonge.com/tippedoff10|None|09/21/2014
+TBH4|http://tbh4.challonge.com/meleesingles|None|10/05/2014
+Do\ You\ Fox\ Wit\ It|http://dyfwi.challonge.com/dyftop32|None|11/16/2014
+Forte\ 2|http://challonge.com/forte2meleesingles|None|12/21/2014
+Super\ Smash\ Con|http://supersmashcon.challonge.com/meleesingles|None|08/09/2015
 
 http://beastsmash.challonge.com/B5MSB BEAST\ 5
 http://paragon.challonge.com/orlando_2015_melee_singles Paragon\ Orlando\ 2015
