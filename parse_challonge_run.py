@@ -43,12 +43,15 @@ if __name__ == "__main__":
 	main()
 
 # This function is identical to main, but can be called outside of the terminal (namely in parse_challonge_tournamentlist.py, which adds Challonge tournaments to the database given a text file list of Challonge tournaments.
-def parse_challonge_run(tournament_url, tournament_name, tournament_region):
+def parse_challonge_run(tournament_url, tournament_name, tournament_region, tournament_date):
+
+  if tournament_region=="None":
+    tournament_region = None
 
   # Create and return dictionary of values for Tournament attributes
   tournament_info = parse_challonge_info(tournament_url)
   # create new Tournament by assigning the tournament_info dictionary, given the tournament name as well.
-  new_tourney = import_challonge_info(tournament_info, tournament_name, tournament_url, tournament_region)
+  new_tourney = import_challonge_info(tournament_info, tournament_name, tournament_url, tournament_region, tournament_date)
  
   # Returns dictionary of placements : tags given tournament url
   all_placements = parse_challonge_standings(tournament_url, tournament_region)

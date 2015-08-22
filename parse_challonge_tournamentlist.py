@@ -26,16 +26,20 @@ def read_tournamentlist(challonge_tournamentlist):
       # Remove '\' escape characters
       tournament_name = tournament_name.translate(None, '\\')
       tournament_url = tokens[1]
+      tournament_region = tokens[2]
       
-      # if optional region parameter is included, run parse_challonge_run with region parameter, otherwise run without it
-      if len(tokens)==3:
-        tournament_region = tokens[2]
-        tournament_region = tournament_region.translate(None, '\\')
-        print tournament_name + ': ' + tournament_url
-        parse_challonge_run(tournament_url, tournament_name, tournament_region)
-      else:
-        parse_challonge_run(tournament_url, tournament_name, None)
+      # If region passed as string "None", convert to None object
+      if tournament_region=="None":
+        tournament_region = None
+
+      tournament_region = tournament_region.translate(None, '\\')
+      print tournament_name + ': ' + tournament_url
  
+      # process 4th parameter, tournament_date, and convert  to datetime object
+      tournament_date = tokens[3]
+      tournament_date = convert_int_date(tournament_date)
+
+      parse_challonge_run(tournament_url, tournament_name, tournament_region, tournament_date)
   f.close()
 
 if __name__ == "__main__":

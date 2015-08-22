@@ -217,7 +217,10 @@ player_raw_regex_dict = {
     ['(poobanans$)'],
     ['(zila$)'],
     ['(corona$)'],
-    ['(uboa$)', '(greyface$)']
+    ['(uboa$)', '(greyface$)'],
+    ['(lint$)'],
+    ['(razz$)'],
+    ['(blazingsparky$)', '(blazing sparky$)', '(blazing spark$)', '(blazingspark$)']
     ],
 
     'NorCal' : [
@@ -281,6 +284,26 @@ player_raw_regex_dict = {
     ['(khepri$)'],
     ['(mixx$)'],
     ['(sacasumoto$)']
+    ],
+
+    'North Carolina' : [
+    ['(ts3d$)'],
+    ['(cope$)', '(ke$ha$)', '(sgt\. thunderfist md$)'],
+    ['(wharve$)', '(warve$)'],
+    ['(mining elf$)', '(elf$)'],
+    ['(dembo$)', '(discoprof$)', '(d\'embaux$)', '(discovery professor dembo$)'],
+    ['(tenbutts$)', '(ten butts$)'],
+    ['(quetpie$)', '(andrew que$)', '(que t pie$)', '(quetpie forever$)'],
+    ['(loudpackmatt$)', '(n$)', '(loud$)', '(loudpackmatt$)'],
+    ['(tinkle$)', '(tinkl$)'],
+    ['(catfish joe$)', '(joey bluntz$)'],
+    ['(banjo$)', '(banjo d\. fingers$)'],
+    ['(kchain\$$)', '(dr\. fingerdicks$)', '(dr\. fd$)'],
+    ['(t raw$)', '(traw$)'],
+    ['(@the_priceisnice$)', '(alanp$)'],
+    ['(arundo$)', '(arumdo$)'],
+    ['(caleb$)', '(oak town$)', '(not caleb$)', '(caliber$)'],
+    ['(madz$)', '(maddie$)']
     ]
     }
 
@@ -500,7 +523,10 @@ sanitized_tags_dict = {
     'Poobanans',
     'Zila',
     'Corona',
-    'Uboa'
+    'Uboa',
+    'Lint',
+    'Razz',
+    'BlazingSparky'
     ],
 
     'NorCal' : [
@@ -564,6 +590,26 @@ sanitized_tags_dict = {
     'Khepri',
     'Mixx',
     'SacaSuMoto'
+    ],
+
+    'North Carolina' : [
+    'TS3D',
+    'Cope',
+    'Wharve',
+    'Mining Elf',
+    'Dembo',
+    'tenbutts',
+    'QueTPie',
+    'Loudpackmatt',
+    'Tinkle',
+    'Catfish Joe',
+    'Banjo',
+    'KChain$',
+    'T Raw',
+    '@The_PriceisNICE',
+    'Arundo',
+    'Caleb (North Carolina)',
+    'Madz'
     ]
     }
 

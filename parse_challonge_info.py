@@ -90,13 +90,7 @@ def parse_challonge_info(tournament_url):
   return tournament_info
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
-def import_challonge_info(tournament_info, tournament_name, tournament_url, *args):
-
-  # get optional tournament_region argument if it was provided; args is the list of extra arguments
-  if len(args)==1:
-    tournament_region = args[0]
-  else:
-    tournament_region = None
+def import_challonge_info(tournament_info, tournament_name, tournament_url, tournament_region, tournament_date):
 
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
@@ -123,12 +117,13 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, *arg
   else:
     tournament_game_type = "Super Smash Bros. Melee"
 
+  # if date located in Challonge bracket, use this date, otherwise use date passed in as parameter
   if 'date' in tournament_info:
     print tournament_info['date']
     tournament_date = convert_date(tournament_info['date'])
   else:
-    # if no date provided, set to today's date (date of parse)
-    tournament_date = datetime.date(2099, 1, 1) 
+    tournament_date = tournament_date
+  print "DATE", tournament_date
 
   if tournament_name is None:
     tournament_name = "Non-Tourney"
@@ -166,18 +161,34 @@ months = {'January' : 1,
           'November' : 11,
           'December' : 12}
 
-# Converts a date styled June 28, 2015 into 2015-28-06
+# Converts a date styled June 28, 2015 into datetime 2015-06-28
 def convert_date(challonge_date):
   date_parser = re.compile('[/ ,-]+') 
   tokens = date_parser.split(challonge_date)
-  print tokens
+  # print tokens
   
   # integer representing month
   month = months[tokens[0]]
   day = int(tokens[1])
   year = int(tokens[2])
-  print month, day, year
+  # print month, day, year
 
   date = datetime.date(year=year, month=month, day=day)
-  print date
+  # print date
+  return date
+
+# Converts a date styled 06-28-2015 into datetime 2015-06-28
+def convert_int_date(int_date):
+  date_parser = re.compile('[/ ,-]+') 
+  tokens = date_parser.split(int_date)
+  # print tokens
+  
+  # integer representing month
+  month = int(tokens[0])
+  day = int(tokens[1])
+  year = int(tokens[2])
+  # print month, day, year
+
+  date = datetime.date(year=year, month=month, day=day)
+  # print date
   return date
