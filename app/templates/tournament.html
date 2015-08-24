@@ -19,10 +19,10 @@
         </td>
 
         <td class="col-sm-6">
-          {% if tournament.date %}
-            <h3><b>Date</b>: {{tournament.date}}</h3>
-          {% else %}
+          {% if tournament.date.year==2099 %}
             <h3><b>Date</b>: 20XX</h3>
+          {% else %}
+            <h3><b>Date</b>: {{tournament.date}}</h3>
           {% endif %}
         </td>
       <tr>

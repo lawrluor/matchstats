@@ -53,5 +53,6 @@ SG\ Melee\ August\ 8|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England
 UNH\ Beatdown|http://unhsmash.challonge.com/Beatdown|New\ England
 Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England
 Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England
-
-
+SSTBBQ\ 2015|http://challonge.com/SSTBBQMelee|New\ England|8/19/2015
+Summer\ Super\ Smash\ Showdown\ (NE)|http://challonge.com/MFGAS4M1v1|New\ England|7/18/2015
+3SA\ 12|http://challonge.com/3SA12M|New\ England|8/22/2015

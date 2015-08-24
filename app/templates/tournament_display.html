@@ -3,10 +3,10 @@
 {% if tournament.name != "Non-Tourney" %}
 <tr>
 	<td class="col-sm-3 mobile-horizontal-overflow-td-col-3 text-center"><b>
-	{% if tournament.date %}
-		{{tournament.date}}
-	{% else %}
+	{% if tournament.date.year==2099 %}
 		20XX
+	{% else %}
+		{{tournament.date}}
 	{% endif %}
 	</b></td>
 

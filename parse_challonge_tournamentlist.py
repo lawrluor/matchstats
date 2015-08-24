@@ -9,7 +9,6 @@ from parse_challonge_run import *
 
 import re
 
-
 def main():
   challonge_tournamentlist = sys.argv[1]
   read_tournamentlist(challonge_tournamentlist)

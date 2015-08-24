@@ -93,7 +93,7 @@ player_raw_regex_dict = {
     ['(lord hdl$)', '(lordhdl$)'],
     ['(trail$)'],
     ['(scar$)'],
-    ['(laudandus$)'],
+    ['(laudandus$)', '(laud[au][au]ndus$)', '(laduandus$)'],
     ['(t[o0]ph$)'],
     ['(alex19$)'],
     ['(c[o0]nn[o0]rthekid$)', '(c[o0]nn[o0]r$)', '(c[o0]nn[o0]r the kid$)'],
@@ -287,6 +287,8 @@ player_raw_regex_dict = {
     ],
 
     'North Carolina' : [
+    ['(l[o0]zr$)'],
+    ['(jwilli$)'],
     ['(ts3d$)'],
     ['(cope$)', '(ke$ha$)', '(sgt\. thunderfist md$)'],
     ['(wharve$)', '(warve$)'],
@@ -303,7 +305,15 @@ player_raw_regex_dict = {
     ['(@the_priceisnice$)', '(alanp$)'],
     ['(arundo$)', '(arumdo$)'],
     ['(caleb$)', '(oak town$)', '(not caleb$)', '(caliber$)'],
-    ['(madz$)', '(maddie$)']
+    ['(madz$)', '(maddie$)'],
+    ['(niq$)'],
+    ['(geezer$)'],
+    ['(ezvega$)'],
+    ['(salscat$)', '(salsacat$)', '(salsa cat$)'],
+    ['(kun\$$)'],
+    ['(byrd$)'],
+    ['(\):)', '(:\()'],
+    ['(cloudsquall$)']
     ]
     }
 
@@ -431,7 +441,7 @@ sanitized_tags_dict = {
     'Phil',
     'Bob$',
     'Kounotori',
-    'Stab',
+    'Matt (Stab)',
     'G$',
     'Vist',
     'Pkmvodka'
@@ -568,7 +578,7 @@ sanitized_tags_dict = {
     'Hyprid',
     'Lovage',
     'Sung',
-    'Stab',
+    'Matt (Stab)',
     'Mike Haze',
     'Kira',
     'Rofl',
@@ -593,8 +603,10 @@ sanitized_tags_dict = {
     ],
 
     'North Carolina' : [
+    'LoZR',
+    'Jwilli',
     'TS3D',
-    'Cope',
+    'Ke$ha',
     'Wharve',
     'Mining Elf',
     'Dembo',
@@ -609,7 +621,15 @@ sanitized_tags_dict = {
     '@The_PriceisNICE',
     'Arundo',
     'Caleb (North Carolina)',
-    'Madz'
+    'Madz',
+    'Niq',
+    'Geezer',
+    'EZVega',
+    'Salsacat',
+    'Kun$',
+    'Byrd',
+    '):',
+    'Cloudsquall'
     ]
     }
 
