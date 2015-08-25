@@ -1,5 +1,4 @@
 #!flask/bin/python
-
 from app.models import *
 import sys
 
@@ -8,9 +7,31 @@ from bs4 import BeautifulSoup
 import re
 import datetime
 from datetime import date
+
+"""
+  This module contains utility functions for parsing challonge brackets.
+"""
   
-# function for parsing tournament general info given a Challonge bracket
+
 def parse_challonge_info(tournament_url):
+  """Takes in a tournament url and outputs a dictionary with tournament
+  information.
+
+  If tournament_url is None, it returns None.
+
+  Args:
+      tournament_url: A string containing the challonge bracket url.
+
+  Returns:
+      A dict mapping tournament attributes to tournament values.
+      'title': string : name of tournament.
+      'host': string : challonge account that hosted the tournament.
+      'game_type': string : game tournament plays (melee, brawl).
+      'date': string : when the tournament was held.
+      'entrants': int : number of entrants.
+      'bracket_type': string : bracket information (ex. 64-player double elimination).
+  """
+  if tournament_url is None: return None
   conn3 = urllib3.connection_from_url(tournament_url)
   r3 = conn3.request("GET", tournament_url)
   soup3 = BeautifulSoup(r3.data)
@@ -91,7 +112,6 @@ def parse_challonge_info(tournament_url):
 
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
 def import_challonge_info(tournament_info, tournament_name, tournament_url, tournament_region, tournament_date):
-
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
   else:

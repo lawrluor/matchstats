@@ -1,48 +1,75 @@
-# Head to Head Stats Functions between two Users. Because of the nature of the Set filtering for two Users, the normal User methods for getting Sets cannot be used.
-# Optimized to only query the database once for Sets, and once for Matches. Once you call h2h_get_sets_played and h2h_get_matches_played, store in a variable all_sets and all_matches, a list of Set objects representing all the sets the two Users have played toether. From there, use list comprehensions to filter rather than query the database.
-# Set and Match lists specifically defined to lessen ambiguity about whih methods to call first to generate Set and Match list.
-
-# given two User tags, returns a list of Set objects representing all the sets they have played together
-# call len() on the result of this method to get total number of sets played together
-
 from app import *
 from app.models import *
 import collections
 from operator import attrgetter
 from sort_utils import sort_placementlist, sort_setlist
 
+"""
+Head to Head Stats Functions between two Users.
+
+Sets and Users are NOT associated through ORM and are instead associated by
+joins. We have provided utility functions to aid in this association.
+
+Set and Match lists specifically defined to lessen ambiguity about which methods
+to call first to generate Set and Match list.
+"""
+
 def h2h_get_mutual_tournaments(user1, user2):
+  """given two User objects, returns a dictionary mapping tournament name to
+  a tuple containg two users' tournament placings, for example
+  (u'BAM 7', (('2nd', 2), ('1st', 1))).
+
+  call len() on the result of this method to get total number of tournaments
+  attended together.
+  """
   user1_placements = get_tournament_name_and_placing(user1)
   user2_placements = get_tournament_name_and_placing(user2)
  
-  # if identical keys for tournament (both attended same tournament), return dictionary with keys tournament_name and tuple value containing their respective placement 
+  # if identical keys for tournament (both attended same tournament), return
+  # dictionary with keys tournament_name and tuple value containing their
+  # respective placement 
   mutual_tournaments = collections.OrderedDict()
   for tournament in user1_placements:
     if tournament in user2_placements:
-      mutual_tournaments[tournament] =  user1_placements[tournament], user2_placements[tournament] 
+      mutual_tournaments[tournament] = user1_placements[tournament], user2_placements[tournament] 
   print mutual_tournaments
   return mutual_tournaments
       
-# given user tag, returns a simple dictionary with keys tournament_name and tuple placement along with placement number for a tournament a User has attended
 def get_tournament_name_and_placing(user):
-  user = User.query.filter(User.tag==user.tag).first()
+  """given a user, returns a simple dictionary with key tournament_name and
+  placement tuple for a tournament a User has attended.
+  
+  Args:
+      user : User(models.py) : User object to query for placements.
+
+  Returns:
+      A dictionary mapping tournament name to a tuple representing the placement
+      name and value, ex: (u'BAM 7', ('1st', 1)).
+  """
   user_placements = collections.OrderedDict()
 
   user_placements_sorted = sort_placementlist(user.tournament_assocs)
   for tournament_placement in user_placements_sorted:
     tournament_name = tournament_placement.tournament.name
-    placement  = convert_placement(tournament_placement.placement)
+    placement = convert_placement(tournament_placement.placement)
     user_placements[tournament_name] = placement, tournament_placement.placement
-
-  # Each item in dict looks like: [(u'BAM 7', (('2nd', 2), ('1st', 1)))], where first item is tournament name and second and third items are user1 and user2 placement and placement number respectively 
   return user_placements
 
 
-# get Sets won by both players, then add them together and sort by id
 def h2h_get_sets_played(user1, user2):
+  """Given two users, returns all sets played between them, sorted by set id.
+
+  Args:
+      user1 : User(models.py) : First user object to query for sets.
+      user2 : User(models.py) : Second user object to query for sets.
+
+  Returns:
+      A list of Set(models.py) objects sorted by set id of sets played between
+      the two users.
+  """
 	user1_won_sets = h2h_get_sets_won(user1, user2)
 	user2_won_sets = h2h_get_sets_won(user2, user1)
-  # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
+    # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
 
 	h2h_sets_played = user1_won_sets + user2_won_sets
 	h2h_sets_played = sort_setlist(h2h_sets_played)

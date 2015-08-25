@@ -1,5 +1,4 @@
 # Version 2.0 routes commented out, consisting primarily of user creating/editing model objects
-
 from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db
 from models import User, Set, Match, Character, Placement, secondaries, Region
@@ -14,6 +13,16 @@ from sanitize_utils import check_and_sanitize_tag
 from sort_utils import sort_placementlist, sort_userlist
 from h2h_stats_functions import convert_placement
 import collections
+
+"""
+This module includes all routing functions for this web application.
+
+Look at basic flask tutorials but the general pattern is:
+@app.route('/$SOME_ROUTE', methods=['GET','POST'])
+def $ROUTE_NAME($OPTIONAL_PARAMS):
+  ...
+  return render_template("$HTML_FILENAME", $OPTIONAL_VALUES)
+"""
 
 # Registers a function to run before each request. g.search_form makes form global so the field's data can be accessed from anywhere
 @app.before_request
