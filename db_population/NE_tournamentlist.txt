@@ -18,41 +18,41 @@ New\ Game\ Plus\ 17|http://bigbluees.challonge.com/NGP17|New\ England|08/19/2015
 MCG\ May\|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England|05/23/2015
 MCG\ June\|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England|06/20/2015
 MCG\ July\|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England|07/25/2015
-HOG\ Biweekly\ 15|http://ctmelee.challonge.com/hog15thbiweekly|New\ England
-HOG\ Biweekly\ 16|http://ctmelee.challonge.com/hog16thbiweekly|New\ England
-HOG\ Biweekly\ 17|http://ctmelee.challonge.com/hog17thbiweekly|New\ England
-See\ Me\ In\ Office\ Hours\ 1|http://ctmelee.challonge.com/smioh1|New\ England
-HOG\ Biweekly\ 18|http://ctmelee.challonge.com/hog18thbiweekly|New\ England
-HOG\ Biweekly\ 19|http://ctmelee.challonge.com/hog19thbiweekly|New\ England
-HOG\ Biweekly\ 20|http://ctmelee.challonge.com/hog20thbiweekly|New\ England
-See\ Me\ In\ Office\ Hours\ 2|http://ctmelee.challonge.com/Smioh2|New\ England
-HOG\ Biweekly\ 21|http://ctmelee.challonge.com/hog21stbiweekly|New\ England
-HOG\ Biweekly\ 22|http://ctmelee.challonge.com/hog22ndbiweekly|New\ England
-HOG\ Monthly\ 1|http://ctmelee.challonge.com/hogmonthly1singles|New\ England
-HOG\ Biweekly\ 23|http://ctmelee.challonge.com/hog23rdbiweekly|New\ England
-HOG\ Biweekly\ 24|http://ctmelee.challonge.com/hog24thbiweekly|New\ England
-HOG\ Biweekly\ 25|http://ctmelee.challonge.com/hog25thbiweekly|New\ England
-HOG\ Monthly\ 2|http://ctmelee.challonge.com/hogmonthlysingles2|New\ England
-HOG\ Biweekly\ 27|http://ctmelee.challonge.com/hog27thbiweekly|New\ England
-HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England
-HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England
-HOG\ Biweekly\ 29|http://ctmelee.challonge.com/hogbiweekly29/|New\ England
-Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England
-Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England
-Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England
-Mass\ Madness\ 2\ (Ama)|http://bigbluees.challonge.com/MMM2Amateur|New\ England
-Mass\ Madness\ 1\ (Pro)|http://bigbluees.challonge.com/MMM1Pro|New\ England
-Mass\ Madness\ 1\ (Ama)|http://bigbluees.challonge.com/MMM1Amateur|New\ England
-3SA\ 7|http://challonge.com/3SA7SM|New\ England
-3SA\ 10|http://challonge.com/3SA10SM|New\ England
-3SA\ 11|http://challonge.com/3SA11M|New\ England
-SG\ Melee\ July\ 16|http://challonge.com/sgmelee7_16_15|New\ England
-SG\ Melee\ July\ 23|http://challonge.com/sgmelee7_23_15|New\ England
-SG\ Melee\ July\ 30|http://challonge.com/sgmelee7_30_15|New\ England
-SG\ Melee\ August\ 8|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England
-UNH\ Beatdown|http://unhsmash.challonge.com/Beatdown|New\ England
-Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England
-Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England
+HOG\ Biweekly\ 15|http://ctmelee.challonge.com/hog15thbiweekly|New\ England|None
+HOG\ Biweekly\ 16|http://ctmelee.challonge.com/hog16thbiweekly|New\ England|None
+HOG\ Biweekly\ 17|http://ctmelee.challonge.com/hog17thbiweekly|New\ England|None
+See\ Me\ In\ Office\ Hours\ 1|http://ctmelee.challonge.com/smioh1|New\ England|None
+HOG\ Biweekly\ 18|http://ctmelee.challonge.com/hog18thbiweekly|New\ England|None
+HOG\ Biweekly\ 19|http://ctmelee.challonge.com/hog19thbiweekly|New\ England|None
+HOG\ Biweekly\ 20|http://ctmelee.challonge.com/hog20thbiweekly|New\ England|None
+See\ Me\ In\ Office\ Hours\ 2|http://ctmelee.challonge.com/Smioh2|New\ England|None
+HOG\ Biweekly\ 21|http://ctmelee.challonge.com/hog21stbiweekly|New\ England|None
+HOG\ Biweekly\ 22|http://ctmelee.challonge.com/hog22ndbiweekly|New\ England|None
+HOG\ Monthly\ 1|http://ctmelee.challonge.com/hogmonthly1singles|New\ England|None
+HOG\ Biweekly\ 23|http://ctmelee.challonge.com/hog23rdbiweekly|New\ England|None
+HOG\ Biweekly\ 24|http://ctmelee.challonge.com/hog24thbiweekly|New\ England|None
+HOG\ Biweekly\ 25|http://ctmelee.challonge.com/hog25thbiweekly|New\ England|None
+HOG\ Monthly\ 2|http://ctmelee.challonge.com/hogmonthlysingles2|New\ England|None
+HOG\ Biweekly\ 27|http://ctmelee.challonge.com/hog27thbiweekly|New\ England|None
+HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|None
+HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England|None
+HOG\ Biweekly\ 29|http://ctmelee.challonge.com/hogbiweekly29/|New\ England|None
+Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England|08/02/2015
+Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England|08/02/2015
+Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England|06/27/2015
+Mass\ Madness\ 2\ (Ama)|http://bigbluees.challonge.com/MMM2Amateur|New\ England|06/27/2015
+Mass\ Madness\ 1\ (Pro)|http://bigbluees.challonge.com/MMM1Pro|New\ England|05/30/2015
+Mass\ Madness\ 1\ (Ama)|http://bigbluees.challonge.com/MMM1Amateur|New\ England|05/30/2015
+3SA\ 7|http://challonge.com/3SA7SM|New\ England|06/13/2015
+3SA\ 10|http://challonge.com/3SA10SM|New\ England|07/25/2015
+3SA\ 11|http://challonge.com/3SA11M|New\ England|08/08/2015
+SG\ Melee\ July\ 16|http://challonge.com/sgmelee7_16_15|New\ England|07/16/2015
+SG\ Melee\ July\ 23|http://challonge.com/sgmelee7_23_15|New\ England|07/23/2015
+SG\ Melee\ July\ 30|http://challonge.com/sgmelee7_30_15|New\ England|07/30/2015
+SG\ Melee\ August\ 8|http://sgmelee.challonge.com/sgmelee8_6_15|New\ England|08/08/2015
+UNH\ Beatdown|http://unhsmash.challonge.com/Beatdown|New\ England|4/24/2015
+Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England|7/11/2015
+Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England|7/11/2015
 SSTBBQ\ 2015|http://challonge.com/SSTBBQMelee|New\ England|8/19/2015
 Summer\ Super\ Smash\ Showdown\ (NE)|http://challonge.com/MFGAS4M1v1|New\ England|7/18/2015
 3SA\ 12|http://challonge.com/3SA12M|New\ England|8/22/2015

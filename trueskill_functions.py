@@ -18,26 +18,25 @@ def rating_env_setup():
     None, but setup uses Global variables defined above.
 
   Returns:
-    String indicating success.
+    None
   """
-	setup(mu=MU, 
+  setup(mu=MU, 
 			sigma=SIGMA, 
 			beta=BETA, 
 			tau=TAU, 
 			draw_probability=DRAW_PROBABILITY,
-			backend=None,
+			backend=None
 			)
-	return "Rating environment created"
 
 def reset_trueskill(user):
-  """Given User, sets associated TrueSkill objects' values to default.
+	"""Given User, sets associated TrueSkill objects' values to default.
 
   Args:
     user: A User object.
 
   Returns:
     The TrueSkill objects associated with a User.
-  """
+	"""
 
 	# remove TrueSkill association with a region if User is not associated with it anymore 
 	populate_trueskills(user)
@@ -50,16 +49,16 @@ def reset_trueskill(user):
 	return user.trueskills
 
 def populate_trueskills(user):
-  """Populates TrueSkill associations of User
+	"""Populates TrueSkill associations of User
 
-  Args:
-    user: A User object.
+	Args:
+  	user: A User object.
   
-  Returns:
-    If User already has Global and appropriate Regional TrueSkill, returns True.
-    Adds TrueSkill association for Global if it does not already exist.
-    Deletes TrueSkill association for Region if User no longer is associated with that region.
-  """
+ 	Returns:
+  	If User already has Global and appropriate Regional TrueSkill, returns True.
+  	Adds TrueSkill association for Global if it does not already exist.
+  	Deletes TrueSkill association for Region if User no longer is associated with that region.
+	"""
 
 	# case for when User has no TrueSkills; if User has region, populate both Global and region Trueskill
 	if len(user.trueskills)<=0:
@@ -84,19 +83,19 @@ def populate_trueskills(user):
 		return True
 
 def update_rating(winner_user, loser_user):
-  """Update ratings of two Users who played a Set.
+	"""Update ratings of two Users who played a Set.
 
-  Args:
-    winner_user: A User object representing winner of the set.
-    loser_user: A User object representing loser of the set.
+	Args:
+  	winner_user: A User object representing winner of the set.
+  	loser_user: A User object representing loser of the set.
 
   Returns:
-    A tuple of the Winner and Loser of the Set, both User objects, with updated
-    TrueSkills. This value is never used.
+  	A tuple of the Winner and Loser of the Set, both User objects, with updated
+  	TrueSkills. This value is never used.
 
   Raises:
-    UnicodeError if during printing, unencodeable non-ASCII characters are found.
-  """
+  	UnicodeError if during printing, unencodeable non-ASCII characters are found.
+	"""
 	rating_env_setup()
 
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
@@ -122,17 +121,17 @@ def update_rating(winner_user, loser_user):
 	return winner_user, loser_user
 
 def calc_region_trueskill(winner_user, loser_user, region_num):
-  """Recalculates regional TrueSkill association between Users depending on
-  Region the Set was played in
+	"""Recalculates regional TrueSkill association between Users depending on
+	Region the Set was played in
 
-  Args:
-    winner_user: A User object representing winner of Set
-    loser_user: A User object representing loser of Set
-    region_num: An integer, index of User.trueskills (0 for Region and 1 for Global)
+	Args:
+  	winner_user: A User object representing winner of Set
+  	loser_user: A User object representing loser of Set
+  	region_num: An integer, index of User.trueskills (0 for Region and 1 for Global)
 
-  Returns:
-    None.
-  """  
+	Returns:
+  	None.
+	"""  
 
   #  Create Rating objects using currently stored Region Trueskill attribute
 	winner_user_rating = Rating(winner_user.trueskills[region_num].mu, winner_user.trueskills[region_num].sigma)
@@ -158,30 +157,30 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 2*new_loser_rating.sigma
 
 def recalculate_trueskill():
-  """Resets, then recalculates all Trueskills for all Users.
+	"""Resets, then recalculates all Trueskills for all Users.
+	
+	Args:
+		None
 
-  Args:
-    None
+	Returns:
+		String indicating success. This value is never used.
+	"""
 
-  Returns:
-    String indicating success. This value is never used.
-  """
+	# Reset all User Trueskill to defaults
+	userlist = User.query.all()
+	for user in userlist:
+		reset_trueskill(user)
 
-  # Reset all User Trueskill to defaults
-  userlist = User.query.all()
-  for user in userlist:
-    reset_trueskill(user)
+	# Iterate through all Sets in order and recalculate Trueskill; currently in order of set.id
+	# order Sets by tournament date, then by set id, oldest being at index 0
+	setlist = Set.query.all()
+	sorted_setlist = sort_setlist(setlist)
 
-  # Iterate through all Sets in order and recalculate Trueskill; currently in order of set.id
-  # order Sets by tournament date, then by set id, oldest being at index 0
-  setlist = Set.query.all()
-  sorted_setlist = sort_setlist(setlist)
+	# BUG: if user.tag changed for a User, the Set winner/loser tag will still remain, so when querying for User using the Set's outdated tag, queried User becomes None.
+	# Solution: Check and sanitize winner_tag, loser_tag again. But if it wasn't recognized in the first place, still an issue
+	for set in sorted_setlist:
+		winner_user = User.query.filter(User.tag==set.winner_tag).first()
+		loser_user = User.query.filter(User.tag==set.loser_tag).first()
+		update_rating(winner_user, loser_user)
 
-  # BUG: if user.tag changed for a User, the Set winner/loser tag will still remain, so when querying for User using the Set's outdated tag, queried User becomes None.
-  # Solution: Check and sanitize winner_tag, loser_tag again. But if it wasn't recognized in the first place, still an issue
-  for set in sorted_setlist:
-    winner_user = User.query.filter(User.tag==set.winner_tag).first()
-    loser_user = User.query.filter(User.tag==set.loser_tag).first()
-    update_rating(winner_user, loser_user)
-
-  print "All trueskills recalculated"
+	print "All trueskills recalculated"

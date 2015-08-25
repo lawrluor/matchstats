@@ -220,7 +220,8 @@ player_raw_regex_dict = {
     ['(uboa$)', '(greyface$)'],
     ['(lint$)'],
     ['(razz$)'],
-    ['(blazingsparky$)', '(blazing sparky$)', '(blazing spark$)', '(blazingspark$)']
+    ['(blazingsparky$)', '(blazing sparky$)', '(blazing spark$)', '(blazingspark$)'],
+    ['(zeo$)']
     ],
 
     'NorCal' : [
@@ -283,7 +284,10 @@ player_raw_regex_dict = {
     ['(dendypretendy$)', '(dendy$)', '(dendy pretendy)'],
     ['(khepri$)'],
     ['(mixx$)'],
-    ['(sacasumoto$)']
+    ['(sacasumoto$)'],
+    ['(null$)'],
+    ['(zeo$)'],
+    ['(tonic$)']
     ],
 
     'North Carolina' : [
@@ -492,7 +496,7 @@ sanitized_tags_dict = {
     'Makari',
     'Yung Bones Villain',
     'TheChocolateLava',
-    'Tonic',
+    'Tonic [New England]',
     'Broth Chiler',
     'Hea7',
     'Torsional Strain',
@@ -522,7 +526,7 @@ sanitized_tags_dict = {
     'Racer',
     'Seaghost',
     'Fang',
-    'Null',
+    'Null [New England]',
     'Gtown_Tom',
     'Barbie',
     'Red Rice',
@@ -536,7 +540,8 @@ sanitized_tags_dict = {
     'Uboa',
     'Lint',
     'Razz',
-    'BlazingSparky'
+    'BlazingSparky',
+    'Zeo [SoCal]'
     ],
 
     'NorCal' : [
@@ -599,7 +604,10 @@ sanitized_tags_dict = {
     'DendyPretendy',
     'Khepri',
     'Mixx',
-    'SacaSuMoto'
+    'SacaSuMoto',
+    'Null [SoCal]',
+    'Zeo [SoCal]',
+    'Tonic [SoCal]'
     ],
 
     'North Carolina' : [
