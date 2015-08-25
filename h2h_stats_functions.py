@@ -67,13 +67,13 @@ def h2h_get_sets_played(user1, user2):
       A list of Set(models.py) objects sorted by set id of sets played between
       the two users.
   """
-	user1_won_sets = h2h_get_sets_won(user1, user2)
-	user2_won_sets = h2h_get_sets_won(user2, user1)
-    # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
+  user1_won_sets = h2h_get_sets_won(user1, user2)
+  user2_won_sets = h2h_get_sets_won(user2, user1)
+  # Any set user2 has won, user1 has lost, so user2_won == number of sets user1 has lost.
 
-	h2h_sets_played = user1_won_sets + user2_won_sets
-	h2h_sets_played = sort_setlist(h2h_sets_played)
-	return h2h_sets_played
+  h2h_sets_played = user1_won_sets + user2_won_sets
+  h2h_sets_played = sort_setlist(h2h_sets_played)
+  return h2h_sets_played
 
 
 # given two User objects, returns a list of Set objects representing Sets between the two Users in which the first User has won.
