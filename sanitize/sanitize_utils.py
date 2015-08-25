@@ -297,7 +297,7 @@ player_raw_regex_dict = {
     ['(cope$)', '(ke$ha$)', '(sgt\. thunderfist md$)'],
     ['(wharve$)', '(warve$)'],
     ['(mining elf$)', '(elf$)'],
-    ['(dembo$)', '(discoprof$)', '(d\'embaux$)', '(discovery professor dembo$)'],
+    ['(dembo$)', '(discoprof$)', '(d\'embaux$)', '(discovery professor dembo$)', '(d\'embeaux$)'],
     ['(tenbutts$)', '(ten butts$)'],
     ['(quetpie$)', '(andrew que$)', '(que t pie$)', '(quetpie forever$)'],
     ['(loudpackmatt$)', '(n$)', '(loud$)', '(loudpackmatt$)'],
