@@ -3,7 +3,7 @@ from app.models import *
 from sort_utils import sort_setlist
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 
-# Trueskill constants
+# Trueskill constants for rating environment setup
 MU = 25.0
 SIGMA = 8.333333333333334
 CONS_MU = 0.0
@@ -11,8 +11,15 @@ BETA = 4.166666666666667
 TAU = 0.08333333333333334
 DRAW_PROBABILITY = 0.0
 
-# setup rating env
 def rating_env_setup():
+  """Sets up Rating Environment, an object from trueskill module.
+
+  Args:
+    None, but setup uses Global variables defined above.
+
+  Returns:
+    String indicating success.
+  """
 	setup(mu=MU, 
 			sigma=SIGMA, 
 			beta=BETA, 
@@ -22,9 +29,17 @@ def rating_env_setup():
 			)
 	return "Rating environment created"
 
-# Given User, sets any UserSkill/TrueSkill object's trueskill to default TrueSkill object
 def reset_trueskill(user):
-	# if User has a TrueSkill association with a region he is not associated with, remove it
+  """Given User, sets associated TrueSkill objects' values to default.
+
+  Args:
+    user: A User object.
+
+  Returns:
+    The TrueSkill objects associated with a User.
+  """
+
+	# remove TrueSkill association with a region if User is not associated with it anymore 
 	populate_trueskills(user)
 
 	for trueskill in user.trueskills:
@@ -34,9 +49,19 @@ def reset_trueskill(user):
 		db.session.commit()
 	return user.trueskills
 
-# If returns True, Global TrueSkill already populated, and Region TrueSkill to the extent of known information
 def populate_trueskills(user):
-	# case for when User has no TrueSkills - if User has region, populate both Global and region Trueskill
+  """Populates TrueSkill associations of User
+
+  Args:
+    user: A User object.
+  
+  Returns:
+    If User already has Global and appropriate Regional TrueSkill, returns True.
+    Adds TrueSkill association for Global if it does not already exist.
+    Deletes TrueSkill association for Region if User no longer is associated with that region.
+  """
+
+	# case for when User has no TrueSkills; if User has region, populate both Global and region Trueskill
 	if len(user.trueskills)<=0:
 		user.trueskills.append(TrueSkill(region="Global", mu=MU, sigma=SIGMA, cons_mu=CONS_MU))
 		if user.region is not None:
@@ -50,6 +75,7 @@ def populate_trueskills(user):
 		else:
 			return True
 	# If User has 2 Trueskills (Global and Region), check to make sure he should have a regional TrueSkill (if he belongs to a region)
+  # if User Region does not match TrueSkill region, remove it
 	elif len(user.trueskills)>=2:
 		if user.region is None or user.region.region!=user.trueskills[1].region:
 			user.trueskills.remove(user.trueskills[1])
@@ -57,8 +83,20 @@ def populate_trueskills(user):
 	else:
 		return True
 
-# Given two user objects representing the winner and loser of a set, update their respective ratings
 def update_rating(winner_user, loser_user):
+  """Update ratings of two Users who played a Set.
+
+  Args:
+    winner_user: A User object representing winner of the set.
+    loser_user: A User object representing loser of the set.
+
+  Returns:
+    A tuple of the Winner and Loser of the Set, both User objects, with updated
+    TrueSkills. This value is never used.
+
+  Raises:
+    UnicodeError if during printing, unencodeable non-ASCII characters are found.
+  """
 	rating_env_setup()
 
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
@@ -83,8 +121,20 @@ def update_rating(winner_user, loser_user):
 	print '\n'
 	return winner_user, loser_user
 
-# given winner_user, loser_user, and integer index (0 for Region and 1 for Global), create Rating objects using currently stored Region Trueskill attribute
 def calc_region_trueskill(winner_user, loser_user, region_num):
+  """Recalculates regional TrueSkill association between Users depending on
+  Region the Set was played in
+
+  Args:
+    winner_user: A User object representing winner of Set
+    loser_user: A User object representing loser of Set
+    region_num: An integer, index of User.trueskills (0 for Region and 1 for Global)
+
+  Returns:
+    None.
+  """  
+
+  #  Create Rating objects using currently stored Region Trueskill attribute
 	winner_user_rating = Rating(winner_user.trueskills[region_num].mu, winner_user.trueskills[region_num].sigma)
 	loser_user_rating = Rating(loser_user.trueskills[region_num].mu, loser_user.trueskills[region_num].sigma)
 	region_name = winner_user.trueskills[region_num].region
@@ -107,8 +157,16 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	loser_user.trueskills[region_num].sigma=new_loser_rating.sigma
 	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 2*new_loser_rating.sigma
 
-# Reset, then recalculate all Trueskills for all Users.
 def recalculate_trueskill():
+  """Resets, then recalculates all Trueskills for all Users.
+
+  Args:
+    None
+
+  Returns:
+    String indicating success. This value is never used.
+  """
+
   # Reset all User Trueskill to defaults
   userlist = User.query.all()
   for user in userlist:

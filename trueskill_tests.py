@@ -4,6 +4,8 @@ from app import app, db
 from app.models import *
 from trueskill_functions import *
 
+# tests for trueskill_functions
+
 print "test0.trueskills is empty, and region is None: should be populated with Global TrueSkill"
 # test0 = User(tag="test0")
 test0 = check_set_user("test0")

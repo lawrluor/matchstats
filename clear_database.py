@@ -1,5 +1,6 @@
 #!flask/bin/python
-# Clears entire non-Character database
+
+# Clears entire database except for Regions, Characters
 
 import os
 import unittest
@@ -29,19 +30,16 @@ for i in range(len(tournamentlist)):
 	db.session.delete(tournamentlist[i])
 
 # Keep regions
-"""
-for i in range(len(regionlist)):
-	db.session.delete(regionlist[i])
-"""
+# for i in range(len(regionlist)):
+# 	db.session.delete(regionlist[i])
 
-"""
 # create default "Non-Tourney" Tournament object at id=1
-non_tourney = Tournament(id=1, name="Non-Tourney")
-db.session.add(non_tourney)
-"""
+# non_tourney = Tournament(id=1, name="Non-Tourney")
+# db.session.add(non_tourney)
 
 db.session.commit()
 
+# Print newly cleared database
 print "USERS:", User.query.all()
 print "SETS:", Set.query.all()
 print "MATCHES:", Match.query.all()
