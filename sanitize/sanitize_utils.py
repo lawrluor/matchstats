@@ -221,7 +221,8 @@ player_raw_regex_dict = {
     ['(lint$)'],
     ['(razz$)'],
     ['(blazingsparky$)', '(blazing sparky$)', '(blazing spark$)', '(blazingspark$)'],
-    ['(zeo$)']
+    ['(zeo$)'],
+    ['(connor$)']
     ],
 
     'NorCal' : [
@@ -541,7 +542,8 @@ sanitized_tags_dict = {
     'Lint',
     'Razz',
     'BlazingSparky',
-    'Zeo [New England]'
+    'Zeo [New England]',
+    'Connor [New England]'
     ],
 
     'NorCal' : [
@@ -578,7 +580,7 @@ sanitized_tags_dict = {
     'Santiago',
     'Reno',
     'Alex19',
-    'Connor',
+    'Connor [SoCal]',
     'Bizzarro Flame',
     'Hyprid',
     'Lovage',
@@ -657,6 +659,14 @@ def sanitize_tag(tag, regex_list, sanitized_list):
       return sanitized_list[i]
   return tag
 
+# Identical to sanitize_tag, but returns list of matching regex expressions instead of returning the first one
+def sanitize_tag_multiple(tag, regex_list, sanitized_list):
+  tag_list = []
+  for i in range(len(regex_list)):
+    if regex_list[i].match(tag):
+      tag_list.append(sanitized_list[i])
+  return tag_list 
+
 # Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global$)'].
 def add_prefixes(regex_list):
   wildcard = '.*'
@@ -716,6 +726,17 @@ def check_and_sanitize_tag(tag, *args): #region is optional parameter
   elif len(args)==0 or args[0] is None:
     region_name = "Global"
     return sanitize_tag(tag, full_regex_list, full_sanitized_list)
+
+# Identical to check_and_sanitize_tag, but returns list of all matches
+def check_and_sanitize_tag_multiple(tag, *args):
+  # if region is included in parameter, use region list
+  if len(args)==1 and args[0] is not None:
+    region_name = args[0]
+    if region_name in player_raw_regex_dict and region_name in sanitized_tags_dict:
+      return sanitize_tag_multiple(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name]) 
+  elif len(args)==0 or args[0] is None:
+    region_name = "Global"
+    return sanitize_tag_multiple(tag, full_regex_list, full_sanitized_list)
 
 # Function that checks the lengths of the raw regex dict and sanitized tags dict, and prints each index together for comparison
 def debug_regex_lists(*args):
