@@ -263,7 +263,7 @@ player_raw_regex_dict = {
     ['(hyprid$)'],
     ['(lovage$)'],
     ['(sung666$)', '(sung 666$)', '(sung$)', '(sung475$)', '(sung 475$)'],
-    ['(stab$)', '(victor abdul latif$)', '(stabbedbyahippie$)', '(stabbedbyanipple$)'],
+    ['(stab$)', '(victor abdul latif$)', '(stabbedbyahippie$)', '(stabbedbyanipple$)', '(matt$)'],
     ['(mikehaze$)', '(mike haze$)'],
     ['(kira$)'],
     ['(rofl$)'],
