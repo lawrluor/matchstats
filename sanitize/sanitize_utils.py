@@ -541,7 +541,7 @@ sanitized_tags_dict = {
     'Lint',
     'Razz',
     'BlazingSparky',
-    'Zeo [SoCal]'
+    'Zeo [New England]'
     ],
 
     'NorCal' : [
@@ -628,7 +628,7 @@ sanitized_tags_dict = {
     'T Raw',
     '@The_PriceisNICE',
     'Arundo',
-    'Caleb (North Carolina)',
+    'Caleb [North Carolina]',
     'Madz',
     'Niq',
     'Geezer',

@@ -10,10 +10,12 @@ html {
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
-body {
-  margin: 0;
-  padding-top:70px;
+
+body { padding-top: 75px; }
+@media screen and (max-width: 768px) {
+    body { padding-top: 40px; }
 }
+
 .scroll400{
   overflow-y:scroll;
   height:400px;
