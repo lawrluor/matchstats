@@ -355,19 +355,26 @@ def search():
 def search_results(query):
   sanitized_query_list = check_and_sanitize_tag_multiple(query)
   tournament_results = Tournament.query.filter(Tournament.name==query).all() 
-
   print sanitized_query_list
-  # pass list of User objects as list to display in search results
+
   user_results = []
-  for sanitized_tag in sanitized_query_list:
-    user = User.query.filter(User.tag==sanitized_tag).first() 
-    if user is not None:
-      user_results.append(user)
+  # If sanitized_query_list is a list (obtained multiple users from search), append each user to user_results list
+  if isinstance(sanitized_query_list, list):
+    # pass list of User objects as list to display in search results
+    for sanitized_tag in sanitized_query_list:
+      user = User.query.filter(User.tag==sanitized_tag).first() 
+      print user
+      if user is not None:
+        user_results.append(user)
+  else:
+    # If not a list (only 1 result returned, a string from sanitized_query_list), simply query using that tag
+    # make list so it can be accessed in template
+    user_results = [User.query.filter(User.tag==sanitized_query_list).first()]
 
   return render_template('search_results.html',
-                         query=query,
-                         tournament_results=tournament_results,
-                         user_results=user_results)
+                           query=query,
+                           tournament_results=tournament_results,
+                           user_results=user_results)
 
 
 # During production mode (runp.py), debug is turned OFF and these error templates appear
