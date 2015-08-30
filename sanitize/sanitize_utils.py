@@ -665,7 +665,7 @@ def sanitize_tag_multiple(tag, regex_list, sanitized_list):
   for i in range(len(regex_list)):
     if regex_list[i].match(tag):
       tag_list.append(sanitized_list[i])
-  return tag_list 
+  return tag 
 
 # Takes player_raw_regex_dict[region] as a parameter through map, meaning that each index is one list inside the list of regex expressions in player_raw_regex_dict['Global$)'].
 def add_prefixes(regex_list):
