@@ -16,9 +16,9 @@ New\ Game\ Plus\ 15|http://bigbluees.challonge.com/NGP15|New\ England|08/04/2015
 New\ Game\ Plus\ 16|http://bigbluees.challonge.com/NGP16|New\ England|08/11/2015
 New\ Game\ Plus\ 17|http://bigbluees.challonge.com/NGP17|New\ England|08/19/2015
 New\ Game\ Plus\ 18|http://bigbluees.challonge.com/NGP18|New\ England|08/26/2015
-MCG\ May\|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England|05/23/2015
-MCG\ June\|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England|06/20/2015
-MCG\ July\|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England|07/25/2015
+MCG\ May|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England|05/23/2015
+MCG\ June|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England|06/20/2015
+MCG\ July|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England|07/25/2015
 HOG\ Biweekly\ 15|http://ctmelee.challonge.com/hog15thbiweekly|New\ England|None
 HOG\ Biweekly\ 16|http://ctmelee.challonge.com/hog16thbiweekly|New\ England|None
 HOG\ Biweekly\ 17|http://ctmelee.challonge.com/hog17thbiweekly|New\ England|None

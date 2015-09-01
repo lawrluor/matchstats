@@ -36,11 +36,11 @@ def process_tournament_line(tournament_line):
   else:
     tournament_region = tournament_region.translate(None, '\\')
 
-  info_dict = { 'tournament_name' : tournament_name,
+  info_dict = {'tournament_name' : tournament_name,
                'tournament_region' : tournament_region,
                'tournament_url' : tournament_url,
                'tournament_date' : tournament_date
-             }
+              }
 
   print info_dict
   return info_dict

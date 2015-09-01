@@ -17,8 +17,7 @@ def read_tournamentlist(challonge_tournamentlist):
   # f is a file object
   with open(challonge_tournamentlist, 'r') as f:
     for tournament_line in f:
-      info = process_tournament_line(tournament_line)
-      parse_challonge_run(info['tournament_url'], info['tournament_name'], info['tournament_region'], info['tournament_date'])
+      parse_challonge_run(tournament_line)
   f.close()
 
 if __name__ == "__main__":
