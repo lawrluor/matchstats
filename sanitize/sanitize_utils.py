@@ -222,7 +222,16 @@ player_raw_regex_dict = {
     ['(razz$)'],
     ['(blazingsparky$)', '(blazing sparky$)', '(blazing spark$)', '(blazingspark$)'],
     ['(zeo$)'],
-    ['(connor$)']
+    ['(connor$)', '(connor s$)'],
+    ['(dazwa$)'],
+    ['(mrryanness$)', '(mr ryan ness$)'],
+    ['(bus$)'],
+    ['(eric green$)'],
+    ['(glory swole$)'],
+    ['(neji$)'],
+    ['(ironchief$)', '(iron chief$)'],
+    ['(eatboxman$)'],
+    ['(damp$)']
     ],
 
     'NorCal' : [
@@ -543,7 +552,16 @@ sanitized_tags_dict = {
     'Razz',
     'BlazingSparky',
     'Zeo [New England]',
-    'Connor [New England]'
+    'Connor [New England]',
+    'Dazwa',
+    'MrRyanNess',
+    'Bus',
+    'Eric Green',
+    'Glory Swole',
+    'Neji',
+    'IronChief',
+    'EatBoxMan',
+    'Damp'
     ],
 
     'NorCal' : [

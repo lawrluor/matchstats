@@ -1,5 +1,6 @@
 <!-- prints User representation in HTML given a User object, with route hyperlink to /user (profile), /region, /character. Used primarily in /browse_users -->
 
+{% if user %}
 <tr>
     <td class="col-sm-3 text-center mobile-horizontal-overflow-td-col-3 horizontal-overflow">
         <a href="{{url_for("user", tag=user.tag)}}"><b>{{user.tag}}</b></a>
@@ -62,3 +63,4 @@
     -->
    </td>
 </tr>
+{% endif %}
