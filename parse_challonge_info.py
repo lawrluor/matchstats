@@ -43,6 +43,8 @@ def parse_challonge_info(tournament_url):
   if title_item is not None:
     title = title_item.getText()
     title = title.strip('\n')
+    # protect from overflowing database column, truncate at 128 characters
+    title = title[:128]
     tournament_info['title'] = title
     print "TITLE:", title
 
@@ -58,6 +60,8 @@ def parse_challonge_info(tournament_url):
       host = text
     
     host = host.strip('\n')
+    # protect from overflowing database column, truncate at 128 characters
+    host = host[:128]
     tournament_info['host'] = host
     print "HOST:", host
 
@@ -65,6 +69,7 @@ def parse_challonge_info(tournament_url):
   if game_type_item is not None:
     game_type = game_type_item.getText()
     game_type = game_type.strip('\n')
+    game_type = game_type[:128]
     tournament_info['game_type'] = game_type
     print "GAME_TYPE:", game_type
 
@@ -91,6 +96,9 @@ def parse_challonge_info(tournament_url):
       bracket_info = bracket_locator.nextSibling
     else:
       bracket_info = bracket_locator.nextSibling[(type_index + 5):]
+
+    # protect from overflowing database column, truncate at 128 characters
+    bracket_info = bracket_info[:128]
     print "BRACKET INFO:", bracket_info
 
     # find start index for player, subtract 1 (whitespace) to get just the number of entrants "32" and convert to int
@@ -103,7 +111,9 @@ def parse_challonge_info(tournament_url):
       entrants = -1 
       bracket_type = bracket_info.strip('\n')
 
+    entrants = entrants[:128]
     tournament_info['entrants'] = entrants
+    bracket_type = bracket_type[:128]
     tournament_info['bracket_type'] = bracket_type
     print "ENTRANTS:", entrants
     print "BRACKET TYPE:", bracket_type

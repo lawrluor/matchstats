@@ -185,7 +185,8 @@ def check_set_user(set_user_tag, *args):
   set_user = User.query.filter(User.tag==set_user_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
-    set_user = User(tag=set_user_tag)
+    # if tag over 64 characters, truncated
+    set_user = User(tag=set_user_tag[:64])
     found_region = Region.query.filter(Region.region==user_region).first()
     set_user.region = found_region 
 
