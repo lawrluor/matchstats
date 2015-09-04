@@ -27,6 +27,7 @@ def parse_top_match(top_item_list, tournament_region):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
+      tag = tag[:64]
       top_half["tag"] = check_and_sanitize_tag(tag, tournament_region)
 
     seed_item = item.find("div", {"class" : "top_seed"})
@@ -64,6 +65,7 @@ def parse_bottom_match(bottom_item_list, tournament_region):
     span_item = item.find("span")
     tag = span_item.getText()
     if tag:
+      tag = tag[:64]
       bottom_half["tag"] = check_and_sanitize_tag(tag, tournament_region)
 
     seed_item = item.find("div", {"class" : "bottom_seed"})

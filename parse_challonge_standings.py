@@ -41,6 +41,8 @@ def parse_challonge_standings(tournament_url, tournament_region):
         continue
       tag = tag.strip('\n')
       
+      # truncate if longer than 64 chars
+      tag = tag[:64]
       sanitized_tag = check_and_sanitize_tag(tag, tournament_region)
 
     # limit number of Users who can tie for a placement
