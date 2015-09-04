@@ -149,12 +149,12 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	winner_user.trueskills[region_num].region=region_name
 	winner_user.trueskills[region_num].mu=new_winner_rating.mu
 	winner_user.trueskills[region_num].sigma=new_winner_rating.sigma
-	winner_user.trueskills[region_num].cons_mu=new_winner_rating.mu - 2*new_winner_rating.sigma
+	winner_user.trueskills[region_num].cons_mu=new_winner_rating.mu - 2.25*new_winner_rating.sigma
 
 	loser_user.trueskills[region_num].region=region_name
 	loser_user.trueskills[region_num].mu=new_loser_rating.mu
 	loser_user.trueskills[region_num].sigma=new_loser_rating.sigma
-	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 2*new_loser_rating.sigma
+	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 2.25*new_loser_rating.sigma
 
 def recalculate_trueskill():
 	"""Resets, then recalculates all Trueskills for all Users.
