@@ -22,13 +22,13 @@
 
 		<!-- Navigating the paginated display -->
 		<div class="text-center"><b>
-		  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', character=character, page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+		  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', region=g.region, page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
 
 		  {% if userlist.has_prev and userlist.has_next %}
 		  	|
 		  {% endif %}
 
-		  {% if userlist.has_next %}<a href="{{ url_for('browse_users', character=character, page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+		  {% if userlist.has_next %}<a href="{{ url_for('browse_users', region=g.region, page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
 		</b></div>
 	</div>
 

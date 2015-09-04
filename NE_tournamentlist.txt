@@ -38,6 +38,8 @@ HOG\ Biweekly\ 27|http://ctmelee.challonge.com/hog27thbiweekly|New\ England|None
 HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|None
 HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England|None
 HOG\ Biweekly\ 29|http://ctmelee.challonge.com/hogbiweekly29/|New\ England|None
+Mass\ Madness\ 4\ (Pro)|http://bigbluees.challonge.com/MMM4Pro|New\ England|08/29/2015
+Mass\ Madness\ 4\ (AMA)|http://bigbluees.challonge.com/MMM4Ama|New\ England|08/29/2015
 Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England|08/02/2015
 Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England|08/02/2015
 Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England|06/27/2015
@@ -47,6 +49,7 @@ Mass\ Madness\ 1\ (Ama)|http://bigbluees.challonge.com/MMM1Amateur|New\ England|
 3SA\ 7|http://challonge.com/3SA7SM|New\ England|06/13/2015
 3SA\ 10|http://challonge.com/3SA10SM|New\ England|07/25/2015
 3SA\ 11|http://challonge.com/3SA11M|New\ England|08/08/2015
+3SA\ 12|http://challonge.com/3SA12M|New\ England|08/22/2015
 SG\ Melee\ June\ 11|http://challonge.com/sgmelee6_11_15|New\ England|06/11/2015
 SG\ Melee\ June\ 18|http://challonge.com/sg6_18_15melee|New\ England|06/18/2015
 SG\ Melee\ June\ 25|http://challonge.com/sgmelee6_25_15|New\ England|06/25/2015

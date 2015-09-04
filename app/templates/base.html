@@ -101,8 +101,8 @@
             </form>
           </li>
           <li><a href="{{url_for('about')}}">About</a></li>
-          <li><a href="{{url_for('browse_tournaments')}}">Tournaments</a></li>
-          <li><a href="{{url_for('browse_users')}}">Players</a></li>
+          <li><a href="{{url_for('browse_tournaments', region=g.region)}}">Tournaments</a></li>
+          <li><a href="{{url_for('browse_users', region=g.region)}}">Players</a></li>
           <li><a href="{{url_for('head_to_head')}}">Head to Head</a></li>
           <li>
             <form class="navbar-form" action="{{url_for('search')}}" method="post" name="search">
@@ -110,7 +110,7 @@
               <input type="submit" class="btn-primary form-control" value="Search">
             </form>
           </li>
-          <li><img src="../static/big_blue_powered_by.png" alt="Big Blue eSports" style="width:64px;height:64px;"></li>
+          <li><img src="../../static/big_blue_powered_by.png" alt="Big Blue eSports" style="width:64px;height:64px;"></li>
         </ul> 
       </div>
       <!-- /.navbar-collapse -->

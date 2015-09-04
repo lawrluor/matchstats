@@ -170,8 +170,10 @@ def head_to_head():
 
 # browse all Users, 25 per page
 @app.route('/browse_users')
-@app.route('/browse_users/<int:page>')
-def browse_users(page=1):
+@app.route('/browse_users/<region>')
+@app.route('/browse_users/<region>/<int:page>')
+def browse_users(region, page=1):
+  g.region = region
   # if viewing global information, don't filter query by g.region
   # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
@@ -197,7 +199,7 @@ def user(tag, page=1):
   # If routed to user profile page (user/<tag>), check to make sure user exists
   if user is None:
     flash('User %s not found.' % tag)
-    return redirect(url_for('browse_users'))
+    return redirect(url_for('browse_users', region=g.region))
 
   # get User secondaries
   user_secondaries = user.get_secondaries()
@@ -294,9 +296,11 @@ def character(character, page=1):
 
 # Lists all tournaments, 15 per page
 @app.route('/browse_tournaments')
-@app.route('/browse_tournaments/<int:page>')
-def browse_tournaments(page=1):
+@app.route('/browse_tournaments/<region>')
+@app.route('/browse_tournaments/<region>/<int:page>')
+def browse_tournaments(region, page=1):
   # if viewing Global information, don't filter query by g.region
+  g.region = region
   if g.region=="Global":
     tournamentlist = Tournament.query.order_by(Tournament.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
   # if viewing national information, filter query to take Tournaments with region==None
