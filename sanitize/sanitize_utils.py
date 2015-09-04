@@ -231,7 +231,12 @@ player_raw_regex_dict = {
     ['(neji$)'],
     ['(ironchief$)', '(iron chief$)'],
     ['(eatboxman$)'],
-    ['(damp$)']
+    ['(damp$)'],
+    ['(asl$)'],
+    ['(neft$)'],
+    ['(shminkledorf$)'],
+    ['(termina bay$)'],
+    ['(kalvar$)']
     ],
 
     'NorCal' : [
@@ -561,7 +566,12 @@ sanitized_tags_dict = {
     'Neji',
     'IronChief',
     'EatBoxMan',
-    'Damp'
+    'Damp',
+    'ASL',
+    'Neft',
+    'Shminkledorf',
+    'Termina Bay',
+    'Kalvar'
     ],
 
     'NorCal' : [

@@ -27,3 +27,32 @@ NGP 19|http://bigbluees.challonge.com/NGP19|New\ England|09/01/2015
 See\ Me\ In\ Office\ Hours\ 3|http://ctmelee.challonge.com/SMIOH3singles|New\ England|08/30/2015
 HOG\ Biweekly\ 30|http://ctmelee.challonge.com/hogbiweekly30|New\ England|08/27/2015
 HOG\ Monthly\ 4|http://ctmelee.challonge.com/HoGMonthly4singles|New\ England|08/22/2015
+Melee\ Monday\ 1-5-15|http://challonge.com/meleemonday010515|New\ England|01/05/2015
+Melee\ Monday\ 1-12-15|http://challonge.com/meleemonday011215|New\ England|01/12/2015
+Melee\ Monday\ 1-19-15|http://challonge.com/meleemonday011915|New\ England|01/19/2015
+Snowbound\ Tuesday\ Melee|http://challonge.com/SnowboundTuesdayMelee|New\ England|02/10/2015
+Melee\ Monday\ 2-16-15|http://challonge.com/meleemonday021615|New\ England|02/16/2015
+Melee\ Monday\ 3-2-15|http://challonge.com/meleemonday030215|New\ England|03/02/2015
+Melee\ Monday\ 3-9-15|http://challonge.com/meleemonday030815|New\ England|03/09/2015
+Melee\ Monday\ 3-16-15|http://challonge.com/meleemonday031615|New\ England|03/16/2015
+Melee\ Monday\ 3-23-15|http://challonge.com/meleemonday032315|New\ England|03/23/2015
+Melee\ Monday\ 3-30-15|http://challonge.com/meleemonday033015|New\ England|03/30/2015
+Melee\ Monday\ 4-13-15|http://challonge.com/meleemonday041315|New\ England|04/13/2015
+Melee\ Monday\ 5-11-15|http://challonge.com/meleemonday051115|New\ England|05/11/2015
+Melee\ Monday\ 5-18-15|http://challonge.com/meleemonday051815|New\ England|05/18/2015
+Melee\ Monday\ 5-25-15|http://challonge.com/meleemonday052515|New\ England|05/25/2015
+Melee\ Monday\ 6-1-15|http://challonge.com/meleemonday060115|New\ England|06/01/2015
+Melee\ Monday\ 6-8-15|http://challonge.com/meleemonday060815|New\ England|06/08/2015
+Melee\ Monday\ 6-15-15|http://challonge.com/meleemonday061515|New\ England|06/15/2015
+MultiShine\ 1|http://challonge.com/multishine62215|New\ England|06/22/2015
+MultiShine\ 2|http://challonge.com/Multishine2|New\ England|06/29/2015
+MultiShine\ 3|http://challonge.com/MultiShine3|New\ England|07/06/2015
+MultiShine\ 4|http://challonge.com/MultiShine071315|New\ England|07/13/2015
+MultiShine\ 5|http://challonge.com/MultiShine5|New\ England|07/20/2015
+This\ Isn\'t\ Vegas|http://challonge.com/ThisIsntVegas_MeleeSingles|New\ England|07/18/2015
+MultiShine\ 6|http://challonge.com/Multishine6|New\ England|07/27/2015
+MultiShine\ 8|http://challonge.com/MultiShine8|New\ England|08/03/2015
+MultiShine\ 9|http://challonge.com/MultiShine9|New\ England|08/10/2015
+MultiShine\ 10|http://challonge.com/MultiShine10|New\ England|08/17/2015
+MultiShine\ 11|http://challonge.com/MultiShine11|New\ England|08/24/2015
+MultiShine\ 12|http://challonge.com/Multishin12|New\ England|08/31/2015

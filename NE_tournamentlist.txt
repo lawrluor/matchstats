@@ -56,20 +56,61 @@ Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England|
 Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England|7/11/2015
 SSTBBQ\ 2015|http://challonge.com/SSTBBQMelee|New\ England|8/19/2015
 Summer\ Super\ Smash\ Showdown\ (NE)|http://challonge.com/MFGAS4M1v1|New\ England|7/18/2015
-3SA\ 12|http://challonge.com/3SA12M|New\ England|8/22/2015
-MMOM1|http://challonge.com/MakemoneyoffMelee|New\ England|04/23/15
-MMOM2|http://mmom.challonge.com/MakemoneyoffMelee2|New\ England|05/7/15
-MMOM3|http://mmom.challonge.com/MakeMoneyOffMelee3|New\ England|05/14/15
-MMOM4|http://mmom.challonge.com/MakeMoneyOffMelee4|New\ England|05/24/15
-MMOM5|http://mmom.challonge.com/MakeMoneyOffMelee5|New\ England|05/27/15
-MMOM6|http://mmom.challonge.com/MakeMoneyOffMelee6|New\ England|06/3/15
-MMOM7|http://mmom.challonge.com/MakeMoneyOffMelee7|New\ England|06/10/15
-MMOM8|http://mmom.challonge.com/MakeMoneyOffMelee8|New\ England|06/17/15
-MMOM9|http://mmom.challonge.com/makemoneyoffmelee9|New\ England|07/1/15
-MMOM10|http://mmom.challonge.com/MMOM10Singles|New\ England|07/08/15
-MMOM11|http://mmom.challonge.com/MMOM10Singles|New\ England|07/15/15
-MMOM12|http://mmom.challonge.com/MMOM12Singles|New\ England|07/22/15
-MMOM13|http://mmom.challonge.com/MMOM13Singles|New\ England|07/29/15
-MMOM14|http://mmom.challonge.com/MMOM14Singles|New\ England|08/5/15
-MMOM15|http://mmom.challonge.com/MMOM15Singles|New\ England|08/19/25
-MMOM16|http://mmom.challonge.com/MMOM16Singles|New\ England|08/26/15
+QCM 5|http://challonge.com/QCMV|New\ England|01/25/2015
+QCM 6|http://challonge.com/QCMVI|New\ England|02/22/2015
+QCM 7|http://challonge.com/QCM7|New\ England|03/15/2015
+QCM 8|http://challonge.com/QCM8|New\ England|04/26/2015
+QCM 9|http://challonge.com/QCM9|New\ England|05/17/2015
+QCM 10|http://challonge.com/QCMX|New\ England|06/28/2015
+QCM 11|http://challonge.com/QCMXI|New\ England|08/03/2015
+QCM 12|http://challonge.com/QCM12|New\ England|08/30/2015
+MCG\ August|http://competitivegaming.challonge.com/MCGAUGUSTmelee|New\ England|08/24/2015
+MMOM 1|http://challonge.com/MakemoneyoffMelee|New England|04/23/2015
+MMOM 2|http://mmom.challonge.com/MakemoneyoffMelee2|New\ England|05/07/2015
+MMOM 3|http://mmom.challonge.com/MakeMoneyOffMelee3|New\ England|05/14/2015
+MMOM 4|http://mmom.challonge.com/MakeMoneyOffMelee4|New\ England|05/21/2015
+MMOM 5|http://mmom.challonge.com/MakeMoneyOffMelee5|New\ England|05/27/2015
+MMOM 6|http://mmom.challonge.com/MakeMoneyOffMelee6|New\ England|06/03/2015
+MMOM 7|http://mmom.challonge.com/MakeMoneyOffMelee7|New\ England|06/10/2015
+MMOM 8|http://mmom.challonge.com/MakeMoneyOffMelee8|New\ England|06/17/2015
+MMOM 9|http://mmom.challonge.com/makemoneyoffmelee9|New\ England|07/01/2015
+MMOM 10|http://mmom.challonge.com/MMOM10Singles|New England|07/08/15
+MMOM 11|http://mmom.challonge.com/MMOM10Singles|New\ England|07/15/15
+MMOM 12|http://mmom.challonge.com/MMOM12Singles|New\ England|07/22/15
+MMOM 13|http://mmom.challonge.com/MMOM13Singles|New\ England|07/29/15
+MMOM 14|http://mmom.challonge.com/MMOM14Singles|New\ England|08/05/2015
+MMOM 15|http://mmom.challonge.com/MMOM15Singles|New\ England|08/19/2015
+MMOM 16|http://mmom.challonge.com/MMOM16Singles|New\ England|08/26/2015
+NGP 19|http://bigbluees.challonge.com/NGP19|New\ England|09/01/2015
+See\ Me\ In\ Office\ Hours\ 3|http://ctmelee.challonge.com/SMIOH3singles|New\ England|08/30/2015
+HOG\ Biweekly\ 30|http://ctmelee.challonge.com/hogbiweekly30|New\ England|08/27/2015
+HOG\ Monthly\ 4|http://ctmelee.challonge.com/HoGMonthly4singles|New\ England|08/22/2015
+Melee\ Monday\ 1-5-15|http://challonge.com/meleemonday010515|New\ England|01/05/2015
+Melee\ Monday\ 1-12-15|http://challonge.com/meleemonday011215|New\ England|01/12/2015
+Melee\ Monday\ 1-19-15|http://challonge.com/meleemonday011915|New\ England|01/19/2015
+Snowbound\ Tuesday\ Melee|http://challonge.com/SnowboundTuesdayMelee|New\ England|02/10/2015
+Melee\ Monday\ 2-16-15|http://challonge.com/meleemonday021615|New\ England|02/16/2015
+Melee\ Monday\ 3-2-15|http://challonge.com/meleemonday030215|New\ England|03/02/2015
+Melee\ Monday\ 3-9-15|http://challonge.com/meleemonday030815|New\ England|03/09/2015
+Melee\ Monday\ 3-16-15|http://challonge.com/meleemonday031615|New\ England|03/16/2015
+Melee\ Monday\ 3-23-15|http://challonge.com/meleemonday032315|New\ England|03/23/2015
+Melee\ Monday\ 3-30-15|http://challonge.com/meleemonday033015|New\ England|03/30/2015
+Melee\ Monday\ 4-13-15|http://challonge.com/meleemonday041315|New\ England|04/13/2015
+Melee\ Monday\ 5-11-15|http://challonge.com/meleemonday051115|New\ England|05/11/2015
+Melee\ Monday\ 5-18-15|http://challonge.com/meleemonday051815|New\ England|05/18/2015
+Melee\ Monday\ 5-25-15|http://challonge.com/meleemonday052515|New\ England|05/25/2015
+Melee\ Monday\ 6-1-15|http://challonge.com/meleemonday060115|New\ England|06/01/2015
+Melee\ Monday\ 6-8-15|http://challonge.com/meleemonday060815|New\ England|06/08/2015
+Melee\ Monday\ 6-15-15|http://challonge.com/meleemonday061515|New\ England|06/15/2015
+MultiShine\ 1|http://challonge.com/multishine62215|New\ England|06/22/2015
+MultiShine\ 2|http://challonge.com/Multishine2|New\ England|06/29/2015
+MultiShine\ 3|http://challonge.com/MultiShine3|New\ England|07/06/2015
+MultiShine\ 4|http://challonge.com/MultiShine071315|New\ England|07/13/2015
+MultiShine\ 5|http://challonge.com/MultiShine5|New\ England|07/20/2015
+This\ Isn\'t\ Vegas|http://challonge.com/ThisIsntVegas_MeleeSingles|New\ England|07/18/2015
+MultiShine\ 6|http://challonge.com/Multishine6|New\ England|07/27/2015
+MultiShine\ 8|http://challonge.com/MultiShine8|New\ England|08/03/2015
+MultiShine\ 9|http://challonge.com/MultiShine9|New\ England|08/10/2015
+MultiShine\ 10|http://challonge.com/MultiShine10|New\ England|08/17/2015
+MultiShine\ 11|http://challonge.com/MultiShine11|New\ England|08/24/2015
+MultiShine\ 12|http://challonge.com/Multishin12|New\ England|08/31/2015
