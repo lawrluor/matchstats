@@ -111,7 +111,6 @@ def parse_challonge_info(tournament_url):
       entrants = -1 
       bracket_type = bracket_info.strip('\n')
 
-    entrants = entrants[:128]
     tournament_info['entrants'] = entrants
     bracket_type = bracket_type[:128]
     tournament_info['bracket_type'] = bracket_type
