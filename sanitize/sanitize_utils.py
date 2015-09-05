@@ -236,7 +236,12 @@ player_raw_regex_dict = {
     ['(neft$)'],
     ['(shminkledorf$)'],
     ['(termina bay$)'],
-    ['(kalvar$)']
+    ['(kalvar$)'],
+    ['(kevin m$)', '(kevinm$)'],
+    ['(fury$)'],
+    ['(twisty$)'],
+    ['(clue$)'],
+    ['(xpilot$)', '(x pilot$)']
     ],
 
     'NorCal' : [
@@ -571,7 +576,12 @@ sanitized_tags_dict = {
     'Neft',
     'Shminkledorf',
     'Termina Bay',
-    'Kalvar'
+    'Kalvar',
+    'Kevin M',
+    'Fury',
+    'Twisty',
+    'Clue',
+    'XPilot'
     ],
 
     'NorCal' : [
