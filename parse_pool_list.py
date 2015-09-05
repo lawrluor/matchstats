@@ -67,7 +67,7 @@ parse_challonge_pool("http://challonge.com/mayhemJuly11Pool3", "Mayhem 7-11-15",
 parse_challonge_pool("http://challonge.com/mayhemJuly11Pool2", "Mayhem 7-11-15", "SoCal", 4)
 parse_challonge_pool("http://challonge.com/mayhemJuly11Pool1", "Mayhem 7-11-15", "SoCal", 4)
 
-parse_challonge_pool("http://challonge.com/HUSHPool1", "HUSH", "New England", 2))
-parse_challonge_pool("http://challonge.com/HUSHPool2", "HUSH", "New England", 2))
-parse_challonge_pool("http://challonge.com/HUSHPool3", "HUSH", "New England", 2))
-parse_challonge_pool("http://challonge.com/HUSHPool4", "HUSH", "New England", 2))
+parse_challonge_pool("http://challonge.com/HUSHPool1", "HUSH (Pro)", "New England", 2)
+parse_challonge_pool("http://challonge.com/HUSHPool2", "HUSH (Pro)", "New England", 2)
+parse_challonge_pool("http://challonge.com/HUSHPool3", "HUSH (Pro)", "New England", 2)
+parse_challonge_pool("http://challonge.com/HUSHPool4", "HUSH (Pro)", "New England", 2)
