@@ -188,3 +188,14 @@ def delete_set(tournament_name, winner_tag, loser_tag):
     return "No set found"
   elif len(found_set) > 1:
     return "Multiple Sets found"
+
+# reassigns tournament placement and sets from one user to another
+def reassign_user(tournament_name, user_tag, transfer_tag):
+  # find original user object, tournament object, transfer object
+  # query placement for tournament_object, user_object
+  # change placement.user to transfer_object
+
+  # do the same for sets
+  # Set.query.filter(and_(Set.tournament_name=="SSTBBQ 2015", or_(Set.winner_tag=="Darc", Set.loser_tag=="Darc").all()
+  # reassign respective user's tags to each set result
+  # commit
