@@ -89,7 +89,7 @@ MMOM 13|http://mmom.challonge.com/MMOM13Singles|New\ England|07/29/2015
 MMOM 14|http://mmom.challonge.com/MMOM14Singles|New\ England|08/05/2015
 MMOM 15|http://mmom.challonge.com/MMOM15Singles|New\ England|08/19/2015
 MMOM 16|http://mmom.challonge.com/MMOM16Singles|New\ England|08/26/2015
-NGP 19|http://bigbluees.challonge.com/NGP19|New\ England|09/01/2015
+New\ Game\ Plus\ 19|http://bigbluees.challonge.com/NGP19|New\ England|09/01/2015
 See\ Me\ In\ Office\ Hours\ 3|http://ctmelee.challonge.com/SMIOH3singles|New\ England|08/30/2015
 HOG\ Biweekly\ 30|http://ctmelee.challonge.com/hogbiweekly30|New\ England|08/27/2015
 HOG\ Monthly\ 4|http://ctmelee.challonge.com/HoGMonthly4singles|New\ England|08/22/2015

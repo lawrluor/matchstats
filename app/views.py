@@ -181,6 +181,7 @@ def browse_users(region, page=1):
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
     userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
+
   return render_template("browse_users.html",
                          userlist=userlist,
                          current_region=g.region
