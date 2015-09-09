@@ -26,35 +26,4 @@ TBH4|http://tbh4.challonge.com/meleesingles|None|10/05/2014
 Do\ You\ Fox\ Wit\ It|http://dyfwi.challonge.com/dyftop32|None|11/16/2014
 Forte\ 2|http://challonge.com/forte2meleesingles|None|12/21/2014
 Super\ Smash\ Con|http://supersmashcon.challonge.com/meleesingles|None|08/09/2015
-
-http://beastsmash.challonge.com/B5MSB BEAST\ 5
-http://paragon.challonge.com/orlando_2015_melee_singles Paragon\ Orlando\ 2015
-http://apex2015melee.challonge.com/singles Apex\ 2015
-http://challonge.com/2015INYMelee I\'m\ Not\ Yelling!
-http://challonge.com/SandstormMeleeTop64 MVG\ Sandstorm
-http://dl4-5.challonge.com/DL45meleeProBracket DrommeLAN\ 4\.5
-http://challonge.com/PSLmeleeTop32 Press\ Start
-http://melbournemelee.challonge.com/BAM7Pools BAM\ 7
-http://challonge.com/GOMLMelee16 GOML\ 2015
-http://ceogaming.challonge.com/2015_melee_final CEO\ 2015
-http://challonge.com/redditfcsmash FC\ Smash\ 15XR:\ Return
-http://challonge.com/WTFoxMeleeTop32 WTFox
-http://challonge.com/fi2f9gcu EVO\ 2015
-http://smashnsplash.challonge.com/snsmeleetop16 Smash\ N\ Splash
-http://supersmashcon.challonge.com/meleesingles Super\ Smash\ Con
-
-http://bigbluees.challonge.com/NGP1 New\ Game\ Plus\ 1 New\ England
-http://bigbluees.challonge.com/NGP2 New\ Game\ Plus\ 2 New\ England
-http://bigbluees.challonge.com/NGP3 New\ Game\ Plus\ 3 New\ England
-http://bigbluees.challonge.com/NGP4 New\ Game\ Plus\ 4 New\ England
-http://bigbluees.challonge.com/NGP5 New\ Game\ Plus\ 5 New\ England
-http://bigbluees.challonge.com/NGP6 New\ Game\ Plus\ 6 New\ England
-http://bigbluees.challonge.com/NGP7 New\ Game\ Plus\ 7 New\ England
-http://bigbluees.challonge.com/NGP8 New\ Game\ Plus\ 8 New\ England
-http://bigbluees.challonge.com/NGP9 New\ Game\ Plus\ 9 New\ England
-http://bigbluees.challonge.com/NGP10 New\ Game\ Plus\ 10 New\ England
-http://bigbluees.challonge.com/NGP11 New\ Game\ Plus\ 11 New\ England
-http://bigbluees.challonge.com/NGP12 New\ Game\ Plus\ 12 New\ England
-http://bigbluees.challonge.com/NGP13 New\ Game\ Plus\ 13 New\ England
-http://bigbluees.challonge.com/NGP14 New\ Game\ Plus\ 14 New\ England
-http://bigbluees.challonge.com/NGP15 New\ Game\ Plus\ 15 New\ England
+Paragon\ Los\ Angeles\ 2015|http://paragon.challonge.com/la_2015_melee_singles|None|09/06/2015

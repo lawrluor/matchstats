@@ -139,7 +139,7 @@ player_raw_regex_dict = {
     ['(th[o0]rn$)'],
     ['(crush$)'],
     ['(mafia$)', '(irish mafia$)', '(slimjim$)', '(slim jim$)'], 
-    ['(mdz$)', '(mattdotzeb$)', '(matt dot zeb$)'],
+    ['(mdz$)', '(mattdotzeb$)', '(matt dot zeb$)', '(kizzuredux$)'],
     ['(klap[s$]$)'],
     ['(tian$)'],
     ['(squible$)'],
@@ -153,7 +153,7 @@ player_raw_regex_dict = {
     ['(mr tuesday$)', '(mr\. tuesday$)'],
     ['(bigvegetabluntz$)', '(bvb$)', '(dylandude829$)'],
     ['(me[tl][tl]wing$)'], 
-    ['(b[o0]lt$)', '(b[o0]wn$)'],
+    ['(b[o0]lt$)', '(b[o0]wn$)', '(b[o0]lt\$\$\.\.)'],
     ['(cheezpuff$)'],
     ['(r2dliu$)'],
     ['(kaza[am]m$)', '(kaza[am]mtheman$)'],
@@ -241,7 +241,8 @@ player_raw_regex_dict = {
     ['(fury$)'],
     ['(twisty$)'],
     ['(clue$)'],
-    ['(xpilot$)', '(x pilot$)']
+    ['(xpilot$)', '(x pilot$)'],
+    ['(-1$)']
     ],
 
     'NorCal' : [
@@ -581,7 +582,8 @@ sanitized_tags_dict = {
     'Fury',
     'Twisty',
     'Clue',
-    'XPilot'
+    'XPilot',
+    '-1'
     ],
 
     'NorCal' : [

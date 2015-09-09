@@ -189,13 +189,30 @@ def delete_set(tournament_name, winner_tag, loser_tag):
   elif len(found_set) > 1:
     return "Multiple Sets found"
 
-# reassigns tournament placement and sets from one user to another
-def reassign_user(tournament_name, user_tag, transfer_tag):
-  # find original user object, tournament object, transfer object
-  # query placement for tournament_object, user_object
-  # change placement.user to transfer_object
+# reassigns Tournament Placement and Sets from one User to another
+def reassign_user(tournament_name, user_tag, reassigned_tag):
+  # Query for objects
+  found_user = User.query.filter(User.tag==user_tag).first()
+  reassigned_user = User.query.filter(User.tag==reassigned_tag).first() 
 
-  # do the same for sets
-  # Set.query.filter(and_(Set.tournament_name=="SSTBBQ 2015", or_(Set.winner_tag=="Darc", Set.loser_tag=="Darc").all()
-  # reassign respective user's tags to each set result
-  # commit
+  # find placement User has in Tournament, and replace found_user with reassigned_user
+  found_placement = Placement.query.filter(and_(Placement.tournament_name==tournament_name, Placement.user==found_user)).first()
+  if found_placement is not None:
+    found_placement.user=reassigned_user
+  else:
+    print "Placement not found"
+  
+  # find Sets User played in Tournament, and replace the found_user with reassigned_user
+  found_sets = Set.query.filter(and_(Set.tournament_name==tournament_name), or_(Set.winner_tag==user_tag, Set.loser_tag==user_tag)).all()
+  print found_sets
+  if found_sets is not None:
+    for found_set in found_sets:
+      if found_set.winner_tag==user_tag:
+        found_set.winner_tag=reassigned_tag
+      elif found_set.loser_tag==user_tag:
+        found_set.loser_tag=reassigned_tag
+  else:
+    print "No Sets found"
+
+  db.session.commit()
+  return "Tournament entries reassigned" 
