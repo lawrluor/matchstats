@@ -584,7 +584,8 @@ sanitized_tags_dict = {
     'Twisty',
     'Clue',
     'XPilot',
-    '-1'
+    '-1',
+    'Donnie Cash'
     ],
 
     'NorCal' : [
