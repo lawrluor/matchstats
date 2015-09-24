@@ -147,7 +147,7 @@ player_raw_regex_dict = {
     ['(rime$)'],
     ['(mr lemon$)', '(mr\. lemon$)'],
     ['(kaiju$)'],
-    ['(dudutsai$)', '(tsai$)', '(stb$)'],
+    ['(dudutsai$)', '(dudustsai$)', '(dudustai$)', '(tsai$)', '(stb$)'],
     ['(sora$)'],
     ['(hart$)'],
     ['(mr tuesday$)', '(mr\. tuesday$)'],
@@ -207,7 +207,7 @@ player_raw_regex_dict = {
     ['(seaghost$)', '(sea ghost$)'],
     ['(fang$)'],
     ['(null$)'],
-    ['(gtowntom$)', '(gtown tom)'],
+    ['(gtowntom$)', '(gtown tom$)', '(gtown_tom$)', '(gtown-tom$)', '(g-town tom$)'],
     ['(barbie$)'],
     ['(red rice$)', '(redrice$)'],
     ['(doom$)'],
@@ -242,7 +242,8 @@ player_raw_regex_dict = {
     ['(twisty$)'],
     ['(clue$)'],
     ['(xpilot$)', '(x pilot$)'],
-    ['(-1$)']
+    ['(-1$)'],
+    ['(donnie cash$)', '(donniecash$)', '(don$)']
     ],
 
     'NorCal' : [
@@ -452,7 +453,7 @@ sanitized_tags_dict = {
     'Overtriforce',
     'DaShizWiz',
     'Vwins',
-    'Th0rn',
+    'Thorn',
     'Lovage',
     'Jman',
     'Gucci',
