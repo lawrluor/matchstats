@@ -59,7 +59,7 @@ def populate_trueskills(user):
   	Adds TrueSkill association for Global if it does not already exist.
   	Deletes TrueSkill association for Region if User no longer is associated with that region.
 	"""
-
+	
 	# case for when User has no TrueSkills; if User has region, populate both Global and region Trueskill
 	if len(user.trueskills)<=0:
 		user.trueskills.append(TrueSkill(region="Global", mu=MU, sigma=SIGMA, cons_mu=CONS_MU))
