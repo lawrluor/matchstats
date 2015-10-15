@@ -124,7 +124,7 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, tour
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
   else:
-    tournamemnt_title = None
+    tournament_title = None
   
   if 'host' in tournament_info:
     tournament_host = tournament_info['host']
