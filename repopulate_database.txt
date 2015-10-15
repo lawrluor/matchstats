@@ -1,0 +1,14 @@
+easy_install trueskill
+
+python ./parse_challonge_tournamentlist.py NE_tournamentlist.txt
+python ./parse_challonge_tournamentlist.py SoCal_tournamentlist.txt
+python ./parse_challonge_tournamentlist.py North_Carolina_tournamentlist.txt
+python ./parse_challonge_tournamentlist.py global_tournamentlist.txt
+python ./parse_pool_list.py
+
+python ./NE_database_maintenance.py
+python ./SoCal_database_maintenance.py
+python ./North_Carolina_database_maintenance.py
+python ./global_database_maintenance.py
+
+python ./recalculate_trueskill

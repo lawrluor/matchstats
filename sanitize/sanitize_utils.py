@@ -183,7 +183,7 @@ player_raw_regex_dict = {
     ['(bonk$)', '(bonk cushy$)', '(bonkcushy$)', '(notable bonk$)'],
     ['(shkshk$)', '(shk shk)'],
     ['(snoweiner$)', '(snowweiner$)'],
-    ['(stoc$)'],
+    ['(stoc$)', '(stoc\$\$$)'],
     ['(wind$)'],
     ['(swissmiss$)', '(swiss miss$)'],
     ['(hackey$)'],
@@ -243,7 +243,9 @@ player_raw_regex_dict = {
     ['(clue$)'],
     ['(xpilot$)', '(x pilot$)'],
     ['(-1$)'],
-    ['(donnie cash$)', '(donniecash$)', '(don$)']
+    ['(donnie cash$)', '(donniecash$)', '(don$)'],
+    ['(infinite numbers$)', '(numbers$)'],
+    ['(blahyay$)']
     ],
 
     'NorCal' : [
@@ -309,7 +311,8 @@ player_raw_regex_dict = {
     ['(sacasumoto$)'],
     ['(null$)'],
     ['(zeo$)'],
-    ['(tonic$)']
+    ['(tonic$)'],
+    ['(sora$)']
     ],
 
     'North Carolina' : [
@@ -490,7 +493,7 @@ sanitized_tags_dict = {
     'Mr. Lemon',
     'Kaiju',
     'Dudutsai',
-    'Sora',
+    'Sora [New England]',
     'Hart',
     'Mr. Tuesday',
     'BVB',
@@ -585,7 +588,9 @@ sanitized_tags_dict = {
     'Clue',
     'XPilot',
     '-1',
-    'Donnie Cash'
+    'Donnie Cash',
+    'Infinite Numbers',
+    'Blahyay'
     ],
 
     'NorCal' : [
@@ -651,7 +656,8 @@ sanitized_tags_dict = {
     'SacaSuMoto',
     'Null [SoCal]',
     'Zeo [SoCal]',
-    'Tonic [SoCal]'
+    'Tonic [SoCal]',
+    'Sora [SoCal]'
     ],
 
     'North Carolina' : [

@@ -1,45 +1,45 @@
-New\ Game\ Plus\ 1|http://bigbluees.challonge.com/NGP1|New\ England|04/28/2015
-New\ Game\ Plus\ 2|http://bigbluees.challonge.com/NGP2|New\ England|05/05/2015
-New\ Game\ Plus\ 3|http://bigbluees.challonge.com/NGP3|New\ England|05/12/2015
-New\ Game\ Plus\ 4|http://bigbluees.challonge.com/NGP4|New\ England|05/19/2015
-New\ Game\ Plus\ 5|http://bigbluees.challonge.com/NGP5|New\ England|06/26/2015
-New\ Game\ Plus\ 6|http://bigbluees.challonge.com/NGP6|New\ England|06/02/2015
-New\ Game\ Plus\ 7|http://bigbluees.challonge.com/NGP7|New\ England|06/09/2015
-New\ Game\ Plus\ 8|http://bigbluees.challonge.com/NGP8|New\ England|06/16/2015
-New\ Game\ Plus\ 9|http://bigbluees.challonge.com/NGP9|New\ England|06/23/2015
-New\ Game\ Plus\ 10|http://bigbluees.challonge.com/NGP10|New\ England|06/30/2015
-New\ Game\ Plus\ 11|http://bigbluees.challonge.com/NGP11|New\ England|07/07/2015
-New\ Game\ Plus\ 12|http://bigbluees.challonge.com/NGP12|New\ England|07/14/2015
-New\ Game\ Plus\ 13|http://bigbluees.challonge.com/NGP13|New\ England|07/21/2015
-New\ Game\ Plus\ 14|http://bigbluees.challonge.com/NGP14|New\ England|07/28/2015
-New\ Game\ Plus\ 15|http://bigbluees.challonge.com/NGP15|New\ England|08/04/2015
-New\ Game\ Plus\ 16|http://bigbluees.challonge.com/NGP16|New\ England|08/11/2015
-New\ Game\ Plus\ 17|http://bigbluees.challonge.com/NGP17|New\ England|08/19/2015
-New\ Game\ Plus\ 18|http://bigbluees.challonge.com/NGP18|New\ England|08/26/2015
+New\ Game\ Plus\ 1|http://bigbluees.challonge.com/New\ Game\ Plus1|New\ England|04/28/2015
+New\ Game\ Plus\ 2|http://bigbluees.challonge.com/New\ Game\ Plus2|New\ England|05/05/2015
+New\ Game\ Plus\ 3|http://bigbluees.challonge.com/New\ Game\ Plus3|New\ England|05/12/2015
+New\ Game\ Plus\ 4|http://bigbluees.challonge.com/New\ Game\ Plus4|New\ England|05/19/2015
+New\ Game\ Plus\ 5|http://bigbluees.challonge.com/New\ Game\ Plus5|New\ England|06/26/2015
+New\ Game\ Plus\ 6|http://bigbluees.challonge.com/New\ Game\ Plus6|New\ England|06/02/2015
+New\ Game\ Plus\ 7|http://bigbluees.challonge.com/New\ Game\ Plus7|New\ England|06/09/2015
+New\ Game\ Plus\ 8|http://bigbluees.challonge.com/New\ Game\ Plus8|New\ England|06/16/2015
+New\ Game\ Plus\ 9|http://bigbluees.challonge.com/New\ Game\ Plus9|New\ England|06/23/2015
+New\ Game\ Plus\ 10|http://bigbluees.challonge.com/New\ Game\ Plus10|New\ England|06/30/2015
+New\ Game\ Plus\ 11|http://bigbluees.challonge.com/New\ Game\ Plus11|New\ England|07/07/2015
+New\ Game\ Plus\ 12|http://bigbluees.challonge.com/New\ Game\ Plus12|New\ England|07/14/2015
+New\ Game\ Plus\ 13|http://bigbluees.challonge.com/New\ Game\ Plus13|New\ England|07/21/2015
+New\ Game\ Plus\ 14|http://bigbluees.challonge.com/New\ Game\ Plus14|New\ England|07/28/2015
+New\ Game\ Plus\ 15|http://bigbluees.challonge.com/New\ Game\ Plus15|New\ England|08/04/2015
+New\ Game\ Plus\ 16|http://bigbluees.challonge.com/New\ Game\ Plus16|New\ England|08/11/2015
+New\ Game\ Plus\ 17|http://bigbluees.challonge.com/New\ Game\ Plus17|New\ England|08/19/2015
+New\ Game\ Plus\ 18|http://bigbluees.challonge.com/New\ Game\ Plus18|New\ England|08/26/2015
 MCG\ May|http://competitivegaming.challonge.com/MCGMAYmelee|New\ England|05/23/2015
 MCG\ June|http://competitivegaming.challonge.com/MCGJUNEmelee|New\ England|06/20/2015
 MCG\ July|http://competitivegaming.challonge.com/MCGJULYmelee|New\ England|07/25/2015
-HOG\ Biweekly\ 15|http://ctmelee.challonge.com/hog15thbiweekly|New\ England|None
-HOG\ Biweekly\ 16|http://ctmelee.challonge.com/hog16thbiweekly|New\ England|None
-HOG\ Biweekly\ 17|http://ctmelee.challonge.com/hog17thbiweekly|New\ England|None
+HoG\ Biweekly\ 15|http://ctmelee.challonge.com/HoG15thbiweekly|New\ England|None
+HoG\ Biweekly\ 16|http://ctmelee.challonge.com/HoG16thbiweekly|New\ England|None
+HoG\ Biweekly\ 17|http://ctmelee.challonge.com/HoG17thbiweekly|New\ England|None
 See\ Me\ In\ Office\ Hours\ 1|http://ctmelee.challonge.com/smioh1|New\ England|None
-HOG\ Biweekly\ 18|http://ctmelee.challonge.com/hog18thbiweekly|New\ England|None
-HOG\ Biweekly\ 19|http://ctmelee.challonge.com/hog19thbiweekly|New\ England|None
-HOG\ Biweekly\ 20|http://ctmelee.challonge.com/hog20thbiweekly|New\ England|None
+HoG\ Biweekly\ 18|http://ctmelee.challonge.com/HoG18thbiweekly|New\ England|None
+HoG\ Biweekly\ 19|http://ctmelee.challonge.com/HoG19thbiweekly|New\ England|None
+HoG\ Biweekly\ 20|http://ctmelee.challonge.com/HoG20thbiweekly|New\ England|None
 See\ Me\ In\ Office\ Hours\ 2|http://ctmelee.challonge.com/Smioh2|New\ England|None
-HOG\ Biweekly\ 21|http://ctmelee.challonge.com/hog21stbiweekly|New\ England|None
-HOG\ Biweekly\ 22|http://ctmelee.challonge.com/hog22ndbiweekly|New\ England|None
-HOG\ Monthly\ 1|http://ctmelee.challonge.com/hogmonthly1singles|New\ England|None
-HOG\ Biweekly\ 23|http://ctmelee.challonge.com/hog23rdbiweekly|New\ England|None
-HOG\ Biweekly\ 24|http://ctmelee.challonge.com/hog24thbiweekly|New\ England|None
-HOG\ Biweekly\ 25|http://ctmelee.challonge.com/hog25thbiweekly|New\ England|None
-HOG\ Monthly\ 2|http://ctmelee.challonge.com/hogmonthlysingles2|New\ England|None
-HOG\ Biweekly\ 27|http://ctmelee.challonge.com/hog27thbiweekly|New\ England|None
-HOG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|None
-HOG\ Biweekly\ 28|http://ctmelee.challonge.com/hog28thbiweekly|New\ England|None
-HOG\ Biweekly\ 29|http://ctmelee.challonge.com/hogbiweekly29/|New\ England|None
+HoG\ Biweekly\ 21|http://ctmelee.challonge.com/HoG21stbiweekly|New\ England|None
+HoG\ Biweekly\ 22|http://ctmelee.challonge.com/HoG22ndbiweekly|New\ England|None
+HoG\ Monthly\ 1|http://ctmelee.challonge.com/HoGmonthly1singles|New\ England|None
+HoG\ Biweekly\ 23|http://ctmelee.challonge.com/HoG23rdbiweekly|New\ England|None
+HoG\ Biweekly\ 24|http://ctmelee.challonge.com/HoG24thbiweekly|New\ England|None
+HoG\ Biweekly\ 25|http://ctmelee.challonge.com/HoG25thbiweekly|New\ England|None
+HoG\ Monthly\ 2|http://ctmelee.challonge.com/HoGmonthlysingles2|New\ England|None
+HoG\ Biweekly\ 27|http://ctmelee.challonge.com/HoG27thbiweekly|New\ England|None
+HoG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|None
+HoG\ Biweekly\ 28|http://ctmelee.challonge.com/HoG28thbiweekly|New\ England|None
+HoG\ Biweekly\ 29|http://ctmelee.challonge.com/HoGbiweekly29/|New\ England|None
 Mass\ Madness\ 4\ (Pro)|http://bigbluees.challonge.com/MMM4Pro|New\ England|08/29/2015
-Mass\ Madness\ 4\ (AMA)|http://bigbluees.challonge.com/MMM4Ama|New\ England|08/29/2015
+Mass\ Madness\ 4\ (Ama)|http://bigbluees.challonge.com/MMM4Ama|New\ England|08/29/2015
 Mass\ Madness\ 3\ (Pro)|http://bigbluees.challonge.com/MMM3Pro|New\ England|08/02/2015
 Mass\ Madness\ 3\ (Ama)|http://bigbluees.challonge.com/MMM3Ama|New\ England|08/02/2015
 Mass\ Madness\ 2\ (Pro)|http://bigbluees.challonge.com/MMM2P|New\ England|06/27/2015
@@ -64,35 +64,35 @@ Cold\ Hard\ Smash\ (Pro)|http://unhsmash.challonge.com/CHS2Singles|New\ England|
 Cold\ Hard\ Smash\ (Ama)|http://unhsmash.challonge.com/CHS2SinglesAM|New\ England|7/11/2015
 SSTBBQ\ 2015|http://challonge.com/SSTBBQMelee|New\ England|8/19/2015
 Summer\ Super\ Smash\ Showdown\ (NE)|http://challonge.com/MFGAS4M1v1|New\ England|7/18/2015
-QCM 5|http://challonge.com/QCMV|New\ England|01/25/2015
-QCM 6|http://challonge.com/QCMVI|New\ England|02/22/2015
-QCM 7|http://challonge.com/QCM7|New\ England|03/15/2015
-QCM 8|http://challonge.com/QCM8|New\ England|04/26/2015
-QCM 9|http://challonge.com/QCM9|New\ England|05/17/2015
-QCM 10|http://challonge.com/QCMX|New\ England|06/28/2015
-QCM 11|http://challonge.com/QCMXI|New\ England|08/03/2015
-QCM 12|http://challonge.com/QCM12|New\ England|08/30/2015
+QCM\ 5|http://challonge.com/QCMV|New\ England|01/25/2015
+QCM\ 6|http://challonge.com/QCMVI|New\ England|02/22/2015
+QCM\ 7|http://challonge.com/QCM7|New\ England|03/15/2015
+QCM\ 8|http://challonge.com/QCM8|New\ England|04/26/2015
+QCM\ 9|http://challonge.com/QCM9|New\ England|05/17/2015
+QCM\ 10|http://challonge.com/QCMX|New\ England|06/28/2015
+QCM\ 11|http://challonge.com/QCMXI|New\ England|08/03/2015
+QCM\ 12|http://challonge.com/QCM12|New\ England|08/30/2015
 MCG\ August|http://competitivegaming.challonge.com/MCGAUGUSTmelee|New\ England|08/24/2015
-MMOM 1|http://challonge.com/MakemoneyoffMelee|New England|04/23/2015
-MMOM 2|http://mmom.challonge.com/MakemoneyoffMelee2|New\ England|05/07/2015
-MMOM 3|http://mmom.challonge.com/MakeMoneyOffMelee3|New\ England|05/14/2015
-MMOM 4|http://mmom.challonge.com/MakeMoneyOffMelee4|New\ England|05/21/2015
-MMOM 5|http://mmom.challonge.com/MakeMoneyOffMelee5|New\ England|05/27/2015
-MMOM 6|http://mmom.challonge.com/MakeMoneyOffMelee6|New\ England|06/03/2015
-MMOM 7|http://mmom.challonge.com/MakeMoneyOffMelee7|New\ England|06/10/2015
-MMOM 8|http://mmom.challonge.com/MakeMoneyOffMelee8|New\ England|06/17/2015
-MMOM 9|http://mmom.challonge.com/makemoneyoffmelee9|New\ England|07/01/2015
-MMOM 10|http://mmom.challonge.com/MMOM10Singles|New England|07/08/2015
-MMOM 11|http://mmom.challonge.com/MMOM10Singles|New\ England|07/15/2015
-MMOM 12|http://mmom.challonge.com/MMOM12Singles|New\ England|07/22/2015
-MMOM 13|http://mmom.challonge.com/MMOM13Singles|New\ England|07/29/2015
-MMOM 14|http://mmom.challonge.com/MMOM14Singles|New\ England|08/05/2015
-MMOM 15|http://mmom.challonge.com/MMOM15Singles|New\ England|08/19/2015
-MMOM 16|http://mmom.challonge.com/MMOM16Singles|New\ England|08/26/2015
-New\ Game\ Plus\ 19|http://bigbluees.challonge.com/NGP19|New\ England|09/01/2015
+MMOM\ 1|http://challonge.com/MakemoneyoffMelee|New England|04/23/2015
+MMOM\ 2|http://mmom.challonge.com/MakemoneyoffMelee2|New\ England|05/07/2015
+MMOM\ 3|http://mmom.challonge.com/MakeMoneyOffMelee3|New\ England|05/14/2015
+MMOM\ 4|http://mmom.challonge.com/MakeMoneyOffMelee4|New\ England|05/21/2015
+MMOM\ 5|http://mmom.challonge.com/MakeMoneyOffMelee5|New\ England|05/27/2015
+MMOM\ 6|http://mmom.challonge.com/MakeMoneyOffMelee6|New\ England|06/03/2015
+MMOM\ 7|http://mmom.challonge.com/MakeMoneyOffMelee7|New\ England|06/10/2015
+MMOM\ 8|http://mmom.challonge.com/MakeMoneyOffMelee8|New\ England|06/17/2015
+MMOM\ 9|http://mmom.challonge.com/makemoneyoffmelee9|New\ England|07/01/2015
+MMOM\ 10|http://mmom.challonge.com/MMOM10Singles|New England|07/08/2015
+MMOM\ 11|http://mmom.challonge.com/MMOM10Singles|New\ England|07/15/2015
+MMOM\ 12|http://mmom.challonge.com/MMOM12Singles|New\ England|07/22/2015
+MMOM\ 13|http://mmom.challonge.com/MMOM13Singles|New\ England|07/29/2015
+MMOM\ 14|http://mmom.challonge.com/MMOM14Singles|New\ England|08/05/2015
+MMOM\ 15|http://mmom.challonge.com/MMOM15Singles|New\ England|08/19/2015
+MMOM\ 16|http://mmom.challonge.com/MMOM16Singles|New\ England|08/26/2015
+New\ Game\ Plus\ 19|http://bigbluees.challonge.com/New\ Game\ Plus19|New\ England|09/01/2015
 See\ Me\ In\ Office\ Hours\ 3|http://ctmelee.challonge.com/SMIOH3singles|New\ England|08/30/2015
-HOG\ Biweekly\ 30|http://ctmelee.challonge.com/hogbiweekly30|New\ England|08/27/2015
-HOG\ Monthly\ 4|http://ctmelee.challonge.com/HoGMonthly4singles|New\ England|08/22/2015
+HoG\ Biweekly\ 30|http://ctmelee.challonge.com/HoGbiweekly30|New\ England|08/27/2015
+HoG\ Monthly\ 4|http://ctmelee.challonge.com/HoGMonthly4singles|New\ England|08/22/2015
 Melee\ Monday\ 1-5-15|http://challonge.com/meleemonday010515|New\ England|01/05/2015
 Melee\ Monday\ 1-12-15|http://challonge.com/meleemonday011215|New\ England|01/12/2015
 Melee\ Monday\ 1-19-15|http://challonge.com/meleemonday011915|New\ England|01/19/2015
@@ -126,9 +126,24 @@ The\ Workshop|http://challonge.com/WorkshopSingles|New\ England|01/17/2015
 The\ Workshop\ 2|http://challonge.com/WS2M|New\ England|03/14/2015
 The\ Workshop\ 3|http://bigbluees.challonge.com/Workshop3|New\ England|06/06/2015
 3SA\ 13|http://challonge.com/3SA13M|New\ England|09/08/2015
-NGP\ 20|http://bigbluees.challonge.com/NGP20|New\ England|09/08/2015
-NGP\ 21|http://bigbluees.challonge.com/NGP21|New\ England|09/15/2015
-NGP\ 22|http://bigbluees.challonge.com/NGP22|New\ England|09/22/2015
+New\ Game\ Plus\ 20|http://bigbluees.challonge.com/New\ Game\ Plus20|New\ England|09/08/2015
+New\ Game\ Plus\ 21|http://bigbluees.challonge.com/New\ Game\ Plus21|New\ England|09/15/2015
+New\ Game\ Plus\ 22|http://bigbluees.challonge.com/New\ Game\ Plus22|New\ England|09/22/2015
+New\ Game\ Plus\ 23|http://bigbluees.challonge.com/New\ Game\ Plus23|New\ England|09/29/2015
 MMOM\ 18|http://mmom.challonge.com/MMoM18Singles|New\ England|09/16/2015
 MMOM\ 19|http://mmom.challonge.com/MMoM19singles|New\ England|09/23/2015
-HOG\ 31|http://ctmelee.challonge.com/hog31biweekly|New\ England|09/24/2015
+MMOM\ 20|http://mmom.challonge.com/MMOM20|New\ England|09/30/2015
+HoG\ Biweekly\ 31|http://ctmelee.challonge.com/HoG31biweekly|New\ England|09/10/2015
+HoG\ Biweekly\ 32|http://ctmelee.challonge.com/HoGbiweekly32|New\ England|09/24/2015
+Level\ Up\ Melee\ 3.1|http://levelupmelee.challonge.com/31S|New\ England|09/13/2015
+Level\ Up\ Melee\ 3.2|http://levelupmelee.challonge.com/32S|New\ England|09/20/2015
+Level\ Up\ Melee\ 3.3|http://levelupmelee.challonge.com/33S|New\ England|09/27/2015
+MCG\ September|http://competitivegaming.challonge.com/MCGSeptemberMelee|New\ England|09/26/2015
+QCM\ 13|http://challonge.com/QCMXIII|New\ England|09/13/2015
+New\ Game\ Plus\ 24|http://bigbluees.challonge.com/New\ Game\ Plus24|New\ England|10/06/2015
+MMOM\ 21|http://mmom.challonge.com/MMOM21|New\ England|10/06/2015
+MultiShine\ 10-05-15|http://challonge.com/MultiShine100515|New\ England|10/05/2015
+The\ HillHouse\ 1|http://challonge.com/brookmandidnothingwrong|New\ England|10/10/2015
+HoG\ Biweekly\ 33|http://ctmelee.challonge.com/HoGbiweekly33b|New\ England|10/08/2015
+Level\ Up\ Melee\ 3.4|http://levelupmelee.challonge.com/34S|New\ England|10/11/2015
+New\ Game\ Plus\ 25|http://bigbluees.challonge.com/New\ Game\ Plus25|New\ England|10/13/2015
