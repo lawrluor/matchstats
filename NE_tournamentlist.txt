@@ -2,7 +2,7 @@ New\ Game\ Plus\ 1|http://bigbluees.challonge.com/NGP1|New\ England|04/28/2015
 New\ Game\ Plus\ 2|http://bigbluees.challonge.com/NGP2|New\ England|05/05/2015
 New\ Game\ Plus\ 3|http://bigbluees.challonge.com/NGP3|New\ England|05/12/2015
 New\ Game\ Plus\ 4|http://bigbluees.challonge.com/NGP4|New\ England|05/19/2015
-New\ Game\ Plus\ 5|http://bigbluees.challonge.com/NGP5|New\ England|06/26/2015
+New\ Game\ Plus\ 5|http://bigbluees.challonge.com/NGP5|New\ England|05/26/2015
 New\ Game\ Plus\ 6|http://bigbluees.challonge.com/NGP6|New\ England|06/02/2015
 New\ Game\ Plus\ 7|http://bigbluees.challonge.com/NGP7|New\ England|06/09/2015
 New\ Game\ Plus\ 8|http://bigbluees.challonge.com/NGP8|New\ England|06/16/2015
@@ -33,9 +33,9 @@ HoG\ Monthly\ 1|http://ctmelee.challonge.com/HoGmonthly1singles|New\ England|Non
 HoG\ Biweekly\ 23|http://ctmelee.challonge.com/HoG23rdbiweekly|New\ England|None
 HoG\ Biweekly\ 24|http://ctmelee.challonge.com/HoG24thbiweekly|New\ England|None
 HoG\ Biweekly\ 25|http://ctmelee.challonge.com/HoG25thbiweekly|New\ England|None
-HoG\ Monthly\ 2|http://ctmelee.challonge.com/HoGmonthlysingles2|New\ England|None
+HoG\ Monthly\ 2|http://ctmelee.challonge.com/HoGmonthlysingles2|New\ England|06/13/2015
 HoG\ Biweekly\ 27|http://ctmelee.challonge.com/HoG27thbiweekly|New\ England|None
-HoG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|None
+HoG\ Monthly\ 3|http://ctmelee.challonge.com/HoGMonthly3singles|New\ England|07/18/2015
 HoG\ Biweekly\ 28|http://ctmelee.challonge.com/HoG28thbiweekly|New\ England|None
 HoG\ Biweekly\ 29|http://ctmelee.challonge.com/HoGbiweekly29/|New\ England|None
 Mass\ Madness\ 4\ (Pro)|http://bigbluees.challonge.com/MMM4Pro|New\ England|08/29/2015
@@ -151,3 +151,78 @@ HoG\ Biweekly\ 33|http://ctmelee.challonge.com/HoGbiweekly33b|New\ England|10/08
 Level\ Up\ Melee\ 3.4|http://levelupmelee.challonge.com/34S|New\ England|10/11/2015
 New\ Game\ Plus\ 25|http://bigbluees.challonge.com/NGP25|New\ England|10/13/2015
 MMOM\ 22|http://mmom.challonge.com/MMOM22|New\ England|10/14/2015
+UNH\ KKPsi\ Tournament|http://unhsmash.challonge.com/Fall2015KKPsiMeleeSingles|New\ England|10/10/2015
+MMOM\ 23|http://mmom.challonge.com/MMOM23|New\ England|10/21/2015
+New\ Game\ Plus\ 26|http://bigbluees.challonge.com/NGP26|New\ England|10/20/2015
+MultiShine\ 10-19-15|http://challonge.com/MS101915|New\ England|10/19/2015
+See\ Me\ In\ Office\ Hours\ 4|http://challonge.com/mhvu44qf|New\ England|9/27/2015
+HoG\ Biweekly\ 34|http://ctmelee.challonge.com/hogbiweekly34|New\ England|10/22/2015
+HoG\ Biweekly\ 35|http://ctmelee.challonge.com/hogbiweekly35|New\ England|11/05/2015
+Melee\ Monarchy\ 5|http://ctmelee.challonge.com/mmbw5|New\ England|10/29/2015
+Level\ Up\ Melee\ 3.7|http://levelupmelee.challonge.com/37S|New\ England|11/01/2015
+MMOM\ 24|http://mmom.challonge.com/MMOM24|New\ England|10/28/2015
+MMOM\ 25|http://mmom.challonge.com/mmom25|New\ England|11/04/2015
+Mass\ Madness\ 5\ (Pro)|http://bigbluees.challonge.com/MMM5Pro|New\ England|10/24/2015
+Mass\ Madness\ 5\ (Ama)|http://bigbluees.challonge.com/MMM5AMA|New\ England|10/24/2015
+Downtown\ Smash\ Melee\ Singles|http://challonge.com/DowntownSmash_MS|New\ England|11/01/2015
+QCM\ 14|http://challonge.com/QCMXIV|New\ England|10/25/2015
+MultiShine\ 11-02-15|http://challonge.com/MultiShine110215|New\ England|11/02/2015
+Church\ Of\ Smash\ 8|http://challonge.com/cosm8|New\ England|10/30/2015
+Church\ Of\ Smash\ 9|http://challonge.com/cosm9|New\ England|11/06/2015
+Smash\ On\ The\ Hill\ 6|http://challonge.com/sothvim|New\ England|10/17/2015
+UNH\ Extra\ Credit|http://unhsmash.challonge.com/UNHEC|New\ England|09/27/2015
+New\ Game\ Plus\ 29|http://bigbluees.challonge.com/NGP29|New\ England|11/10/2015
+MMOM\ 26|http://mmom.challonge.com/MMOM26|New\ England|11/11/2015
+Extra\ Life\ November|http://competitivegaming.challonge.com/meleeextralife|New\ England|11/07/2015
+MMOM\ 27|http://mmom.challonge.com/MMOM27|New\ England|11/18/2015
+New\ Game\ Plus\ 30|http://bigbluees.challonge.com/NGP30|New\ England|11/17/2015
+QCM\ 15|http://challonge.com/QCMXV|New\ England|11/15/2015
+Church\ Of\ Smash\ 10|http://challonge.com/cosxm|New\ England|11/13/2015
+HoG\ Biweekly\ 36|http://ctmelee.challonge.com/hog111915|New\ England|11/19/2015
+Level\ Up\ Melee\ 4.1|http://levelupmelee.challonge.com/41|New\ England|11/22/2015
+BUST\ 3\ (Buster)|http://bigbluees.challonge.com/B3Busters|New\ England|11/21/2015
+BUST\ 3\ (Amateur)|http://bigbluees.challonge.com/B3Amateur|New\ England|11/21/2015
+BUST\ 3\ (Intermediate)|http://bigbluees.challonge.com/B3Intermediate|New\ England|11/21/2015
+BUST\ 3\ (Pro)|http://bigbluees.challonge.com/B3Pro|New\ England|11/21/2015
+New\ Game\ Plus\ 31|http://bigbluees.challonge.com/NGP31|New\ England|11/25/2015
+MMOM\ 28|http://mmom.challonge.com/MMOM28|New\ England|11/26/2015
+Level\ Up\ Melee\ 4.2|http://levelupmelee.challonge.com/42|New\ England|11/29/2015
+MMOM\ 29|http://mmom.challonge.com/mmom29|New\ England|12/02/2015
+Smash\ On\ The\ Hill\ 7|http://challonge.com/soth7m|New\ England|11/21/2015
+SG\ Melee\ August\ 20|http://sgmelee.challonge.com/sgmelee8_20_15|New\ England|08/20/2015
+SG\ Melee\ August\ 27|http://sgmelee.challonge.com/sgmelee_8_27_15|New\ England|08/27/2015
+SG\ Melee\ September\ 3|http://sgmelee.challonge.com/sgmelee9_3_15|New\ England|09/03/2015
+SG\ Melee\ September\ 10|http://sgmelee.challonge.com/sgmelee9_10_15|New\ England|09/10/2015
+SG\ Melee\ September\ 17|http://sgmelee.challonge.com/sgmelee9_17_15|New\ England|09/17/2015
+SG\ Melee\ September\ 24|http://sgmelee.challonge.com/sgmelee9_24_15|New\ England|09/24/2015
+SG\ Melee\ October\ 1|http://sgmelee.challonge.com/sgmelee10_1_15|New\ England|10/01/2015
+SG\ Melee\ October\ 8|http://sgmelee.challonge.com/sgmelee10_8_15|New\ England|10/08/2015
+SG\ Melee\ October\ 15|http://sgmelee.challonge.com/sgmelee10_15_15|New\ England|10/15/2015
+SG\ Melee\ October\ 22|http://sgmelee.challonge.com/sgmelee10_22_15|New\ England|10/22/2015
+SG\ Melee\ October\ 29|http://sgmelee.challonge.com/sgmelee10_29_15|New\ England|10/29/2015
+SG\ Melee\ November\ 12|http://sgmelee.challonge.com/sgmelee11_12_15|New\ England|11/12/2015
+SG\ Melee\ November\ 19|http://sgmelee.challonge.com/sgmelee11_19_15|New\ England|11/19/2015
+SG\ Melee\ December\ 3|http://sgmelee.challonge.com/sgmelee12_3_15|New\ England|12/03/2015
+MultiShine\ 11-16-15|http://challonge.com/MS111615|New\ England|11/16/2015
+MultiShine\ 11-30-15|http://challonge.com/MS113015|New\ England|11/30/2015
+New\ Game\ Plus\ 28|http://challonge.com/NGP28|New\ England|11/03/2015
+Champlain\ Pichu\ Party|http://challonge.com/ChampPichuParty|New\ England|11/17/2015
+Champlain\ College\ Weekly\ 2|http://challonge.com/CCweekly2|New\ England|12/01/2015
+Champlain\ College\ Weekly\ 3|http://challonge.com/CCWeekly3|New\ England|12/08/2015
+New\ Game\ Plus\ 33|http://bigbluees.challonge.com/NGP33|New\ England|12/08/2015
+HoG\ Monthly\ November|http://ctmelee.challonge.com/hogmonthly112815|11/28/2015
+HoG\ Biweekly\ 37|http://ctmelee.challonge.com/HoGmelee12315|New\ England|12/03/2015
+Level\ Up\ Melee\ 4.3|http://levelupmelee.challonge.com/43S|New\ England|12/06/2015
+Church\ Of\ Smash\ 13|http://challonge.com/cosxiiim|New\ England|12/04/2015
+See\ Me\ In\ Office\ Hours\ 6|http://ctmelee.challonge.com/CME6|New\ England|12/12/2015
+HoG\ Biweekly\ 38|http://ctmelee.challonge.com/hogbiweekly121715|New\ England|12/17/2015
+Level\ Up\ Melee\ 4.4|http://levelupmelee.challonge.com/44|New\ England|12/13/2015
+MMOM\ 30|http://mmom.challonge.com/Mmom30|New\ England|12/09/2015
+MMOM\ 31|http://mmom.challonge.com/MMOM31|New\ England|12/16/2015
+New\ Game\ Plus\ 34|http://bigbluees.challonge.com/NGP34|New\ England|12/15/2015
+Wreck\ the\ Halls\ 2|http://challonge.com/WTH2_MeleeSingles|New\ England|12/19/2015
+MultiShine\ 12-14-15|http://challonge.com/MS121415|New\ England|12/14/2015
+QCM\ 16|http://challonge.com/QCMXVI|New\ England|12/13/2015
+SG\ Melee\ December\ 10|http://sgmelee.challonge.com/sgmelee12_10_15|New\ England|12/10/2015
+SG\ Melee\ December\ 17|http://sgmelee.challonge.com/sgmelee12_17_15|New\ England|12/17/2015
+Church\ Of\ Smash\ 14|http://challonge.com/cosmxiv|New\ England|12/18/2015

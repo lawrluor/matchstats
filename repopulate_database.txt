@@ -12,3 +12,7 @@ python ./North_Carolina_database_maintenance.py
 python ./global_database_maintenance.py
 
 python ./recalculate_trueskill
+
+db.session.commit()
+populate_trueskills(tournament_dump)
+db.session.commit()
