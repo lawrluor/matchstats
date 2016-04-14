@@ -9,6 +9,7 @@ import requests
 from pprint import pprint
 
 from parse_challonge_info import import_challonge_info
+from trueskill_functions import *
 
 # Parse sub_brackets of parent tournaments.
 # If the master tournament only has one sub bracket, it will find it in parse_smashgg_info and call this function
@@ -17,7 +18,7 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	sub_bracket_name = sub_bracket_info['name']
 	super_bracket_name = tournament_info['name']
 	full_bracket_name =  super_bracket_name + ' | ' + sub_bracket_name
-	print "\n---SUB BRACKET---:", sub_bracket_url, sub_bracket_name
+	print "\n---SUB BRACKET---:", full_bracket_name
 
 	sub_bracket = requests.get(sub_bracket_url)
 	sub_bracket_json = sub_bracket.json()
@@ -54,11 +55,11 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 		print '\n'
 
 	import_tournament_entrants(entrant_list, sub_tournament)
-	parse_bracket_sets(sub_bracket_json, entrant_list)
+	parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament)
 
 
 # Given JSON of the sub_bracket and list of entrants, isolate sets and record each one individually
-def parse_bracket_sets(sub_bracket_json, entrant_list):
+def parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament):
 	sets = sub_bracket_json['entities']['sets']
 	set_list = []
 	for set in sets:
@@ -95,6 +96,8 @@ def parse_bracket_sets(sub_bracket_json, entrant_list):
 	print "---SETS---"
 	for set in set_list:
 		print set
+
+	import_tournament_sets(set_list, sub_tournament)
 
 # Gets the base tournament info and stores it in dictionary.
 def parse_tournament_info(tournament_id, tournament_name, tournament_region, tournament_date):
@@ -176,3 +179,52 @@ def import_tournament_entrants(entrant_list, tournament_obj):
 
 	db.session.commit()
 	return tournament_obj
+
+def import_tournament_sets(set_list, sub_tournament):
+	for set in set_list:
+		winner_score = set['winner_score']
+		loser_score = set['loser_score']
+		total_matches = winner_score+loser_score
+
+		# After calling this function, Users by 'tag' will exist in database in any case.
+		# stores User object in respective variables
+		set_winner_tag = set['winner_tag'].strip()
+		winner_user = check_set_user(set_winner_tag, sub_tournament.region)
+
+		set_loser_tag = set['loser_tag'].strip()
+		loser_user = check_set_user(set_loser_tag, sub_tournament.region)
+
+		if 'round_number' in set:
+			round_number = int(set['round_number'])
+		else:
+			round_number = None
+
+		# Query for associated Tournament
+		if sub_tournament.name is not None:
+			assocs_tournament = Tournament.query.filter(Tournament.name==sub_tournament.name).first()
+		else:
+			print "Tournament not Found"
+
+		new_set = Set(tournament_id=assocs_tournament.id,
+	                  tournament_name=assocs_tournament.name,
+	                  round_type=round_number,
+	                  winner_tag=winner_user.tag,
+	                  loser_tag=loser_user.tag,
+	                  winner_id=winner_user.id,
+	                  loser_id=loser_user.id,
+	                  winner_score=winner_score,
+	                  loser_score=loser_score,
+	                  total_matches=winner_score+loser_score)
+
+		db.session.add(new_set)
+	    
+		# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
+		try:
+			print new_set
+		except UnicodeError:
+			pass
+
+		# update User trueskill ratings based on Set winner and loser
+		update_rating(winner_user, loser_user)
+
+	db.session.commit()

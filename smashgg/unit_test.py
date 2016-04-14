@@ -29,7 +29,7 @@ def import_tournament_entrants(entrant_list, tournament_obj):
 		print "PLACEMENTS APPENDED"
 	db.session.commit()
 	return tournament_obj
-	
+
 def import_tournament_entrants(entrant_list, tournament_obj):
 	print "TESTINGE IMPORT_TOURNAMENT_ENTRANTS"
 	print tournament_obj, tournament_obj.region
