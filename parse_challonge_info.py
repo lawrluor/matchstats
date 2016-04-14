@@ -119,8 +119,9 @@ def parse_challonge_info(tournament_url):
   print "OVERALL TOURNAMENT INFO:", tournament_info
   return tournament_info
 
+# Given processed tournament_info dict from parse_tournament_info or parse_challonge_info, add Tournament object to database with the appropriate information
 # get tourney title, host, number of entrants, bracket type, game type, and date given an info dictionary from parse_challonge_info, and a string tournament_name, and create and return a Tournament object
-def import_challonge_info(tournament_info, tournament_name, tournament_url, tournament_region, tournament_date):
+def import_challonge_info(tournament_info, tournament_name, tournament_region, tournament_date):
   if 'title' in tournament_info:
     tournament_title = tournament_info['title']
   else:
@@ -157,6 +158,11 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, tour
       tournament_date = datetime.date(2099, 01, 01)
   print "DATE", tournament_date
 
+  if 'url' in tournament_info:
+      tournament_url = tournament_info['url']
+  else:
+      tournament_url = None
+
   if tournament_name is None:
     tournament_name = "Non-Tourney"
  
@@ -172,11 +178,13 @@ def import_challonge_info(tournament_info, tournament_name, tournament_url, tour
                               name=tournament_name)
 
   db.session.add(new_tournament)
+
   # add tournament_region; if None, then it adds None
   found_region = Region.query.filter(Region.region==tournament_region).first()
   new_tournament.region = found_region
 
   db.session.commit()
+  print new_tournament
   return new_tournament
 
 # static dictionary to convert calendar date to datetime, used in convert_date
