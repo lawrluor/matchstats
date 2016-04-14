@@ -212,7 +212,7 @@ class Placement(db.Model):
   def __unicode__(self):
    return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
 
-# Tournament is the many in a one=to-many relationship with model Set
+# Tournament is the many in a one-to-many relationship with model Set
 class Tournament(db.Model):
   __tablename__ = 'tournament'
   id = db.Column(db.Integer, primary_key=True)

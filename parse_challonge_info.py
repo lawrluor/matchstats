@@ -184,7 +184,6 @@ def import_challonge_info(tournament_info, tournament_name, tournament_region, t
   new_tournament.region = found_region
 
   db.session.commit()
-  print new_tournament
   return new_tournament
 
 # static dictionary to convert calendar date to datetime, used in convert_date
