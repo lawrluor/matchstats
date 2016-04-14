@@ -189,10 +189,9 @@ def import_tournament_sets(set_list, sub_tournament):
 		# After calling this function, Users by 'tag' will exist in database in any case.
 		# stores User object in respective variables
 		set_winner_tag = set['winner_tag'].strip()
-		winner_user = check_set_user(set_winner_tag, sub_tournament.region)
-
+		winner_user = check_set_user(set_winner_tag, sub_tournament.region.region)
 		set_loser_tag = set['loser_tag'].strip()
-		loser_user = check_set_user(set_loser_tag, sub_tournament.region)
+		loser_user = check_set_user(set_loser_tag, sub_tournament.region.region)
 
 		if 'round_number' in set:
 			round_number = int(set['round_number'])

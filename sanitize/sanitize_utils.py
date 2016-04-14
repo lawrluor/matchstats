@@ -814,6 +814,7 @@ def check_and_sanitize_tag(tag, *args): #region is optional parameter
   # if region is included in parameter, use region list
   if len(args)==1 and args[0] is not None:
     region_name = args[0]
+    # DEBUG: print "region name", region_name, type(region_name). Make sure region_name is str and not Region object
     if region_name in player_raw_regex_dict and region_name in sanitized_tags_dict:
       return sanitize_tag(tag, player_regex_dict[region_name], sanitized_tags_dict[region_name]) 
   elif len(args)==0 or args[0] is None:

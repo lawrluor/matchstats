@@ -58,6 +58,13 @@ class Region(db.Model):
   def __str__(self):
     return self.region
 
+  def adopt_user(self, user_tag):
+    user = User.query.filter(User.tag==user_tag).first()
+    users.append(user)
+    db.session.commit()
+    return user
+    
+
 # the Parent to the Child Character in User-Character association
 class User(db.Model):
   __tablename__ = 'user'
@@ -152,7 +159,7 @@ class User(db.Model):
 
   def add_secondaries_list(self, characterlist):
     for i in range(len(characterlist)):
-      character = Character.query.filter(Character.name == characterlist[i]).first()
+      character = Character.query.filter(Character.name==haracterlist[i]).first()
       if characterlist[i] in secondaries_char_list and character.name != self.main:
         print character.name, self.main
         if not self.is_secondary(character.name):
@@ -163,13 +170,14 @@ class User(db.Model):
 
   def remove_secondaries_list(self, characterlist):
     for i in range(len(characterlist)):
-      character = Character.query.filter(Character.name == characterlist[i]).first()
+      character = Character.query.filter(Character.name==characterlist[i]).first()
       if characterlist[i] in secondaries_char_list and character.name != self.main:
         if self.is_secondary(character.name):
           self.remove_secondary(character.name)
         else:
           print "Character %s is not a secondary of User" % character.name
     return self
+
 
 # Based on tag parameter, queries User database to locate the respective User; if not found, creates new one, and adds to the database; in either case User is returned. If region parameter is provided, adds region after User creation.
 # If first time the User is encountered (i.e. created during this function, it will create a User with the respective region field. Region is primarily provided by parse_challonge_standings
@@ -181,16 +189,16 @@ def check_set_user(set_user_tag, *args):
     user_region = None
 
   # When Challonge player uses an account icon, a '\n' character is produced. Check for this by stripping it off the end
-  set_user_tag = check_and_sanitize_tag(set_user_tag, user_region)
-  set_user = User.query.filter(User.tag==set_user_tag).first()
+  sanitized_tag = check_and_sanitize_tag(set_user_tag, user_region)
+  set_user = User.query.filter(User.tag==sanitized_tag).first()
   if set_user is None:
     # Create new user, initializing tag (User.id automatically assigned)
     # if tag over 64 characters, truncated
-    set_user = User(tag=set_user_tag[:64])
+    set_user = User(tag=sanitized_tag[:64])
     found_region = Region.query.filter(Region.region==user_region).first()
     set_user.region = found_region 
 
-    db.session.add(set_user) 
+    db.session.add(set_user)
     db.session.commit()
   return set_user
 
