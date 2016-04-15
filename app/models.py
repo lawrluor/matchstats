@@ -182,9 +182,12 @@ class User(db.Model):
 # Based on tag parameter, queries User database to locate the respective User; if not found, creates new one, and adds to the database; in either case User is returned. If region parameter is provided, adds region after User creation.
 # If first time the User is encountered (i.e. created during this function, it will create a User with the respective region field. Region is primarily provided by parse_challonge_standings
 def check_set_user(set_user_tag, *args):
-  # Get optional region argument, if provided
+  # Get optional Region object argument, if provided
   if len(args)==1:
-    user_region = args[0]
+    if args[0] is not None:
+      user_region = args[0].region
+    else:
+      user_region = None
   else:
     user_region = None
 

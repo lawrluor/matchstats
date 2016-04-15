@@ -160,15 +160,11 @@ def parse_bracket_info(tournament_url, tournament_name, tournament_region, tourn
 		parse_sub_bracket_info(sub_bracket, tournament_info)
 
 
-# Import smashgg entrants and create User objects
+# Import smashgg entrants and create User objects in database
 def import_tournament_entrants(entrant_list, tournament_obj):
 	for entrant in entrant_list:
 		player_tag = entrant['player_tag']
-
-		if tournament_obj.region:
-			checked_player = check_set_user(player_tag, tournament_obj.region.region)
-		else:
-			checked_player = check_set_user(player_tag)
+		checked_player = check_set_user(player_tag, tournament_obj.region)
 
 		tournament_obj.placements.append(Placement(
 										tournament_id=tournament_obj.id,
@@ -176,10 +172,11 @@ def import_tournament_entrants(entrant_list, tournament_obj):
 										user_id=checked_player.id,
 										placement=int(entrant['player_sub_placing'])
 										))
-
+	tournament_obj.entrants = len(entrant_list)
 	db.session.commit()
 	return tournament_obj
 
+# Import smashgg sets, associate them with Tournament and create Set objects in database
 def import_tournament_sets(set_list, sub_tournament):
 	for set in set_list:
 		winner_score = set['winner_score']
@@ -189,9 +186,9 @@ def import_tournament_sets(set_list, sub_tournament):
 		# After calling this function, Users by 'tag' will exist in database in any case.
 		# stores User object in respective variables
 		set_winner_tag = set['winner_tag'].strip()
-		winner_user = check_set_user(set_winner_tag, sub_tournament.region.region)
+		winner_user = check_set_user(set_winner_tag, sub_tournament.region)
 		set_loser_tag = set['loser_tag'].strip()
-		loser_user = check_set_user(set_loser_tag, sub_tournament.region.region)
+		loser_user = check_set_user(set_loser_tag, sub_tournament.region)
 
 		if 'round_number' in set:
 			round_number = int(set['round_number'])
