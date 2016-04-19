@@ -63,6 +63,12 @@ class Region(db.Model):
     users.append(user)
     db.session.commit()
     return user
+
+  def adopt_tournament(self, tournament_name):
+    tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
+    self.tournaments.append(tournament)
+    db.session.commit()
+    return tournament
     
 
 # the Parent to the Child Character in User-Character association
@@ -185,7 +191,10 @@ def check_set_user(set_user_tag, *args):
   # Get optional Region object argument, if provided
   if len(args)==1:
     if args[0] is not None:
-      user_region = args[0].region
+      if type(args[0])==str:
+        user_region = args[0]
+      else:
+        user_region = args[0].region
     else:
       user_region = None
   else:
@@ -229,19 +238,43 @@ class Tournament(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   official_title =  db.Column(db.String(128), index=True)
   host = db.Column(db.String(128), index=True)
-  url = db.Column(db.String(128), index=True)
+  url = db.Column(db.String(256), index=True)
+  public_url = db.Column(db.String(256), index=True)
   entrants = db.Column(db.Integer)
   bracket_type = db.Column(db.String(128), index=True)
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
   name = db.Column(db.String(128), index=True)
   tournament_type = db.Column(db.String(64), index=True)
+  sub_tournaments = db.relationship("SubTournament", backref="parent_tournament")
   region_id = db.Column(db.Integer, ForeignKey('region.id'))
-  sets = db.relationship("Set", backref="tournament") 
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s>' \
+    % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sub_tournaments)
 
+  def addSubTournament(sub_tournament_name):
+    sub_tournament = SubTournament.query.filter(SubTournament.name==sub_tournament_name)
+    self.sub_tournaments.append(sub_tournament)
+
+class SubTournament(db.Model):
+  __tablename__ = 'sub_tournament'
+  id = db.Column(db.Integer, primary_key=True)
+  official_title =  db.Column(db.String(128), index=True)
+  host = db.Column(db.String(128), index=True)
+  url = db.Column(db.String(256), index=True)
+  public_url = db.Column(db.String(256))
+  entrants = db.Column(db.Integer)
+  bracket_type = db.Column(db.String(128), index=True)
+  date = db.Column(db.Date)
+  name = db.Column(db.String(256), index=True)
+  tournament_type = db.Column(db.String(64), index=True)
+  parent_tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
+  sets = db.relationship("Set", backref="sub_tournament")
+
+  def __repr__(self):
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, date: %s>' \
+    % (self.name, self.tournament_type, self.parent_tournament.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.date)
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
@@ -256,7 +289,7 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   round_type = db.Column(db.Integer)
-  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'))
+  tournament_id = db.Column(db.Integer, db.ForeignKey('sub_tournament.id'))
   tournament_name = db.Column(db.String(128))
   
   def __repr__(self):

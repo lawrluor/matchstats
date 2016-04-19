@@ -28,7 +28,10 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	# Change values for # entrants, url, name
 	tournament_info['url'] = sub_bracket_url
 	sub_tournament = import_challonge_info(tournament_info, full_bracket_name, tournament_info['region'], tournament_info['date'])
+	parse_bracket_entrants(sub_bracket_json, sub_tournament)
+	parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament)
 
+def parse_bracket_entrants(sub_bracket_json, sub_tournament):
 	condensed_entrants = sub_bracket_json['entities']['seeds']
 	entrant_list = []
 	for entrant in condensed_entrants:
@@ -44,19 +47,16 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 		entrant_info['player_country'] = entrant['condensed']['player'][0].get("country")
 		entrant_info['player_state'] = entrant['condensed']['player'][0].get("state")
 		entrant_info['player_sub_seed'] = entrant.get("groupSeedNum")
+		entrant_info['player_super_seed'] = entrant.get("seedNum")
 		entrant_info['player_sub_placing'] = entrant.get("placement")
 		entrant_info['player_super_placing'] = entrant.get("placement")
-		entrant_info['player_super_seed'] = entrant.get("seedNum")
 		entrant_list.append(entrant_info)
 
 	print "\n---ENTRANTS---"
 	for entrant in entrant_list:
 		print entrant
 		print '\n'
-
 	import_tournament_entrants(entrant_list, sub_tournament)
-	parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament)
-
 
 # Given JSON of the sub_bracket and list of entrants, isolate sets and record each one individually
 def parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament):
@@ -96,7 +96,6 @@ def parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament):
 	print "---SETS---"
 	for set in set_list:
 		print set
-
 	import_tournament_sets(set_list, sub_tournament)
 
 # Gets the base tournament info and stores it in dictionary.
@@ -121,7 +120,7 @@ def parse_tournament_info(tournament_id, tournament_name, tournament_region, tou
 	print "\n---TOURNAMENT INFO---\n", tournament_info
 	return tournament_info
 
-# Eventually, get this tournament id from first number in original url: https://smash.gg/tournament/new-game-plus-49/brackets/12509/26065/85665
+
 # Master function
 def parse_bracket_info(tournament_url, tournament_name, tournament_region, tournament_date):
 	if tournament_url is None:

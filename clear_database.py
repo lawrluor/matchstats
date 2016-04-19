@@ -15,6 +15,7 @@ setlist = Set.query.all()
 matchlist = Match.query.all()
 tournamentlist = Tournament.query.all()
 regionlist = Region.query.all()
+subtournamentlist = SubTournament.query.all()
 
 for user in userlist:
 	db.session.delete(user)
@@ -28,6 +29,9 @@ for match in matchlist:
 # Keep default "Non-Tourney" Tournament object at id=1, index=0
 for i in range(len(tournamentlist)):
 	db.session.delete(tournamentlist[i])
+
+for sub_tournament in subtournamentlist:
+	db.session.delete(sub_tournament)
 
 # Keep regions
 # for i in range(len(regionlist)):
