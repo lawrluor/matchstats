@@ -221,7 +221,7 @@ class Placement(db.Model):
   tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'),  primary_key=True)
   user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
-  tournament_name = db.Column(db.String(128))
+  tournament_name = db.Column(db.String(256))
   seed = db.Column(db.Integer)
   user = db.relationship("User", backref=backref("tournament_assocs", cascade='all, delete-orphan'))
   tournament = db.relationship("Tournament", backref=backref("placements", cascade='all, delete-orphan'))
@@ -236,7 +236,9 @@ class Placement(db.Model):
 class Tournament(db.Model):
   __tablename__ = 'tournament'
   id = db.Column(db.Integer, primary_key=True)
-  official_title =  db.Column(db.String(128), index=True)
+  parent_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
+  sub_tournaments = db.relationship("Tournament", backref="parent")
+  official_title =  db.Column(db.String(256), index=True)
   host = db.Column(db.String(128), index=True)
   url = db.Column(db.String(256), index=True)
   public_url = db.Column(db.String(256), index=True)
@@ -244,37 +246,15 @@ class Tournament(db.Model):
   bracket_type = db.Column(db.String(128), index=True)
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
-  name = db.Column(db.String(128), index=True)
-  tournament_type = db.Column(db.String(64), index=True)
-  sub_tournaments = db.relationship("SubTournament", backref="parent_tournament")
-  region_id = db.Column(db.Integer, ForeignKey('region.id'))
-
-  def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s>' \
-    % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sub_tournaments)
-
-  def addSubTournament(sub_tournament_name):
-    sub_tournament = SubTournament.query.filter(SubTournament.name==sub_tournament_name)
-    self.sub_tournaments.append(sub_tournament)
-
-class SubTournament(db.Model):
-  __tablename__ = 'sub_tournament'
-  id = db.Column(db.Integer, primary_key=True)
-  official_title =  db.Column(db.String(128), index=True)
-  host = db.Column(db.String(128), index=True)
-  url = db.Column(db.String(256), index=True)
-  public_url = db.Column(db.String(256))
-  entrants = db.Column(db.Integer)
-  bracket_type = db.Column(db.String(128), index=True)
-  date = db.Column(db.Date)
   name = db.Column(db.String(256), index=True)
   tournament_type = db.Column(db.String(64), index=True)
-  parent_tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
-  sets = db.relationship("Set", backref="sub_tournament")
+  region_id = db.Column(db.Integer, ForeignKey('region.id'))
+  sets = db.relationship("Set", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, date: %s>' \
-    % (self.name, self.tournament_type, self.parent_tournament.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.date)
+    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s, sets: %s>' \
+    % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sub_tournaments, len(self.sets))
+
 
 # Set is the one in a one-to-many relationship with model Match
 class Set(db.Model):
@@ -289,8 +269,8 @@ class Set(db.Model):
   total_matches = db.Column(db.Integer)
   matches = db.relationship('Match', backref="Set", lazy='dynamic')
   round_type = db.Column(db.Integer)
-  tournament_id = db.Column(db.Integer, db.ForeignKey('sub_tournament.id'))
-  tournament_name = db.Column(db.String(128))
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
+  tournament_name = db.Column(db.String(256))
   
   def __repr__(self):
     return '<tournament: %s, round %s | winner_tag %s ; winner_id %s: winner_score %s | loser_tag %s ; loser_id %s: loser_score %s>' % (self.tournament_name, self.round_type, self.winner_tag, self.winner_id, self.winner_score, self.loser_tag, self.loser_id, self.loser_score)
