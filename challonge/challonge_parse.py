@@ -33,9 +33,8 @@ class TournamentInfo:
 
 	def __str__(self):
 		return 'TournamentInfo(id=%s, parent=%s, name=%s, region=%s, date=%s, official_title=%s, host=%s,\
-		url=%s, entrants=%s, bracket_type=%s, game_type=%s)' % (self.id, self.parent, self.name,
-		self.region, self.date, self.official_title, self.host, 
-		self.url, self.entrants, self.bracket_type, self.game_type)
+		url=%s, entrants=%s, bracket_type=%s, game_type=%s)' % (self.id, self.parent, self.name, self.region, 
+		self.date, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type)
 
 
 class EntrantInfo:
@@ -159,7 +158,7 @@ def process_tournament(tournament_url, tournament_name, tournament_region, tourn
 	for bracket_json in bracket_list:
 		process_bracket_info(bracket_json, tournament_info)
 
-	final_tournament = Tournament.query.filter(Tournament.name==tournament_name).first()
+	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
 	print "FINISHED"
 	return final_tournament
 
@@ -170,14 +169,13 @@ def process_bracket_info(sub_bracket, tournament_info):
 
 	# With created sub_bracket name and parent tournament info, create new TournamentInfo object
 	sub_bracket_info = TournamentInfo(bracket_name, tournament_info.region, tournament_info.date)
-	
 	sub_bracket_info.id = sub_bracket['id']
 	sub_bracket_info.url = sub_bracket['full-challonge-url']
 	sub_bracket_info.entrants = sub_bracket['participants-count']
 	sub_bracket_info.official_title = sub_bracket['name']
 	sub_bracket_info.host = sub_bracket['subdomain']
 
-	# Inherited from parent tournament
+	# Inherited from parent tournament header
 	sub_bracket_info.parent = tournament_info.name
 	sub_bracket_info.bracket_type = tournament_info.bracket_type
 	sub_bracket_info.game_type = tournament_info.game_type
@@ -275,7 +273,7 @@ def import_sets(set_list, sub_tournament, assign_placings):
 			pass
 
 		# update User trueskill ratings based on Set winner and loser
-		# update_rating(winner_user, loser_user)
+		update_rating(winner_user, loser_user)
 
 	db.session.commit()
 
@@ -325,7 +323,6 @@ def process_tournament_info(tournament_info, tournament):
 	tournament_info.id = tournament['id']
 	tournament_info.official_title = tournament['name']
 	tournament_info.host = tournament['subdomain']
-	tournament_info.bracket_type = tournament['tournament-type']
 	tournament_info.entrants = tournament['participants-count']
 	if tournament['game-name'] is not None:
 		tournament_info.game_type = tournament['game-name']
@@ -338,31 +335,29 @@ def process_tournament_info(tournament_info, tournament):
 		tournament_info.date = convert_date(tournament_info.date)
 	tournament_info.url = tournament['full-challonge-url']
 
-	print tournament_info
 	return tournament_info
 
 # Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
 # Returns Tournament object (the parent/master tournament)
 def import_tournament_info(tournament_info):
-	new_tournament = Tournament(official_title=tournament_info.official_title,
+	new_tournament_header = TournamentHeader(official_title=tournament_info.official_title,
 								host=tournament_info.host,
 								url=tournament_info.url,
 								entrants=tournament_info.entrants,
-								bracket_type=tournament_info.bracket_type,
 								game_type=tournament_info.game_type,
 								date=tournament_info.date,
 								name=tournament_info.name
 								)
-
-	db.session.add(new_tournament)
+	db.session.add(new_tournament_header)
 	db.session.commit()
 
 	# add tournament_region; if None, then it adds None
 	found_region = Region.query.filter(Region.region==tournament_info.region).first()
-	new_tournament.region = found_region
+	new_tournament_header.region = found_region
 
 	db.session.commit()
-	return new_tournament
+	print "---TOURNAMENT HEADER---", new_tournament_header
+	return new_tournament_header
 
 # Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
 # Returns Tournament object (the parent/master tournament)
@@ -377,11 +372,12 @@ def import_sub_tournament_info(sub_tournament_info):
 
 	db.session.add(new_sub_tournament)
 
-	# associate with parent Tournament
-	parent_tournament = Tournament.query.filter(Tournament.name==sub_tournament_info.parent).first()
-	parent_tournament.sub_tournaments.append(new_sub_tournament)
-	new_sub_tournament.region = new_sub_tournament.parent.region
+	# associate with TournamentHeader
+	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
+	tournament_header.sub_tournaments.append(new_sub_tournament)
+	new_sub_tournament.region = new_sub_tournament.header.region
 
 	db.session.commit()
+	print "---SUBTOURNAMENT---", new_sub_tournament
 	return new_sub_tournament
 

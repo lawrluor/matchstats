@@ -13,6 +13,7 @@ from app.models import *
 userlist = User.query.all()
 setlist = Set.query.all()
 matchlist = Match.query.all()
+headerlist = TournamentHeader.query.all()
 tournamentlist = Tournament.query.all()
 regionlist = Region.query.all()
 
@@ -24,6 +25,9 @@ for set in setlist:
 
 for match in matchlist:
 	db.session.delete(match)
+
+for header in headerlist:
+	db.session.delete(header)
 
 # Keep default "Non-Tourney" Tournament object at id=1, index=0
 for i in range(len(tournamentlist)):

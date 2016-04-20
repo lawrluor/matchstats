@@ -50,6 +50,7 @@ class Region(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   region = db.Column(db.String(64), index=True, unique=True)
   users = db.relationship("User", order_by="User.id", backref="region")
+  tournament_headers = db.relationship("TournamentHeader", order_by="Tournament.date", backref="region")
   tournaments = db.relationship("Tournament", order_by="Tournament.date", backref="region")
 
   def __repr__(self):
@@ -232,14 +233,31 @@ class Placement(db.Model):
   def __unicode__(self):
    return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
 
+# Header for Tournament, mainly including info, non-game related info, and containing the brackets in a multi-stage tournament
+# Parent of Tournament in one to many relationship
+class TournamentHeader(db.Model):
+  __tablename__ = 'tournament_header'
+  id = db.Column(db.Integer, primary_key=True)
+  official_title = db.Column(db.String(256), index=True)
+  host = db.Column(db.String(128), index=True)
+  url = db.Column(db.String(256), index=True)
+  public_url = db.Column(db.String(256), index=True)
+  entrants = db.Column(db.Integer)
+  game_type = db.Column(db.String(128), index=True)
+  date = db.Column(db.Date)
+  name = db.Column(db.String(256), index=True)
+  region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
+  sub_tournaments = db.relationship("Tournament", backref="header")
+
+  def __repr__(self):
+    return '<TournamentHeader: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s' \
+    % (self.name, self.region, self.official_title, self.host, self.url, self.entrants, self.game_type, self.date, self.name, self.sub_tournaments)
+
 # Tournament is the many in a one-to-many relationship with model Set
 class Tournament(db.Model):
   __tablename__ = 'tournament'
   id = db.Column(db.Integer, primary_key=True)
-  parent_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
-  sub_tournaments = db.relationship("Tournament",
-                    backref=backref('parent', remote_side=[id])
-                    )
+  parent_id = db.Column(db.Integer, db.ForeignKey('tournament_header.id'))
   official_title =  db.Column(db.String(256), index=True)
   host = db.Column(db.String(128), index=True)
   url = db.Column(db.String(256), index=True)
@@ -249,13 +267,12 @@ class Tournament(db.Model):
   game_type = db.Column(db.String(128), index=True)
   date = db.Column(db.Date)
   name = db.Column(db.String(256), index=True)
-  tournament_type = db.Column(db.String(64), index=True)
   region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, tournament_type: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s, sets: %s>' \
-    % (self.name, self.tournament_type, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, self.sub_tournaments, len(self.sets))
+    return '<tournament: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' \
+    % (self.name, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
 
 
 # Set is the one in a one-to-many relationship with model Match
