@@ -1,0 +1,40 @@
+<!-- A list of TournamentHeader objects in the database-->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h2><b>Browse {{current_region}} Tournaments</b></h2>
+	</div>
+
+	<div class="panel-body">
+		<table class="table bootstrap-datatable table-striped table-hover">
+			<thead>
+				{% include 'tournament_header_display_titles.html' %}
+			</thead>
+
+			<tbody>
+				{% for tournament_header in tournament_headers.items %}
+					{% include 'tournament_header_display.html' %}
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<!-- Navigating the paginated display -->
+		<div class="text-center"><b>
+		  {% if tournament_headers.has_prev %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournament_headers.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+
+		  {% if tournament_headers.has_prev and tournament_headers.has_next %}
+		  	|
+		  {% endif %}
+
+		  {% if tournament_headers.has_next %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournament_headers.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+		</b></div>
+
+	</div>
+
+	</div>
+</div>
+
+{% endblock %}

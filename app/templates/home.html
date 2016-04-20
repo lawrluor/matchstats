@@ -37,8 +37,8 @@
   	<div class="caption scroll400">
 	  	<h4><b>Recently Added Tournaments</b></h4>
 	  	<ul>
-	  		{% for tournament in tournamentlist %}
-	  			<li><a href="{{url_for('tournament', tournament_name=tournament.name)}}"><b>{{tournament.name}}</b></a></li>
+	  		{% for tournament_header in tournament_headers %}
+	  			<li><a href="{{url_for('tournamentHeader', tournament_name=tournament_header.name)}}"><b>{{tournament_header.name}}</b></a></li>
 	  		{% endfor %}
 	  	</ul>
   	</div>

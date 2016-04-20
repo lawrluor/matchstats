@@ -1,0 +1,33 @@
+<!-- prints tournament display as part of a table body-->
+
+{% if tournament_header.name != "Non-Tourney" %}
+<tr>
+	<td class="col-sm-3 mobile-horizontal-overflow-td-col-3 text-center"><b>
+	{% if tournament_header.date.year==2099 %}
+		20XX
+	{% else %}
+		{{tournament_header.date}}
+	{% endif %}
+	</b></td>
+
+	<td class="col-sm-3 mobile-horizontal-overflow-td-col-3 text-center">
+		<a href="{{ url_for("tournamentHeader", tournament_name=tournament_header.name)}}"><b>{{tournament_header.name}}</a></b>
+	</td>
+	
+	<td class="col-sm-3 text-center"><b>
+		{% if tournament_header.entrants != -1 %}
+			{{tournament_header.entrants}}
+		{% else %}
+			Unknown
+		{% endif %}
+	</b></td>
+
+	<td class="col-sm-3 mobile-horizontal-overflow-td-col-3 text-center">
+		{% if tournament_header.region %}
+			<b><a href="{{ url_for("region", region=tournament_header.region) }}">{{tournament_header.region}}</a></b>
+		{% else %}
+			{{tournament_header.region}}
+		{% endif %}
+	</td>
+</tr>
+{% endif %}

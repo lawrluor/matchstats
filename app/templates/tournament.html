@@ -85,7 +85,7 @@
 
   <div class="panel panel-default">
   <div class="panel-heading">
-    <h1><b> Sets from <a href="{{url_for("tournament", tournament_name=tournament.name)}}">{{tournament.name}}</a></b></h1>
+    <h1><b> Sets from <a href="{{url_for('tournament', tournament_header=tournament_header, sub_tournament=tournament.name)}}">{{tournament.name}}</a></b></h1>
   </div>
   <div class="panel-body">
 

@@ -76,15 +76,14 @@
         </tr>
       </thead>
 
-      <!-- user_placements is dictionary of lists with keys tournament_name and list[0]=placement and list[1]=seed -->
-      {% for tournament in user_placements %}
+      {% for user_placement in placement_list %}
       <tr>
-        <td class="col-sm-6 text-right"><b><a href="{{url_for("tournament", tournament_name=tournament)}}">{{tournament}}</a> - </b></td>
+        <td class="col-sm-6 text-right"><b><a href="{{url_for('tournament', tournament_header=user_placement.tournament.header.name, sub_tournament=user_placement.tournament_name)}}">{{user_placement.tournament_name}}</a> - </b></td>
         <td class="col-sm-6 text-left">
-          <b>{{user_placements[tournament][0]}}</b>
+          <b>{{user_placement.tournament_name}}</b>
           <!-- Only display seed number if not None -->
-          {% if user_placements[tournament][1] %}
-            (seed: {{user_placements[tournament][1]}})
+          {% if user_placement.seed %}
+            (seed: {{user_placement.seed}})
           {% endif %}
         </td>
       </tr>
@@ -129,10 +128,11 @@
         </tr>
       </thead>
 
+      <!-- Display User Sets
       <tbody>
-        {% for tournament,setlist in user_sets_by_tournament.iteritems() %}
+        {% for tournament in user_tournament_sets %}
           <tr>
-            <td><h4><a href="{{url_for("tournament", tournament_name=tournament)}}"><b>{{tournament}}</b></a></h4></td>
+            <td><h4><a href="{{url_for('tournament', tournament_header=tournament.tournament.header, sub_tournament=tournament.tournament_name)}}"><b>{{tournament}}</b></a></h4></td>
             <td></td>
             <td></td>
             <td></td>
@@ -143,7 +143,9 @@
           {% endfor %}
         {% endfor %}
       </tbody>
+      -->
     </table>
+
 
     <!-- Navigating pages -->
     <div class="text-center"><b>

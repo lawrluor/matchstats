@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <header class="jumbotron">
+    <h1 class="col-sm-10">{{tournament_header.name}}</h1>
+    {% if tournament_header.url %}
+      <h3 class="col-sm-1"><a href="{{tournament_header.url}}"><b>[View Bracket]</b></a></h3>
+    {% endif %}
+
+    <table class="table borderless">
+      <tr>
+        <td class="col-sm-6">
+        {% if tournament_header.region %}
+          <h3><b>Region</b>: <a href="{{url_for("region", region=tournament_header.region)}}">{{tournament_header.region}}</a></h3>
+        {% else %}
+          <h3><b>Region</b>: Global</h3>
+        {% endif %}
+        </td>
+
+        <td class="col-sm-6">
+          {% if tournament_header.date.year==2099 %}
+            <h3><b>Date</b>: 20XX</h3>
+          {% else %}
+            <h3><b>Date</b>: {{tournament_header.date}}</h3>
+          {% endif %}
+        </td>
+      <tr>
+
+      <tr>
+        <td class="col-sm-6">
+          {% if tournament_header.game_type %}
+            <h3><b>Game</b>: {{tournament_header.game_type}}</h3>
+          {% else %}
+            <h3><b>Game</b>: Unknown</h3>
+          {% endif %}
+        </td>
+
+        <td class="col-sm-6">
+          {% if tournament_header.entrants != -1 %}
+            <h3><b>Info</b>: {{tournament_header.entrants}} Player {{tournament_header.bracket_type}}</h3>
+          {% else %}
+            <h3><b>Info</b>: {{tournament_header.bracket_type}}</h3>
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+
+  </header>
+
+  <!-- Table for Placements -->
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h1><b>Brackets</b></h1>
+  </div>
+  <div class="panel-body">
+  <table class="table bootstrap-datatable table-striped table-condensed table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% include 'tournament_display_titles.html' %}
+      {% for tournament in sub_tournaments %} 
+        {% include 'tournament_display.html' %}
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+{% endblock %}

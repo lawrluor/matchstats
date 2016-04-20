@@ -11,7 +11,7 @@
 	</b></td>
 
 	<td class="col-sm-3 mobile-horizontal-overflow-td-col-3 text-center">
-		<a href="{{ url_for("tournament", tournament_name=tournament.name)}}"><b>{{tournament.name}}</a></b>
+		<a href="{{ url_for('tournament', tournament_header=tournament.header.name, sub_tournament=tournament.name)}}"><b>{{tournament.name}}</a></b>
 	</td>
 	
 	<td class="col-sm-3 text-center"><b>

@@ -22,7 +22,7 @@
 <h5><b>
 	<td class="col-md-2 mobile-horizontal-overflow-set horizontal-overflow"><b>
 		{% if set.tournament_name != "Non-Tourney" %}
-			<a href="{{url_for("tournament", tournament_name=set.tournament_name)}}">{{ set.tournament_name }}</a>
+			<a href="{{url_for("tournament", tournament_header=tournament_header, sub_tournament=set.tournament_name)}}">{{ set.tournament_name }}</a>
 		{% else %}
 			{{ set.tournament_name }}
 		{% endif %}

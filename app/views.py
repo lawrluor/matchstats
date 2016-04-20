@@ -1,18 +1,18 @@
 # Version 2.0 routes commented out, consisting primarily of user creating/editing model objects
 from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db
-from models import User, Set, Match, Character, Placement, secondaries, Region
+from models import *
 from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, CharacterFilter, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
 from sqlalchemy import and_, or_
-from h2h_stats_functions import *
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE, CHAR_USERS_PER_PAGE 
 
+import collections
 import sys
 sys.path.append('./sanitize')
+
 from sanitize_utils import check_and_sanitize_tag, check_and_sanitize_tag_multiple
 from sort_utils import sort_placementlist, sort_userlist
-from h2h_stats_functions import convert_placement
-import collections
+from h2h_stats_functions import *
 
 """
 This module includes all routing functions for this web application.
@@ -61,11 +61,11 @@ def home():
   flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
 
   # Display recently added tournaments
-  tournamentlist = Tournament.query.order_by(Tournament.id.desc()).limit(15).all()
-  for tournament in tournamentlist:
-    print tournament
+  tournament_headers = TournamentHeader.query.order_by(TournamentHeader.id.desc()).limit(15).all()
+  for tournament_header in tournament_headers:
+    print tournament_header
   return render_template('home.html',
-                         tournamentlist=tournamentlist)
+                         tournament_headers=tournament_headers)
 
 # About page (more info)
 @app.route('/about')
@@ -187,6 +187,28 @@ def browse_users(region, page=1):
                          current_region=g.region
                          )
 
+class UserPlacements:
+  '''
+  To store information about User's placements at tournaments in function 'user'
+  '''
+  tournament = ""
+  placement = 0
+  seed = 0
+
+  def __init__(self, tournament_name):
+    self.tournament_name = tournament_name
+
+class UserTournamentSets:
+  '''
+  To store information about User's sets organized by Tournament
+  '''
+  sets = []
+  tournament_name = ""
+
+  def __init__(self, tournament):
+    self.tournament = tournament
+
+
 # User profile page
 @app.route('/user/<tag>')
 @app.route('/user/<tag>/<int:page>')
@@ -206,21 +228,25 @@ def user(tag, page=1):
   user_secondaries = user.get_secondaries()
   
   # create ordered dictionary with Tournament name and respective placement; important to keep order so placements can be displayed in order of tournament.date 
-  user_placements = collections.OrderedDict()
   user_sets_by_tournament = collections.OrderedDict()
 
   # sort by Placement.tournament.date, in reverse order (most recent first). Sort by tournament.name as secondary sort
-  user_tournaments_sorted = sort_placementlist(user.tournament_assocs) 
+  user_tournaments_sorted = sort_placementlist(user.tournament_assocs)
+  placement_list = []
+  sets_by_tournament = []
   for placement_obj in user_tournaments_sorted[start_index:end_index]:
-    # Make dictionary of lists with key tournament_name, and list[0]=placement, list[1]=seed
-    tournament_name = placement_obj.tournament.name
-    placement  = convert_placement(placement_obj.placement)
-    user_placements[tournament_name] = [placement, placement_obj.seed]
+    user_placement = UserPlacements(placement_obj.tournament_name)
+    user_placement.placement = convert_placement(placement_obj.placement)
+    user_placement.seed = placement_obj.seed
+    user_placement.tournament = placement_obj.tournament
+    placement_list.append(user_placement)
 
-    user_tournament_sets = Set.query.filter(and_(Set.tournament_name==tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
-    for set in user_tournament_sets:
-      key = user_sets_by_tournament.setdefault(tournament_name, [])
-      key.append(set)
+    # user_tournament_sets = UserTournamentSets(placement_obj.tournament)
+    # user_tournament_sets.tournament_name = user_tournament_sets.tournament.name
+    # user_tournament_sets.sets = Set.query.filter(and_(Set.tournament_name==user_tournament_sets.tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
+    # for set in user_tournament_sets.sets:
+    #  user_tournament_sets.sets.append(set)
+    # sets_by_tournament.append(user_tournament_sets)
 
   # get number of Sets won and lost as integers to pass to template
   user_set_wins = len(user.get_won_sets())
@@ -232,8 +258,8 @@ def user(tag, page=1):
                         user_set_losses=user_set_losses,
                         user_secondaries=user_secondaries,
                         user_tournaments_sorted=user_tournaments_sorted,
-                        user_placements=user_placements,
-                        user_sets_by_tournament=user_sets_by_tournament,
+                        placement_list=placement_list,
+                        # user_tournament_sets=user_tournament_sets,
                         page=page,
                         tournaments_per_page=tournaments_per_page)
 
@@ -295,11 +321,28 @@ def character(character, page=1):
                          current_region=g.region)
  
 
-# Lists all tournaments, 15 per page
+# Lists tournament_headers in database, 15 per page
 @app.route('/browse_tournaments')
 @app.route('/browse_tournaments/<region>')
 @app.route('/browse_tournaments/<region>/<int:page>')
 def browse_tournaments(region, page=1):
+  # if viewing Global information, don't filter query by g.region
+  g.region = region
+  if g.region=="Global":
+    tournament_headers = TournamentHeader.query.order_by(TournamentHeader.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  # if viewing national information, filter query to take Tournaments with region==None
+  elif g.region=="National":
+    tournament_headers = TournamentHeader.query.filter(TournamentHeader.region==None).order_by(TournamentHeader.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  else:
+    # filter for Tournaments by g.region, by joining Region and TournamentHeader.region
+    tournament_headers = TournamentHeader.query.join(Region, TournamentHeader.region).filter(Region.region==g.region).order_by(TournamentHeader.date.desc()).paginate(page, TOURNAMENTS_PER_PAGE, False)
+  return render_template("browse_tournament_headers.html",
+                         tournament_headers=tournament_headers,
+                         current_region=g.region)
+
+# Lists tournaments in database, 15 per page
+def browse_tournaments(region, page=1):
+  pass
   # if viewing Global information, don't filter query by g.region
   g.region = region
   if g.region=="Global":
@@ -314,11 +357,24 @@ def browse_tournaments(region, page=1):
                          tournamentlist=tournamentlist,
                          current_region=g.region)
     
-# Displays all sets in a given tournament
+# Displays all subtournaments in a TournamentHeader
 @app.route('/tournament/<tournament_name>')
-def tournament(tournament_name):
+def tournamentHeader(tournament_name):
   # get Tournament object given string name
-  tournament_obj = Tournament.query.filter(Tournament.name==tournament_name).first()
+  tournament_header = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
+
+  # get subtournaments
+  sub_tournaments = tournament_header.sub_tournaments
+
+  return render_template("tournament_header.html",
+                         tournament_header=tournament_header,
+                         sub_tournaments=sub_tournaments
+                         )
+
+@app.route('/tournament/<tournament_header>/<sub_tournament>')
+def tournament(tournament_header, sub_tournament):
+  # get Tournament object given string name
+  tournament_obj = Tournament.query.filter(Tournament.name==sub_tournament).first()
 
   # get Sets
   tournament_setlist = tournament_obj.sets
@@ -342,6 +398,7 @@ def tournament(tournament_name):
     placing.append([placement_obj.user.tag, placement_obj.seed])
 
   return render_template("tournament.html",
+                         tournament_header=tournament_header,
                          tournament=tournament_obj,
                          placement_dict=placement_dict,
                          matches_by_round=matches_by_round)
