@@ -158,8 +158,8 @@ def process_tournament(tournament_url, tournament_name, tournament_region, tourn
 	for bracket_json in bracket_list:
 		process_bracket_info(bracket_json, tournament_info)
 
-	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
 	print "FINISHED"
+	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
 	return final_tournament
 
 # Parses a sub_bracket for entrant and set information
@@ -263,7 +263,6 @@ def import_sets(set_list, sub_tournament, assign_placings):
 	                  winner_score=set.winner_score,
 	                  loser_score=set.loser_score,
 	                  total_matches=set.total_matches)
-
 		db.session.add(new_set)
 	    
 		# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
@@ -369,7 +368,6 @@ def import_sub_tournament_info(sub_tournament_info):
 								date=sub_tournament_info.date,
 								name=sub_tournament_info.name
 								)
-
 	db.session.add(new_sub_tournament)
 
 	# associate with TournamentHeader
