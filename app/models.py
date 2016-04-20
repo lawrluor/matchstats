@@ -237,7 +237,9 @@ class Tournament(db.Model):
   __tablename__ = 'tournament'
   id = db.Column(db.Integer, primary_key=True)
   parent_id = db.Column(db.Integer, db.ForeignKey('tournament.id'))
-  sub_tournaments = db.relationship("Tournament", backref="parent")
+  sub_tournaments = db.relationship("Tournament",
+                    backref=backref('parent', remote_side=[id])
+                    )
   official_title =  db.Column(db.String(256), index=True)
   host = db.Column(db.String(128), index=True)
   url = db.Column(db.String(256), index=True)
@@ -248,7 +250,7 @@ class Tournament(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(256), index=True)
   tournament_type = db.Column(db.String(64), index=True)
-  region_id = db.Column(db.Integer, ForeignKey('region.id'))
+  region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
   sets = db.relationship("Set", backref="tournament")
 
   def __repr__(self):

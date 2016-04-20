@@ -193,7 +193,6 @@ def import_tournament_sets(set_list, sub_tournament):
 			round_number = int(set['round_number'])
 		else:
 			round_number = None
-
 		# Query for associated Tournament
 		if sub_tournament.name is not None:
 			assocs_tournament = Tournament.query.filter(Tournament.name==sub_tournament.name).first()
