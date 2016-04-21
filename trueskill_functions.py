@@ -1,16 +1,19 @@
 from app import app, db
 from app.models import *
 from sort_utils import sort_setlist
+from misc_utils import print_ignore
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 
 # Trueskill constants for rating environment setup
-MU = 25.0
+MU = 25
 SIGMA = 8.333333333333334
-CONS_MU = 0.0
+STD = 2.25
+CONS_MU = MU - (STD*SIGMA)
 BETA = 4.166666666666667
 TAU = 0.08333333333333334
 DRAW_PROBABILITY = 0.0
 
+# Not used in these functions
 def rating_env_setup():
   """Sets up Rating Environment, an object from trueskill module.
 
@@ -18,15 +21,16 @@ def rating_env_setup():
     None, but setup uses Global variables defined above.
 
   Returns:
-    None
+    Global env created=
   """
-  setup(mu=MU, 
+  global_env = setup(mu=MU, 
 			sigma=SIGMA, 
 			beta=BETA, 
 			tau=TAU, 
 			draw_probability=DRAW_PROBABILITY,
 			backend=None
 			)
+  return global_env
 
 def reset_trueskill(user):
 	"""Given User, sets associated TrueSkill objects' values to default.
@@ -89,14 +93,10 @@ def update_rating(winner_user, loser_user):
   	winner_user: A User object representing winner of the set.
   	loser_user: A User object representing loser of the set.
 
-  Returns:
+  	Returns:
   	A tuple of the Winner and Loser of the Set, both User objects, with updated
   	TrueSkills. This value is never used.
-
-  Raises:
-  	UnicodeError if during printing, unencodeable non-ASCII characters are found.
 	"""
-	rating_env_setup()
 
 	# Check to see if trueskill attribute is None (new User), and if so sets it to Trueskill object with default values
 	populate_trueskills(winner_user)
@@ -107,17 +107,10 @@ def update_rating(winner_user, loser_user):
 		calc_region_trueskill(winner_user, loser_user, 1)
 	else:
 		calc_region_trueskill(winner_user, loser_user, 0)
+	print '\n'
 
 	# After TrueSkills have been recalculated, commit changes and print users
 	db.session.commit()
-
-	# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
-	try:
-		print winner_user, loser_user
-	except UnicodeError:
-		pass
-
-	print '\n'
 	return winner_user, loser_user
 
 def calc_region_trueskill(winner_user, loser_user, region_num):
@@ -149,12 +142,12 @@ def calc_region_trueskill(winner_user, loser_user, region_num):
 	winner_user.trueskills[region_num].region=region_name
 	winner_user.trueskills[region_num].mu=new_winner_rating.mu
 	winner_user.trueskills[region_num].sigma=new_winner_rating.sigma
-	winner_user.trueskills[region_num].cons_mu=new_winner_rating.mu - 2.25*new_winner_rating.sigma
+	winner_user.trueskills[region_num].cons_mu=new_winner_rating.mu - STD*new_winner_rating.sigma
 
 	loser_user.trueskills[region_num].region=region_name
 	loser_user.trueskills[region_num].mu=new_loser_rating.mu
 	loser_user.trueskills[region_num].sigma=new_loser_rating.sigma
-	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - 2.25*new_loser_rating.sigma
+	loser_user.trueskills[region_num].cons_mu=new_loser_rating.mu - STD*new_loser_rating.sigma
 
 def recalculate_trueskill():
 	"""Resets, then recalculates all Trueskills for all Users.
@@ -165,7 +158,6 @@ def recalculate_trueskill():
 	Returns:
 		String indicating success. This value is never used.
 	"""
-
 	# Reset all User Trueskill to defaults
 	userlist = User.query.all()
 	for user in userlist:

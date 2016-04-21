@@ -80,7 +80,7 @@
       <tr>
         <td class="col-sm-6 text-right"><b><a href="{{url_for('tournament', tournament_header=user_placement.tournament.header.name, sub_tournament=user_placement.tournament_name)}}">{{user_placement.tournament_name}}</a> - </b></td>
         <td class="col-sm-6 text-left">
-          <b>{{user_placement.tournament_name}}</b>
+          <b>{{user_placement.placement}}</b>
           <!-- Only display seed number if not None -->
           {% if user_placement.seed %}
             (seed: {{user_placement.seed}})

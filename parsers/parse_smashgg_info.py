@@ -131,8 +131,11 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	
 	# in smashgg brackets, sub_bracket for Final Bracket is named '1'
 	if sub_bracket_info.name=='1':
-		sub_bracket_info.name = "Final Bracket"
-	full_bracket_name =  tournament_info.name + ' | ' + sub_bracket_info.name
+		sub_tournament_name = "Final Bracket"
+	else:
+		sub_tournament_name = sub_bracket_info.name
+
+	full_bracket_name =  tournament_info.name + ' | ' + sub_tournament_name
 	print "\n---SUB BRACKET---:", full_bracket_name
 
 	sub_bracket = requests.get(sub_bracket_url)
@@ -143,7 +146,10 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	# Change values for # entrants, url, name
 	sub_tournament_info = TournamentInfo(sub_bracket_info.id, full_bracket_name, tournament_info.region, tournament_info.date)
 	sub_tournament_info.url = sub_bracket_url
-	sub_tournament_info.public_url = tournament_info.public_url + '/' + str(sub_bracket_info.id)
+	if sub_bracket_info.name=='1':
+		sub_tournament_info.public_url = tournament_info.public_url
+	else:
+		sub_tournament_info.public_url = tournament_info.public_url + '/' + str(sub_bracket_info.id)
 
 	# Inherited form parent tournament header
 	sub_tournament_info.entrants = tournament_info.entrants

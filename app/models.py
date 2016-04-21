@@ -78,7 +78,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(128), index=True, unique=True)
   main = db.Column(db.String(64), index=True)
-  region_id = db.Column(db.Integer, ForeignKey('region.id'))
+  region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
   trueskills = db.relationship("TrueSkill", order_by='TrueSkill.id', backref='user')
   secondaries = db.relationship("Character",
                               secondary=secondaries,
@@ -219,8 +219,8 @@ def check_set_user(set_user_tag, *args):
 #association object between Tournament and User
 class Placement(db.Model):
   __tablename__ = 'placement'
-  tournament_id = db.Column(db.Integer, ForeignKey('tournament.id'),  primary_key=True)
-  user_id = db.Column(db.Integer, ForeignKey('user.id'), primary_key=True)
+  tournament_id = db.Column(db.Integer, db.ForeignKey('tournament.id'),  primary_key=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
   placement = db.Column(db.Integer)
   tournament_name = db.Column(db.String(256))
   seed = db.Column(db.Integer)
@@ -286,8 +286,8 @@ class Tournament(db.Model):
   sets = db.relationship("Set", backref="tournament")
 
   def __repr__(self):
-    return '<tournament: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' \
-    % (self.name, self.region, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
+    return '<tournament: %s, region: %s, title: %s, host: %s, url: %s, public_url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' \
+    % (self.name, self.region, self.official_title, self.host, self.url, self.public_url, self.entrants, self.bracket_type, self.game_type, self.date, self.name, len(self.sets))
 
 
 # Set is the one in a one-to-many relationship with model Match

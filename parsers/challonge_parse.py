@@ -134,40 +134,33 @@ def calculate_standings(set_list):
 	print "---PLACINGS---", placings
 	return placings
 
-
-# Master function, analagous to parse_bracket_info in parse_smashgg_info.py
-# Only url for tournament strictly necessary, this parameter will be found and fed by another func.
-def process_tournament(tournament_url, tournament_name, tournament_region, tournament_date):
-	tournament = challonge.tournaments.show(parse_url(tournament_url))
-	tournament_info = TournamentInfo(tournament_name, tournament_region, tournament_date)
-
-	# Get general info about Tournament and return+update tournament_info object, then import it into database
-	tournament_info = process_tournament_info(tournament_info, tournament)
-	import_tournament_info(tournament_info)
-
-	# Find all sub brackets - NOT DONE YET
-	# Also need function to manually parse pool brackets not originally associated with master tournament
-
-	# brackets = SHOW sub brackets
-	bracket_list = []
-	# for x in brackets:
-	#	bracket_json = challonge.tournaments.show(bracket)
-	#	bracket_list.append(bracket_json)
-	#	process_bracket_info(bracket_json, tournament_info)
+# Build tournament_info object by assigning values to it from queried tournament JSON
+def process_tournament_info(tournament_info, tournament):
+	# pprint(tournament)
 	
-	bracket_list.append(tournament)
-	# for each sub bracket, pass the sub bracket JSON tournament object, and the associated parent tournament_info
-	for bracket_json in bracket_list:
-		process_bracket_info(bracket_json, tournament_info)
+	tournament_info.id = tournament['id']
+	tournament_info.official_title = tournament['name']
+	tournament_info.host = tournament['subdomain']
+	tournament_info.entrants = tournament['participants-count']
+	if tournament['game-name'] is not None:
+		tournament_info.game_type = tournament['game-name']
+	else:
+		tournament_info.game_type = "Super Smash Bros. Melee"
 
-	print "FINISHED"
-	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
-	return final_tournament
+	if tournament['started-at'] is not None:
+		tournament_info.date = tournament['started-at']
+	else:
+		tournament_info.date = convert_date(tournament_info.date)
+	tournament_info.url = tournament['full-challonge-url']
+	return tournament_info
 
 # Parses a sub_bracket for entrant and set information
-def process_bracket_info(sub_bracket, tournament_info):
+def process_bracket_info(sub_bracket, tournament_info, final_bracket):
 	# Generate sub_bracket name using parent tournament name and sub_bracket name
-	bracket_name = tournament_info.name + ' | ' + sub_bracket['name']
+	if final_bracket==True:
+		bracket_name = tournament_info.name + ' | ' + 'Final Bracket'
+	else:
+		bracket_name = tournament_info.name + ' | ' + sub_bracket['name']
 
 	# With created sub_bracket name and parent tournament info, create new TournamentInfo object
 	sub_bracket_info = TournamentInfo(bracket_name, tournament_info.region, tournament_info.date)
@@ -187,6 +180,28 @@ def process_bracket_info(sub_bracket, tournament_info):
 	# Process bracket entrants and sets, passing bracket object info
 	entrant_list = process_entrants(sub_bracket_info, sub_tournament)
 	process_sets(sub_bracket_info, entrant_list, sub_tournament)
+
+def process_entrants(sub_bracket_info, sub_tournament):
+	entrants = challonge.participants.index(sub_bracket_info.id)
+	# pprint(entrants)
+
+	entrant_list = []
+	for entrant in entrants:
+		entrant_info = EntrantInfo(entrant['display-name'])
+		entrant_info.id = int(entrant['id'])
+		entrant_info.account_name = entrant['name']
+		entrant_info.sub_seed = entrant['seed']
+		entrant_info.super_seed = entrant['seed']
+		entrant_info.sub_placing = entrant['final-rank'] # If tournament not finished, None. have to parse
+		entrant_info.super_placing = entrant['final-rank'] # If tournament not finished, None. have to parse
+		entrant_list.append(entrant_info)
+
+	print "\n---ENTRANTS---"
+	for entrant in entrant_list:
+		print_ignore(entrant)
+
+	import_entrants(entrant_list, sub_tournament)
+	return entrant_list
 
 def process_sets(sub_bracket_info, entrant_list, sub_tournament):
 	sets = challonge.matches.index(sub_bracket_info.id)
@@ -222,6 +237,67 @@ def process_sets(sub_bracket_info, entrant_list, sub_tournament):
 
 	import_sets(set_list, sub_tournament, assign_placings)
 
+
+# Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
+# Returns Tournament object (the parent/master tournament)
+def import_tournament_info(tournament_info):
+	new_tournament_header = TournamentHeader(official_title=tournament_info.official_title,
+								host=tournament_info.host,
+								url=tournament_info.url,
+								public_url=tournament_info.url,
+								entrants=tournament_info.entrants,
+								game_type=tournament_info.game_type,
+								date=tournament_info.date,
+								name=tournament_info.name
+								)
+	db.session.add(new_tournament_header)
+	db.session.commit()
+
+	# add tournament_region; if None, then it adds None
+	found_region = Region.query.filter(Region.region==tournament_info.region).first()
+	new_tournament_header.region = found_region
+
+	db.session.commit()
+	print "---TOURNAMENT HEADER---", new_tournament_header
+	return new_tournament_header
+
+# Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
+# Returns Tournament object (the parent/master tournament)
+def import_sub_tournament_info(sub_tournament_info):
+	new_sub_tournament = Tournament(official_title=sub_tournament_info.official_title,
+								url=sub_tournament_info.url,
+								public_url=sub_tournament_info.url,
+								entrants=sub_tournament_info.entrants,
+								bracket_type=sub_tournament_info.bracket_type,
+								date=sub_tournament_info.date,
+								name=sub_tournament_info.name
+								)
+	db.session.add(new_sub_tournament)
+
+	# associate with TournamentHeader
+	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
+	tournament_header.sub_tournaments.append(new_sub_tournament)
+	new_sub_tournament.region = new_sub_tournament.header.region
+
+	db.session.commit()
+	print "---SUBTOURNAMENT---", new_sub_tournament
+	return new_sub_tournament
+
+# Import entrants and create User objects in database, given (sub) Tournament object and entrant list
+def import_entrants(entrant_list, sub_tournament):
+	for entrant in entrant_list:
+		player_tag = entrant.player_tag
+		checked_player = check_set_user(player_tag, sub_tournament.region)
+
+		sub_tournament.placements.append(Placement(
+										tournament_id=sub_tournament.id,
+										tournament_name=sub_tournament.name,
+										user_id=checked_player.id,
+										placement=entrant.sub_placing
+										))
+	sub_tournament.entrants = len(entrant_list)
+	db.session.commit()
+	return sub_tournament
 
 # Import sets, create Set objects in database and associate them with Tournament
 def import_sets(set_list, sub_tournament, assign_placings):
@@ -272,107 +348,35 @@ def import_sets(set_list, sub_tournament, assign_placings):
 
 	db.session.commit()
 
+# MASTER function, analagous to parse_bracket_info in parse_smashgg_info.py
+# Only url for tournament strictly necessary, this parameter will be found and fed by another func.
+def process_tournament(tournament_url, tournament_name, tournament_region, tournament_date):
+	tournament = challonge.tournaments.show(parse_url(tournament_url))
+	tournament_info = TournamentInfo(tournament_name, tournament_region, tournament_date)
 
-def process_entrants(sub_bracket_info, sub_tournament):
-	entrants = challonge.participants.index(sub_bracket_info.id)
-	# pprint(entrants)
+	# Get general info about Tournament and return+update tournament_info object, then import it into database
+	tournament_info = process_tournament_info(tournament_info, tournament)
+	import_tournament_info(tournament_info)
 
-	entrant_list = []
-	for entrant in entrants:
-		entrant_info = EntrantInfo(entrant['display-name'])
-		entrant_info.id = int(entrant['id'])
-		entrant_info.account_name = entrant['name']
-		entrant_info.sub_seed = entrant['seed']
-		entrant_info.super_seed = entrant['seed']
-		entrant_info.sub_placing = entrant['final-rank'] # If tournament not finished, None. have to parse
-		entrant_info.super_placing = entrant['final-rank'] # If tournament not finished, None. have to parse
-		entrant_list.append(entrant_info)
+	# Find all sub brackets - NOT DONE YET
+	# Also need function to manually parse pool brackets not originally associated with master tournament
 
-	print "\n---ENTRANTS---"
-	for entrant in entrant_list:
-		print_ignore(entrant)
-
-	import_entrants(entrant_list, sub_tournament)
-	return entrant_list
-
-# Import entrants and create User objects in database, given (sub) Tournament object and entrant list
-def import_entrants(entrant_list, sub_tournament):
-	for entrant in entrant_list:
-		player_tag = entrant.player_tag
-		checked_player = check_set_user(player_tag, sub_tournament.region)
-
-		sub_tournament.placements.append(Placement(
-										tournament_id=sub_tournament.id,
-										tournament_name=sub_tournament.name,
-										user_id=checked_player.id,
-										placement=entrant.sub_placing
-										))
-	sub_tournament.entrants = len(entrant_list)
-	db.session.commit()
-	return sub_tournament
-
-# Build tournament_info object by assigning values to it from queried tournament JSON
-def process_tournament_info(tournament_info, tournament):
-	# pprint(tournament)
+	# brackets = SHOW sub brackets
+	bracket_list = []
+	# for x in brackets:
+	#	bracket_json = challonge.tournaments.show(bracket)
+	#	bracket_list.append(bracket_json)
+	#	process_bracket_info(bracket_json, tournament_info)
 	
-	tournament_info.id = tournament['id']
-	tournament_info.official_title = tournament['name']
-	tournament_info.host = tournament['subdomain']
-	tournament_info.entrants = tournament['participants-count']
-	if tournament['game-name'] is not None:
-		tournament_info.game_type = tournament['game-name']
-	else:
-		tournament_info.game_type = "Super Smash Bros. Melee"
+	bracket_list.append(tournament)
+	# for each sub bracket, pass the sub bracket JSON tournament object, and the associated parent tournament_info
+	for bracket_json in bracket_list:
+		if len(bracket_list)==1:
+			final_bracket = True
+		else:
+			final_bracket = False
+		process_bracket_info(bracket_json, tournament_info, final_bracket)
 
-	if tournament['started-at'] is not None:
-		tournament_info.date = tournament['started-at']
-	else:
-		tournament_info.date = convert_date(tournament_info.date)
-	tournament_info.url = tournament['full-challonge-url']
-	return tournament_info
-
-# Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
-# Returns Tournament object (the parent/master tournament)
-def import_tournament_info(tournament_info):
-	new_tournament_header = TournamentHeader(official_title=tournament_info.official_title,
-								host=tournament_info.host,
-								url=tournament_info.url,
-								public_url=tournament_info.url,
-								entrants=tournament_info.entrants,
-								game_type=tournament_info.game_type,
-								date=tournament_info.date,
-								name=tournament_info.name
-								)
-	db.session.add(new_tournament_header)
-	db.session.commit()
-
-	# add tournament_region; if None, then it adds None
-	found_region = Region.query.filter(Region.region==tournament_info.region).first()
-	new_tournament_header.region = found_region
-
-	db.session.commit()
-	print "---TOURNAMENT HEADER---", new_tournament_header
-	return new_tournament_header
-
-# Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
-# Returns Tournament object (the parent/master tournament)
-def import_sub_tournament_info(sub_tournament_info):
-	new_sub_tournament = Tournament(official_title=sub_tournament_info.official_title,
-								url=sub_tournament_info.url,
-								public_url=sub_tournament_info.url,
-								entrants=sub_tournament_info.entrants,
-								bracket_type=sub_tournament_info.bracket_type,
-								date=sub_tournament_info.date,
-								name=sub_tournament_info.name
-								)
-	db.session.add(new_sub_tournament)
-
-	# associate with TournamentHeader
-	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
-	tournament_header.sub_tournaments.append(new_sub_tournament)
-	new_sub_tournament.region = new_sub_tournament.header.region
-
-	db.session.commit()
-	print "---SUBTOURNAMENT---", new_sub_tournament
-	return new_sub_tournament
-
+	print "FINISHED"
+	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
+	return final_tournament

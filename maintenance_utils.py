@@ -9,6 +9,8 @@ from sanitize_utils import *
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 from trueskill_functions import MU, SIGMA, CONS_MU, BETA, TAU, DRAW_PROBABILITY, populate_trueskills
 
+# Make some of these Class functions in app.models??
+
 # Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
 def change_tag(tag, new_tag):
   user = User.query.filter(User.tag==tag).first()

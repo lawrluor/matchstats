@@ -12,6 +12,7 @@ sys.path.append('./sanitize')
 
 from sanitize_utils import check_and_sanitize_tag, check_and_sanitize_tag_multiple
 from sort_utils import sort_placementlist, sort_userlist
+from misc_utils import sanitize_url
 from h2h_stats_functions import *
 
 """
@@ -177,10 +178,10 @@ def browse_users(region, page=1):
   # if viewing global information, don't filter query by g.region
   # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
-    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region=="Global").order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    userlist = User.query.join(User.trueskills).filter(TrueSkill.region=="Global").order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
-    userlist = User.query.join(TrueSkill.user, User).filter(TrueSkill.region==g.region).order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
+    userlist = User.query.join(User.trueskills).filter(TrueSkill.region==g.region).order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
 
   return render_template("browse_users.html",
                          userlist=userlist,
@@ -357,14 +358,6 @@ def browse_tournaments(region, page=1):
                          tournamentlist=tournamentlist,
                          current_region=g.region)
 
-# Use regex expression for this?
-# Sanitizes argument from url_for that has URL escape characters in it
-def sanitize_url(tournament_name):
-  tournament_name = tournament_name.replace("%20", ' ')
-  tournament_name = tournament_name.replace("%2F", '/')
-  tournament_name = tournament_name.replace("%2D", '-')
-  tournament_name = tournament_name.replace("%2E", '.')
-  return tournament_name
 
 # Displays all subtournaments in a TournamentHeader
 @app.route('/tournament/<tournament_name>')
@@ -431,7 +424,7 @@ def search():
 @app.route('/search_results/<query>')
 def search_results(query):
   sanitized_query_list = check_and_sanitize_tag_multiple(query)
-  tournament_results = Tournament.query.filter(Tournament.name==query).all() 
+  tournament_results = TournamentHeader.query.filter(TournamentHeader.name==query).all() 
   print sanitized_query_list
 
   user_results = []
