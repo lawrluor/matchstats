@@ -253,6 +253,21 @@ class TournamentHeader(db.Model):
     return '<TournamentHeader: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s' \
     % (self.name, self.region, self.official_title, self.host, self.url, self.entrants, self.game_type, self.date, self.name, self.sub_tournaments)
 
+  # Get overall entrants for tournamentHeader by adding entrants in sub_tournaments excluding those in final bracket (last bracket in tournament_header.sub_tournaments)
+  # Only accurate if all players entered pools (weren't pre-seeded in final bracket)
+  def get_final_entrants(self):
+    cumulative_entrants = 0
+    sub_tournaments = self.sub_tournaments
+    if len(sub_tournaments) > 1:
+      for i in range(len(sub_tournaments) - 1):
+        cumulative_entrants += sub_tournaments[i].entrants
+    else:
+      cumulative_entrants = sub_tournaments[0].entrants
+    self.entrants = cumulative_entrants
+    db.session.commit()
+    return self.entrants
+
+
 # Tournament is the many in a one-to-many relationship with model Set
 class Tournament(db.Model):
   __tablename__ = 'tournament'

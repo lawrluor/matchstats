@@ -10,6 +10,7 @@ from pprint import pprint
 
 from date_utils import *
 from trueskill_functions import *
+from misc_utils import print_ignore
 
 # To be converted into TournamentHeader objects
 class TournamentInfo:
@@ -19,9 +20,11 @@ class TournamentInfo:
 	parent=""
 	title=""
 	host=""
+	public_url=""
 	url=""
 	entrants=0
 	game_type=""
+	bracket_type=""
 
 	def __init__(self, id, name, region, date):
 		self.id = id
@@ -31,8 +34,8 @@ class TournamentInfo:
 
 	def __str__(self):
 		return 'TournamentInfo(id=%s, parent=%s, name=%s, region=%s, date=%s, title=%s, host=%s, \
-		url=%s, entrants=%s, game_type=%s)' % (self.id, self.parent, self.name, self.region, 
-		self.date, self.title, self.host, self.url, self.entrants, self.game_type)
+		public_url=%s, url=%s, entrants=%s, bracket_type=%s, game_type=%s)' % (self.id, self.parent, self.name, self.region, 
+		self.date, self.title, self.host, self.public_url, self.url, self.entrants, self.bracket_type, self.game_type)
 
 class SubBracket:
 	'''
@@ -99,11 +102,36 @@ class SetInfo:
 		return 'SetInfo(id=%s, round_number=%s, round_text=%s, best_of=%s, winner_id=%s, loser_id=%s, winner_tag=%s, loser_tag=%s, winner_score=%s, loser_score=%s, total_matches=%s)' % \
 		(self.id, self.round_number, self.round_text, self.best_of, self.winner_id, self.loser_id, self.winner_tag, self.loser_tag, self.winner_score, self.loser_score, self.total_matches)
 
+# Gets the tournament header info and stores it in TournamentInfo object
+def parse_tournament_info(tournament_id, tournament_url, tournament_name, tournament_region, tournament_date):
+	info_url = "https://api.smash.gg/event/" + tournament_id
+	info = requests.get(info_url)
+	info_json = info.json()
+	# pprint(info_json)
+
+	tournament_info = TournamentInfo(tournament_id, tournament_name, tournament_region, tournament_date)
+	if info_json['entities']['event'].get("startedAt") is not None:
+		tournament_info.date = convert_date(info_json['entities']['event'].get("startedAt"))
+	else:
+		tournament_info.date = convert_date(tournament_date)
+
+	tournament_info.public_url = tournament_url
+	tournament_info.game_type = info_json['entities']['event'].get("typeDisplayStr")
+	tournament_info.title = info_json['entities']['event'].get("slug")
+	tournament_info.url = info_url
+	
+	
+	print "\n---TOURNAMENT INFO---\n", tournament_info
+	return tournament_info
 
 # Parse sub_brackets of parent tournaments.
 # If the master tournament only has one sub bracket, it will find it in parse_smashgg_info and call this function
 def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	sub_bracket_url = sub_bracket_info.url
+	
+	# in smashgg brackets, sub_bracket for Final Bracket is named '1'
+	if sub_bracket_info.name=='1':
+		sub_bracket_info.name = "Final Bracket"
 	full_bracket_name =  tournament_info.name + ' | ' + sub_bracket_info.name
 	print "\n---SUB BRACKET---:", full_bracket_name
 
@@ -115,39 +143,19 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	# Change values for # entrants, url, name
 	sub_tournament_info = TournamentInfo(sub_bracket_info.id, full_bracket_name, tournament_info.region, tournament_info.date)
 	sub_tournament_info.url = sub_bracket_url
+	sub_tournament_info.public_url = tournament_info.public_url + '/' + str(sub_bracket_info.id)
 
 	# Inherited form parent tournament header
 	sub_tournament_info.entrants = tournament_info.entrants
 	sub_tournament_info.date = tournament_info.date
 	sub_tournament_info.parent = tournament_info.name
 	sub_tournament_info.game_type = tournament_info.game_type
-
 	print sub_tournament_info
 
 	sub_tournament = import_sub_tournament_info(sub_tournament_info)
 	
 	entrant_list = parse_bracket_entrants(sub_bracket_json, sub_tournament)
 	parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament)
-
-def import_sub_tournament_info(sub_tournament_info):
-	new_sub_tournament = Tournament(official_title=sub_tournament_info.title,
-								url=sub_tournament_info.url,
-								entrants=sub_tournament_info.entrants,
-								date=sub_tournament_info.date,
-								name=sub_tournament_info.name,
-								game_type=sub_tournament_info.game_type
-								)
-
-	db.session.add(new_sub_tournament)
-
-	# associate with TournamentHeader
-	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
-	tournament_header.sub_tournaments.append(new_sub_tournament)
-	new_sub_tournament.region = new_sub_tournament.header.region
-
-	db.session.commit()
-	print "\n---SUBTOURNAMENT---", new_sub_tournament
-	return new_sub_tournament
 
 def parse_bracket_entrants(sub_bracket_json, sub_tournament):
 	condensed_entrants = sub_bracket_json['entities']['seeds']
@@ -174,7 +182,7 @@ def parse_bracket_entrants(sub_bracket_json, sub_tournament):
 
 	print "\n---ENTRANTS---"
 	for entrant in entrant_list:
-		print entrant
+		print_ignore(entrant)
 
 	import_tournament_entrants(entrant_list, sub_tournament)
 	return entrant_list
@@ -217,35 +225,12 @@ def parse_bracket_sets(sub_bracket_json, entrant_list, sub_tournament):
 		# reassign to entrants in import sets
 		# set.get('wOverallPlacement')
         # set.get('wPlacement')
-
 	import_tournament_sets(set_list, sub_tournament)
 
-# Gets the tournament header info and stores it in TournamentInfo object
-def parse_tournament_info(tournament_id, tournament_name, tournament_region, tournament_date):
-	info_url = "https://api.smash.gg/event/" + tournament_id
-	info = requests.get(info_url)
-	info_json = info.json()
-	# pprint(info_json)
-
-	tournament_info = TournamentInfo(tournament_id, tournament_name, tournament_region, tournament_date)
-	if info_json['entities']['event'].get("startedAt") is not None:
-		tournament_info.date = convert_date(info_json['entities']['event'].get("startedAt"))
-	else:
-		tournament_info.date = convert_date(tournament_date)
-
-	tournament_info.game_type = info_json['entities']['event'].get("typeDisplayStr")
-	tournament_info.title = info_json['entities']['event'].get("slug")
-	tournament_info.url = info_url
-	
-	print "\n---TOURNAMENT INFO---\n", tournament_info
-	return tournament_info
 
 # Given processed tournament_info object parse_tournament_info, add TournamentHeader object to database
 def import_tournament_info(tournament_info):
-	if tournament_info.game_type is not None:
-		tournament_game_type = tournament_info.game_type
-	else:
-		tournament_game_type = "Super Smash Bros. Melee"
+	tournament_game_type = "Super Smash Bros. Melee"
 
 	# if date located in Challonge bracket, use this date, otherwise use date passed in as parameter
 	if tournament_info.date is not None:
@@ -255,9 +240,9 @@ def import_tournament_info(tournament_info):
 
 	new_tournament_header = TournamentHeader(official_title=tournament_info.title,
 							host=tournament_info.host,
+							public_url=tournament_info.public_url,
 							url=tournament_info.url,
 							name=tournament_info.name,
-							entrants=tournament_info.entrants,
 							game_type=tournament_game_type,
 							date=tournament_date
 							)
@@ -270,44 +255,26 @@ def import_tournament_info(tournament_info):
 	db.session.commit()
 	return new_tournament_header
 
-# Master function
-def parse_bracket_info(tournament_url, tournament_name, tournament_region, tournament_date):
-	if tournament_url is None:
-		return None
-	else:
-		# Splice master tournament_id number from the URL (first number after 'brackets/')
-		id_start = tournament_url.find("brackets/") + 9
-		id_end = tournament_url.find("/", id_start)
-		tournament_id = tournament_url[id_start:id_end]
+def import_sub_tournament_info(sub_tournament_info):
+	new_sub_tournament = Tournament(official_title=sub_tournament_info.title,
+								url=sub_tournament_info.url,
+								public_url=sub_tournament_info.public_url,
+								entrants=sub_tournament_info.entrants,
+								date=sub_tournament_info.date,
+								name=sub_tournament_info.name,
+								game_type=sub_tournament_info.game_type
+								)
 
-	tournament_url = "https://api.smash.gg/event/" + tournament_id + "?expand[0]=groups&expand[1]=phase"
-	master = requests.get(tournament_url)
-	master_json = master.json()
-	# pprint(master_json)
-	
-	# Process and import tournament info, creating new Tournament object
-	tournament_info = parse_tournament_info(tournament_id, tournament_name, tournament_region, tournament_date)
-	tournament_obj = import_tournament_info(tournament_info)
+	db.session.add(new_sub_tournament)
 
-	# At this point, master is the JSON showing all the sub_bracket/pool tournaments that are contained within this tournament
-	# Subgroup begin at "displayIdentifier", and you want the IDs of each individual sub_bracket.
-	# Create list of dictionaries of each sub_bracket with relevant ID info. Only really need "id", to get sub_bracket url
-	sub_brackets = master_json['entities']['groups']
-	bracket_list = []
-	for sub_bracket in sub_brackets:
-		sub_bracket_info = SubBracket(sub_bracket.get("id"))
-		sub_bracket_info.phase_id = sub_bracket.get("phaseId")
-		sub_bracket_info.wave_id = sub_bracket.get("waveId")
-		sub_bracket_info.name = sub_bracket.get("displayIdentifier")
-		sub_bracket_info.url = "https://api.smash.gg/phase_group/" + str(sub_bracket_info.id) + "?expand%5B%5D=sets&expand%5B%5D=seeds&expand%5B%5D=entrants"
-		bracket_list.append(sub_bracket_info)
+	# associate with TournamentHeader
+	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
+	tournament_header.sub_tournaments.append(new_sub_tournament)
+	new_sub_tournament.region = new_sub_tournament.header.region
 
-	for sub_bracket_info in bracket_list:
-		parse_sub_bracket_info(sub_bracket_info, tournament_info)
-
-	print "FINISHED"
-	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
-	return final_tournament
+	db.session.commit()
+	print "\n---SUBTOURNAMENT---", new_sub_tournament
+	return new_sub_tournament
 
 # Import smashgg entrants and create User objects in database
 def import_tournament_entrants(entrant_list, tournament_obj):
@@ -358,14 +325,50 @@ def import_tournament_sets(set_list, sub_tournament):
 	                  loser_score=loser_score,
 	                  total_matches=total_matches)
 		db.session.add(new_set)
-	    
-		# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
-		try:
-			print new_set
-		except UnicodeError:
-			pass
+		print_ignore(set)
 
 		# update User trueskill ratings based on Set winner and loser
 		update_rating(winner_user, loser_user)
 
 	db.session.commit()
+
+# Master function
+def parse_bracket_info(tournament_url, tournament_name, tournament_region, tournament_date):
+	if tournament_url is None:
+		return None
+	else:
+		# Splice master tournament_id number from the URL (first number after 'brackets/')
+		id_start = tournament_url.find("brackets/") + 9
+		id_end = tournament_url.find("/", id_start)
+		tournament_id = tournament_url[id_start:id_end]
+
+	api_url = "https://api.smash.gg/event/" + tournament_id + "?expand[0]=groups&expand[1]=phase"
+	master = requests.get(api_url)
+	master_json = master.json()
+	# pprint(master_json)
+	
+	# Process and import tournament info, creating new Tournament object
+	tournament_info = parse_tournament_info(tournament_id, tournament_url, tournament_name, tournament_region, tournament_date)
+	tournament_obj = import_tournament_info(tournament_info)
+
+	# At this point, master is the JSON showing all the sub_bracket/pool tournaments that are contained within this tournament
+	# Subgroup begin at "displayIdentifier", and you want the IDs of each individual sub_bracket.
+	# Create list of dictionaries of each sub_bracket with relevant ID info. Only really need "id", to get sub_bracket url
+	sub_brackets = master_json['entities']['groups']
+	bracket_list = []
+	for sub_bracket in sub_brackets:
+		sub_bracket_info = SubBracket(sub_bracket.get("id"))
+		sub_bracket_info.phase_id = sub_bracket.get("phaseId")
+		sub_bracket_info.wave_id = sub_bracket.get("waveId")
+		sub_bracket_info.name = sub_bracket.get("displayIdentifier")
+		sub_bracket_info.url = "https://api.smash.gg/phase_group/" + str(sub_bracket_info.id) + "?expand%5B%5D=sets&expand%5B%5D=seeds&expand%5B%5D=entrants"
+		bracket_list.append(sub_bracket_info)
+
+	for sub_bracket_info in bracket_list:
+		parse_sub_bracket_info(sub_bracket_info, tournament_info)
+
+	# Calculate and assign entrants for tournamentHeader
+	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
+	tournament_header.get_final_entrants()
+	print "---FINISHED---"
+	return tournament_header

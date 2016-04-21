@@ -14,46 +14,56 @@ Set and Match lists specifically defined to lessen ambiguity about which methods
 to call first to generate Set and Match list.
 """
 
+class UserPlacements:
+  '''
+  To store information about User's placements at tournaments in function 'user'
+  Identical to UserPlacements object in views.py
+  '''
+  tournament = ""
+  placement = 0
+  seed = 0
+
+  def __init__(self, tournament_name):
+    self.tournament_name = tournament_name
+
+  def __str__(self):
+    return 'UserPlacements(tournament_name=%s, placement=%s, seed=%s, tournament=%s)' % \
+    (self.tournament_name, self.placement, self.seed, self.tournament)
+
+
 def h2h_get_mutual_tournaments(user1, user2):
-  """given two User objects, returns a dictionary mapping tournament name to
-  a tuple containg two users' tournament placings, for example
-  (u'BAM 7', (('2nd', 2), ('1st', 1))).
+  '''
+  given two User objects, returns list of lists containing two UserPlacements objects (which contain tournament_name,
+  placement, and seed), corresponding to user1 and user2 for each mutual tournament attended
 
   call len() on the result of this method to get total number of tournaments
   attended together.
-  """
-  user1_placements = get_tournament_name_and_placing(user1)
-  user2_placements = get_tournament_name_and_placing(user2)
+  '''
+  user1_placements = get_placement_info(user1)
+  user2_placements = get_placement_info(user2)
  
-  # if identical keys for tournament (both attended same tournament), return
-  # dictionary with keys tournament_name and tuple value containing their
-  # respective placement 
-  mutual_tournaments = collections.OrderedDict()
-  for tournament in user1_placements:
-    if tournament in user2_placements:
-      mutual_tournaments[tournament] = user1_placements[tournament], user2_placements[tournament] 
-  print mutual_tournaments
+  # if identical names for tournament (both attended same tournament), add to list of mutual tournaments
+  mutual_tournaments = []
+  for user1_placement in user1_placements:
+    mutual_tournament = next((user2_placement for user2_placement in user2_placements if user1_placement.tournament_name==user2_placement.tournament_name), None)
+    if mutual_tournament is not None:
+      mutual_tournaments.append([user1_placement, mutual_tournament])
   return mutual_tournaments
-      
-def get_tournament_name_and_placing(user):
-  """given a user, returns a simple dictionary with key tournament_name and
-  placement tuple for a tournament a User has attended.
-  
-  Args:
-      user : User(models.py) : User object to query for placements.
 
-  Returns:
-      A dictionary mapping tournament name to a tuple representing the placement
-      name and value, ex: (u'BAM 7', ('1st', 1)).
-  """
-  user_placements = collections.OrderedDict()
-
+# Make this a class function in models?
+def get_placement_info(user):
+  '''
+  Returns list of UserPlacements object, each storing info for each tournament, placement, and seed
+  '''
   user_placements_sorted = sort_placementlist(user.tournament_assocs)
+  
+  placings = []
   for tournament_placement in user_placements_sorted:
-    tournament_name = tournament_placement.tournament.name
-    placement = convert_placement(tournament_placement.placement)
-    user_placements[tournament_name] = placement, tournament_placement.placement
-  return user_placements
+    user_placement = UserPlacements(tournament_placement.tournament.name)
+    user_placement.tournament = tournament_placement.tournament
+    user_placement.placement = convert_placement(tournament_placement.placement)
+    placings.append(user_placement)
+  return placings
 
 
 def h2h_get_sets_played(user1, user2):

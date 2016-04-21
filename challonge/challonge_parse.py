@@ -12,6 +12,7 @@ from pprint import pprint
 
 from date_utils import *
 from trueskill_functions import *
+from misc_utils import print_ignore
 
 class TournamentInfo:
 	'''
@@ -21,6 +22,7 @@ class TournamentInfo:
 	parent=""
 	official_title=""
 	host=""
+	public_url=""
 	url=""
 	entrants=""
 	bracket_type=""
@@ -33,8 +35,8 @@ class TournamentInfo:
 
 	def __str__(self):
 		return 'TournamentInfo(id=%s, parent=%s, name=%s, region=%s, date=%s, official_title=%s, host=%s,\
-		url=%s, entrants=%s, bracket_type=%s, game_type=%s)' % (self.id, self.parent, self.name, self.region, 
-		self.date, self.official_title, self.host, self.url, self.entrants, self.bracket_type, self.game_type)
+		url=%s, public_url=%s, entrants=%s, bracket_type=%s, game_type=%s)' % (self.id, self.parent, self.name, self.region, 
+		self.date, self.official_title, self.host, self.public_url, self.url, self.entrants, self.bracket_type, self.game_type)
 
 
 class EntrantInfo:
@@ -179,7 +181,6 @@ def process_bracket_info(sub_bracket, tournament_info):
 	sub_bracket_info.parent = tournament_info.name
 	sub_bracket_info.bracket_type = tournament_info.bracket_type
 	sub_bracket_info.game_type = tournament_info.game_type
-
 	print sub_bracket_info
 
 	sub_tournament = import_sub_tournament_info(sub_bracket_info)
@@ -263,13 +264,8 @@ def import_sets(set_list, sub_tournament, assign_placings):
 	                  winner_score=set.winner_score,
 	                  loser_score=set.loser_score,
 	                  total_matches=set.total_matches)
-		db.session.add(new_set)
-	    
-		# Exception for UnicodeError during printing, if unicode character cannot be converted, skip the print
-		try:
-			print new_set
-		except UnicodeError:
-			pass
+		db.session.add(new_set) 
+		print_ignore(set)
 
 		# update User trueskill ratings based on Set winner and loser
 		update_rating(winner_user, loser_user)
@@ -294,7 +290,7 @@ def process_entrants(sub_bracket_info, sub_tournament):
 
 	print "\n---ENTRANTS---"
 	for entrant in entrant_list:
-		print entrant
+		print_ignore(entrant)
 
 	import_entrants(entrant_list, sub_tournament)
 	return entrant_list
@@ -333,7 +329,6 @@ def process_tournament_info(tournament_info, tournament):
 	else:
 		tournament_info.date = convert_date(tournament_info.date)
 	tournament_info.url = tournament['full-challonge-url']
-
 	return tournament_info
 
 # Given processed tournament_info object from process_tournament_info, add Tournament object to database with the appropriate information
@@ -342,6 +337,7 @@ def import_tournament_info(tournament_info):
 	new_tournament_header = TournamentHeader(official_title=tournament_info.official_title,
 								host=tournament_info.host,
 								url=tournament_info.url,
+								public_url=tournament_info.url,
 								entrants=tournament_info.entrants,
 								game_type=tournament_info.game_type,
 								date=tournament_info.date,
@@ -363,6 +359,7 @@ def import_tournament_info(tournament_info):
 def import_sub_tournament_info(sub_tournament_info):
 	new_sub_tournament = Tournament(official_title=sub_tournament_info.official_title,
 								url=sub_tournament_info.url,
+								public_url=sub_tournament_info.url,
 								entrants=sub_tournament_info.entrants,
 								bracket_type=sub_tournament_info.bracket_type,
 								date=sub_tournament_info.date,

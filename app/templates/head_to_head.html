@@ -150,23 +150,23 @@
       <tbody>
         {% for tournament in mutual_tournaments %}
           <!-- Bold text for User with the winning record. Each item in dict mutual_tournaments looks like [(u'BAM 7', (('2nd', 2), ('1st', 1)))], where first item is tournament name and  second and third items are placement and placement number for user1 and user2 respectively. -->
-          {% if mutual_tournaments[tournament][0][1] < mutual_tournaments[tournament][1][1] %}
+          {% if tournament[0].placement < tournament[1].placement %}
             <tr class="success">
-              <td class="col-sm-4 text-right"><b><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a> - {{ mutual_tournaments[tournament][0][0] }}</td></b>
-          {% elif mutual_tournaments[tournament][0][1] == mutual_tournaments[tournament][1][1] %}
+              <td class="col-sm-4 text-right"><b><a href="{{url_for("user", tag=tag1)}}">{{tag1}}</a> - {{tournament[0].placement}}</td></b>
+          {% elif tournament[0].placement == tournament[1].placement %}
             <tr class="warning">
-              <td class="col-sm-4 text-right"><b><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a> - {{ mutual_tournaments[tournament][0][0] }}</td></b>
+              <td class="col-sm-4 text-right"><b><a href="{{url_for("user", tag=tag1)}}">{{tag1}}</a> - {{tournament[0].placement}}</td></b>
           {% else %}
             <tr class="danger">
-              <td class="col-sm-4 text-right"><a href="{{ url_for("user", tag=tag1) }}">{{ tag1 }}</a> - {{ mutual_tournaments[tournament][0][0] }}</td>
+              <td class="col-sm-4 text-right"><a href="{{url_for("user", tag=tag1)}}">{{tag1}}</a> - {{tournament[0].placement}}</td>
           {% endif %}
 
-            <td class="col-sm-4 text-center"><b><a href="{{ url_for("tournament", tournament_name=tournament) }}">{{ tournament }}</b></td>
+            <td class="col-sm-4 text-center"><b><a href="{{ url_for("tournament", tournament_header=tournament[0].tournament.header, sub_tournament=tournament[0].tournament.name)}}">{{tournament[0].tournament_name}}</b></td>
 
-          {% if mutual_tournaments[tournament][0][1] >= mutual_tournaments[tournament][1][1] %}
-            <td class="col-sm-4 text-left"><b><a href="{{ url_for("user", tag=tag2) }}">{{ mutual_tournaments[tournament][1][0] }} - {{ tag2 }}</b></a></td></tr>
+          {% if tournament[0].placement >= tournament[1].placement %}
+            <td class="col-sm-4 text-left"><b><a href="{{url_for("user", tag=tag2)}}">{{tournament[1].placement}} - {{tag2}}</b></a></td></tr>
           {% else %}
-            <td class="col-sm-4 text-left"><a href="{{ url_for("user", tag=tag2) }}">{{ mutual_tournaments[tournament][1][0] }} - {{ tag2 }}</a></td></tr>
+            <td class="col-sm-4 text-left"><a href="{{url_for("user", tag=tag2)}}">{{tournament[1].placement}} - {{tag2}}</a></td></tr>
           {% endif %}
           </tr>
         {% endfor %}

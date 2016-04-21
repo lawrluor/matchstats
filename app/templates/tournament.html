@@ -4,8 +4,8 @@
 <div class="container">
   <header class="jumbotron">
     <h1 class="col-sm-10">{{tournament.name}}</h1>
-    {% if tournament.url %}
-      <h3 class="col-sm-1"><a href="{{tournament.url}}"><b>[View Bracket]</b></a></h3>
+    {% if tournament.public_url %}
+      <h3 class="col-sm-1"><a href="{{tournament.public_url}}"><b>[View Bracket]</b></a></h3>
     {% endif %}
 
     <table class="table borderless">
@@ -37,10 +37,10 @@
         </td>
 
         <td class="col-sm-6">
-          {% if tournament.entrants != -1 %}
-            <h3><b>Info</b>: {{tournament.entrants}} Player {{tournament.bracket_type}}</h3>
+          {% if tournament.entrants > 0 %}
+            <h3><b>Entrants</b>: {{tournament.entrants}} </h3>
           {% else %}
-            <h3><b>Info</b>: {{tournament.bracket_type}}</h3>
+            <h3><b>Entrants</b>: Unknown </h3>
           {% endif %}
         </td>
       </tr>

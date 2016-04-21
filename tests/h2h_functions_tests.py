@@ -17,3 +17,10 @@ print '\n'
 print "Armada and Leffen h2h_get_mutual_tournaments"
 h2h_get_mutual_tournaments("Armada", "Leffen")
 print '\n'
+
+# Tests for h2h_get_mutual_tournaments and get_placement_info
+u = User.query.first()
+v = User.query.all()[1]
+get_placement_info(u)
+get_placement_info(v)
+h2h_get_mutual_tournaments(u, v)

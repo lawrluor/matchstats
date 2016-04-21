@@ -15,7 +15,7 @@
 	</td>
 	
 	<td class="col-sm-3 text-center"><b>
-		{% if tournament_header.entrants != -1 %}
+		{% if tournament_header.entrants > 0 %}
 			{{tournament_header.entrants}}
 		{% else %}
 			Unknown
@@ -26,7 +26,7 @@
 		{% if tournament_header.region %}
 			<b><a href="{{ url_for("region", region=tournament_header.region) }}">{{tournament_header.region}}</a></b>
 		{% else %}
-			{{tournament_header.region}}
+			Global
 		{% endif %}
 	</td>
 </tr>

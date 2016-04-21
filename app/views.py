@@ -356,10 +356,22 @@ def browse_tournaments(region, page=1):
   return render_template("browse_tournaments.html",
                          tournamentlist=tournamentlist,
                          current_region=g.region)
-    
+
+# Use regex expression for this?
+# Sanitizes argument from url_for that has URL escape characters in it
+def sanitize_url(tournament_name):
+  tournament_name = tournament_name.replace("%20", ' ')
+  tournament_name = tournament_name.replace("%2F", '/')
+  tournament_name = tournament_name.replace("%2D", '-')
+  tournament_name = tournament_name.replace("%2E", '.')
+  return tournament_name
+
 # Displays all subtournaments in a TournamentHeader
 @app.route('/tournament/<tournament_name>')
 def tournamentHeader(tournament_name):
+  print tournament_name
+  tournament_name = sanitize_url(tournament_name)
+  print "sanitized", tournament_name
   # get Tournament object given string name
   tournament_header = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
 
@@ -373,6 +385,9 @@ def tournamentHeader(tournament_name):
 
 @app.route('/tournament/<tournament_header>/<sub_tournament>')
 def tournament(tournament_header, sub_tournament):
+  print sub_tournament
+  sub_tournament = sanitize_url(sub_tournament)
+  print "sanitized", sub_tournament
   # get Tournament object given string name
   tournament_obj = Tournament.query.filter(Tournament.name==sub_tournament).first()
 
