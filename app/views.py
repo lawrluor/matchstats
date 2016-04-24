@@ -2,7 +2,7 @@
 from flask import render_template, flash, redirect, request, url_for, g, session
 from app import app, db
 from models import *
-from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, CharacterFilter, main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list, RegionSelect
+from forms import UserCreate, UserEdit, SetCreate, SetEdit, MatchSubmit, HeadToHead, SearchForm, CharacterFilter, character_choices, character_list, RegionSelect
 from sqlalchemy import and_, or_
 from config import USERS_PER_PAGE, TOURNAMENTS_PER_PAGE, CHAR_USERS_PER_PAGE 
 
@@ -209,6 +209,9 @@ class UserTournamentSets:
   def __init__(self, tournament):
     self.tournament = tournament
 
+  def __str__(self):
+    return "UserTournamentSets(tournament_name=%s, tournament=%s, sets=%s)" % (self.tournament_name, self.tournament, self.sets)
+
 
 # User profile page
 @app.route('/user/<tag>')
@@ -226,7 +229,7 @@ def user(tag, page=1):
     return redirect(url_for('browse_users', region=g.region))
 
   # get User secondaries
-  user_secondaries = user.get_secondaries()
+  user_characters = user.get_characters()
   
   # create ordered dictionary with Tournament name and respective placement; important to keep order so placements can be displayed in order of tournament.date 
   user_sets_by_tournament = collections.OrderedDict()
@@ -242,12 +245,10 @@ def user(tag, page=1):
     user_placement.tournament = placement_obj.tournament
     placement_list.append(user_placement)
 
-    # user_tournament_sets = UserTournamentSets(placement_obj.tournament)
-    # user_tournament_sets.tournament_name = user_tournament_sets.tournament.name
-    # user_tournament_sets.sets = Set.query.filter(and_(Set.tournament_name==user_tournament_sets.tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
-    # for set in user_tournament_sets.sets:
-    #  user_tournament_sets.sets.append(set)
-    # sets_by_tournament.append(user_tournament_sets)
+    user_tournament_sets = UserTournamentSets(placement_obj.tournament)
+    user_tournament_sets.tournament_name = user_tournament_sets.tournament.name
+    user_tournament_sets.sets = Set.query.filter(and_(Set.tournament_name==user_tournament_sets.tournament_name, or_(Set.winner_tag==user.tag, Set.loser_tag==user.tag))).order_by(Set.id).all()
+    sets_by_tournament.append(user_tournament_sets)
 
   # get number of Sets won and lost as integers to pass to template
   user_set_wins = len(user.get_won_sets())
@@ -257,10 +258,10 @@ def user(tag, page=1):
                         user=user,
                         user_set_wins=user_set_wins,
                         user_set_losses=user_set_losses,
-                        user_secondaries=user_secondaries,
+                        user_characters=user_characters,
                         user_tournaments_sorted=user_tournaments_sorted,
                         placement_list=placement_list,
-                        # user_tournament_sets=user_tournament_sets,
+                        sets_by_tournament=sets_by_tournament,
                         page=page,
                         tournaments_per_page=tournaments_per_page)
 
@@ -290,34 +291,20 @@ def browse_characters():
 @app.route('/character/<character>')
 @app.route('/character/<character>/<int:page>')
 def character(character, page=1):
-  # if viewing Global information, don't filter query by g.region
-  if g.region=="Global" or g.region=="National":
-    main_matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.main==character)).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-# if viewing national information, filter query to take Users with User.region==None
-  else:
-    main_matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.main==character, Region.region==g.region)).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-  if main_matching_users.total <= 0:
-    flash('No players found that main this character')
-  
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
-
-  if character_object is not None and character=="Unknown":
-    # if viewing Global information, don't filter query by g.region
-    if g.region=="Global" or g.region=="National":
-      secondaries_matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global"), User.secondaries.contains(character_object)).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-    else:
-      secondaries_matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.secondaries.contains(character_object), Region.region==g.region )).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
-  else:
-    secondaries_matching_users=None
   
-  # Flash notice if no players found that secondary the character
-  if secondaries_matching_users is None or secondaries_matching_users.total <= 0:
-    flash('No players found that secondary this character')
+  # if viewing Global information, don't filter query by g.region
+  if g.region=="Global" or g.region=="National":
+    matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.character.contains(character_object))).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+# if viewing national information, filter query to take Users with User.region==None
+  else:
+    matching_users = User.query.join(TrueSkill.user, User).join(Region, User.region).filter(and_(TrueSkill.region==g.region, User.characters.contains(character_object), Region.region==g.region)).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)
+  if matching_users.total <= 0:
+    flash('No players found that play this character')
 
   return render_template("character.html",
-                         main_matching_users=main_matching_users,
-                         secondaries_matching_users=secondaries_matching_users,
+                         matching_users=matching_users,
                          character=character,
                          current_region=g.region)
  
@@ -657,7 +644,7 @@ def internal_error(error):
 # def user_edit(user):
 #   form = UserEdit()
 #   current_user = User.query.filter(User.tag==user).first() 
-#   current_secondaries = current_user.get_secondaries() 
+#   current_secondaries = current_user.get_characters() 
 #   
 #   # only display Characters that can be added (not main character or already secondary) and be removed (already secondary)
 #   form.add_secondaries.choices = [(x, x) for x in secondaries_char_list if x != current_user.main and x not in current_secondaries] 

@@ -15,36 +15,22 @@
         {% endif %}
         </h3>
       </td>
+
+      <td class="col-sm-6">
+        <h3>
+          <b>Characters:</b>
+          {% if user.characters.all()|length > 0 %}
+            {% for character in user.characters.all() %}
+              {% set character_name = character.name %}
+              {% include "char_icon.html" %}
+            {% endfor %}
+          {% else %}
+            {% set character_name = "Unknown" %}
+            {% include 'char_icon.html' %}
+          {% endif %}
+        </h3>
+      </td>
     </tr>
-
-      <tr>
-        <td class="col-sm-6">
-          <h3><b>Main:</b>
-            {% if user.main %}
-              <a href="{{url_for("character", character=user.main)}}">{{user.main}}</a>
-              {% set character_name = user.main %}
-              {% include "char_icon.html" %}
-            {% else %}
-              {% set character_name = "Unknown" %}
-              {% include "char_icon.html" %}
-            {% endif %}
-          </h3>
-        </td>
-
-        <td class="col-sm-6">
-          <h3>
-            <b>Secondaries:</b>
-            {% if user.secondaries.all() %}
-              {% for character in user.secondaries.all() %}
-                {% set character_name = character.name %}
-                {% include "char_icon.html" %}
-              {% endfor %}
-            {% else %}
-              None
-            {% endif %}
-          </h3>
-        </td>
-      </tr>
 
       <tr>
         <td>
@@ -128,22 +114,21 @@
         </tr>
       </thead>
 
-      <!-- Display User Sets
+
       <tbody>
-        {% for tournament in user_tournament_sets %}
+        {% for tournament in sets_by_tournament %}
           <tr>
-            <td><h4><a href="{{url_for('tournament', tournament_header=tournament.tournament.header, sub_tournament=tournament.tournament_name)}}"><b>{{tournament}}</b></a></h4></td>
+            <td><h4><a href="{{url_for('tournament', tournament_header=tournament.tournament.header, sub_tournament=tournament.tournament_name)}}"><b>{{tournament.tournament_name}}</b></a></h4></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
-          {% for set in setlist %}
+          {% for set in tournament.sets %}
             {% include 'set.html' %}
           {% endfor %}
         {% endfor %}
       </tbody>
-      -->
     </table>
 
 

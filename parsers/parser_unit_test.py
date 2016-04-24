@@ -23,8 +23,3 @@ challonge.get_credentials()
 process_tournament("http://bigbluees.challonge.com/NGP47", "NGP 47", "New England", "March 29, 2016")
 process_tournament("http://bigbluees.challonge.com/NGP45", "NGP 45", "New England", "March 15, 2016")
 process_tournament("http://bigbluees.challonge.com/NGP46", "NGP 46", "New England", "March 22, 2016")
-
-# order by trueskills: session.query(Base).join(Base.owner).order_by(Player.name)
-users = User.query.join(User.trueskills).order_by(TrueSkill.cons_mu.desc()).all()
-for user in users:
-	print user

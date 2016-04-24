@@ -15,9 +15,13 @@
     </td>
 
     <td class="col-sm-3 text-center mobile-horizontal-overflow-td-col-3">
-    	{% if user.main %}
-            {% set character_name = user.main %}
-            {% include 'char_icon.html'%}
+    	{% if user.characters.all()|length > 0 %}
+            {% for character in user.characters.all() %}
+                {% if loop.index0 < 3 %}
+                    {% set character_name = character.name %}
+                    {% include "char_icon.html" %}
+                {% endif %}
+            {% endfor %}
         {% else %}
             {% set character_name = "Unknown" %}
             {% include 'char_icon.html' %}
@@ -35,32 +39,5 @@
             {% endif %}
         {% endif %}
     </td>
-
-    <!-- different ways of representing User based on # of secondaries User has. pay close attention to characters that are printed outside of the variables -->
-
-    <!-- In current version (1.0), Secondaries not displayed
-    <td class="col-sm-3">
-    {% set user_secondaries = user.get_secondaries() -%}
-        {% if user_secondaries|length > 3 %}
-        	 | [ 
-            <a href="{{url_for("character", character=user_secondaries[1])}}">{{user_secondaries[1]}}</a>, 
-            <a href="{{url_for("character", character=user_secondaries[2])}}">{{user_secondaries[2]}}</a>,  
-            <a href="{{url_for("character", character=user_secondaries[3])}}">{{user_secondaries[3]}}</a>
-            ... ]
-        {% elif user_secondaries|length < 1 %}
-            None
-        {% else %}
-        	| [
-    		{% for i in range(user_secondaries|count) %}
-        		{% if i == (user_secondaries|count - 1) %}
-    				<a href="{{url_for("character", character=user_secondaries[i])}}">{{user_secondaries[i]}}</a>
-        		{% else %}
-    				<a href="{{url_for("character", character=user_secondaries[i])}}">{{user_secondaries[i]}}</a>, 
-        		{% endif %}
-        	{% endfor %}
-    		]
-       	{% endif %}
-    -->
-   </td>
 </tr>
 {% endif %}

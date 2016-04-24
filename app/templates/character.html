@@ -9,17 +9,9 @@
       {% include 'char_icon.html' %}
     </h1>
 
-    <h2><b>Mains: 
-      {% if main_matching_users.total %} 
-        <b>{{main_matching_users.total}}</b>
-      {% else %}
-        <b>0</b>
-      {% endif %}
-    </h2>
-
-    <h2><b>Secondaries: 
-      {% if secondaries_matching_users.total %}
-        <b>{{secondaries_matching_users.total}}</b>
+    <h2><b>Players: 
+      {% if matching_users.total %} 
+        <b>{{matching_users.total}}</b>
       {% else %}
         <b>0</b>
       {% endif %}
@@ -29,7 +21,7 @@
   <!-- Table for Users who main character -->
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>{{g.region}} Players who main {{character}}</b></h2>
+      <h2><b>{{g.region}} Players who play {{character}}</b></h2>
     </div>
 
     <div class="panel-body">
@@ -39,7 +31,7 @@
         </thead>
 
         <tbody>
-          {% for user in main_matching_users.items %}
+          {% for user in matching_users.items %}
             {% include 'user_display.html' %}
           {% endfor %}
         </tbody>
@@ -47,42 +39,11 @@
     
     <div class="text-center"><b>
       <!-- Pagination Navigation for User Mains -->
-      {% if main_matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=main_matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+      {% if matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
 
-      {% if main_matching_users.has_prev and main_matching_users.has_next %} | {% endif %}
+      {% if matching_users.has_prev and matching_users.has_next %} | {% endif %}
 
-      {% if main_matching_users.has_next %}<a href="{{ url_for('character', character=character, page=main_matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
-    </b></div>
-
-    </div>
-  </div>
-	
-  <!-- Table for Users who secondary character -->
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2><b>{{g.region}} Players who secondary {{character}}</b></h3>
-    </div>
-
-    <div class="panel-body">
-      <table class="table bootstrap-datatable table-hover">
-        <thead>
-          {% include 'user_display_head.html' %}
-        </thead>
-
-        <tbody>
-          {% for user in secondaries_matching_users.items %}
-            {% include 'user_display.html' %}
-          {% endfor %}
-        </tbody>
-      </table>
-
-    <div class="text-center"><b>
-      <!-- Pagination Navigation for User Mains -->
-      {% if secondaries_matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=secondaries_matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
-
-       {% if secondaries_matching_users.has_prev and secondaries_matching_users.has_next %} | {% endif %}
-
-      {% if secondaries_matching_users.has_next %}<a href="{{ url_for('character', character=character, page=secondaries_matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+      {% if matching_users.has_next %}<a href="{{ url_for('character', character=character, page=matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
     </b></div>
 
     </div>

@@ -2,7 +2,7 @@ from app import db
 from sqlalchemy import Table, Column, Integer, ForeignKey, and_, or_
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
-from forms import main_char_choices, secondaries_char_choices, main_char_list, secondaries_char_list
+from forms import character_choices, character_list
 
 import sys
 sys.path.append('./sanitize')
@@ -20,12 +20,12 @@ class Character(db.Model):
   def __str__(self):
     return self.name
   
-  def uses_secondary(self, user):
-    return self.users.filter(and_(secondaries.c.user_id==user.id, secondaries.c.character_id==self.id)).count() > 0
+  def uses_character(self, user):
+    return self.users.filter(and_(characters.c.user_id==user.id, characters.c.character_id==self.id)).count() > 0
     
 
 # association table between Character and User
-secondaries = db.Table('secondaries',
+characters = db.Table('characters',
                         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
                         db.Column('character_id', db.Integer, db.ForeignKey('character.id'))
                        )
@@ -77,20 +77,16 @@ class User(db.Model):
   __tablename__ = 'user'
   id = db.Column(db.Integer, primary_key=True)
   tag = db.Column(db.String(128), index=True, unique=True)
-  main = db.Column(db.String(64), index=True)
   region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
   trueskills = db.relationship("TrueSkill", order_by='TrueSkill.id', backref='user')
-  secondaries = db.relationship("Character",
-                              secondary=secondaries,
+  characters = db.relationship("Character",
+                              secondary=characters,
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
   def __repr__(self):
-    return '<Tag: %s, Region: %s, Main: %s, TrueSkills: %s, Secondaries: %s>' % (unicode(self.tag), self.region, self.main, self.trueskills, self.secondaries.all())
+    return '<Tag: %s, Region: %s, TrueSkills: %s, characters: %s>' % (unicode(self.tag), self.region, self.trueskills, self.characters.all())
  
-  def __unicode__(self):
-    return unicode(self.tag) + ' | Region: ' + unicode(self.region) + ' | Main: ' + unicode(self.main) + ' | Secondaries: ' + unicode(self.secondaries.all())
-
   # User-Set Relationship functions
   # get_won_sets is a function that takes a User object and returns the sets he has won.
   def get_won_sets(self):
@@ -127,63 +123,73 @@ class User(db.Model):
     print self.get_all_sets()
 
   # User-Character Relationship functions
-  # to query "secondaries" association table, can't use Query. do self.secondaries.all()  
-  # self.secondaries.all() returns list of Character objects, in __repr__() form
-  def get_secondaries(self):
-    all_secondaries = self.secondaries.all()
+  # to query "characters" association table, can't use Query. do self.characters.all()  
+  # self.characters.all() returns list of Character objects, in __repr__() form
+  # What was formerly User.main will refer to User.characters.all()[0], the first Character in list of characters
+  def get_characters(self):
+    all_characters = self.characters.all()
 
-    processed_secondaries = []
-    for i in range(len(all_secondaries)):
-      char_name = unicode(all_secondaries[i])
-      processed_secondaries.append(char_name)
-    return processed_secondaries # This is a list of strings that represent Character objects
+    processed_characters = []
+    for i in range(len(all_characters)):
+      char_name = all_characters[i]
+      processed_characters.append(char_name)
+    return processed_characters # This is a list of strings that represent Character objects
   
-  # Takes string representing character object and determines if it is a secondary Character of a User
-  def is_secondary(self, character):
+  # Takes string representing character object and determines if it is a character Character of a User
+  def is_character(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
     if char_obj is None:
       return "Character does not exist"
     else:
-      return self.secondaries.filter(and_(secondaries.c.user_id==self.id, secondaries.c.character_id==char_obj.id)).count() > 0
+      return self.characters.filter(and_(characters.c.user_id==self.id, characters.c.character_id==char_obj.id)).count() > 0
 
-  def add_secondary(self, character):
+  def add_character(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
-    if self.is_secondary(character):
-      return "This Character is already a secondary of User"
-    elif self.main==character:
-      return "This Character is already User's Main"
+    if self.is_character(character):
+      return "This Character is already a character of User"
     else:
-      self.secondaries.append(char_obj)
+      self.characters.append(char_obj)
+    db.session.commit()
     return self
   
-  def remove_secondary(self, character):
+  def remove_character(self, character):
     char_obj = Character.query.filter(Character.name==character).first()
-    if self.is_secondary(character):
-      self.secondaries.remove(char_obj)
+    if self.is_character(character):
+      self.characters.remove(char_obj)
     else:
-      return "This Character is not a secondary of User"
+      return "This Character is not a character of User"
+    db.session.commit()
     return self 
 
-  def add_secondaries_list(self, characterlist):
-    for i in range(len(characterlist)):
-      character = Character.query.filter(Character.name==haracterlist[i]).first()
-      if characterlist[i] in secondaries_char_list and character.name != self.main:
-        print character.name, self.main
-        if not self.is_secondary(character.name):
-          self.add_secondary(character.name)
-        else:
-          print "Character %s is already a secondary of User" % character.name
-    return self
-
-  def remove_secondaries_list(self, characterlist):
+  def add_characters_list(self, characterlist):
     for i in range(len(characterlist)):
       character = Character.query.filter(Character.name==characterlist[i]).first()
-      if characterlist[i] in secondaries_char_list and character.name != self.main:
-        if self.is_secondary(character.name):
-          self.remove_secondary(character.name)
+      if characterlist[i] in character_list: # character_list is static list from app/forms.py
+        if not self.is_character(character.name):
+          self.add_character(character.name)
         else:
-          print "Character %s is not a secondary of User" % character.name
+          print "Character %s is already a character of User" % character.name
+    db.session.commit()
     return self
+
+  def remove_characters_list(self, characterlist):
+    for i in range(len(characterlist)):
+      character = Character.query.filter(Character.name==characterlist[i]).first()
+      if characterlist[i] in character_list: # character_list is static list from app/forms.py
+        if self.is_character(character.name):
+          self.remove_character(character.name)
+        else:
+          print "Character %s is not a character of User" % character.name
+    db.session.commit()
+    return self
+
+  # Returns the first Character in self.characters, list of User's Characters.
+  # self.characters.all()[0] refers to the character User.main used to
+  def get_main(self):
+    if len(self.characters.all()) > 0:
+      return self.characters.all()[0]
+    else:
+      return "No Character found"
 
 
 # Based on tag parameter, queries User database to locate the respective User; if not found, creates new one, and adds to the database; in either case User is returned. If region parameter is provided, adds region after User creation.

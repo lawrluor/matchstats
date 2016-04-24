@@ -9,39 +9,9 @@ import re
 # list of all Regions
 regionlist = [('Global', 'Global'), ('National', 'National'), ('New England', 'New England'), ('SoCal', 'SoCal'), ('North Carolina', 'North Carolina')]
 
-# main character choice list for SelectField; a constant list taken by SelectField containing all the characters and some special characters
-main_char_choices = [('Fox', 'Fox'),
-                     ('Falco', 'Falco'), 
-                     ('Sheik', 'Sheik'), 
-                     ('Marth', 'Marth'), 
-                     ('Jigglypuff', 'Jigglypuff'), 
-                     ('Peach', 'Peach'), 
-                     ('Captain Falcon', 'Captain Falcon'), 
-                     ('Ice Climbers', 'Ice Climbers'), 
-                     ('Dr. Mario', 'Dr. Mario'), 
-                     ('Pikachu', 'Pikachu'), 
-                     ('Samus', 'Samus'), 
-                     ('Ganondorf', 'Ganondorf'), 
-                     ('Luigi', 'Luigi'), 
-                     ('Mario', 'Mario'), 
-                     ('Young Link', 'Young Link'), 
-                     ('Link', 'Link'), 
-                     ('Donkey Kong', 'Donkey Kong'), 
-                     ('Yoshi', 'Yoshi'), 
-                     ('Zelda', 'Zelda'), 
-                     ('Roy', 'Roy'), 
-                     ('Mewtwo', 'Mewtwo'), 
-                     ('Mr. Game and Watch', 'Mr. Game and Watch'), 
-                     ('Ness', 'Ness'), 
-                     ('Bowser', 'Bowser'), 
-                     ('Pichu', 'Pichu'), 
-                     ('Kirby', 'Kirby'), 
-                     ('Random', 'Random'), 
-                     ('Unknown', 'Unchosen'), 
-                     ('Multiple', 'Multiple')]
 
-# secondaries character choice list for SelectField; a constant list taken by SelectField containing only the 26 SSBM Characters
-secondaries_char_choices = [('Fox', 'Fox'), 
+# characters  choice list for SelectField; a constant list taken by SelectField containing only the 26 SSBM Characters
+character_choices = [('Fox', 'Fox'), 
                             ('Falco', 'Falco'), 
                             ('Sheik', 'Sheik'), 
                             ('Marth', 'Marth'), 
@@ -68,39 +38,8 @@ secondaries_char_choices = [('Fox', 'Fox'),
                             ('Pichu', 'Pichu'), 
                             ('Kirby', 'Kirby')]
 
-# simple list of character strings for all possible main characters
-main_char_list = ['Fox', 
-                  'Falco', 
-                  'Sheik', 
-                  'Marth', 
-                  'Jigglypuff', 
-                  'Peach', 
-                  'Captain Falcon', 
-                  'Ice Climbers', 
-                  'Dr. Mario', 
-                  'Pikachu', 
-                  'Samus', 
-                  'Ganondorf', 
-                  'Luigi', 
-                  'Mario', 
-                  'Young Link', 
-                  'Link', 
-                  'Donkey Kong', 
-                  'Yoshi', 
-                  'Zelda', 
-                  'Roy', 
-                  'Mewtwo', 
-                  'Mr. Game and Watch', 
-                  'Ness', 
-                  'Bowser', 
-                  'Pichu', 
-                  'Kirby', 
-                  'Random', 
-                  'Unknown', 
-                  'Multiple']
-
-# simple list of character strings for all possible secondary characters
-secondaries_char_list = ['Fox',
+# simple list of character strings for all possible characters
+character_list = ['Fox',
                          'Falco', 
                          'Sheik', 
                          'Marth', 
@@ -151,15 +90,13 @@ def set_score_check():
 class UserCreate(Form):
   user_tag = StringField('tag', validators=[DataRequired()])
   user_region = StringField('region', validators=[DataRequired()])
-  user_main = SelectField('main', choices=main_char_choices, coerce=str, validators=[DataRequired()])
-  user_secondaries = SelectMultipleField('secondaries', choices=secondaries_char_choices, coerce=str)
+  user_characters = SelectMultipleField('characters', choices=character_choices, coerce=str)
 
 class UserEdit(Form):
   edit_tag = StringField('tag', validators=[DataRequired()])
   edit_region = StringField('region', validators=[DataRequired()])
-  edit_main= SelectField('main', choices=main_char_choices, validators=[DataRequired()])
-  add_secondaries = SelectMultipleField('add_secondaries')
-  remove_secondaries = SelectMultipleField('remove_secondaries') 
+  add_characters = SelectMultipleField('add_characters')
+  remove_characters = SelectMultipleField('remove_characters') 
 
 class SetCreate(Form):
   set_tournament = StringField('tournament')
@@ -185,8 +122,8 @@ class MatchSubmit(Form):
   # Data not required in case no match info is known (no validators for fields)
   match_winner = SelectField('match_winner', coerce=str)
   match_loser = SelectField('match_loser', coerce=str)
-  winner_char = SelectField('winner_char', choices=main_char_choices, coerce=str)
-  loser_char = SelectField('loser_char', choices=main_char_choices, coerce=str)
+  winner_char = SelectField('winner_char', choices=character_choices, coerce=str)
+  loser_char = SelectField('loser_char', choices=character_choices, coerce=str)
 
 # SelectField format for choices: The first (value, label) is the actual value. The label is what appears in the dropdown menu. In this case, both should be the samei
 
@@ -205,4 +142,4 @@ class RegionSelect(Form):
 
 # Character filter form in /browse_users
 class CharacterFilter(Form):
-  character_name = SelectField('character_name', choices=[('Main', 'Main')] + main_char_choices, coerce=str)
+  character_name = SelectField('character_name', choices=[('Main', 'Main')] + character_choices, coerce=str)

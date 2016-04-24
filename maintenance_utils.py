@@ -110,7 +110,7 @@ def change_region(tag, region_name):
   db.session.commit()
   return user
 
-def add_characters(tag, main, secondaries):
+def add_characters(tag, characters):
   found_tag = check_and_sanitize_tag(tag)
   print found_tag
 
@@ -119,17 +119,16 @@ def add_characters(tag, main, secondaries):
   if user is None:
     return "User not found"
 
-  user.main = main
-  if secondaries is not None and secondaries!=[]:
-    for secondary in secondaries:
-      user.add_secondary(secondary)
+  if characters is not None and characters !=[]:
+    for character in characters:
+      user.add_character(character)
       db.session.commit()
   db.session.commit()
   return user
 
-def delete_secondary(tag, character):
+def delete_character(tag, character):
   user = User.query.filter(User.tag==tag).first()
-  user.remove_secondary(character)
+  user.remove_character(character)
   db.session.commit()
 
 # Given parameter tournament name and a list of integers representing year, month, and day, queries for Tournament object and assigns a date for it.
