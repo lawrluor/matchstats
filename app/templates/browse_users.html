@@ -15,25 +15,34 @@
 	  <tbody>
 		  <!-- userlist is a Pagination object -->
 		  {% for user in userlist.items %}
-		    {% include 'user_display.html' %}
+		  	{% with %}
+		  		{% if current_region == "Global" %}
+		  			{% set rank = user.trueskills[0].rank %}
+		  		{% else %}
+		  			{% set rank = user.trueskills[1].rank %}
+		  		{% endif %}
+		    	{% include 'user_display.html' %}
+		    {% endwith %}
 		  {% endfor %}
 	  </tbody>
 	</table>
 
 		<!-- Navigating the paginated display -->
-		<div class="text-center"><b>
-		  {% if userlist.has_prev %}<a href="{{ url_for('browse_users', region=g.region, page=userlist.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
-
-		  {% if userlist.has_prev and userlist.has_next %}
-		  	|
-		  {% endif %}
-
-		  {% if userlist.has_next %}<a href="{{ url_for('browse_users', region=g.region, page=userlist.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
-		</b></div>
-	</div>
-
-	</div>
-
-  
+	<div class="text-center"><b>
+		<div class=pagination>
+		{%- for page in userlist.iter_pages() %}
+	    	{% if page %}
+	    		{% if page != userlist.page %}
+	        		<a href="{{url_for('browse_users', region=g.region, page=page)}}">{{ page }}</a>
+	    		{% else %}
+	        		<strong>{{ page }}</strong>
+	      		{% endif %}
+	    	{% else %}
+	      		<span class=ellipsis>…</span>
+	    	{% endif %}
+	  	{%- endfor %}
+	  	</div>
+	</b></div>
+  </div>
 </div>
 {% endblock %}

@@ -32,7 +32,14 @@
 
         <tbody>
           {% for user in matching_users.items %}
-            {% include 'user_display.html' %}
+            {% with %}
+              {% if current_region == "Global" %}
+                {% set rank = user.trueskills[0].rank %}
+              {% else %}
+                {% set rank = user.trueskills[1].rank %}
+              {% endif %}
+              {% include 'user_display.html' %}
+            {% endwith %}
           {% endfor %}
         </tbody>
       </table>

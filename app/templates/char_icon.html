@@ -1,7 +1,11 @@
 <!-- Display character icon (.png image) -->
 <!-- needs variable character_name = string representing Character -->
-{% if character_name %}
-	<a href="{{url_for('character', character=character_name)}}">
+{% if character_name is not none%}
+	{% if character_name=="Unknown" or character_name=="Multiple" %}
 		<img src="{{url_for('static', filename='char_icons/' + character_name + '.png')}}", alt={{character_name}}>
-	</a>
+	{% else %}
+		<a href="{{url_for('character', character=character_name)}}">
+			<img src="{{url_for('static', filename='char_icons/' + character_name + '.png')}}", alt={{character_name}}>
+		</a>
+	{% endif %}
 {% endif %}

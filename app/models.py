@@ -39,9 +39,10 @@ class TrueSkill(db.Model):
   cons_mu = db.Column(db.Float)
   sigma = db.Column(db.Float)
   region = db.Column(db.String(128))
+  rank = db.Column(db.Integer)
 
   def __repr__(self):
-    return '<region: %s, mu: %s, sigma: %s, cons_mu: %s>' % (self.region, self.mu, self.sigma, self.cons_mu)
+    return '<region: %s, mu: %s, sigma: %s, cons_mu: %s, rank: %s>' % (self.region, self.mu, self.sigma, self.cons_mu, self.rank)
 
 
 # Region model associated with Users and Tournaments

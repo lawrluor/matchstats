@@ -176,3 +176,18 @@ def recalculate_trueskill():
 		update_rating(winner_user, loser_user)
 
 	print "All trueskills recalculated"
+
+def recalculate_ranks(region_name):
+	userlist = User.query.join(User.trueskills).filter(TrueSkill.region==region_name).order_by(TrueSkill.cons_mu.desc()).all()
+	if userlist is None:
+		return "Region not Found"
+
+	for i in range(len(userlist)):
+		user = userlist[i]
+		if region_name=="Global":
+			user.trueskills[0].rank = i + 1
+		else:
+			user.trueskills[1].rank = i + 1
+
+	db.session.commit()
+	return userlist

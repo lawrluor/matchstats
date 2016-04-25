@@ -182,7 +182,7 @@ def browse_users(region, page=1):
   else:
     # filter by g.region by joining Region and User.region, and order by Trueskill by joining Trueskill and User.trueskill
     userlist = User.query.join(User.trueskills).filter(TrueSkill.region==g.region).order_by(TrueSkill.cons_mu.desc()).paginate(page, USERS_PER_PAGE, False)
-
+  
   return render_template("browse_users.html",
                          userlist=userlist,
                          current_region=g.region
@@ -293,7 +293,9 @@ def browse_characters():
 def character(character, page=1):
   # "Convert" character parameter, which is currently a string, to Character object.
   character_object = Character.query.filter(Character.name==character).first()
-  
+  if character_object is None:
+    return render_template('404.html'), 404
+
   # if viewing Global information, don't filter query by g.region
   if g.region=="Global" or g.region=="National":
     matching_users = User.query.join(TrueSkill.user, User).filter(and_(TrueSkill.region=="Global", User.character.contains(character_object))).order_by(TrueSkill.cons_mu.desc()).paginate(page, CHAR_USERS_PER_PAGE, False)

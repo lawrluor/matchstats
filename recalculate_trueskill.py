@@ -10,7 +10,10 @@ def main():
   start = time.time()
 
   recalculate_trueskill()
-  
+  recalculate_ranks("Global")
+  recalculate_ranks("New England")
+  recalculate_ranks("SoCal")
+
   end = time.time()
   elapsed = end - start
   print "Total time:", elapsed
