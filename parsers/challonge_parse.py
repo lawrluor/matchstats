@@ -88,16 +88,33 @@ def parse_scores(scores):
 
 	# Separate winner and loser scores
 	score_list = scores.split('-')
-	print "winner_score", score_list[0], len(score_list[0]), type(score_list[0])
-	print "loser_score", score_list[1], len(score_list[1]), type(score_list[1])
+	# print score_list[0], type(score_list[0]), len(score_list[0])
+	# print score_list[1], type(score_list[1]), len(score_list[1])
+	# print '\n'
 
 	# Catch invalid scores
-	if score_list[0]=='' or score_list[1]=='':
+	if len(score_list[0])<1 or len(score_list[1])<1:
 		return -1, -1
+	# In case of Bracket Reset in Grand Finals, scores is 3-char string like so: 0,1
+	# Actually, I'm not sure when this happens. If so, treat like a glitch
+	# First example: process_tournament("http://challonge.com/happyblackhistorymonth", "UCONN", "New England", "February 29, 2016")
+	# Loser's Finals match not recorded properly. S2B over Scyzel 3-0, recorded as 1-0. 
+	# Extra Blue text indicating "Best of X" Match on this Challonge page
+	elif len(score_list[0])>1 or len(score_list[1])>1:
+		print "---THIS IS A BUG---"
+		if len(score_list[0])>1:
+			score0 = int(score_list[0][0].strip())
+			score1 = int(score_list[1].strip())
+		elif len(score_list[1])>1:
+			score0 = int(score_list[0].strip())
+			score1 = int(score_list[1][0].strip())
 	else:
-		winner_score = int(score_list[0].strip())
-		loser_score = int(score_list[1].strip())
-		return winner_score, loser_score
+		score0 = int(score_list[0])
+		score1 = int(score_list[1])
+		
+	winner_score = max(score0, score1)
+	loser_score = min(score0, score1)
+	return winner_score, loser_score
 
 # Parse challonge url in form "http://bigbluees.challonge.com/NGP46"
 # or "http://challonge.com/fi2f9gcu" (without subdomain)
@@ -160,7 +177,7 @@ def process_tournament_info(tournament_info, tournament):
 	if tournament['started-at'] is not None:
 		tournament_info.date = tournament['started-at']
 	else:
-		tournament_info.date = convert_date(tournament_info.date)
+		tournament_info.date = convert_int_date(tournament_info.date)
 	tournament_info.url = tournament['full-challonge-url']
 	return tournament_info
 

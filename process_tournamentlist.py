@@ -2,6 +2,7 @@
 
 import re
 import sys
+import time
 from process_tournament import *
 
 def main():
@@ -16,11 +17,17 @@ def main():
   read_tournamentlist(tournamentlist, region)
 
 def read_tournamentlist(tournamentlist, region):
+  start = time.time()
+
   # f is a file object
   with open(tournamentlist, 'r') as f:
     for tournament_line in f:
       process_tournament_line(tournament_line, region)
   f.close()
+
+  end = time.time()
+  elapsed = end - start
+  print "Total time:", elapsed
 
 if __name__ == "__main__":
   main()

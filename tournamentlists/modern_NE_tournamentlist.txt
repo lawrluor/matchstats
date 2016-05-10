@@ -3,8 +3,8 @@ The Workshop 4|http://challonge.com/theworkshop4meleesingles|1/30/2016
 MCG January|http://competitivegaming.challonge.com/MCGJanuarymelee|1/30/2016
 CTGH Melee 1-31-16|http://challonge.com/GHMelee4|1/31/2016
 Level Up Melee 4.10|http://levelupmelee.challonge.com/410|1/31/2016
-Multishine Monday 2-01-2016|http://challonge.com/MS020116|2/01/2016
-Grid Games 2-02-2016|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly7|2/2/2016
+Multishine Monday 2-01-16|http://challonge.com/MS020116|2/01/2016
+Grid Games 2-02-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly7|2/2/2016
 Champlain Weekly 6|http://challonge.com/CCWeekly6|1/30/2016
 MMOM 38|http://mmom.challonge.com/MMOM38|2/3/2016
 Monarchy Melee 9|http://ctmelee.challonge.com/mmbw9|2/4/2016
@@ -20,8 +20,8 @@ Smash on the Hill 4|http://challonge.com/sothm4|2/12/2016
 See Me In Office Hours 7|http://ctmelee.challonge.com/cme7singles|2/13/2016
 Smash UMA 1.4|http://smashuma.challonge.com/0_4ms|2/13/2016
 Game Castle Melee 2|http://challonge.com/GameCastleMelee2|2/13/2016
-Multishine Mondays 2-15-2016|http://challonge.com/MS_SGE|2/15/2016
-Grid Games 2-16-2016|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly8|2/16/2016
+Multishine Mondays 2-15-16|http://challonge.com/MS_SGE|2/15/2016
+Grid Games 2-16-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly8|2/16/2016
 Champlain College Weekly 8|http://challonge.com/CCWeekly8|2/16/2016
 New Game Plus 41|https://smash.gg/tournament/new-game-plus-41/brackets/11584/11018/38698|2/16/2016
 Make Money Off Melee 40|http://mmom.challonge.com/MMOM40|2/17/2016
@@ -31,17 +31,17 @@ C4 Melee Monthly|http://ccmelee.challonge.com/C4Melee1|2/20/2016
 Battle Bash 3|http://challonge.com/BB3meleesingles|2/20/2016
 Game Haven Melee 2-21-16|http://challonge.com/CTGHMelee022116|2/21/2016
 Queen City Melee 18|http://challonge.com/QCM18|2/21/2016
-Platinum City Gaming Melee 2/19/2016|http://pcgsmash.challonge.com/Melee_Weekly_2_19_16|2/19/2016
+Platinum City Gaming Melee 2-19-16|http://pcgsmash.challonge.com/Melee_Weekly_2_19_16|2/19/2016
 MCG Monthly February|http://competitivegaming.challonge.com/MCGFebruarymelee|2/21/2016
 Downtown Smash|http://challonge.com/DTS_Melee|2/21/2016
-Multishine Monday 2-22-2016|http://challonge.com/MS022216|2/22/2016
-UCONN Smash 2-22-2016|http://challonge.com/222singles|2/22/2016
+Multishine Monday 2-22-16|http://challonge.com/MS022216|2/22/2016
+UCONN Smash 2-22-16|http://challonge.com/222singles|2/22/2016
 New Game Plus 42|http://challonge.com/MS022216|2/23/2016
 Champlain College Weekly 9|http://challonge.com/CCWeekly9|2/23/2016
 Make Money Off Melee 41|http://mmom.challonge.com/MMOM41|2/24/2016
 HoG 2-25-16|http://ctmelee.challonge.com/hogbiweekly22516|2/25/2016
 SG Melee 2-25-16|http://sgmelee.challonge.com/sgmelee2_25_16|2/25/2016
-Platinum City Gaming Melee 2/26/2016|http://pcgsmash.challonge.com/MeleeMonthly2_26_16|2/26/2016
+Platinum City Gaming Melee 2-26-16|http://pcgsmash.challonge.com/MeleeMonthly2_26_16|2/26/2016
 Waterville Smash Attack 2|http://challonge.com/WSA2Melee|2/26/2016
 Super Smash Saturdays 2.6|http://mgcmelee.challonge.com/26S|2/27/2016
 HoG TMG Edition|http://ctmelee.challonge.com/HoGTMG|2/27/2016
@@ -54,8 +54,8 @@ Grid Games 3-01-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweek
 MMOM 42|http://mmom.challonge.com/MMOM42|3/2/2016
 SG Melee 3-3-16|http://sgmelee.challonge.com/sgmelee3_3_16|3/03/2016
 Mass Madness 6|http://bigbluees.challonge.com/MM6|3/05/2016
-UNH Extra Credit 3/6/2016|http://unhsmash.challonge.com/S2016ECS|3/06/2016
-Platinum City Gaming Melee 3-04-2016|http://pcgsmash.challonge.com/Melee_3_4_16|3/04/2016
+UNH Extra Credit 3-6-2016|http://unhsmash.challonge.com/S2016ECS|3/06/2016
+Platinum City Gaming Melee 3-04-16|http://pcgsmash.challonge.com/Melee_3_4_16|3/04/2016
 Multishine Monday 3-07-16|http://challonge.com/MS030716|3/07/2016
 UCONN Mondays 3-07-16|http://challonge.com/37singles|3/7/2016
 New Game Plus 44|http://bigbluees.challonge.com/NGP44|3/8/2016
@@ -66,15 +66,15 @@ Platinum City Gaming 3-11-16|http://pcgsmash.challonge.com/Weekly_3_11_16|3/11/2
 Smash On the Hill 5|http://challonge.com/sothm5|3/11/2016
 Super Smash Saturdays 2.7|http://mgcmelee.challonge.com/27S|3/12/2016
 The Industrial Rumble|http://challonge.com/gkxqjybu|3/12/2016
-Multishine Monday 3-14-2016|http://challonge.com/gkxqjybu|3/14/2016
+Multishine Monday 3-14-16|http://challonge.com/gkxqjybu|3/14/2016
 Grid Games 3-15-2016|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly10|3/15/2016
 New Game Plus 45|http://bigbluees.challonge.com/NGP45|3/15/2016
 MMOM 44|http://mmom.challonge.com/MMOM44|3/15/2016
-Platinum City Gaming 3/18/2016|http://pcgsmash.challonge.com/MeleeWeekly3_18_16|3/18/2016
+Platinum City Gaming 3-18-2016|http://pcgsmash.challonge.com/MeleeWeekly3_18_16|3/18/2016
 SG Melee 3-17-16|http://sgmelee.challonge.com/sgmelee3_17_16|3/17/2016
 QCM XIX|http://challonge.com/QCMXIX|3/20/2016
 Game Castle 3|http://challonge.com/GCM3|3/20/2016
-UCONN Monday 3/21|http://challonge.com/321singles|3/21/2016
+UCONN Monday 3-21|http://challonge.com/321singles|3/21/2016
 New Game Plus 46|http://bigbluees.challonge.com/NGP46|3/22/2016
 MMOM 45|http://mmom.challonge.com/MMOM45|3/23/2016
 HoG 3-24-16|http://ctmelee.challonge.com/hogmelee032416|3/22/2016
@@ -96,7 +96,7 @@ Platinum City Gaming 4-8-16|http://pcgsmash.challonge.com/Melee_Weekly_4_8_16|4/
 HoG 4-7-16|http://ctmelee.challonge.com/hogweekly4716|4/7/2016
 UCONN 4-11-16|http://challonge.com/UCONNSingles411|4/11/2016
 QCM XX|http://challonge.com/QCMXX|4/9/2016
-NGP 49|https://smash.gg/tournament/new-game-plus-49/brackets|4/12/2016
+NGP 49|https://smash.gg/tournament/new-game-plus-49/brackets/12509/26065/85665|4/12/2016
 Multishine Monday 04-11-16|http://challonge.com/MS041116|4/11/2016
 MCG March|http://competitivegaming.challonge.com/SSBMMCGMAR|3/26/2016
 UCONN 3-28-16|http://ctmelee.challonge.com/UCONNSingles328|3/28/2016
@@ -108,7 +108,7 @@ Mass Madness 7|http://bigbluees.challonge.com/MM7Pro|4/16/2016
 Mass Madness 7 (Amateur)|http://bigbluees.challonge.com/MM7Amateur|4/16/2016
 Champlain Weekly 16|http://challonge.com/CCweekly16|4/19/2016
 NEU Game Plus|http://challonge.com/TNCP1|4/19/2016
-MMOM 49|http://mmom.challonge.com/MMOM49#|4/20/2016
+MMOM 49|http://mmom.challonge.com/MMOM49|4/20/2016
 HoG 4-21-16|http://ctmelee.challonge.com/hogweekly042116|4/21/2016
 Champlain Weekly 14|http://challonge.com/CCweekly14|4/5/2016
 Champlain Weekly 15|http://challonge.com/CCweekly15|4/12/2016
