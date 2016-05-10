@@ -250,8 +250,12 @@ def process_sets(sub_bracket_info, entrant_list, sub_tournament):
 		set_info.winner_id = set['winner-id']
 		set_info.loser_id = set['loser-id']
 
-		winner = next(entrant for entrant in entrant_list if entrant.id==set['winner-id'])
-		loser = next(entrant for entrant in entrant_list if entrant.id==set['loser-id'])
+		try:
+			winner = next(entrant for entrant in entrant_list if entrant.id==set['winner-id'])
+			loser = next(entrant for entrant in entrant_list if entrant.id==set['loser-id'])
+		except StopIteration:
+			continue
+
 		set_info.winner_tag = winner.player_tag
 		set_info.loser_tag = loser.player_tag
 

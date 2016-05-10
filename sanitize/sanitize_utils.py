@@ -138,7 +138,7 @@ player_raw_regex_dict = {
     ['(z[o0]s[o0]$)'],
     ['(th[o0]rn$)'],
     ['(crush$)'],
-    ['(mafia$)', '(irish mafia$)', '(slimjim$)', '(slim jim$)'], 
+    ['(mafia$)', '(maf$)', '(irish mafia$)', '(slimjim$)', '(slim jim$)'], 
     ['(mdz$)', '(mattdotzeb$)', '(matt dot zeb$)', '(kizzuredux$)'],
     ['(klap[s$]$)'],
     ['(tian$)'],
@@ -150,7 +150,7 @@ player_raw_regex_dict = {
     ['(dudutsai$)', '(dudustsai$)', '(dudustai$)', '(tsai$)', '(stb$)'],
     ['(sora$)'],
     ['(hart$)'],
-    ['(mr tuesday$)', '(mr\. tuesday$)'],
+    ['(mr tuesday$)', '(mr\. tuesday$)', '(mr\.tuesday$)'],
     ['(bigvegetabluntz$)', '(bvb$)'],
     ['(me[tl][tl]wing$)'], 
     ['(b[o0]lt$)', '(b[o0]wn$)', '(b[o0]lt\$\$\.\.)'],
@@ -265,7 +265,10 @@ player_raw_regex_dict = {
     ['(matat[o0]$)'],
     ['(jfm$)'],
     ['(ct$)'],
-    ['(beetle$)']
+    ['(beetle$)'],
+    ['(captain crunch$)', '(captaincrunch$)'],
+    ['(zealous 5000$)', '(zealous5000$)'],
+    ['(thunderpaste$)', '(thunder paste$)']
     ],
 
     'NorCal' : [
@@ -630,7 +633,10 @@ sanitized_tags_dict = {
     'Matat0',
     'JFM',
     'CT',
-    'Beetle'
+    'Beetle',
+    'Captain Crunch',
+    'Zealous5000',
+    'ThunderPaste'
     ],
 
     'NorCal' : [

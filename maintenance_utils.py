@@ -66,12 +66,74 @@ def merge_user(root_tag, joined_tag):
   db.session.commit()
   return root_user
 
+def capitalize_all_tags():
+  # Not used in sanitize because if people come with sponsor tags, they will be deleted anyways and real tag won't be the same
+  userlist = User.query.all()
+  for user in userlist:
+    if not user.tag[0].isalpha() or user.tag[0].isupper():
+      continue
+    else:
+      print "USER TAG", user.tag
+      temp = user.tag
+      capitalize_first = lambda s: s[:1].upper() + s[1:] if s else ''
+      cap_tag = capitalize_first(temp)
+      print "CAP TAG", cap_tag
+
+    root_user = User.query.filter(User.tag==cap_tag).first()
+    if root_user is not None:
+      print "ORIGINAL USER", user
+      print "ROOT USER", root_user
+      merge_user(root_user.tag, user.tag)
+    else:
+      # if can't find root tag to merge with, then root tag doesn't exist. Change the tag
+      change_tag(user.tag, cap_tag)
+    print '\n'
+  return
+
+def remove_team(separator):
+  userlist = User.query.filter(User.tag.contains(separator)).all()
+  for user in userlist:
+    print "USER TAG", user.tag
+    sep_index = user.tag.find(separator)
+    # ensure you are removing from the front. checks against cases where separator is last char
+    if sep_index!=len(user.tag)-1:
+      new_tag = user.tag[sep_index+len(separator):]
+      new_tag = new_tag.strip()
+      print "NEW TAG", new_tag
+    else:
+      print "Not a team separator"
+      continue
+
+    if user.region is None:
+      sanitized_tag = check_and_sanitize_tag(new_tag)
+    else:
+      sanitized_tag = check_and_sanitize_tag(new_tag, user.region.region)
+    print "SANITIZED TAG", sanitized_tag
+
+    # Find User if tag not registered
+    if sanitized_tag==new_tag:
+      # this means user was not matched to sanitized tag, so query for user with tag==new_tag
+      root_user = User.query.filter(User.tag==new_tag).first()
+      if root_user is not None:
+        print "ROOT USER", root_user
+        merge_user(root_user.tag, user.tag)
+      else:
+        # if still can't find root tag to merge with, then root tag doesn't exist. Change the tag
+        change_tag(user.tag, new_tag)
+    else:
+      # if found sanitized User, merge them
+      merge_user(sanitized_tag, user.tag)  
+    print '\n'
+
+
 def search_and_replace_user(tag_string):
   userlist = User.query.filter(User.tag.contains(tag_string)).all()
   for user in userlist:
     print "USER TAG", user.tag
     new_tag = user.tag.replace(tag_string, '')
+    new_tag = new_tag.strip()
     print "NEW_TAG", new_tag
+
     if user.region is None:
       sanitized_tag = check_and_sanitize_tag(new_tag)
     else:
