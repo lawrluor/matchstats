@@ -9,15 +9,15 @@ from bs4 import BeautifulSoup
 import sys
 import unicodedata
 
-from parse_challonge_standings import *
-from parse_challonge_info import *
-from parse_challonge_matches import *
+sys.path.insert(0, './parsers')
+from parse_smashgg_info import *
+from challonge_parse import *
 
 # Helper function for read_tournamentlist
 # Parses relevant info regarding a tournament given string containing tournament name, url, region, and date
-# New\ Game\ Plus\ 1|http://bigbluees.challonge.com/NGP1|New\ England|04/28/2015 
+# New\ Game\ Plus\ 1|http://bigbluees.challonge.com/NGP1|04/28/2015 
 # Returns: dictionary with relevant keywords attaced to values
-def process_tournament_line(tournament_line):
+def process_tournament_line(tournament_line, region):
   # process each line and parse tournament_url, tournament_name 
   processed_tournament_line = tournament_line.strip('\n')
   line_parser = re.compile('[|]')
@@ -27,24 +27,28 @@ def process_tournament_line(tournament_line):
   tournament_name = tournament_name.translate(None, '\\')
 
   tournament_url = tokens[1]
-  tournament_region = tokens[2]
-  tournament_date = tokens[3]
+  tournament_date = tokens[2]
   
-  # If region passed as string "None", "Global", "National", convert to None object
-  if tournament_region=="None" or tournament_region=="Global" or tournament_region=="National":
+  # If region passed as string "None", "Global", convert to None object
+  if region=="None" or region=="Global":
     tournament_region = None
   else:
-    tournament_region = tournament_region.translate(None, '\\')
+    tournament_region = region.translate(None, '\\')
 
-  info_dict = {'tournament_name' : tournament_name,
-               'tournament_region' : tournament_region,
-               'tournament_url' : tournament_url,
-               'tournament_date' : tournament_date
-              }
+  # Diffrentiate whether given tournament is a Smashgg or Challonge bracket. Hacky
+  if "challonge" in tournament_url:
+    challonge.set_credentials("ssbtonic", "55TSSgywjR2bPpvIXDMrm5pZ6edm6Iq0rmcCXK5c")
+    process_tournament(tournament_url, tournament_name, tournament_region, tournament_date)
+  elif "smash.gg" in tournament_url:
+    parse_bracket_info(tournament_url, tournament_name, tournament_region, tournament_date)
+  else:
+    return "Bracket system not recognized"
+  
+  print tournament_url, tournament_name, tournament_region, tournament_date
 
-  print info_dict
-  return info_dict
 
+
+# ---DEPERECATED---
 # Takes parameter String tournament_line, a block of tournament info
 # Runs functions to add Tournament to database
 # "New\ Game\ Plus\ 1|http://bigbluees.challonge.com/NGP1|New\ England|04/28/2015"

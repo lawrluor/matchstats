@@ -27,15 +27,15 @@
 	  </tbody>
 	</table>
 
-		<!-- Navigating the paginated display -->
+	<!-- Navigating the paginated display -->
 	<div class="text-center"><b>
 		<div class=pagination>
 		{%- for page in userlist.iter_pages() %}
 	    	{% if page %}
 	    		{% if page != userlist.page %}
-	        		<a href="{{url_for('browse_users', region=g.region, page=page)}}">{{ page }}</a>
+	        		<a href="{{url_for('browse_users', region=g.region, page=page)}}">{{page}}</a>
 	    		{% else %}
-	        		<strong>{{ page }}</strong>
+	        		<strong>{{page}}</strong>
 	      		{% endif %}
 	    	{% else %}
 	      		<span class=ellipsis>…</span>

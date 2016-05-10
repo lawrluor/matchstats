@@ -83,11 +83,21 @@ class SetInfo:
 # Helper function to parse Challonge scores from set['scores-csv'] in the form 'x-y'
 # Returns tuple of winner_score, loser_score
 def parse_scores(scores):
+	if scores is None:
+		return -1, -1
+
 	# Separate winner and loser scores
 	score_list = scores.split('-')
-	winner_score = int(score_list[0])
-	loser_score = int(score_list[1])
-	return winner_score, loser_score
+	print "winner_score", score_list[0], len(score_list[0]), type(score_list[0])
+	print "loser_score", score_list[1], len(score_list[1]), type(score_list[1])
+
+	# Catch invalid scores
+	if score_list[0]=='' or score_list[1]=='':
+		return -1, -1
+	else:
+		winner_score = int(score_list[0].strip())
+		loser_score = int(score_list[1].strip())
+		return winner_score, loser_score
 
 # Parse challonge url in form "http://bigbluees.challonge.com/NGP46"
 # or "http://challonge.com/fi2f9gcu" (without subdomain)

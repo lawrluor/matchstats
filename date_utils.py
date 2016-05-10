@@ -5,6 +5,7 @@ import datetime
 from datetime import date
 
 # static dictionary to convert calendar date to datetime, used in convert_date
+# Integer correspondences are in case Month already passed in as a number
 months = {'January' : 1,
           'February' : 2,
           'March' : 3,
@@ -16,7 +17,8 @@ months = {'January' : 1,
           'September' : 9,
           'October' : 10,
           'November' : 11,
-          'December' : 12}
+          'December' : 12
+          }
 
 # Converts a date styled June 28, 2015 into datetime 2015-06-28
 def convert_date(challonge_date):

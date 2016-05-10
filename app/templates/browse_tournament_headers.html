@@ -22,7 +22,7 @@
 		</table>
 
 		<!-- Navigating the paginated display -->
-		<div class="text-center"><b>
+		<div><b>
 		  {% if tournament_headers.has_prev %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournament_headers.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
 
 		  {% if tournament_headers.has_prev and tournament_headers.has_next %}

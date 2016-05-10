@@ -111,9 +111,9 @@ def parse_tournament_info(tournament_id, tournament_url, tournament_name, tourna
 
 	tournament_info = TournamentInfo(tournament_id, tournament_name, tournament_region, tournament_date)
 	if info_json['entities']['event'].get("startedAt") is not None:
-		tournament_info.date = convert_date(info_json['entities']['event'].get("startedAt"))
+		tournament_info.date = convert_int_date(info_json['entities']['event'].get("startedAt"))
 	else:
-		tournament_info.date = convert_date(tournament_date)
+		tournament_info.date = convert_int_date(tournament_date)
 
 	tournament_info.public_url = tournament_url
 	tournament_info.game_type = info_json['entities']['event'].get("typeDisplayStr")
@@ -169,17 +169,22 @@ def parse_bracket_entrants(sub_bracket_json, sub_tournament):
 
 	entrant_list = []
 	for entrant in condensed_entrants:
-		entrant_id = entrant['condensed']['entrant'].get("id")
-		entrant_name = entrant['condensed']['entrant'].get("name")
-		entrant_info = EntrantInfo(entrant_id, entrant_name)
+		# pprint(entrant)
+		entrant_id = str(entrant.get("entrantId"))
+		participant_id = str(entrant['mutations']['entrants'][entrant_id]['participantIds'][0])
+		player_id = str(entrant['mutations']['entrants'][entrant_id]['playerIds'][participant_id])
+		print entrant_id, participant_id, player_id
 
-		# entrant['condensed']['player'] returns list containing one dictionary
-		entrant_info.player_tag = entrant['condensed']['player'][0].get("gamerTag")
-		entrant_info.player_prefix = entrant['condensed']['player'][0].get("prefix")
-		entrant_info.player_id = entrant['condensed']['player'][0].get("id")
-		entrant_info.player_region = entrant['condensed']['player'][0].get("region")
-		entrant_info.player_country = entrant['condensed']['player'][0].get("country")
-		entrant_info.player_state = entrant['condensed']['player'][0].get("state")
+		entrant_name = entrant['mutations']['entrants'][entrant_id].get("name")
+		entrant_info = EntrantInfo(int(entrant_id), entrant_name)
+
+		# entrant['mutations']['players'][entrant_id] returns list containing one dictionary
+		entrant_info.player_tag = entrant['mutations']['players'][player_id].get("gamerTag")
+		entrant_info.player_prefix = entrant['mutations']['players'][player_id].get("prefix")
+		entrant_info.player_id = entrant['mutations']['players'][player_id].get("id")
+		entrant_info.player_region = entrant['mutations']['players'][player_id].get("region")
+		entrant_info.player_country = entrant['mutations']['players'][player_id].get("country")
+		entrant_info.player_state = entrant['mutations']['players'][player_id].get("state")
 		entrant_info.player_sub_seed = entrant.get("groupSeedNum")
 		entrant_info.player_super_seed = entrant.get("seedNum")
 		entrant_info.player_sub_placing = entrant.get("placement")
@@ -302,6 +307,7 @@ def import_tournament_entrants(entrant_list, tournament_obj):
 def import_tournament_sets(set_list, sub_tournament):
 	print '\n---SETS---'
 	for set in set_list:
+		print set
 		winner_score = set.winner_score
 		loser_score = set.loser_score
 		total_matches = set.total_matches

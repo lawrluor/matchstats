@@ -21,7 +21,7 @@
   <!-- Table for Users who main character -->
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>{{g.region}} Players who play {{character}}</b></h2>
+      <h2><b>{{g.region}} {{character}} Players</b></h2>
     </div>
 
     <div class="panel-body">
@@ -45,12 +45,20 @@
       </table>
     
     <div class="text-center"><b>
-      <!-- Pagination Navigation for User Mains -->
-      {% if matching_users.has_prev %}<a href="{{ url_for('character', character=character, page=matching_users.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
-
-      {% if matching_users.has_prev and matching_users.has_next %} | {% endif %}
-
-      {% if matching_users.has_next %}<a href="{{ url_for('character', character=character, page=matching_users.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+      <!-- Pagination Navigation -->
+      <div class=pagination>
+      {%- for page in matching_users.iter_pages() %}
+          {% if page %}
+            {% if page != matching_users.page %}
+                <a href="{{url_for('character', character=character, page=page)}}">{{page}}</a>
+            {% else %}
+                <strong>{{page}}</strong>
+              {% endif %}
+          {% else %}
+              <span class=ellipsis>…</span>
+          {% endif %}
+        {%- endfor %}
+      </div>
     </b></div>
 
     </div>

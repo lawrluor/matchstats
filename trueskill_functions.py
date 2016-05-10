@@ -170,6 +170,7 @@ def recalculate_trueskill():
 
 	# BUG: if user.tag changed for a User, the Set winner/loser tag will still remain, so when querying for User using the Set's outdated tag, queried User becomes None.
 	# Solution: Check and sanitize winner_tag, loser_tag again. But if it wasn't recognized in the first place, still an issue
+	# This takes a long time to run. How to optimize?
 	for set in sorted_setlist:
 		winner_user = User.query.filter(User.tag==set.winner_tag).first()
 		loser_user = User.query.filter(User.tag==set.loser_tag).first()

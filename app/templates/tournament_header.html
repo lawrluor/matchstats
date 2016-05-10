@@ -49,22 +49,14 @@
 
   <!-- Table for Brackets -->
   <div class="panel panel-default">
-  <div class="panel-heading">
-    <h1><b>Brackets</b></h1>
-  </div>
+  <div class="panel-heading"><h1><b>View Brackets</b></h1></div>
   <div class="panel-body">
-  <table class="table bootstrap-datatable table-striped table-condensed table-hover">
+  <table class="table bootstrap-datatable table-striped table-hover">
     <thead>
-      <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
+      {% include 'tournament_display_titles.html' %}
     </thead>
     
     <tbody>
-      {% include 'tournament_display_titles.html' %}
       {% for tournament in sub_tournaments %} 
         {% include 'tournament_display.html' %}
       {% endfor %}
