@@ -131,11 +131,11 @@ def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	
 	# in smashgg brackets, sub_bracket for Final Bracket is named '1'
 	if sub_bracket_info.name=='1':
-		sub_tournament_name = "Final Bracket"
+		sub_tournament_name = ''
 	else:
-		sub_tournament_name = sub_bracket_info.name
+		sub_tournament_name = ' | ' + sub_bracket_info.name
 
-	full_bracket_name =  tournament_info.name + ' | ' + sub_tournament_name
+	full_bracket_name = tournament_info.name + sub_tournament_name
 	print "\n---SUB BRACKET---:", full_bracket_name
 
 	sub_bracket = requests.get(sub_bracket_url)

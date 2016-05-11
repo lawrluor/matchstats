@@ -356,14 +356,19 @@ def tournamentHeader(tournament_name):
   print "sanitized", tournament_name
   # get Tournament object given string name
   tournament_header = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
-
-  # get subtournaments
   sub_tournaments = tournament_header.sub_tournaments
 
-  return render_template("tournament_header.html",
+  # if only 1 sub_tournament (Tournament is a 1-stage bracket), call tournament view function, rendering Tournament
+  # elif multiple sub_tournament (Tournament is multi-stage bracket), render tournament_header
+  if len(sub_tournaments)<=1:
+    return tournament(tournament_header.name, sub_tournaments[0].name)
+  elif len(sub_tournaments)>1:
+    return render_template("tournament_header.html",
                          tournament_header=tournament_header,
                          sub_tournaments=sub_tournaments
                          )
+  else:
+    return
 
 @app.route('/tournament/<tournament_header>/<sub_tournament>')
 def tournament(tournament_header, sub_tournament):

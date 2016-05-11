@@ -1,4 +1,3 @@
-Mass Madness 5|http://bigbluees.challonge.com/MM5|1/30/2016
 The Workshop 4|http://challonge.com/theworkshop4meleesingles|1/30/2016
 MCG January|http://competitivegaming.challonge.com/MCGJanuarymelee|1/30/2016
 CTGH Melee 1-31-16|http://challonge.com/GHMelee4|1/31/2016
@@ -53,7 +52,7 @@ New Game Plus 43|http://bigbluees.challonge.com/NGP43|3/01/2016
 Grid Games 3-01-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly9|3/01/2016
 MMOM 42|http://mmom.challonge.com/MMOM42|3/2/2016
 SG Melee 3-3-16|http://sgmelee.challonge.com/sgmelee3_3_16|3/03/2016
-Mass Madness 6|http://bigbluees.challonge.com/MM6|3/05/2016
+Mass Madness 6|http://bigbluees.challonge.com/MMM6|3/05/2016
 UNH Extra Credit 3-6-2016|http://unhsmash.challonge.com/S2016ECS|3/06/2016
 Platinum City Gaming Melee 3-04-16|http://pcgsmash.challonge.com/Melee_3_4_16|3/04/2016
 Multishine Monday 3-07-16|http://challonge.com/MS030716|3/07/2016
@@ -104,8 +103,7 @@ MMOM 48|http://mmom.challonge.com/MMOM48|4/13/2016
 HoG 4-14-16|http://ctmelee.challonge.com/hogweekly41416|4/14/2016
 UCONN 4-18-16|http://challonge.com/UCONNSingles418|4/18/2016
 Multishine Monday 4-18-16|http://challonge.com/MS_041816|4/18/2016
-Mass Madness 7|http://bigbluees.challonge.com/MM7Pro|4/16/2016
-Mass Madness 7 (Amateur)|http://bigbluees.challonge.com/MM7Amateur|4/16/2016
+Mass Madness 7|http://bigbluees.challonge.com/MMM7|4/16/2016
 Champlain Weekly 16|http://challonge.com/CCweekly16|4/19/2016
 NEU Game Plus|http://challonge.com/TNCP1|4/19/2016
 MMOM 49|http://mmom.challonge.com/MMOM49|4/20/2016
@@ -126,5 +124,6 @@ SMIOH 9|http://challonge.com/5n2796hf|4/30/2016
 Multishine Monday|http://challonge.com/MS050216|5/2/2016
 Platinum City Gaming 4-29-16|http://pcgsmash.challonge.com/PCGMeleeMonthly41516|4/29/2016
 Smash on the Hill 4-30-16|http://challonge.com/sothm|4/30/2016
-New Game Plus 51|http://bigbluees.challonge.com/NGP51|5/30/2016
+New Game Plus 51|http://bigbluees.challonge.com/NGP51|5/03/2016
 MMOM 51|http://mmom.challonge.com/MMOM51|5/4/2016
+New Game Plus 52|http://bigbluees.challonge.com/NGP52|5/10/2016

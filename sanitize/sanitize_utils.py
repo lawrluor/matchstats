@@ -268,7 +268,8 @@ player_raw_regex_dict = {
     ['(beetle$)'],
     ['(captain crunch$)', '(captaincrunch$)'],
     ['(zealous 5000$)', '(zealous5000$)'],
-    ['(thunderpaste$)', '(thunder paste$)']
+    ['(thunderpaste$)', '(thunder paste$)'],
+    ['(joyboy$)', '(joy boy$)']
     ],
 
     'NorCal' : [
@@ -636,7 +637,8 @@ sanitized_tags_dict = {
     'Beetle',
     'Captain Crunch',
     'Zealous5000',
-    'ThunderPaste'
+    'ThunderPaste',
+    'JoyBoy'
     ],
 
     'NorCal' : [

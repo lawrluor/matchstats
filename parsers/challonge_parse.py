@@ -185,7 +185,7 @@ def process_tournament_info(tournament_info, tournament):
 def process_bracket_info(sub_bracket, tournament_info, final_bracket):
 	# Generate sub_bracket name using parent tournament name and sub_bracket name
 	if final_bracket==True:
-		bracket_name = tournament_info.name + ' | ' + 'Final Bracket'
+		bracket_name = tournament_info.name
 	else:
 		bracket_name = tournament_info.name + ' | ' + sub_bracket['name']
 
@@ -382,6 +382,7 @@ def import_sets(set_list, sub_tournament, assign_placings):
 # MASTER function, analagous to parse_bracket_info in parse_smashgg_info.py
 # Only url for tournament strictly necessary, this parameter will be found and fed by another func.
 def process_tournament(tournament_url, tournament_name, tournament_region, tournament_date):
+	print "\nPROCESSING:", tournament_name
 	tournament = challonge.tournaments.show(parse_url(tournament_url))
 	tournament_info = TournamentInfo(tournament_name, tournament_region, tournament_date)
 

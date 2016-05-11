@@ -8,7 +8,7 @@ from sanitize_utils import *
 
 from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 from trueskill_functions import MU, SIGMA, CONS_MU, BETA, TAU, DRAW_PROBABILITY, populate_trueskills
-
+from misc_utils import *
 # Make some of these Class functions in app.models??
 
 # Changes User's tag, given string new_tag. Also ensures that user's tag is changed in the Sets he has played
@@ -17,21 +17,22 @@ def change_tag(tag, new_tag):
   if user is None:
     print "User %s not found." % tag
     return
-  print "ORIGINAL USER: ", user 
-  
+  print "ORIGINAL USER: ", print_ignore(user)
+
   won_sets = user.get_won_sets()
   for set in won_sets:
     set.winner_tag = new_tag
-    print set
+    print_ignore(set)
   
   lost_sets = user.get_lost_sets()
   for set in lost_sets:
     set.loser_tag = new_tag
-    print set
-  
+    print_ignore(set)
+
   user.tag = new_tag
+  
   db.session.commit()
-  print "UPDATED USER: ", user
+  print "UPDATED USER: ", print_ignore(user)
   return user
 
 # transfers the data the User represented by joined_tag has to User root_tag, while deleting the User represented by joined_tag
@@ -59,12 +60,35 @@ def merge_user(root_tag, joined_tag):
 
   # merge Placement in joined_user by setting Placement.user = root_user
   # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
-  while len(joined_user.tournament_assocs) > 0:
-    joined_user.tournament_assocs[0].user = root_user
+  placements = joined_user.tournament_assocs
+  compare_from = 0
+  while len(placements) > compare_from:
+    # Screen for case in which both joined_user and root_user present in same tourney
+    # Example: http://bigbluees.challonge.com/NGP44, joined_user="elicik", root_user="Elicik"
+    duplicates = Placement.query.filter(and_(Placement.user_id==root_user.id, Placement.tournament_id==placements[compare_from].tournament_id)).all()
+    print duplicates, len(duplicates), compare_from
+    if len(duplicates)>0:
+      # if 1 or more duplicates, keep placement, and begin comparing from the next index
+      compare_from += 1
 
-  db.session.delete(joined_user) 
-  db.session.commit()
-  return root_user
+    # Prevent index out of bound error if len(placements)=0; if User only entered one tournament
+    if len(placements)>compare_from:
+      print placements[compare_from]
+      placements[compare_from].user = root_user
+    else:
+      print placements[compare_from-1]
+      placements[compare_from-1].user = root_user
+    print root_user.tournament_assocs[-1]
+    print '\n'
+
+  # If there were duplicates, don't delete the joined_user as it is a legit other User who happens to have the same tag after conversion.
+  if compare_from==0:
+    db.session.delete(joined_user)
+    db.session.commit()
+    return root_user
+  else:
+    print "DUPLICATE WAS FOUND"
+    return root_user
 
 def capitalize_all_tags():
   # Not used in sanitize because if people come with sponsor tags, they will be deleted anyways and real tag won't be the same
@@ -73,16 +97,16 @@ def capitalize_all_tags():
     if not user.tag[0].isalpha() or user.tag[0].isupper():
       continue
     else:
-      print "USER TAG", user.tag
+      print "USER TAG", print_ignore(user.tag)
       temp = user.tag
       capitalize_first = lambda s: s[:1].upper() + s[1:] if s else ''
       cap_tag = capitalize_first(temp)
-      print "CAP TAG", cap_tag
+      print "CAP TAG", print_ignore(cap_tag)
 
     root_user = User.query.filter(User.tag==cap_tag).first()
     if root_user is not None:
-      print "ORIGINAL USER", user
-      print "ROOT USER", root_user
+      print "ORIGINAL USER", print_ignore(user)
+      print "ROOT USER", print_ignore(root_user)
       merge_user(root_user.tag, user.tag)
     else:
       # if can't find root tag to merge with, then root tag doesn't exist. Change the tag
@@ -94,7 +118,7 @@ def remove_team(separator):
   userlist = User.query.filter(User.tag.contains(separator)).all()
   for user in userlist:
     print "USER TAG", user.tag
-    sep_index = user.tag.find(separator)
+    sep_index = user.tag.rfind(separator)
     # ensure you are removing from the front. checks against cases where separator is last char
     if sep_index!=len(user.tag)-1:
       new_tag = user.tag[sep_index+len(separator):]

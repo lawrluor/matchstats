@@ -161,7 +161,7 @@
               <td class="col-sm-4 text-right"><a href="{{url_for("user", tag=tag1)}}">{{tag1}}</a> - {{tournament[0].placement}}</td>
           {% endif %}
 
-            <td class="col-sm-4 text-center"><b><a href="{{ url_for("tournament", tournament_header=tournament[0].tournament.header, sub_tournament=tournament[0].tournament.name)}}">{{tournament[0].tournament_name}}</b></td>
+            <td class="col-sm-4 text-center"><b><a href="{{ url_for("tournament", tournament_header=tournament[0].tournament.header.name, sub_tournament=tournament[0].tournament_name)}}">{{tournament[0].tournament_name}}</b></td>
 
           {% if tournament[0].placement >= tournament[1].placement %}
             <td class="col-sm-4 text-left"><b><a href="{{url_for("user", tag=tag2)}}">{{tournament[1].placement}} - {{tag2}}</b></a></td></tr>
