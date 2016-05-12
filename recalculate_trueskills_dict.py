@@ -8,9 +8,9 @@ import time
 # Script run from shell calling ./recalculate_trueskill.py 
 def main():
   start = time.time()
-
+  
   reset_all_trueskills()
-  recalculate_trueskill()
+  recalculate_trueskills_dict()
   recalculate_ranks("Global")
   recalculate_ranks("New England")
   recalculate_ranks("SoCal")

@@ -238,7 +238,7 @@ class Placement(db.Model):
     return '<tournament_id: %s, tournament_name: %s, user_id: %s, seed: %s, placement: %s, user: %s>' % (self.tournament_id, self.tournament_name, self.user_id, self.seed, self.placement, self.user)
 
   def __unicode__(self):
-   return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
+    return unicode(self.placement) + ": " + unicode(self.seed) + ', ' + unicode(self.user)
 
 # Header for Tournament, mainly including info, non-game related info, and containing the brackets in a multi-stage tournament
 # Parent of Tournament in one to many relationship

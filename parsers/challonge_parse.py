@@ -169,10 +169,10 @@ def process_tournament_info(tournament_info, tournament):
 	tournament_info.official_title = tournament['name']
 	tournament_info.host = tournament['subdomain']
 	tournament_info.entrants = tournament['participants-count']
-	if tournament['game-name'] is not None:
-		tournament_info.game_type = tournament['game-name']
-	else:
+	if tournament['game-name'] is None or tournament['game-name']=='':
 		tournament_info.game_type = "Super Smash Bros. Melee"
+	else:
+		tournament_info.game_type = tournament['game-name']
 
 	if tournament['started-at'] is not None:
 		tournament_info.date = tournament['started-at']
