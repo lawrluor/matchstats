@@ -23,20 +23,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
 
-    <!-- Facebook meta tags for 'like' button -->
-    <meta property="og:title" content="SmashStats">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://smashstats.io/">
-    <meta property="og:site_name" content="SmashStats">
-    <meta property="fb:app_id" content="1587149311552603">
-
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes=16x16 href="{{url_for('static',filename='favicon.ico')}}">
 
     {% if title %}
-      <title>{{title}} - SmashStats</title>
+      <title>{{title}} - ClaremontSmash</title>
     {% else %}
-      <title>SmashStats</title>
+      <title>ClaremontSmash</title>
     {% endif %}
 
     <!-- Google Analytics -->
@@ -49,7 +42,6 @@
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
       ga('create', 'UA-43032604-2', 'auto');
       ga('send', 'pageview');
     </script>
@@ -66,7 +58,6 @@
         version    : 'v2.4'
       });
     };
-
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
@@ -88,7 +79,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{url_for('home')}}">SmashStats</a>
+        <a class="navbar-brand" href="{{url_for('home')}}">ClaremontSmash</a>
       </div>
       
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -134,7 +125,7 @@
   <hr>
   <div class="container">
     <footer>
-      <b>©2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Version 2.7</b>
+      <b>©2015 SmashStats | <a style="color: #E8E8E8" href="mailto:smashstats@example.com">smashstats@gmail.com</a> | Version 2.0</b>
       <br>
 
       <!-- Facebook like/share button -->
