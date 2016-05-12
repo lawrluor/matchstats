@@ -12,7 +12,6 @@ Flask-WhooshAlchemy==0.56
 Flask-WTF==0.11
 flipflop==1.0
 guess-language==0.2
-gunicorn==19.3.0
 itsdangerous==0.24
 Jinja2==2.7.3
 MarkupSafe==0.23
@@ -34,4 +33,9 @@ beautifulsoup4==4.4.0
 requests==2.9.1
 trueskill==0.4.4
 iso8601==0.1.11
+dj-database-url==0.4.0
+Django==1.9.2
+gunicorn==19.4.5
 psycopg2==2.6.1
+whitenoise==2.0.6
+
