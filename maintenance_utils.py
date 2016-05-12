@@ -303,3 +303,20 @@ def reassign_user(tournament_name, user_tag, reassigned_tag):
 
   db.session.commit()
   return "Tournament entries reassigned" 
+
+def delete_tournament(header_name):
+  '''
+  Give TournamentHeader name, query for and delete TournamentHeader
+  '''
+  header = TournamentHeader.query.filter(TournamentHeader.name==header_name).first()
+  if header is None:
+    return "TournamentHeader not found"
+  else:
+    db.session.delete(header)
+    db.session.commit()
+
+  deleted_header = TournamentHeader.query.filter(TournamentHeader.name==header_name).first()
+  if deleted_header:
+    return "Failure"
+  else:
+    return "Successful deletion"

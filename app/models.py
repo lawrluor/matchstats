@@ -254,7 +254,7 @@ class TournamentHeader(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(256), index=True)
   region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
-  sub_tournaments = db.relationship("Tournament", backref="header")
+  sub_tournaments = db.relationship("Tournament", backref="header", cascade="all, delete-orphan")
 
   def __repr__(self):
     return '<TournamentHeader: %s, region: %s, title: %s, host: %s, url: %s, entrants: %s, game_type: %s, date: %s, name: %s, sub_tournaments: %s' \

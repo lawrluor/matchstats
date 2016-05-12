@@ -254,6 +254,8 @@ def process_sets(sub_bracket_info, entrant_list, sub_tournament):
 			winner = next(entrant for entrant in entrant_list if entrant.id==set['winner-id'])
 			loser = next(entrant for entrant in entrant_list if entrant.id==set['loser-id'])
 		except StopIteration:
+			print "StopIteration Error detected. Tournament:", sub_tournament.name
+			# Later: write code to exit, and delete Tournament
 			continue
 
 		set_info.winner_tag = winner.player_tag
