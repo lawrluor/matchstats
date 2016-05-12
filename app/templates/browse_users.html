@@ -4,9 +4,10 @@
 <div class="container">
 	<div class="panel panel-default">
 	<div class="panel-heading">
-  	<h2><b>Browse {{current_region}} Players</b></h2>
-  </div>
-  <div class="panel-body">
+  		<h2><b>Browse {{current_region}} Players</b></h2>
+  	</div>
+  	
+  	<div class="panel-body">
 	<table class="table bootstrap-datatable table-striped table-hover">
 	  <thead>
 	  	{% include 'user_display_head.html' %}
@@ -28,8 +29,8 @@
 	</table>
 
 	<!-- Navigating the paginated display -->
-	<div class="text-center"><b>
-		<div class=pagination>
+	<div class="text-center">
+		<div class=pagination><h4>
 		{%- for page in userlist.iter_pages() %}
 	    	{% if page %}
 	    		{% if page != userlist.page %}
@@ -41,8 +42,8 @@
 	      		<span class=ellipsis>…</span>
 	    	{% endif %}
 	  	{%- endfor %}
-	  	</div>
-	</b></div>
+	  	</h4></div>
+	</div>
   </div>
 </div>
 {% endblock %}
