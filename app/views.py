@@ -417,23 +417,10 @@ def search():
 # processes query from /search and returns search results for Users and tournaments (Set.tournament) on this page
 @app.route('/search_results/<query>')
 def search_results(query):
-  sanitized_query_list = check_and_sanitize_tag_multiple(query)
-  tournament_results = TournamentHeader.query.filter(TournamentHeader.name==query).all() 
-  print sanitized_query_list
-
-  user_results = []
-  # If sanitized_query_list is a list (obtained multiple users from search), append each user to user_results list
-  if isinstance(sanitized_query_list, list):
-    # pass list of User objects as list to display in search results
-    for sanitized_tag in sanitized_query_list:
-      user = User.query.filter(User.tag==sanitized_tag).first() 
-      print user
-      if user is not None:
-        user_results.append(user)
-  else:
-    # If not a list (only 1 result returned, a string from sanitized_query_list), simply query using that tag
-    # make list so it can be accessed in template
-    user_results = [User.query.filter(User.tag==sanitized_query_list).first()]
+  sanitized_query = check_and_sanitize_tag(query)
+  user_results = User.query.filter(User.tag.contains(sanitized_query)).all()
+  tournament_results = TournamentHeader.query.filter(TournamentHeader.name.contains(query)).all() 
+  print "sanitized_query:", sanitized_query, type(sanitized_query)
 
   return render_template('search_results.html',
                            query=query,

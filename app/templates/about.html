@@ -7,14 +7,14 @@
 
     <p>The application recognizes and sorts players by tag, and associates them with the sets and tournaments they have played in. Once players have been recorded in the database, the program attempts to match all references to them to their tag. Currently, Smashstats only accepts bracket data from Challonge, meaning that no match information can be automatically generated. Additionally, player information about regions, main, and secondary characters requires input from the larger community.</p>
 
-    <p><b>In its current state, SmashStats does not claim to represent a fully comprehensive record of all players' set and tournament histories, but rather is a proof of concept for widespread stats tracking. The tournament database presently only contains data from the Final Brackets of all national or major tournaments that have happened in 2015.</b></p>
+    <p><b>In its current state, SmashStats does not claim to represent a fully comprehensive record of all players' set and tournament histories, but rather is a proof of concept for widespread stats tracking.</b></p>
 
     <p>If you are interested in this project and would like to contribute, contact the developers at <a href="mailto:smashstats@example.com"><b>smashstats@gmail.com</b></a>, or connect with us through our social media accounts.</p>
 
     <p>Features planned for future releases
     <ul>
       <li> Support for more regions </li>
-      <li> Tournament data from Liquipedia, SmashGG, as well as match data </li>
+      <li> Tournament data from Liquipedia, as well as match data </li>
     </ul>
     </p>
 
@@ -38,14 +38,14 @@
       <ul>
         <li>
           <h4><b>Where are you getting this information?</b></h4>
-          The app scrapes Challonge brackets and stores information in a database, a completely automated process.
+          The app scrapes Challonge and Smashgg brackets and stores information in a database, altogether a completely automated process.
           <ul>
             <li><h4><b>What types of tournament bracket programs do you support?</b></h4>
-              Currently, just Challonge, but progress is being made on parsing Liquipedia for detailed match info.
+              Currently, just Challonge and Smashgg, but progress is being made on parsing Liquipedia for detailed match info.
             </li>
 
             <li><h4><b>Is tournament bracket data accurate?</b></h4></li>
-              We work with whatever is provided on Challonge. If a tournament only has a final bracket, we'd rather process what data we have than exclude it because it lacks completion.
+              We can only work with whatever is provided on the bracket. If a tournament only has a final bracket, we'd rather process what data we have than exclude it because it lacks completion.
           </ul>
         </li>
 
@@ -79,7 +79,7 @@
           <ul>
             <li>
               <h4><b>Seems that I'm listed under multiple tags - I thought the program would automatically do this?</h4></b>
-              If you haven't explicitly registered a tag with the program, it won't automatically match tags to it; it also won't be found intelligently through the search bar and head to head. If you've already told me your main/alternate tags, let me know and I'll fix it and merge the player instances.
+              If you haven't explicitly registered a tag with the program, it won't automatically match tags to it. It will attempt, however, to match players with differences in tag capitalization and team/sponsor information. If you've already told me your main/alternate tags, let me know and I'll fix it and merge the player instances.
             </li>
 
             </li>
@@ -89,7 +89,7 @@
 
             <li>
               <h4><b>How do you deal with people from different regions having the same tag?</b></h4>
-              In these instances, their tag will be suffixed by their region's name, i.e. FalcoMaster3000 (NorCal). As for players in the same region having the same tag, that is probably an issue that should be addressed outside of this app.
+              In these instances, their tag will be suffixed by their region's name, i.e. FalcoMaster3000 [NorCal]. As for players in the same region having the same tag, that is probably an issue that should be addressed outside of this app.
             </li>
           </ul>
         </li>
@@ -110,15 +110,6 @@
 
             <li><h4><b>I play in different regions frequently. Which region should I be listed under?</li></h4></b>
             You should consider yourself as part of the region you currently enter the most tournaments in.
-          </ul>
-        </li>
-
-        <li>
-          <h4><b>What do the characters Unknown, Random, and Multiple mean?</b></h4>
-          Unknown is a placeholder if we don't have any character information about a Player. Random means that a player randomly selects characters when he/she plays. Multiple means that a player mains multiple characters.
-          <ul>
-            <li><h4><b>Why can't a player have multiple mains?</b></h4></li>
-            This is a result of a design decision that maps one main for each player. For true multiple-main players, they can elect to choose a main character "Multiple", and list their main characters under secondaries.
           </ul>
         </li>
 
