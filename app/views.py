@@ -35,7 +35,8 @@ def before_request():
     g.region = session['region_name']
   else:
     g.region = "Global" 
-
+  
+  print "g.region", g.region
   # populate RegionSelect form with name of current Region
   g.region_form = RegionSelect(region_name=g.region)
 
@@ -175,6 +176,7 @@ def head_to_head():
 @app.route('/browse_users/<region>/<int:page>')
 def browse_users(region, page=1):
   g.region = region
+  print g.region
   # if viewing global information, don't filter query by g.region
   # if character=="Main", or the default SelectField "title", don't filter for any character
   if g.region=="Global" or g.region=="National":
@@ -269,10 +271,18 @@ def user(tag, page=1):
 # Displays all users given a region. Routed to from /browse_regions
 @app.route('/region/<region>')
 def region(region):
+  print "region", region
   flash('Help out SmashStats and your region! If you notice incorrect or missing information, please let us know via social media!')
+
   current_region = Region.query.filter(Region.region==region).first()
+  print "current_region", current_region
+
   session['region_name']=current_region.region
+  print "session['region_name']", session['region_name']
+
   flash("Now Viewing Region: " + str(session['region_name']))
+  g.region = session['region_name']
+  print "g.region", g.region
   return render_template("region.html",
                          region=region,
                          current_region=current_region)
