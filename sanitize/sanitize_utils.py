@@ -175,7 +175,7 @@ player_raw_regex_dict = {
     ['(bugatti$)', '(colinsfuckboi$)', '(tpains producer$)'],
     ['(makari$)'],
     ['(young bone[sz] vill[ia][ia]n$)', '(yung bone[sz] vill[ia][ia]n$)', '(yungbone[sz]villain)', '(youngbone[sz]villain)'],
-    ['(thechocolatelava$)', '(middleeastballz$)'],
+    ['(thechocolatelava$)', '(chocolatelava$)', '(middleeastballz$)'],
     ['(tonic$)'],
     ['(broth chiler$)', '(broth chiller$)'],
     ['(hea7$)', '(areallyshittysheik$)'],
@@ -269,7 +269,9 @@ player_raw_regex_dict = {
     ['(captain crunch$)', '(captaincrunch$)'],
     ['(zealous 5000$)', '(zealous5000$)'],
     ['(thunderpaste$)', '(thunder paste$)'],
-    ['(joyboy$)', '(joy boy$)']
+    ['(joyboy$)', '(joy boy$)'],
+    ['(brisenburg$)', '(breisenburg$)'],
+    ['(arsenicdonut$)', '(arsenic donut$)']
     ],
 
     'NorCal' : [
@@ -513,7 +515,7 @@ sanitized_tags_dict = {
     'Tian',
     'Squible',
     'Kyu Puff',
-    'RL',
+    'Rime',
     'Mr. Lemon',
     'Kaiju',
     'Dudutsai',
@@ -638,7 +640,9 @@ sanitized_tags_dict = {
     'Captain Crunch',
     'Zealous5000',
     'ThunderPaste',
-    'JoyBoy'
+    'JoyBoy',
+    'Brisenburg',
+    'ArsenicDonut'
     ],
 
     'NorCal' : [
