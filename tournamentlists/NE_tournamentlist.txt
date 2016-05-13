@@ -229,11 +229,11 @@ MCG January|http://competitivegaming.challonge.com/MCGJanuarymelee|1/30/2016
 CTGH Melee 1-31-16|http://challonge.com/GHMelee4|1/31/2016
 Level Up Melee 4.10|http://levelupmelee.challonge.com/410|1/31/2016
 Multishine Monday 2-01-16|http://challonge.com/MS020116|2/01/2016
-Grid Games 2-02-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly7|2/2/2016
+Grid Games 2-02-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly7|2/02/2016
+Smash on the Hill 2-05-16|http://challonge.com/sothwm3|2/5/2016
 Champlain Weekly 6|http://challonge.com/CCWeekly6|1/30/2016
 MMOM 38|http://mmom.challonge.com/MMOM38|2/3/2016
 Monarchy Melee 9|http://ctmelee.challonge.com/mmbw9|2/4/2016
-Smash on the Hill 3|http://challonge.com/sothwm3|2/5/2016
 Battle Bash 2|http://challonge.com/BattleBash2Meleesingles|2/5/2016
 Super Smash Saturdays 2.4|http://mgcmelee.challonge.com/24S|2/5/2016
 New Game Plus 40|http://bigbluees.challonge.com/NGP40|2/9/2016
@@ -241,7 +241,6 @@ MMOM 39|http://mmom.challonge.com/MMOM39|2/10/2016
 HoG 2-11-2016|http://ctmelee.challonge.com/hogmelee21116|2/11/2016
 SG Melee 2-11-16|http://sgmelee.challonge.com/sgmelee2_11_16|2/11/2016
 Platinum City Gaming 2-12-16|http://pcgsmash.challonge.com/MeleeS3_2_12_16|2/12/2016
-Smash on the Hill 4|http://challonge.com/sothm4|2/12/2016
 See Me In Office Hours 7|http://ctmelee.challonge.com/cme7singles|2/13/2016
 Smash UMA 1.4|http://smashuma.challonge.com/0_4ms|2/13/2016
 Game Castle Melee 2|http://challonge.com/GameCastleMelee2|2/13/2016
@@ -273,7 +272,6 @@ HoG TMG Edition|http://ctmelee.challonge.com/HoGTMG|2/27/2016
 Level Up Melee 5.2|http://levelupmelee.challonge.com/52S|2/28/2016
 Multishine Monday 2-29-16|http://challonge.com/MultiShine_LeapDashEdition|2/29/2016
 UCONN 2-29-16|http://challonge.com/happyblackhistorymonth|2/29/2016
-Smash On the Hill 2-26-16|http://challonge.com/sothwm4|2/25/2016
 New Game Plus 43|http://bigbluees.challonge.com/NGP43|3/01/2016
 Grid Games 3-01-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly9|3/01/2016
 MMOM 42|http://mmom.challonge.com/MMOM42|3/2/2016
@@ -291,7 +289,7 @@ Platinum City Gaming 3-11-16|http://pcgsmash.challonge.com/Weekly_3_11_16|3/11/2
 Smash On the Hill 3-11-16|http://challonge.com/sothm5|3/11/2016
 Super Smash Saturdays 2.7|http://mgcmelee.challonge.com/27S|3/12/2016
 The Industrial Rumble|http://challonge.com/gkxqjybu|3/12/2016
-Multishine Monday 3-14-16|http://challonge.com/gkxqjybu|3/14/2016
+Multishine Monday 3-14-16|http://challonge.com/MS031416|3/14/2016
 Grid Games 3-15-2016|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly10|3/15/2016
 New Game Plus 45|http://bigbluees.challonge.com/NGP45|3/15/2016
 MMOM 44|http://mmom.challonge.com/MMOM44|3/15/2016
@@ -347,9 +345,25 @@ SG Melee 4-17-16|http://sgmelee.challonge.com/sgmelee4_7_16|http://sgmelee.chall
 SG Melee 4-21-16|http://sgmelee.challonge.com/sgmelee4_21_16|4/21/2016
 SG Melee 4-28-16|http://sgmelee.challonge.com/sgmelee4_28_16|4/28/2016
 SMIOH 9|http://challonge.com/5n2796hf|4/30/2016
-Multishine Monday|http://challonge.com/MS050216|5/2/2016
+Multishine Monday 5-02-16|http://challonge.com/MS050216|5/2/2016
 Platinum City Gaming 4-29-16|http://pcgsmash.challonge.com/PCGMeleeMonthly41516|4/29/2016
 Smash on the Hill 4-30-16|http://challonge.com/sothm|4/30/2016
 New Game Plus 51|http://bigbluees.challonge.com/NGP51|5/03/2016
 MMOM 51|http://mmom.challonge.com/MMOM51|5/4/2016
 New Game Plus 52|http://bigbluees.challonge.com/NGP52|5/10/2016
+HoG New Years Extravaganza|http://ctmelee.challonge.com/hognewyearmelee|01/01/2016
+HoG 01-14-16|http://ctmelee.challonge.com/hogmelee11416|01/14/2016
+HoG 01-28-16|http://ctmelee.challonge.com/hogmelee12816|01/28/2016
+NGP 35|http://bigbluees.challonge.com/NGP35|01/05/2016
+NGP 36|http://bigbluees.challonge.com/NGP36|01/12/2016
+NGP 37|http://bigbluees.challonge.com/NGP37|01/19/2016
+NGP 38|http://bigbluees.challonge.com/NGP38|01/26/2016
+MMOM 32|http://mmom.challonge.com/mmom32|12/23/2015
+MMOM 33|http://mmom.challonge.com/mmom33|12/30/2015
+MMOM 34|http://mmom.challonge.com/mmom34|01/06/2016
+MMOM 35|http://mmom.challonge.com/mmom35|01/13/2016
+MMOM 36|http://mmom.challonge.com/mmom36|01/20/2016
+MMOM 37|http://mmom.challonge.com/mmom37|01/27/2016
+Multishine Monday 01-25-16|http://challonge.com/MS012516|01/25/2016
+Grid Games 01-05-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly5|01/05/2016
+Grid Games 01-19-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly6|01/19/2016

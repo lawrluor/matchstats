@@ -49,19 +49,29 @@
     <div class="panel panel-default">
     <div class="panel-heading">
       <h1><b>
-        {% if user1.main %} {% set character_name = user1.main %}
-        {% else %}{% set character_name = "Unknown" %}
-        {% endif %}
+      {% if user1.characters.all()|length > 0 %}
+        {% for character in user1.characters.all() %}
+          {% set character_name = character.name %}
+          {% include 'char_icon.html' %}
+        {% endfor %}
+      {% else %} 
+        {% set character_name = "Unknown" %}
         {% include 'char_icon.html' %}
-        {{user1.tag}} 
+      {% endif %}
+      {{user1.tag}} 
 
         vs 
 
-        {% if user2.main %} {% set character_name = user2.main %}
-        {% else %} {% set character_name = "Unknown" %}
-        {% endif %}
         {{user2.tag}} 
-        {% include 'char_icon.html' %}
+        {% if user2.characters.all()|length > 0 %}
+          {% for character in user2.characters.all() %}
+            {% set character_name = character.name %}
+            {% include 'char_icon.html' %}
+          {% endfor %}
+        {% else %}
+          {% set character_name = "Unknown" %}
+          {% include 'char_icon.html' %}
+        {% endif %}
       </b></h1>
       <h2><b>{{user1_set_win_count}} - {{user2_set_win_count}}</b></h2>
     </div>

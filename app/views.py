@@ -241,8 +241,10 @@ def user(tag, page=1):
   placement_list = []
   sets_by_tournament = []
   for placement_obj in user_tournaments_sorted[start_index:end_index]:
+    print "Placement obj:", placement_obj
     user_placement = UserPlacements(placement_obj.tournament_name)
     user_placement.placement = convert_placement(placement_obj.placement)
+    print "assigned placement"
     user_placement.seed = placement_obj.seed
     user_placement.tournament = placement_obj.tournament
     placement_list.append(user_placement)

@@ -39,6 +39,8 @@ def h2h_get_mutual_tournaments(user1, user2):
   call len() on the result of this method to get total number of tournaments
   attended together.
   '''
+
+  # Debug this
   user1_placements = get_placement_info(user1)
   user2_placements = get_placement_info(user2)
  

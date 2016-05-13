@@ -358,6 +358,7 @@ def import_sets(set_list, sub_tournament, assign_placings):
 				found_placement = Placement.query.filter(and_(Placement.tournament_name==assocs_tournament.name, Placement.user_id==loser_user.id)).first()
 				found_placement.placement = placings_dict[(-1 * set.round_number)]
 			elif set.round_number==placings_dict["last_winner_round"]:
+				print "LAST WINNER ROUND"
 				winner_placement = Placement.query.filter(and_(Placement.tournament_name==assocs_tournament.name, Placement.user_id==winner_user.id)).first()
 				loser_placement = Placement.query.filter(and_(Placement.tournament_name==assocs_tournament.name, Placement.user_id==loser_user.id)).first()
 				winner_placement.placement = 1

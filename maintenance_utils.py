@@ -61,34 +61,30 @@ def merge_user(root_tag, joined_tag):
   # merge Placement in joined_user by setting Placement.user = root_user
   # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
   placements = joined_user.tournament_assocs
-  compare_from = 0
-  while len(placements) > compare_from:
+  for placement in placements:
     # Screen for case in which both joined_user and root_user present in same tourney
     # Example: http://bigbluees.challonge.com/NGP44, joined_user="elicik", root_user="Elicik"
-    duplicates = Placement.query.filter(and_(Placement.user_id==root_user.id, Placement.tournament_id==placements[compare_from].tournament_id)).all()
-    print duplicates, len(duplicates), compare_from
+    duplicates = Placement.query.filter(and_(Placement.user_id==root_user.id, Placement.tournament_id==placement.tournament_id)).all()
     if len(duplicates)>0:
-      # if 1 or more duplicates, keep placement, and begin comparing from the next index
-      compare_from += 1
-
-    # Prevent index out of bound error if len(placements)=0; if User only entered one tournament
-    if len(placements)>compare_from:
-      print placements[compare_from]
-      placements[compare_from].user = root_user
+      duplicate_found = True
+      continue
     else:
-      print placements[compare_from-1]
-      placements[compare_from-1].user = root_user
+      duplicate_found = False
+
+    # Reassign the placement to root_user
+    placement.user = root_user
     print root_user.tournament_assocs[-1]
     print '\n'
 
-  # If there were duplicates, don't delete the joined_user as it is a legit other User who happens to have the same tag after conversion.
-  if compare_from==0:
+  # If duplicate was found during iteration, don't delete the joined_user as it is a legit other User who happens to have the same tag after conversion.
+  if duplicate_found==True:
+    print "DUPLICATE WAS FOUND"
+    return root_user
+  else:
     db.session.delete(joined_user)
     db.session.commit()
     return root_user
-  else:
-    print "DUPLICATE WAS FOUND"
-    return root_user
+    
 
 def capitalize_all_tags():
   # Not used in sanitize because if people come with sponsor tags, they will be deleted anyways and real tag won't be the same
@@ -183,6 +179,9 @@ def search_and_replace_user(tag_string):
 def change_region(tag, region_name):
   user = User.query.filter(User.tag==tag).first()
   region = Region.query.filter(Region.region==region_name).first()
+
+  if not user and not region:
+    return "User or Region not found"
 
   if user.region is not None and user.region.region==region_name:
     return "Region %s is already region of %s" % (region_name, tag)
