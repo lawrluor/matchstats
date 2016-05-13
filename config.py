@@ -3,6 +3,19 @@ SECRET_KEY = 'you-will-never-guess'
 
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL'] 
 
