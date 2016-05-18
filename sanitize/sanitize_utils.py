@@ -570,7 +570,7 @@ sanitized_tags_dict = {
     'Hazard',
     'Solar',
     'Pyro',
-    'Bluntmaster',
+    'S2B',
     'Para',
     'Racer',
     'Seaghost',

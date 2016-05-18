@@ -24,13 +24,13 @@
 
 	<!-- Navigating the paginated display -->
 	<div class="text-center"><b>
-		{% if tournamentlist.has_prev %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournamentlist.prev_num) }}">&lt;&lt; Previous Page</a>{% endif %}
+		{% if tournamentlist.has_prev %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournamentlist.prev_num) }}">&lt;&lt; Newer Tournaments</a>{% endif %}
 
 		{% if tournamentlist.has_prev and tournamentlist.has_next %}
 		 |
 		{% endif %}
 
-		{% if tournamentlist.has_next %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournamentlist.next_num) }}">Next Page &gt;&gt;</a>{% endif %}
+		{% if tournamentlist.has_next %}<a href="{{ url_for('browse_tournaments', region=g.region, page=tournamentlist.next_num) }}">Older Tournaments &gt;&gt;</a>{% endif %}
 	</b></div>
 	</div>
 	</div>

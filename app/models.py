@@ -290,7 +290,7 @@ class Tournament(db.Model):
   date = db.Column(db.Date)
   name = db.Column(db.String(256), index=True)
   region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
-  sets = db.relationship("Set", backref="tournament")
+  sets = db.relationship("Set", backref="tournament", cascade="all, delete-orphan")
 
   def __repr__(self):
     return '<tournament: %s, region: %s, title: %s, host: %s, url: %s, public_url: %s, entrants: %s, bracket_type: %s, game_type: %s, date: %s, name: %s, sets: %s>' \
