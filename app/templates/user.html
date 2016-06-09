@@ -34,12 +34,12 @@
 
     <tr>
       <td>
-        <h3><b>{{user.trueskills[0].region}} Rating: μ: </b> {{user.trueskills[0].cons_mu|round(4, 'common')}}, <b>σ</b>: {{user.trueskills[0].sigma|round(4, 'common')}}</h3>
+        <h3><b>{{user.trueskills[0].region}} Rating: μ: </b> {{user.trueskills[0].cons_mu|round(3, 'common')}}, <b>σ</b>: {{user.trueskills[0].sigma|round(3, 'common')}}</h3>
       </td>
 
       {% if user.trueskills[1] %}
         <td>
-          <h3><b>{{user.trueskills[1].region}} Rating:</b> μ: {{user.trueskills[1].cons_mu|round(4, 'common')}}, σ: {{user.trueskills[1].sigma|round(4, 'common')}}</h3>
+          <h3><b>{{user.trueskills[1].region}} Rating:</b> μ: {{user.trueskills[1].cons_mu|round(3, 'common')}}, σ: {{user.trueskills[1].sigma|round(3, 'common')}}</h3>
         </td>
       {% endif %}
     </tr>

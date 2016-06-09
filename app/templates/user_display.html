@@ -6,11 +6,11 @@
         <b>{{rank}}</b>
     </td>
 
-    <td class="col-sm-3 mobile-horizontal-overflow-td-col-4 horizontal-overflow">
+    <td class="col-sm-2 mobile-horizontal-overflow-td-col-2 horizontal-overflow">
         <a href="{{url_for("user", tag=user.tag)}}"><b>{{user.tag}}</b></a>
     </td>
 
-    <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
+    <td class="col-sm-2 mobile-horizontal-overflow-td-col-2">
         {% if user.region %}
     	   <a href="{{url_for("region", region=user.region)}}"><b>{{user.region}}</b></a>
         {% else %}
@@ -18,7 +18,7 @@
 	    {% endif %}
     </td>
 
-    <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
+    <td class="col-sm-2 mobile-horizontal-overflow-td-col-2">
     	{% if user.characters.all()|length > 0 %}
             {% for character in user.characters.all() %}
                 {% if loop.index0 < 3 %}
@@ -32,25 +32,37 @@
         {% endif %}
     </td>
 
-    <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
+    <td class="col-sm-1 mobile-horizontal-overflow-td-col-1">
         {% if user.trueskills %}
             {% if current_region=="Global" or current_region=="National" %}
-                {{user.trueskills[0].cons_mu|round(4, 'common')}}
+                {{user.trueskills[0].cons_mu|round(3, 'common')}}
             {% else %}
                 {% if user.trueskills[1] %}
-                    {{user.trueskills[1].cons_mu|round(4, 'common')}}
+                    {{user.trueskills[1].cons_mu|round(3, 'common')}}
                 {% endif %}
             {% endif %}
         {% endif %}
     </td>
 
-     <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
+    <td class="col-sm-1 mobile-horizontal-overflow-td-col-1">
         {% if user.trueskills %}
             {% if current_region=="Global" or current_region=="National" %}
-                {{user.trueskills[0].sigma|round(4, 'common')}}
+                {{user.trueskills[0].mu|round(3, 'common')}}
             {% else %}
                 {% if user.trueskills[1] %}
-                    {{user.trueskills[1].sigma|round(4, 'common')}}
+                    {{user.trueskills[1].mu|round(3, 'common')}}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </td>
+
+     <td class="col-sm-1 mobile-horizontal-overflow-td-col-1">
+        {% if user.trueskills %}
+            {% if current_region=="Global" or current_region=="National" %}
+                {{user.trueskills[0].sigma|round(3, 'common')}}
+            {% else %}
+                {% if user.trueskills[1] %}
+                    {{user.trueskills[1].sigma|round(3, 'common')}}
                 {% endif %}
             {% endif %}
         {% endif %}
