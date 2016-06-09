@@ -8,7 +8,7 @@ from trueskill import setup, Rating, quality_1vs1, rate_1vs1
 # Trueskill constants for rating environment setup
 MU = 25
 SIGMA = 8.333333333333334
-STD = 2.25
+STD = 1
 CONS_MU = MU - (STD*SIGMA)
 BETA = 4.166666666666667
 TAU = 0.08333333333333334

@@ -311,6 +311,7 @@ def import_sub_tournament_info(sub_tournament_info):
 	tournament_header = TournamentHeader.query.filter(TournamentHeader.name==sub_tournament_info.parent).first()
 	tournament_header.sub_tournaments.append(new_sub_tournament)
 	new_sub_tournament.region = new_sub_tournament.header.region
+	new_sub_tournament.game_type
 
 	db.session.commit()
 	print "---SUBTOURNAMENT---", new_sub_tournament
@@ -385,7 +386,7 @@ def import_sets(set_list, sub_tournament, assign_placings):
 # MASTER function, analagous to parse_bracket_info in parse_smashgg_info.py
 # Only url for tournament strictly necessary, this parameter will be found and fed by another func.
 def process_tournament(tournament_url, tournament_name, tournament_region, tournament_date):
-	print "\nPROCESSING:", tournament_name
+	print "\n---PROCESSING---:", tournament_name
 	tournament = challonge.tournaments.show(parse_url(tournament_url))
 	tournament_info = TournamentInfo(tournament_name, tournament_region, tournament_date)
 
@@ -415,3 +416,31 @@ def process_tournament(tournament_url, tournament_name, tournament_region, tourn
 	print "FINISHED"
 	final_tournament = TournamentHeader.query.filter(TournamentHeader.name==tournament_name).first()
 	return final_tournament
+
+#process_sub_bracket("http://challonge.com/eglxmp8", "EGLX 2016 | R2 Pool 8", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp7", "EGLX 2016 | R2 Pool 7", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp6", "EGLX 2016 | R2 Pool 6", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp5", "EGLX 2016 | R2 Pool 5", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp4", "EGLX 2016 | R2 Pool 4", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp3", "EGLX 2016 | R2 Pool 3", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp2", "EGLX 2016 | R2 Pool 2", None, "5/01/2016", "EGLX 2016")
+#process_sub_bracket("http://challonge.com/eglxmp1", "EGLX 2016 | R2 Pool 1", None, "5/01/2016", "EGLX 2016")
+# Parses a sub_bracket for entrant and set information
+def process_sub_bracket(tournament_url, tournament_name, tournament_region, tournament_date, parent):
+	print "\n---PROCESSING---:", tournament_name
+	sub_bracket = challonge.tournaments.show(parse_url(tournament_url))
+	sub_bracket_info = TournamentInfo(tournament_name, tournament_region, tournament_date)
+
+	sub_bracket_info.id = sub_bracket['id']
+	sub_bracket_info.url = sub_bracket['full-challonge-url']
+	sub_bracket_info.entrants = sub_bracket['participants-count']
+	sub_bracket_info.official_title = sub_bracket['name']
+	sub_bracket_info.host = sub_bracket['subdomain']
+	sub_bracket_info.bracket_type = sub_bracket['tournament-type']
+	sub_bracket_info.parent = parent
+	print sub_bracket_info
+
+	sub_tournament = import_sub_tournament_info(sub_bracket_info)
+	# Process bracket entrants and sets, passing bracket object info
+	entrant_list = process_entrants(sub_bracket_info, sub_tournament)
+	process_sets(sub_bracket_info, entrant_list, sub_tournament)

@@ -9,8 +9,13 @@ import time
 def main():
   start = time.time()
   
+  print "Resetting Trueskills"
   reset_all_trueskills()
+
+  print "Recalculating Trueskills"
   recalculate_trueskills_dict()
+
+  print "Recalculating Ranks"
   recalculate_ranks("Global")
   recalculate_ranks("New England")
   recalculate_ranks("SoCal")

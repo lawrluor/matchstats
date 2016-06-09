@@ -345,7 +345,7 @@ SG Melee 4-17-16|http://sgmelee.challonge.com/sgmelee4_7_16|http://sgmelee.chall
 SG Melee 4-21-16|http://sgmelee.challonge.com/sgmelee4_21_16|4/21/2016
 SG Melee 4-28-16|http://sgmelee.challonge.com/sgmelee4_28_16|4/28/2016
 SMIOH 9|http://challonge.com/5n2796hf|4/30/2016
-Multishine Monday 5-02-16|http://challonge.com/MS050216|5/2/2016
+Multishine Monday 5-02-16|http://challonge.com/MS050216|5/02/2016
 Platinum City Gaming 4-29-16|http://pcgsmash.challonge.com/PCGMeleeMonthly41516|4/29/2016
 Smash on the Hill 4-30-16|http://challonge.com/sothm|4/30/2016
 New Game Plus 51|http://bigbluees.challonge.com/NGP51|5/03/2016
@@ -367,3 +367,24 @@ MMOM 37|http://mmom.challonge.com/mmom37|01/27/2016
 Multishine Monday 01-25-16|http://challonge.com/MS012516|01/25/2016
 Grid Games 01-05-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly5|01/05/2016
 Grid Games 01-19-16|http://greatvaluesmash.challonge.com/thegridgames_meleebiweekly6|01/19/2016
+Mass Madness 8 (Amateur)|http://bigbluees.challonge.com/MMM8Amateur|4/16/2016
+Mass Madness 8 (Pro)|http://bigbluees.challonge.com/MM8Pro|4/16/2016
+Mass Madness 9 (Amateur)|http://bigbluees.challonge.com/MMMAma|5/14/2016
+Mass Madness 9 (Pro)|http://bigbluees.challonge.com/MMMPro|5/14/2016
+New Game Plus 53|https://smash.gg/tournament/new-game-plus-53/brackets/13217/35730/120000|5/18/2016
+Level Up Melee 4.5|http://levelupmelee.challonge.com/45|12-20-2015
+Level Up Melee 4.6|http://levelupmelee.challonge.com/46|12-27-2015
+Level Up Melee 4.7|http://levelupmelee.challonge.com/47|01-03-2016
+Level Up Melee 4.8|http://levelupmelee.challonge.com/48|01-10-2016
+Level Up Melee 4.11|http://levelupmelee.challonge.com/411S|02-07-2016
+Level Up Melee 5.3|http://levelupmelee.challonge.com/53|03-13-2016
+MMOM 53|http://mmom.challonge.com/MMOM53|05-19-2016
+MMOM 52|http://mmom.challonge.com/MMOM52|05/11/2016
+GU Video Game and Music Fest|http://challonge.com/GU_Music_Fest_Melee|02/28/2015
+Game Over 10|http://challonge.com/GameOver3_24_15|03/24/2015
+Game Over 11|http://challonge.com/GameOver33115|03/31/2015
+Game Over 12|http://challonge.com/GameOver4715|04/07/2015
+Game Over Finale|http://challonge.com/GameOverFinale|04/21/2015
+New Game Plus 54|http://bigbluees.challonge.com/NGP54|5/24/2016
+MMOM 54|http://mmom.challonge.com/MMOM54|5/25/2016
+MCG May 2016|http://competitivegaming.challonge.com/MCG16MAYMelee|5/21/2016

@@ -45,7 +45,7 @@ def merge_user(root_tag, joined_tag):
     print "root_user not found"
     return
   elif joined_user is None: 
-    print "joined_user not found"
+    print "joined_user " + joined_tag + " not found"
     return
 
   # transfer Set data by simply editing Sets to have the root_user as the winner/loser tag and id
@@ -61,6 +61,7 @@ def merge_user(root_tag, joined_tag):
   # merge Placement in joined_user by setting Placement.user = root_user
   # Placement object removed (from beginning of list, index 0) from joined_user.tournament_assocs upon changing identity of Placement.user, so start again from index 0
   placements = joined_user.tournament_assocs
+  duplicate_found = False
   for placement in placements:
     # Screen for case in which both joined_user and root_user present in same tourney
     # Example: http://bigbluees.challonge.com/NGP44, joined_user="elicik", root_user="Elicik"
@@ -68,8 +69,6 @@ def merge_user(root_tag, joined_tag):
     if len(duplicates)>0:
       duplicate_found = True
       continue
-    else:
-      duplicate_found = False
 
     # Reassign the placement to root_user
     placement.user = root_user
@@ -78,7 +77,7 @@ def merge_user(root_tag, joined_tag):
 
   # If duplicate was found during iteration, don't delete the joined_user as it is a legit other User who happens to have the same tag after conversion.
   if duplicate_found==True:
-    print "DUPLICATE WAS FOUND"
+    print "DUPLICATE " + root_user.tag + " WAS FOUND"
     return root_user
   else:
     db.session.delete(joined_user)
@@ -135,7 +134,7 @@ def remove_team(separator):
       # this means user was not matched to sanitized tag, so query for user with tag==new_tag
       root_user = User.query.filter(User.tag==new_tag).first()
       if root_user is not None:
-        print "ROOT USER", root_user
+        print "ROOT USER", print_ignore(root_user)
         merge_user(root_user.tag, user.tag)
       else:
         # if still can't find root tag to merge with, then root tag doesn't exist. Change the tag
@@ -319,3 +318,27 @@ def delete_tournament(header_name):
     return "Failure"
   else:
     return "Successful deletion"
+
+# Doesn't actually delete
+def find_subtournament(tournament_name):
+  tournamentlist = Tournament.query.filter(Tournament.name==tournament_name).all()
+  for x in tournamentlist:
+    print x
+  return tournamentlist
+  # delete by index
+
+def change_tournament_name(current_name, new_name):
+  # Will only give first matchin tournament; rename this one
+  tournament = Tournament.query.filter(Tournament.name==current_name).first()
+
+  placements = Placement.query.filter(Placement.tournament_id==tournament.id).all()
+  for placement in placements:
+    placement.tournament_name = new_name
+
+  sets = Set.query.filter(Set.tournament_id==tournament.id).all()
+  for set in sets:
+    set.tournament_name = new_name
+
+  tournament.name = new_name
+
+  db.session.commit()

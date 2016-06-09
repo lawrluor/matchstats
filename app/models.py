@@ -85,6 +85,10 @@ class User(db.Model):
                               backref=db.backref("users", lazy="dynamic"),
                               lazy='dynamic')
 
+  def __iter__(self):
+    for attr, value in self.__dict__.iteritems():
+      yield attr, value
+
   def __repr__(self):
     return '<Tag: %s, Region: %s, TrueSkills: %s, characters: %s>' % (unicode(self.tag), self.region, self.trueskills, self.characters.all())
  

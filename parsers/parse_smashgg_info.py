@@ -128,8 +128,13 @@ def parse_tournament_info(tournament_id, tournament_url, tournament_name, tourna
 # If the master tournament only has one sub bracket, it will find it in parse_smashgg_info and call this function
 def parse_sub_bracket_info(sub_bracket_info, tournament_info):
 	sub_bracket_url = sub_bracket_info.url
+
+	# hack for tournaments with incomplete pools
+	#if sub_bracket_info.name!='1':
+	#	return
 	
 	# in smashgg brackets, sub_bracket for Final Bracket is named '1'
+	print "---NAME--", sub_bracket_info.name
 	if sub_bracket_info.name=='1':
 		sub_tournament_name = ''
 	else:
@@ -307,7 +312,7 @@ def import_tournament_entrants(entrant_list, tournament_obj):
 def import_tournament_sets(set_list, sub_tournament):
 	print '\n---SETS---'
 	for set in set_list:
-		print set
+		print_ignore(set)
 		winner_score = set.winner_score
 		loser_score = set.loser_score
 		total_matches = set.total_matches
@@ -346,6 +351,7 @@ def import_tournament_sets(set_list, sub_tournament):
 
 # Master function
 def parse_bracket_info(tournament_url, tournament_name, tournament_region, tournament_date):
+	print "\n---PROCESSING---: ", tournament_name
 	if tournament_url is None:
 		return None
 	else:
@@ -375,6 +381,7 @@ def parse_bracket_info(tournament_url, tournament_name, tournament_region, tourn
 		sub_bracket_info.name = sub_bracket.get("displayIdentifier")
 		sub_bracket_info.url = "https://api.smash.gg/phase_group/" + str(sub_bracket_info.id) + "?expand%5B%5D=sets&expand%5B%5D=seeds&expand%5B%5D=entrants"
 		bracket_list.append(sub_bracket_info)
+		print "***SUBBRACKET INFO***", sub_bracket_info
 
 	for sub_bracket_info in bracket_list:
 		parse_sub_bracket_info(sub_bracket_info, tournament_info)

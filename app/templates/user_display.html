@@ -6,15 +6,15 @@
         <b>{{rank}}</b>
     </td>
 
-    <td class="col-sm-4 mobile-horizontal-overflow-td-col-4 horizontal-overflow">
+    <td class="col-sm-3 mobile-horizontal-overflow-td-col-4 horizontal-overflow">
         <a href="{{url_for("user", tag=user.tag)}}"><b>{{user.tag}}</b></a>
     </td>
 
-    <td class="col-sm-3 mobile-horizontal-overflow-td-col-3">
+    <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
         {% if user.region %}
     	   <a href="{{url_for("region", region=user.region)}}"><b>{{user.region}}</b></a>
-    	{% else %}
-	       No Region
+        {% else %}
+            None
 	    {% endif %}
     </td>
 
@@ -39,6 +39,18 @@
             {% else %}
                 {% if user.trueskills[1] %}
                     {{user.trueskills[1].cons_mu|round(4, 'common')}}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </td>
+
+     <td class="col-sm-2 mobile-horizontal-overflow-td-col-3">
+        {% if user.trueskills %}
+            {% if current_region=="Global" or current_region=="National" %}
+                {{user.trueskills[0].sigma|round(4, 'common')}}
+            {% else %}
+                {% if user.trueskills[1] %}
+                    {{user.trueskills[1].sigma|round(4, 'common')}}
                 {% endif %}
             {% endif %}
         {% endif %}

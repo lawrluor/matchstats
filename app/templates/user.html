@@ -34,24 +34,24 @@
 
     <tr>
       <td>
-        <h3><b>{{user.trueskills[0].region}} Rating:</b> {{user.trueskills[0].cons_mu|round(4, 'common')}} <!-- , σ: {{user.trueskills[0].sigma|round(4, 'common')}}--> </h3>
+        <h3><b>{{user.trueskills[0].region}} Rating: μ: </b> {{user.trueskills[0].cons_mu|round(4, 'common')}}, <b>σ</b>: {{user.trueskills[0].sigma|round(4, 'common')}}</h3>
       </td>
 
       {% if user.trueskills[1] %}
         <td>
-          <h3><b>{{user.trueskills[1].region}} Rating:</b> {{user.trueskills[1].cons_mu|round(4, 'common')}} <!-- , σ: {{user.trueskills[1].sigma|round(4, 'common')}}--> </h3>
+          <h3><b>{{user.trueskills[1].region}} Rating:</b> μ: {{user.trueskills[1].cons_mu|round(4, 'common')}}, σ: {{user.trueskills[1].sigma|round(4, 'common')}}</h3>
         </td>
       {% endif %}
     </tr>
 
     <tr>
       <td>
-        <h3><b>{{user.trueskills[0].region}} Rank:</b> {{user.trueskills[0].rank}} <!-- , σ: {{user.trueskills[0].sigma|round(4, 'common')}}--> </h3>
+        <h3><b>{{user.trueskills[0].region}} Rank:</b> {{user.trueskills[0].rank}}</h3>
       </td>
 
       {% if user.trueskills[1] %}
         <td>
-          <h3><b>{{user.trueskills[1].region}} Rank:</b> {{user.trueskills[1].rank}} <!-- , σ: {{user.trueskills[1].sigma|round(4, 'common')}}--> </h3>
+          <h3><b>{{user.trueskills[1].region}} Rank:</b> {{user.trueskills[1].rank}}</h3>
         </td>
       {% endif %}
       </tr>

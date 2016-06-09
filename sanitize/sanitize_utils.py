@@ -128,7 +128,12 @@ player_raw_regex_dict = {
     ['(stab$)', '(victor abdul latif$)', '(stabbedbyahippie$)', '(stabbedbyanipple$)'],
     ['(g\$$)'],
     ['(vist$)'],
-    ['(pkmvodka$)', '(pkm vodka$)']
+    ['(pkmvodka$)', '(pkm vodka$)'],
+	['(prince abu$)', '(princeabu$)'],
+	['(sauc3$)'],
+	['(n[o0]ne$)'],
+	['(amsah$)'],
+	['(professor pro$)', '(prof pro$)', '(professorpro$)'],
     ],
 
     'New England' : [
@@ -182,7 +187,7 @@ player_raw_regex_dict = {
     ['(torsional strain$)', '(torsionalstrain$)'],
     ['(bonk$)', '(bonk cushy$)', '(bonkcushy$)', '(notable bonk$)'],
     ['(shkshk$)', '(shk shk)'],
-    ['(snoweiner$)', '(snowweiner$)', '(snow weiner$)'],
+    ['(snoww[ie]ner$)', '(snow w[ie]ner$)'],
     ['(stoc$)', '(stoc\$\$$)'],
     ['(wind$)'],
     ['(swissmiss$)', '(swiss miss$)'],
@@ -269,7 +274,7 @@ player_raw_regex_dict = {
     ['(captain crunch$)', '(captaincrunch$)'],
     ['(zealous 5000$)', '(zealous5000$)'],
     ['(thunderpaste$)', '(thunder paste$)'],
-    ['(joyboy$)', '(joy boy$)']
+    ['(joyboy$)', '(joy boy$)'],
     ],
 
     'NorCal' : [
@@ -497,7 +502,12 @@ sanitized_tags_dict = {
     'Matt (Stab)',
     'G$',
     'Vist',
-    'Pkmvodka'
+    'Pkmvodka',
+	'Prince Abu',
+	'Sauc3',
+	'N0ne',
+	'Amsah',
+	'Professor Pro'	
     ],
 
     'New England' : [
@@ -638,7 +648,7 @@ sanitized_tags_dict = {
     'Captain Crunch',
     'Zealous5000',
     'ThunderPaste',
-    'JoyBoy'
+    'JoyBoy',
     ],
 
     'NorCal' : [
