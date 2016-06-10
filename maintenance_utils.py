@@ -210,6 +210,18 @@ def add_characters(tag, characters):
   db.session.commit()
   return user
 
+def add_region(region_name):
+  found_region = Region.query.filter(Region.region=="region_name").first()
+  if found_region is not None:
+    print "Region " + region_name + " already exists"
+    return
+  else:
+    new_region =  Region(region=region_name)
+    db.session.add(new_region)
+    db.session.commit()
+    print "New region " + region_name + " added"
+    return new_region
+
 def delete_character(tag, character):
   user = User.query.filter(User.tag==tag).first()
   user.remove_character(character)

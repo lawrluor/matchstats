@@ -17,14 +17,12 @@ print regionlist
 print '\n'
 
 # Create all additional regions
-# Unknown_Region = Region(region="Unknown") # The default Region, rather than None.
 New_England = Region(region="New England")
 NorCal = Region(region="NorCal")
 SoCal = Region(region="SoCal")
 North_Carolina = Region(region="North Carolina")
 
 # Add and commit to database
-# db.session.add(Unknown_Region)
 db.session.add(New_England)
 db.session.add(NorCal)
 db.session.add(SoCal)
