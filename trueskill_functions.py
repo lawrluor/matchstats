@@ -50,7 +50,7 @@ def reset_trueskill(user):
 		trueskill.mu = MU
 		trueskill.sigma = SIGMA
 		trueskill.cons_mu = CONS_MU
-		db.session.commit()
+	db.session.commit()
 	return user.trueskills
 
 def reset_all_trueskills():

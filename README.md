@@ -11,13 +11,16 @@ Setting up a local SmashStats server and database
 2. sudo easy_install virtualenv
 3. virtualenv flask
 4. Activate virtualenv: . flask/bin/activate
-5. Install pip: install pip
-6. Install requirements: pip install requirements.txt
+5. Install pip: easy_install pip
+6. Install requirements: sudo pip install -r requirements.txt
 7. install pychallonge: go into requirements.txt and copy paste last line
 8. pip install iso8601
 
 ---DATABASE CONFIG---
 If you cloned the git repo correctly, you should have a populated and working SQLite database.
+0. The program needs to know where your database is located. In the Terminal:
+$ export DATABASE_URL="sqlite:////Users/[path-to]/matchstats/app2.db"
+$ echo DATABASE_URL
 
 1. First, test the Shell. This commandloads a python shell for testing with automatically imported environment modules. You should see a message "Imported modules for SmashStats"
 $ python -i startup.py
@@ -26,7 +29,7 @@ $ python -i startup.py
 >>> len(User.query.all()) #returns length of list of all Users in database
 >>> Region.query.all() #returns list of all Regions in database
 
-3. If some SQL error is thrown, the database isn't populated yet. Otherwise, skip to the next section
+3. If some SQL error is thrown, the database isn't populated yet. OTHERWISE, SKIP TO THE NEXT SECTION 
 4. Exit the shell, and delete the current SQLite database.
 $ rm app2.db
 
