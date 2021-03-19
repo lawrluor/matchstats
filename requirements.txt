@@ -13,7 +13,7 @@ Flask-WTF==0.11
 flipflop==1.0
 guess-language==0.2
 itsdangerous==0.24
-Jinja2==2.7.3
+Jinja2==2.11.3
 MarkupSafe==0.23
 pbr==0.11.0
 python-openid==2.2.5
